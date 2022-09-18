@@ -24,8 +24,6 @@ const App: React.FC = () => {
     '/login',
     '/register',
     '/reset-password',
-    '/moetra-retirement',
-    '/moeflow-retirement',
   ];
 
   return (
