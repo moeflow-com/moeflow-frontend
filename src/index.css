@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+@font-face {
+  /* 字体切割自 ABeeZee-Regular.ttf，see: https://fonts.google.com/specimen/ABeeZee */
+  font-family: 'Label Number';
+  src: url('./fonts/clipped/Label-Number.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 600;
+}

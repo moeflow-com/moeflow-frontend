@@ -1,0 +1,9 @@
+{
+  "imageTranslator.imageViewerZoomPanel.back": "Back",
+  "imageTranslator.imageViewerZoomPanel.setting": "Setting",
+  "imageTranslator.imageViewerZoomPanel.fixHeight": "Fix Height",
+  "imageTranslator.imageViewerZoomPanel.fixWidth": "Fix Width",
+  "imageTranslator.imageViewerZoomPanel.originSize": "Origin Size",
+  "imageTranslator.imageViewerZoomPanel.zoomIn": "Zoom In",
+  "imageTranslator.imageViewerZoomPanel.zoomOut": "Zoom Out"
+}
