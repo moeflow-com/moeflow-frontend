@@ -20,7 +20,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - run: mkdir build
       - run: docker build -t moeflow-frontend .
       - run: docker create --name temp-container moeflow-frontend
       - run: docker cp temp-container:/app/build build
