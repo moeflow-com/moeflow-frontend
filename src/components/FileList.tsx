@@ -171,7 +171,7 @@ export const FileList: FC<FileListProps> = ({
         error.default();
       });
   };
-
+  /*
   const startOCR = () => {
     Modal.confirm({
       title: formatMessage({ id: 'project.startOCR' }),
@@ -195,6 +195,7 @@ export const FileList: FC<FileListProps> = ({
       cancelText: formatMessage({ id: 'form.cancel' }),
     });
   };
+  // */
 
   const handleOutputDrawerOpen = () => {
     setOutputDrawerVisible(true);

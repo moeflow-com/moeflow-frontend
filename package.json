@@ -1,6 +1,6 @@
 {
   "name": "moeflow-frontend",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "dependencies": {
     "@babel/runtime": "^7.12.1",
     "@emotion/babel-preset-css-prop": "^10.0.27",

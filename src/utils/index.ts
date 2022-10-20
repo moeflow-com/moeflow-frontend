@@ -56,9 +56,10 @@ function toUnderScoreCase(
         newValue[stringToUnderScoreCase(key)] = toUnderScoreCase(value[key]);
       } else if (_.isArray(value[key])) {
         // 递归处理所以子数组
-        newValue[stringToUnderScoreCase(key)] = value[key].map((v: any) =>
-          toUnderScoreCase(v)
-        );
+        newValue[stringToUnderScoreCase(key)] = value[key].map((v: any) => {
+          if (_.isPlainObject(v)) return toUnderScoreCase(v)
+          else return v
+        });
       } else {
         newValue[stringToUnderScoreCase(key)] = value[key];
       }

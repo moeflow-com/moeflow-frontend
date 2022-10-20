@@ -1,53 +1,32 @@
 // 公共配置
 const configs = {
-  baseURL: '',
+  baseURL: process.env.REACT_APP_BASE_URL,
   /** 默认值 */
   default: {
     team: {
-      systemRole: '', // 默认角色 ID，后端部署后不会变动
-      allowApplyType: 0,
-      applicationCheckType: 0,
+      systemRole: 'member', // 团队默认角色，后端部署后不会变动
+      allowApplyType: 2,
+      applicationCheckType: 2,
     },
     project: {
-      systemRole: '', // 默认角色 ID，后端部署后不会变动
-      allowApplyType: 0,
-      applicationCheckType: 0,
-      sourceLanugageID: '', // 默认源语言 ID，后端部署后不会变动
-      targetLanguageIDs: [''], // 默认目标语言 ID，后端部署后不会变动
+      systemRole: 'supporter', // 项目默认角色，后端部署后不会变动
+      allowApplyType: 3,
+      applicationCheckType: 1,
+      sourceLanugageCode: 'ja', // 默认源语言，后端部署后不会变动
+      targetLanguageCodes: ['zh-TW'], // 默认目标语言，后端部署后不会变动
     },
   },
 };
 
-if (process.env.NODE_ENV === 'development') {
-  // 开发环境配置
-  configs.baseURL = 'http://127.0.0.1:5001';
-  configs.default.team = {
-    systemRole: '626eb57fdef4db8fb8d22189',
-    allowApplyType: 2,
-    applicationCheckType: 2,
-  };
-  configs.default.project = {
-    systemRole: '626eb57fdef4db8fb8d2218e',
-    allowApplyType: 3,
-    applicationCheckType: 1,
-    sourceLanugageID: '626eb57fdef4db8fb8d22193',
-    targetLanguageIDs: ['626eb57fdef4db8fb8d22194'],
-  };
-} else if (process.env.NODE_ENV === 'production') {
+console.log(
+  `%c ${process.env.REACT_APP_BUILDNAME} %c Ver.${process.env.REACT_APP_BUILDVERSION} %c ${process.env.REACT_APP_BUILDTIME}`,
+  'background:#35495e ; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff',
+  'background:#41b883 ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff',
+  'background:transparent'
+)
+
+if (process.env.NODE_ENV === 'production') {
   // 生产环境配置
-  configs.baseURL = 'https://api.moeflow.com';
-  configs.default.team = {
-    systemRole: '5fad690cb804bf27fdafbd44',
-    allowApplyType: 2,
-    applicationCheckType: 2,
-  };
-  configs.default.project = {
-    systemRole: '5fad690cb804bf27fdafbd49',
-    allowApplyType: 3,
-    applicationCheckType: 1,
-    sourceLanugageID: '5fad690cb804bf27fdafbd4b',
-    targetLanguageIDs: ['5fad690cb804bf27fdafbd4e'],
-  };
 } else if (process.env.NODE_ENV === 'test') {
   // 测试环境配置
 }

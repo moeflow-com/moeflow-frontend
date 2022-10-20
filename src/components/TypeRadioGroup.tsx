@@ -13,6 +13,7 @@ import { useRouteMatch } from 'react-router-dom';
 /** 接口返回的类型格式 */
 export interface TypeData {
   id: string;
+  system_code: string;
   name: string;
 }
 /** 用于 /types 接口类型选择单选组的属性接口 */
@@ -50,7 +51,13 @@ export const TypeRadioGroup: FC<TypeRadioGroupProps> = ({
     getTypes({ cancelToken }).then((types) => {
       // 设置默认选项
       if (useDefaultType && types) {
-        const defaultType = types.find((x) => x.id === getDefaultID());
+        const defaultType = types.find((x) => {
+          if (typeName === 'systemRole') {
+            return x.system_code === getDefaultID()
+          } else {
+            return x.id === getDefaultID()
+          }
+        });
         if (defaultType) changeType(defaultType);
       }
     });

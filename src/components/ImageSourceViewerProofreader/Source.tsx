@@ -66,7 +66,7 @@ const SourceWithoutRef: React.ForwardRefRenderFunction<
         );
       }
     }
-  }, [focusedSourceID]);
+  });
 
   const handleFocusSource = () => {
     dispatch(
@@ -278,7 +278,7 @@ const SourceWithoutRef: React.ForwardRefRenderFunction<
         {translations.length > 0 ? (
           translations.map((translation) => {
             if (!translation.content && !translation.proofreadContent) {
-              return;
+              return '';
             }
             const isMyTranslation = translation?.user?.id === currentUser.id;
             const isNoTranslation =
