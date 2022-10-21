@@ -32,9 +32,19 @@
 2. `yarn install` 安装依赖项
 3. 复制 `.env.production` 改名为 `.env.local` 修改此文件里 `REACT_APP_BASE_URL` 的值为测试后端的地址
 4. `yarn start` 启动调试
-5. `yarn build` 发布前端代码，**请注意**此时使用的后端地址配置为 `.env.production` 中的配置。
+5. `yarn run build` 发布前端代码，**请注意**此时使用的后端地址配置为 `.env.production` 中的配置。
 
 如果您要部署到 `Vercel` 之类的网站托管程序上，您可以直接将 `REACT_APP_BASE_URL` 相对应的后端接口地址配置到托管程序的环境变量中。
+
+## 将前后端项目合并
+
+最新版本的后端已经支持将前端项目编译完合并到后端，仅保留一个端口更好做映射！
+
+1. 复制 `.env.production` 改名为 `.env.local` 修改此文件为 `REACT_APP_BASE_URL=/`
+2. `yarn run build` 发布前端代码，等待编译完成。默认的编译结果目录是 `build`
+3. 打开 [萌翻后端项目](https://github.com/kozzzx/moeflow-backend) 找到 `app` 文件夹，将前端 `build/static` 整个文件夹复制到此目录。
+4. 找到后端项目 `app/templates/index.html` 文件，用前端 `build/index.html` 文件替换。
+5. 将后端跑起来，访问首页 `http://127.0.0.1:5001/`（地址以命令行提示为准） 就可以正常访问、登录等操作。
 
 ## 修改项目配置
 
