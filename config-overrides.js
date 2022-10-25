@@ -6,6 +6,10 @@ const {
 } = require('customize-cra');
 const antdLessVars = require('./style').antdLessVars;
 const antdLessVarsM = require('./style').antdLessVarsM;
+const pkg = require('./package')
+process.env.REACT_APP_BUILDNAME = pkg.name
+process.env.REACT_APP_BUILDVERSION = pkg.version
+process.env.REACT_APP_BUILDTIME = `${(new Date()).toLocaleString()}`
 
 module.exports = override(
   // antd 按需导入

@@ -35,7 +35,7 @@ export const LanguageSelect: FC<LanguageSelectProps> = ({
         item = toLowerCamelCase(item);
         const option: SelectOption = {
           label: item.i18nName,
-          value: item.id,
+          value: item.code,
           disabled: false,
         };
         return option;

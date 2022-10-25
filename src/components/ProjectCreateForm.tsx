@@ -48,10 +48,10 @@ export const ProjectCreateForm: FC<ProjectCreateFormProps> = ({
     (state: AppState) => state.projectSet.currentProjectSet
   ) as UserProjectSet;
   const [disableSourceLanugageIDs, setDisableSourceLanugageIDs] = useState(
-    configs.default.project.targetLanguageIDs
+    configs.default.project.targetLanguageCodes
   );
   const [disableTargetLanugageIDs, setDisableTargetLanugageIDs] = useState([
-    configs.default.project.sourceLanugageID,
+    configs.default.project.sourceLanugageCode,
   ]);
   const [supportLabelplusTXT, setSupportLabelplusTXT] = useState(true);
   const [labelplusTXT, setLabelplusTXT] = useState<string>();
@@ -137,8 +137,8 @@ export const ProjectCreateForm: FC<ProjectCreateFormProps> = ({
         initialValues={{
           intro: '',
           projectSet: currentProjectSet.id,
-          sourceLanguage: configs.default.project.sourceLanugageID,
-          targetLanguages: configs.default.project.targetLanguageIDs,
+          sourceLanguage: configs.default.project.sourceLanugageCode,
+          targetLanguages: configs.default.project.targetLanguageCodes,
         }}
         hideRequiredMark
         onValuesChange={(values) => {
@@ -343,7 +343,7 @@ export const ProjectCreateForm: FC<ProjectCreateFormProps> = ({
             本站架设于中国，并且站长也是中国公民，所以必须遵守中国的相关法律。
           </p>
           <p>
-            遂在此请求各位请勿在萌翻上传以下内容，以免导致封站，无法继续为大家提供服务，感谢您的理解！
+            遂在此请求各位请勿在{formatMessage({ id: 'site.name' })}上传以下内容，以免导致封站，无法继续为大家提供服务，感谢您的理解！
           </p>
           <ol>
             <li>

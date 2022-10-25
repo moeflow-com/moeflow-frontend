@@ -126,7 +126,7 @@ export const Header: FC<HeaderProps> = ({ className }) => {
             history.push('/');
           }}
         >
-          萌翻
+          {formatMessage({ id: 'site.name' })}
         </div>
       </div>
       {currentUser.token ? (
