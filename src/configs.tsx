@@ -18,13 +18,6 @@ const configs = {
   },
 };
 
-console.log(
-  `%c ${process.env.REACT_APP_BUILDNAME} %c Ver.${process.env.REACT_APP_BUILDVERSION} %c ${process.env.REACT_APP_BUILDTIME}`,
-  'background:#35495e ; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff',
-  'background:#41b883 ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff',
-  'background:transparent'
-)
-
 if (process.env.NODE_ENV === 'production') {
   // 生产环境配置
 } else if (process.env.NODE_ENV === 'test') {
