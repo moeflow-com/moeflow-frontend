@@ -205,7 +205,7 @@ export const AdminImageSafeCheck: FC<AdminImageSafeCheckProps> = ({
             >
               {file.saveName ? (
                 <img
-                  src={file.url + '?x-oss-process=style/safe-check'}
+                  src={file.safeCheckUrl}
                   alt={file.name}
                 />
               ) : (
