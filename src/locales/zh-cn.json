@@ -127,6 +127,7 @@
   "me.invitation.new": "新的邀请",
   "me.invitation.asRole": "邀请您为 “{role}”",
   "me.application.new": "新的申请",
+  "me.adminPage": "站点管理",
   "team.me": "我在团队",
   "site.myRoleIs": "角色：{role}",
   "invitation.needRole": "请选择加入后角色",

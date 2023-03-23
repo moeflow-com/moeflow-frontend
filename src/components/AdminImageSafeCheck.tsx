@@ -24,7 +24,6 @@ interface AdminImageSafeCheckProps {
 export const AdminImageSafeCheck: FC<AdminImageSafeCheckProps> = ({
   className,
 }) => {
-  const history = useHistory(); // 路由
   useTitle(); // 设置标题
   const [files, setFiles] = useState<File[]>();
   const pageSize = 40;
@@ -40,9 +39,8 @@ export const AdminImageSafeCheck: FC<AdminImageSafeCheckProps> = ({
     FILE_SAFE_STATUS.WAIT_RESULT,
     FILE_SAFE_STATUS.NEED_MACHINE_CHECK,
   ];
-  const [safeStatus, setSafeStatus] = useState<FileSafeStatuses[]>(
-    pendingStatus
-  );
+  const [safeStatus, setSafeStatus] =
+    useState<FileSafeStatuses[]>(pendingStatus);
 
   const toggle = (id: string) => {
     if (safeFileIDs.includes(id)) {
@@ -149,14 +147,6 @@ export const AdminImageSafeCheck: FC<AdminImageSafeCheckProps> = ({
       `}
     >
       <div className="AdminImageSafeCheck__Top">
-        <Button
-          className="AdminImageSafeCheck__TopButton"
-          onClick={() => {
-            history.push(`/admin`);
-          }}
-        >
-          返回
-        </Button>
         <Radio.Group
           options={[
             { label: 'Pending', value: 'pending' },
@@ -204,10 +194,7 @@ export const AdminImageSafeCheck: FC<AdminImageSafeCheckProps> = ({
               }}
             >
               {file.saveName ? (
-                <img
-                  src={file.safeCheckUrl}
-                  alt={file.name}
-                />
+                <img src={file.safeCheckUrl} alt={file.name} />
               ) : (
                 <div>
                   文件不存在（

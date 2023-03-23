@@ -103,9 +103,50 @@ const editUserEmail = ({
   });
 };
 
+/** 管理员获取用户列表的请求数据 */
+interface AdminGetUsersParams {
+  word: string;
+}
+/** 管理员获取用户列表 */
+const adminGetUserList = ({
+  params,
+  configs,
+}: {
+  params?: AdminGetUsersParams & PaginationParams;
+  configs?: AxiosRequestConfig;
+} = {}) => {
+  return request<APIUser[]>({
+    method: 'GET',
+    url: `/v1/admin/users`,
+    params: toUnderScoreCase(params),
+    ...configs,
+  });
+};
+
+interface AdminChangeAdminStatusData {
+  userId: string;
+  status: boolean;
+}
+const adminChangeAdminStatus = ({
+  data,
+  configs,
+}: {
+  data: AdminChangeAdminStatusData;
+  configs?: AxiosRequestConfig;
+}) => {
+  return request({
+    method: 'PUT',
+    url: `/v1/admin/admin-status`,
+    data: toUnderScoreCase(data),
+    ...configs,
+  });
+};
+
 export default {
   getUsers,
   editUser,
   editUserPassword,
   editUserEmail,
+  adminGetUserList,
+  adminChangeAdminStatus,
 };

@@ -135,6 +135,17 @@ export const DashboardMenu: FC<
           )}
         </div>
       </Menu.Item>
+      {currentUser.admin && (
+        <Menu.Item
+          onClick={() => {
+            history.push('/admin');
+          }}
+        >
+          <div className="UserMenu__Button">
+            {formatMessage({ id: 'me.adminPage' })}
+          </div>
+        </Menu.Item>
+      )}
     </Menu>
   );
 
