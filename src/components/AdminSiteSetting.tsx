@@ -91,7 +91,12 @@ export const AdminSiteSetting: FC<AdminSiteSettingProps> = ({ className }) => {
   return loading ? (
     <Spin />
   ) : (
-    <div className={classNames('AdminSiteSetting', className)} css={css``}>
+    <div
+      className={classNames('AdminSiteSetting', className)}
+      css={css`
+        padding: 24px;
+      `}
+    >
       <Form form={form} onFinish={handleFinish} autoComplete="off">
         <FormItem
           label={formatMessage({ id: 'site.setting.enableWhitelist' })}
@@ -107,7 +112,10 @@ export const AdminSiteSetting: FC<AdminSiteSettingProps> = ({ className }) => {
           <TextArea rows={10} />
         </FormItem>
 
-        <FormItem wrapperCol={{ offset: 8, span: 16 }}>
+        <FormItem 
+          css={css`
+            text-align: right;
+          `}>
           <Button type="primary" htmlType="submit" loading={submitting}>
             {formatMessage({ id: 'form.submit' })}
           </Button>

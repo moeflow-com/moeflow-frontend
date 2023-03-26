@@ -142,6 +142,47 @@ const adminChangeAdminStatus = ({
   });
 };
 
+interface AdminCreateUserData {
+  email: string;
+  name: string;
+  password: string;
+}
+/** 管理后台新建用户 */
+const adminCreateUser = ({
+  data,
+  configs,
+}: {
+  data: AdminCreateUserData;
+  configs?: AxiosRequestConfig;
+}) => {
+  return request({
+    method: 'POST',
+    url: `/v1/admin/users`,
+    data: toUnderScoreCase(data),
+    ...configs,
+  });
+};
+
+interface AdminEditUserPasswordData {
+  password: string;
+}
+/** 修改用户密码 */
+const adminEditUserPassword = ({
+  userID,
+  data,
+  configs,
+}: {
+  userID: string;
+  data: AdminEditUserPasswordData;
+  configs?: AxiosRequestConfig;
+}) => {
+  return request({
+    method: 'PUT',
+    url: `/v1/admin/users/${userID}`,
+    data: toUnderScoreCase(data),
+    ...configs,
+  });
+};
 export default {
   getUsers,
   editUser,
@@ -149,4 +190,6 @@ export default {
   editUserEmail,
   adminGetUserList,
   adminChangeAdminStatus,
+  adminCreateUser,
+  adminEditUserPassword,
 };
