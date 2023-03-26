@@ -28,6 +28,7 @@ import type from './type';
 import user from './user';
 import group from './group';
 import insight from './insight';
+import siteSetting from './siteSetting';
 
 const instance = axios.create({
   baseURL: `${configs.baseURL}`,
@@ -267,4 +268,5 @@ export default {
   ...tip,
   ...output,
   ...insight,
+  ...siteSetting,
 };

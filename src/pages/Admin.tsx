@@ -7,7 +7,11 @@ import {
   useHistory,
   useRouteMatch,
 } from 'react-router-dom';
-import { AdminImageSafeCheck, AdminUserList } from '../components';
+import {
+  AdminImageSafeCheck,
+  AdminSiteSetting,
+  AdminUserList,
+} from '../components';
 import { useTitle } from '../hooks';
 import { FC } from '../interfaces';
 
@@ -47,13 +51,21 @@ const Admin: FC<AdminProps> = () => {
             <Menu.Item
               key="1"
               onClick={() => {
+                history.push(`${url}/site-setting`);
+              }}
+            >
+              站点管理
+            </Menu.Item>
+            <Menu.Item
+              key="2"
+              onClick={() => {
                 history.push(`${url}/users`);
               }}
             >
               用户管理
             </Menu.Item>
             <Menu.Item
-              key="2"
+              key="3"
               onClick={() => {
                 history.push(`${url}/image-check`);
               }}
@@ -65,13 +77,16 @@ const Admin: FC<AdminProps> = () => {
         <Layout className="site-layout">
           <Switch>
             <Route path={`${path}/`} exact>
-              <Redirect to={`${path}/users`} />
+              <Redirect to={`${path}/site-setting`} />
             </Route>
             <Route path={`${path}/users`}>
               <AdminUserList />
             </Route>
             <Route path={`${path}/image-check`}>
               <AdminImageSafeCheck />
+            </Route>
+            <Route path={`${path}/site-setting`}>
+              <AdminSiteSetting />
             </Route>
           </Switch>
         </Layout>
