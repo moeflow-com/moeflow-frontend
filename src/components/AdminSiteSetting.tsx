@@ -12,6 +12,23 @@ import { toLowerCamelCase } from '../utils';
 import { Form } from './Form';
 import { FormItem } from './FormItem';
 
+function textareaToArray(textarea: string): string[] {
+  return textarea.trim() === ''
+    ? []
+    : Array.from(
+        new Set(
+          textarea
+            .split('\n')
+            .map((item) => item.trim())
+            .filter((item) => item !== '')
+        )
+      );
+}
+
+function arrayToTextarea(array: string[]): string {
+  return array.join('\n');
+}
+
 /** 站点设置的属性接口 */
 interface AdminSiteSettingProps {
   className?: string;
@@ -28,8 +45,9 @@ export const AdminSiteSetting: FC<AdminSiteSettingProps> = ({ className }) => {
   const [siteSetting, setSiteSetting] = useState<APISiteSetting | null>(null);
 
   interface APISiteSettingFormData
-    extends Omit<APISiteSetting, 'whitelistEmails'> {
+    extends Omit<APISiteSetting, 'whitelistEmails' | 'autoJoinTeamIDs'> {
     whitelistEmails: string;
+    autoJoinTeamIDs: string;
   }
 
   const handleFinish = (values: APISiteSettingFormData) => {
@@ -37,18 +55,14 @@ export const AdminSiteSetting: FC<AdminSiteSettingProps> = ({ className }) => {
       .editSiteSetting({
         data: {
           ...values,
-          whitelistEmails:
-            values.whitelistEmails.trim() === ''
-              ? []
-              : values.whitelistEmails
-                  .split('\n')
-                  .map((item) => item.trim())
-                  .filter((item) => item !== ''),
+          whitelistEmails: textareaToArray(values.whitelistEmails),
+          autoJoinTeamIDs: textareaToArray(values.autoJoinTeamIDs),
         },
       })
       .then((result) => {
         const data = toLowerCamelCase(result.data);
         data.whitelistEmails = data.whitelistEmails.join('\n');
+        data.autoJoinTeamIDs = data.autoJoinTeamIDs.join('\n');
         form.setFieldsValue(data);
         // 弹出提示
         message.success(formatMessage({ id: 'site.setting.editSuccess' }));
@@ -66,6 +80,17 @@ export const AdminSiteSetting: FC<AdminSiteSettingProps> = ({ className }) => {
             ),
           ];
         }
+        if (error.data?.message?.autoJoinTeamIDs) {
+          const line = error.data.message.autoJoinTeamIDs
+            .map((line: number) => line + 1)
+            .join(', ');
+          error.data.message.autoJoinTeamIDs = [
+            formatMessage(
+              { id: 'site.setting.autoJoinTeamIDsError' },
+              { line }
+            ),
+          ];
+        }
 
         error.default(form);
       })
@@ -79,7 +104,8 @@ export const AdminSiteSetting: FC<AdminSiteSettingProps> = ({ className }) => {
       .getSiteSetting({})
       .then((result) => {
         const data = toLowerCamelCase(result.data);
-        data.whitelistEmails = data.whitelistEmails.join('\n');
+        data.whitelistEmails = arrayToTextarea(data.whitelistEmails);
+        data.autoJoinTeamIDs = arrayToTextarea(data.autoJoinTeamIDs);
         setSiteSetting(data);
         form.setFieldsValue(data);
       })
@@ -111,11 +137,25 @@ export const AdminSiteSetting: FC<AdminSiteSettingProps> = ({ className }) => {
         >
           <TextArea rows={10} />
         </FormItem>
+        <FormItem
+          label={formatMessage({ id: 'site.setting.onlyAllowAdminCreateTeam' })}
+          name="onlyAllowAdminCreateTeam"
+        >
+          <Switch defaultChecked={siteSetting?.onlyAllowAdminCreateTeam} />
+        </FormItem>
+        <FormItem
+          label={formatMessage({ id: 'site.setting.autoJoinTeamIDs' })}
+          name="autoJoinTeamIDs"
+          tooltip={formatMessage({ id: 'site.setting.autoJoinTeamIDsTip' })}
+        >
+          <TextArea rows={10} />
+        </FormItem>
 
-        <FormItem 
+        <FormItem
           css={css`
             text-align: right;
-          `}>
+          `}
+        >
           <Button type="primary" htmlType="submit" loading={submitting}>
             {formatMessage({ id: 'form.submit' })}
           </Button>
