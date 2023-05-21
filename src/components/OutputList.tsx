@@ -226,7 +226,7 @@ export const OutputList: FC<OutputListProps> = ({
           icon="link"
           type="link"
           linkProps={{
-            href: 'https://static.moeflow.com/files/ps_script.zip',
+            href: 'https://files.kozzzx.com/labelplus/LabelPlus_PS-Script_latest.zip',
             target: '_blank',
             rel: 'noopener noreferrer',
           }}
