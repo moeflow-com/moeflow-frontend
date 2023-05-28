@@ -1,16 +1,18 @@
 import { css } from '@emotion/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Redirect,
   Route,
   Switch,
   useHistory,
+  useLocation,
   useRouteMatch,
 } from 'react-router-dom';
 import {
   AdminImageSafeCheck,
   AdminSiteSetting,
   AdminUserList,
+  AdminVCodeList,
 } from '../components';
 import { useTitle } from '../hooks';
 import { FC } from '../interfaces';
@@ -28,6 +30,10 @@ const Admin: FC<AdminProps> = () => {
   const [collapsed, setCollapsed] = useState(false);
   const history = useHistory(); // 路由
   const { path, url } = useRouteMatch();
+  const location = useLocation();
+  const defaultSelectedKey =
+    location.pathname.split('/')[location.pathname.split('/').length - 1];
+
   useTitle(); // 设置标题
 
   return (
@@ -39,9 +45,9 @@ const Admin: FC<AdminProps> = () => {
           onCollapse={(value) => setCollapsed(value)}
         >
           <div className="logo" />
-          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+          <Menu theme="dark" defaultSelectedKeys={[defaultSelectedKey]} mode="inline">
             <Menu.Item
-              key="0"
+              key="dashboard"
               onClick={() => {
                 history.push(`/dashboard`);
               }}
@@ -49,7 +55,7 @@ const Admin: FC<AdminProps> = () => {
               {'<'} 返回仪表盘
             </Menu.Item>
             <Menu.Item
-              key="1"
+              key="site-setting"
               onClick={() => {
                 history.push(`${url}/site-setting`);
               }}
@@ -57,7 +63,7 @@ const Admin: FC<AdminProps> = () => {
               站点管理
             </Menu.Item>
             <Menu.Item
-              key="2"
+              key="users"
               onClick={() => {
                 history.push(`${url}/users`);
               }}
@@ -65,12 +71,20 @@ const Admin: FC<AdminProps> = () => {
               用户管理
             </Menu.Item>
             <Menu.Item
-              key="3"
+              key="image-check"
               onClick={() => {
                 history.push(`${url}/image-check`);
               }}
             >
               图片检查
+            </Menu.Item>
+            <Menu.Item
+              key="site-v-code"
+              onClick={() => {
+                history.push(`${url}/site-v-code`);
+              }}
+            >
+              验证码
             </Menu.Item>
           </Menu>
         </Sider>
@@ -87,6 +101,9 @@ const Admin: FC<AdminProps> = () => {
             </Route>
             <Route path={`${path}/site-setting`}>
               <AdminSiteSetting />
+            </Route>
+            <Route path={`${path}/site-v-code`}>
+              <AdminVCodeList />
             </Route>
           </Switch>
         </Layout>
