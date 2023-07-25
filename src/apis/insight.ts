@@ -7,6 +7,7 @@ import { Role } from '../interfaces';
 import { toUnderScoreCase } from '../utils';
 import { APIProject } from './project';
 import { APIUser } from './user';
+import { APIOutput } from './output';
 
 export type APIInsightUserProject = Omit<APIProject, 'team'>;
 export interface APIInsightUser {
@@ -19,6 +20,7 @@ export type APIInsightProjectUser = APIUser & { role: Role };
 export interface APIInsightProject {
   project: APIInsightUserProject;
   users: APIInsightProjectUser[];
+  outputs: APIOutput[];
   count: number;
 }
 

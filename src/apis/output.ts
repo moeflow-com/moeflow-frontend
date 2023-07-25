@@ -66,7 +66,22 @@ const createOutput = ({
   });
 };
 
+const createAllOutput = ({
+  projectID,
+  configs,
+}: {
+  projectID: string;
+  configs?: AxiosRequestConfig;
+}) => {
+  return request<APIOutput[]>({
+    method: 'POST',
+    url: `/v1/projects/${projectID}/outputs`,
+    ...configs,
+  });
+};
+
 export default {
   getOutputs,
   createOutput,
+  createAllOutput,
 };
