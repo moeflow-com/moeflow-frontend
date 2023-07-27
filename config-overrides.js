@@ -2,7 +2,8 @@ const {
   override,
   fixBabelImports,
   addLessLoader,
-  addBabelPresets
+  addBabelPresets,
+  addWebpackModuleRule,
 } = require('customize-cra');
 const antdLessVars = require('./style').antdLessVars;
 const antdLessVarsM = require('./style').antdLessVarsM;
@@ -12,18 +13,22 @@ module.exports = override(
   fixBabelImports('antd', {
     libraryName: 'antd',
     libraryDirectory: 'es',
-    style: true
+    style: true,
   }),
   // antd-mobile 按需导入
   fixBabelImports('antd-mobile', {
     libraryName: 'antd-mobile',
-    style: true
+    style: true,
   }),
   // 覆盖 antd 的 Less 样式
   addLessLoader({
     javascriptEnabled: true,
-    modifyVars: { ...antdLessVars, ...antdLessVarsM }
+    modifyVars: { ...antdLessVars, ...antdLessVarsM },
   }),
   // 添加 Babel Presets
-  ...addBabelPresets('@emotion/babel-preset-css-prop')
+  ...addBabelPresets('@emotion/babel-preset-css-prop'),
+  addWebpackModuleRule({
+    test: /\.js$/,
+    loader: require.resolve('@open-wc/webpack-import-meta-loader'),
+  })
 );

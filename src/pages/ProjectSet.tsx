@@ -17,6 +17,7 @@ import {
   Icon,
   ListItem,
   ProjectCreateForm,
+  ProjectImportForm,
   ProjectList,
   Spin,
   Tooltip,
@@ -175,6 +176,21 @@ const ProjectSet: FC<ProjectSetProps> = () => {
                     </ContentTitle>
                     <ContentItem>
                       <ProjectCreateForm
+                        teamID={currentTeam.id}
+                        projectSetID={currentProjectSet.id}
+                      />
+                    </ContentItem>
+                    <ContentTitle
+                      css={css`
+                        margin-top: 20px;
+                        padding-top: 20px;
+                        border-top: 1px solid ${style.borderColorBase};
+                      `}
+                    >
+                      {formatMessage({ id: 'site.importProject' })}
+                    </ContentTitle>
+                    <ContentItem>
+                      <ProjectImportForm
                         teamID={currentTeam.id}
                         projectSetID={currentProjectSet.id}
                       />

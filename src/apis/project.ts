@@ -128,6 +128,69 @@ const createProject = ({
   });
 };
 
+/** 导入项目的请求数据 */
+interface ImportProjectData {
+  project: Blob;
+  labelplus: Blob;
+}
+/** 导入项目 */
+const importProject = ({
+  teamID,
+  projectSetID,
+  data,
+  configs,
+}: {
+  teamID: string;
+  projectSetID: string;
+  data: ImportProjectData;
+  configs?: AxiosRequestConfig;
+}) => {
+  var formData = new FormData();
+  formData.append('project', new File([data.project], 'project'));
+  formData.append('labelplus', new File([data.labelplus], 'labelplus'));
+
+  return request({
+    method: 'POST',
+    url: `/v1/teams/${teamID}/project-sets/${projectSetID}/project-zips`,
+    data: formData,
+    ...{
+      ...configs,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    },
+  });
+};
+
+/** 上传文件 */
+const uploadFile = ({
+  projectID,
+  filename,
+  file,
+  configs,
+}: {
+  projectID: string;
+  filename: string;
+  file: Blob;
+  configs?: AxiosRequestConfig;
+}) => {
+  var formData = new FormData();
+  formData.append('file', new File([file], filename));
+
+  return request({
+    method: 'POST',
+    url: `/v1/projects/${projectID}/files`,
+    data: formData,
+    ...{
+      ...configs,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    },
+    ...configs,
+  });
+};
+
 /** 修改项目的请求数据 */
 interface EditProjectData {
   name: string;
@@ -191,4 +254,6 @@ export default {
   editProject,
   finishProject,
   startProjectOCR,
+  importProject,
+  uploadFile,
 };

@@ -133,7 +133,7 @@ export const ProjectCreateForm: FC<ProjectCreateFormProps> = ({
     >
       <Form
         form={form}
-        onFinish={showFinishModal}
+        onFinish={handleFinish}
         initialValues={{
           intro: '',
           projectSet: currentProjectSet.id,
@@ -343,7 +343,8 @@ export const ProjectCreateForm: FC<ProjectCreateFormProps> = ({
             本站架设于中国，并且站长也是中国公民，所以必须遵守中国的相关法律。
           </p>
           <p>
-            遂在此请求各位请勿在{formatMessage({ id: 'site.name' })}上传以下内容，以免导致封站，无法继续为大家提供服务，感谢您的理解！
+            遂在此请求各位请勿在{formatMessage({ id: 'site.name' })}
+            上传以下内容，以免导致封站，无法继续为大家提供服务，感谢您的理解！
           </p>
           <ol>
             <li>
