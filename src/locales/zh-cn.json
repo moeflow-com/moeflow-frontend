@@ -306,6 +306,7 @@
   "application.userLeft": "用户已退出",
   "site.feedback": "意见反馈",
   "file.blockTip": "非常抱歉，此图片存在敏感内容，无法在萌翻进行翻译。",
+  "file.generating": "缩略图生成中...",
   "output.outputAll": "导出项目内所有文件",
   "output.createButton": "全部（含图片）",
   "output.createOnlyTextButton": "仅翻译数据",

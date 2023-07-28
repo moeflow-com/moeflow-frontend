@@ -186,7 +186,11 @@ export const FileItem: FC<FileItemProps> = ({
       onClick={onClick}
     >
       <div className="FileItem__ImageWrapper">
-        {file.safeStatus === FILE_SAFE_STATUS.BLOCK ? (
+        {file.coverUrl === 'generating' ? (
+          <div className="FileItem__ImageTip">
+            {formatMessage({ id: 'file.generating' })}
+          </div>
+        ) : file.safeStatus === FILE_SAFE_STATUS.BLOCK ? (
           <div className="FileItem__ImageTip">
             {formatMessage({ id: 'file.blockTip' })}
           </div>
