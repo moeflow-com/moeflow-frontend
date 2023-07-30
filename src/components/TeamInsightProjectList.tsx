@@ -1,5 +1,13 @@
 import { css } from '@emotion/core';
-import { Button, Pagination, Result, Table, Tag, message } from 'antd';
+import {
+  Button,
+  Pagination,
+  Popconfirm,
+  Result,
+  Table,
+  Tag,
+  message,
+} from 'antd';
 import { Button as CustomButton } from './Button';
 import classNames from 'classnames';
 import produce from 'immer';
@@ -18,6 +26,7 @@ import style from '../style';
 import { toLowerCamelCase } from '../utils';
 import dayjs from 'dayjs';
 import { OUTPUT_STATUS, OUTPUT_TYPE } from '../constants/output';
+import { clickEffect } from '../utils/style';
 
 const { Column } = Table;
 
@@ -73,6 +82,24 @@ export const TeamInsightProjectList: FC<TeamInsightProjectListProps> = ({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const createTeamOutputs = ({ teamID }: { teamID: string }) => {
+    message.success('导出中，请稍后...');
+    setOutputing(true);
+    apis
+      .createTeamOutput({
+        teamID,
+      })
+      .then((result) => {
+        refresh();
+      })
+      .catch((error) => {
+        error.default();
+      })
+      .finally(() => {
+        setOutputing(false);
+      });
+  };
 
   const createOutputs = ({ projectID }: { projectID: string }) => {
     message.success('导出中，请稍后...');
@@ -154,6 +181,17 @@ export const TeamInsightProjectList: FC<TeamInsightProjectListProps> = ({
         .TeamInsightProjectList__MoreProjectsTip {
           color: ${style.textColorSecondary};
         }
+        .TeamInsightProjectList__OutputTeamProjectButton {
+          height: 40px;
+          line-height: 40px;
+          text-align: center;
+          border-bottom: 1px solid ${style.borderColorLight};
+          ${clickEffect()};
+          .TeamInsightProjectList__OutputTeamProjectButtonIcon {
+            margin-right: 5px;
+            color: ${style.textColorSecondary};
+          }
+        }
       `}
     >
       {status !== 'failure' && (
@@ -165,6 +203,25 @@ export const TeamInsightProjectList: FC<TeamInsightProjectListProps> = ({
           }}
           placeholder={formatMessage({ id: 'site.projectName' })}
         />
+      )}
+      {status !== 'failure' && (
+        <Popconfirm
+          placement="bottom"
+          title={'确认批量开始导出团队的所有项目的 zip 吗？'}
+          onConfirm={() => createTeamOutputs({ teamID: team.id })}
+          okText="开始吧～"
+          cancelText="不了"
+        >
+          <div className="TeamInsightProjectList__OutputTeamProjectButton">
+            <Icon
+              icon="plus"
+              className="TeamInsightProjectList__OutputTeamProjectButtonIcon"
+            />
+            <span className="TeamInsightProjectList__OutputTeamProjectButtonText">
+              批量开始导出团队所有项目 zip
+            </span>
+          </div>
+        </Popconfirm>
       )}
       {status !== 'failure' && (
         <Table
@@ -285,7 +342,7 @@ export const TeamInsightProjectList: FC<TeamInsightProjectListProps> = ({
                       createOutputs({ projectID: record.project.id });
                     }}
                   >
-                    导出所有语言
+                    导出所有语言 zip
                   </Button>
                   {record.outputs.map((output) => (
                     <div>
