@@ -84,13 +84,13 @@ export const TeamInsightProjectList: FC<TeamInsightProjectListProps> = ({
   }, []);
 
   const createTeamOutputs = ({ teamID }: { teamID: string }) => {
-    message.success('导出中，请稍后...');
     setOutputing(true);
     apis
       .createTeamOutput({
         teamID,
       })
       .then((result) => {
+        message.success('导出任务创建成功，您可以关闭页面稍后前来下载。');
         refresh();
       })
       .catch((error) => {
