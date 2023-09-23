@@ -46,9 +46,12 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v3.1.1
+        uses: docker/build-push-action@v4.2.1
         with:
           context: .
           push: true
+          platforms: linux/arm64,linux/amd64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha,scope=moeflow-frontend
+          cache-to: type=gha,mode=max,scope=moeflow-frontend
