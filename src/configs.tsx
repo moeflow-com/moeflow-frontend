@@ -1,9 +1,9 @@
 // 公共配置
 const configs = {
-  baseURL: process.env.REACT_APP_BASE_URL,
-  siteName: process.env.REACT_APP_SITE_NAME,
-  miitBeiAn: process.env.REACT_APP_BEIAN_NO,
-  siteSlogan: '',
+  baseURL: process.env.REACT_APP_BASE_URL, // 后端地址
+  siteName: process.env.REACT_APP_SITE_NAME,  // 网站名称[有填写则覆盖]
+  miitBeiAn: process.env.REACT_APP_BEIAN_NO, // 工信部备案信息[有填写则显示]
+  siteSlogan: '', // 首页标题附加的标语[有填写则覆盖原有标语]
   /** 默认值 */
   default: {
     team: {
