@@ -4,6 +4,7 @@ import { useIntl } from "react-intl";
 import { Header } from "../components";
 import brandJump from "../images/brand/mascot-jump1.png";
 import { FC } from "../interfaces";
+import configs from '../configs';
 import { useTitle } from "../hooks";
 
 /** 首页的属性接口 */
@@ -13,7 +14,7 @@ interface IndexProps {}
  */
 const Index: FC<IndexProps> = () => {
   const { formatMessage } = useIntl(); // i18n
-  useTitle({ suffix: formatMessage({ id: "site.slogan" }) }); // 设置标题
+  useTitle({ suffix: configs.siteSlogan || formatMessage({ id: "site.slogan" }) }); // 设置标题
 
   return (
     <div
@@ -54,7 +55,15 @@ const Index: FC<IndexProps> = () => {
       <div className="Index__Title">
         <img src={brandJump} alt="Mascot" />
       </div>
-      <div className="Index__Footer">{/* 备案号 */}</div>
+      {configs.miitBeiAn ? (
+        <div className="Index__Footer">
+          <a href="https://beian.miit.gov.cn/" target="_blank">{configs.miitBeiAn}</a>
+        </div>
+      ) : (
+        <div className="Index__Footer">
+          {/* 无备案号 */}
+        </div>
+      )}
     </div>
   );
 };

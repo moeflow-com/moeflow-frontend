@@ -5,6 +5,7 @@ import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Avatar, Dropdown } from '.';
+import configs from '../configs';
 import { AppState } from '../store';
 import { setUserToken } from '../store/user/slice';
 import style from '../style';
@@ -126,7 +127,7 @@ export const Header: FC<HeaderProps> = ({ className }) => {
             history.push('/');
           }}
         >
-          {formatMessage({ id: 'site.name' })}
+          {configs.siteName || formatMessage({ id: 'site.name' })}
         </div>
       </div>
       {currentUser.token ? (

@@ -1,6 +1,9 @@
 // 公共配置
 const configs = {
   baseURL: process.env.REACT_APP_BASE_URL,
+  siteName: process.env.REACT_APP_SITE_NAME,
+  miitBeiAn: process.env.REACT_APP_BEIAN_NO,
+  siteSlogan: '',
   /** 默认值 */
   default: {
     team: {

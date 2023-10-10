@@ -1,5 +1,6 @@
 import { DependencyList, useEffect } from 'react';
 import { useIntl } from 'react-intl';
+import configs from '../configs';
 
 interface UseTitleParams {
   prefix?: string;
@@ -20,12 +21,13 @@ export const useTitle: UseTitle = (
   deps = []
 ) => {
   const { formatMessage } = useIntl();
+  const siteName = configs.siteName || formatMessage({ id: 'site.name' })
   if (prefix !== '') prefix = prefix + hyphen;
   if (suffix !== '') suffix = hyphen + suffix;
   useEffect(() => {
-    document.title = prefix + formatMessage({ id: 'site.name' }) + suffix;
+    document.title = prefix + siteName + suffix;
     return () => {
-      document.title = formatMessage({ id: 'site.name' });
+      document.title = siteName;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
