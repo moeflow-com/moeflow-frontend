@@ -32,7 +32,20 @@ const editSiteSetting = ({
   });
 };
 
+export interface APIHomepage {
+  html: string;
+  css: string;
+}
+const getHomepage = ({ configs }: { configs?: AxiosRequestConfig }) => {
+  return request<APIHomepage>({
+    method: 'GET',
+    url: `/v1/site/homepage`,
+    ...configs,
+  });
+};
+
 export default {
   getSiteSetting,
   editSiteSetting,
+  getHomepage,
 };

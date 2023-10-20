@@ -150,6 +150,18 @@ export const AdminSiteSetting: FC<AdminSiteSettingProps> = ({ className }) => {
         >
           <TextArea rows={10} />
         </FormItem>
+        <FormItem
+          label={formatMessage({ id: 'site.setting.homepageHtml' })}
+          name="homepageHtml"
+        >
+          <TextArea rows={10} />
+        </FormItem>
+        <FormItem
+          label={formatMessage({ id: 'site.setting.homepageCss' })}
+          name="homepageCss"
+        >
+          <TextArea rows={10} />
+        </FormItem>
 
         <FormItem
           css={css`

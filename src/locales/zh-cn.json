@@ -51,6 +51,8 @@
   "site.setting.autoJoinTeamIDs": "自动加入的团队 ID",
   "site.setting.autoJoinTeamIDsTip": "新用户注册/创建完成后，会自动加入这些团队，可以在团队设置界面查看团队 ID（每个 ID 一行）",
   "site.setting.autoJoinTeamIDsError": "第 {line} 行团队 ID 错误/不存在，请修改后重试",
+  "site.setting.homepageHtml": "主页 HTML",
+  "site.setting.homepageCss": "主页 CSS",
   "site.setting.onlyAllowAdminCreateTeam": "仅允许管理员创建团队",
   "site.setting.enableWhitelist": "启用注册白名单",
   "site.setting.whitelistEmails": "注册白名单邮箱",

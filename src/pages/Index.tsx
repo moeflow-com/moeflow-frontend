@@ -1,10 +1,12 @@
-import { css, Global } from "@emotion/core";
-import React from "react";
-import { useIntl } from "react-intl";
-import { Header } from "../components";
-import brandJump from "../images/brand/mascot-jump1.png";
-import { FC } from "../interfaces";
-import { useTitle } from "../hooks";
+import { css, Global } from '@emotion/core';
+import React, { useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
+import { Header } from '../components';
+import { Spin } from 'antd';
+import brandJump from '../images/brand/mascot-jump1.png';
+import { FC } from '../interfaces';
+import { useTitle } from '../hooks';
+import apis from '../apis';
 
 /** 首页的属性接口 */
 interface IndexProps {}
@@ -13,9 +15,37 @@ interface IndexProps {}
  */
 const Index: FC<IndexProps> = () => {
   const { formatMessage } = useIntl(); // i18n
-  useTitle({ suffix: formatMessage({ id: "site.slogan" }) }); // 设置标题
+  useTitle({ suffix: formatMessage({ id: 'site.slogan' }) }); // 设置标题
+  const [homepageHtml, setHomepageHtml] = useState<string>();
+  const [homepageCss, setHomepageCss] = useState<string>();
 
-  return (
+  useEffect(() => {
+    apis
+      .getHomepage({})
+      .then((res) => {
+        setHomepageHtml(res.data.html);
+        setHomepageCss(res.data.css);
+      })
+      .catch((err) => {
+        setHomepageHtml('');
+        setHomepageCss('');
+      });
+  }, []);
+
+  return homepageHtml === undefined ? (
+    <div
+      css={css`
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      `}
+    >
+      <Spin />
+    </div>
+  ) : homepageHtml === '' ? (
     <div
       css={css`
         width: 100%;
@@ -56,6 +86,19 @@ const Index: FC<IndexProps> = () => {
       </div>
       <div className="Index__Footer">{/* 备案号 */}</div>
     </div>
+  ) : (
+    <>
+      <Global
+        styles={css`
+          ${homepageCss}
+        `}
+      />
+      <div
+        id="homepage"
+        className="Index_Homepage"
+        dangerouslySetInnerHTML={{ __html: homepageHtml }}
+      />
+    </>
   );
 };
 export default Index;
