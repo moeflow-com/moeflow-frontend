@@ -1,6 +1,8 @@
 // 公共配置
 const configs = {
-  baseURL: process.env.REACT_APP_BASE_URL,
+  // 所有API请求的baseURL。
+  // 如本地开发时backend URL不匹配，可在vite server中配置反向代理
+  baseURL: '/api',
   /** 默认值 */
   default: {
     team: {
