@@ -2,7 +2,6 @@ import { css } from '@emotion/core';
 import { Button, Form as AntdForm, Input, message, Spin, Switch } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import classNames from 'classnames';
-import { values } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import apis from '../apis';

@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { AuthLoginedTip } from '.';
+import { AuthLoginedTip } from './AuthLoginedTip';
 import mascot from '../images/brand/mascot-jump1.png';
 import { AppState } from '../store';
 import style from '../style';

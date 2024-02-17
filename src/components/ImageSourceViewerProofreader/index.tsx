@@ -379,6 +379,7 @@ export const ImageSourceViewerProofreader: FC<ImageSourceViewerProofreaderProps>
                 placement={isMobile ? 'topLeft' : 'top'}
               >
                 <button
+                  type="button"
                   className="ImageSourceViewerProofreader__FunctionBarButton"
                   onClick={() => {
                     if (!focusedTranslation?.proofreadContent) {

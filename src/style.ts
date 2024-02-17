@@ -1,7 +1,6 @@
 /**
- * 这个文件会在 yarn prestart prebuild pretest 时
- * 编译成 style.js 文件放在根目录中（放在 src 中则会导致浏览器检查时 Warning）
- * 供 config-overrides.js 引用，来覆盖 antd 默认值
+ * 这个文件会在 npm run build 时
+ * 供 vite.config.ts 引用，来覆盖 antd 默认值
  */
 /** 转换格式（不引用 utils 中的，防止也被 ts 编译） */
 function toHyphenCase(value: string | { [propNames: string]: any }) {
@@ -101,5 +100,5 @@ export default {
   ...otherVars,
 };
 // 供 config-overrides.js 引用，转换成 antd Less 连字符格式，用于覆盖其 Less 配置
-export const antdLessVars = toHyphenCase(antdVars);
-export const antdLessVarsM = toHyphenCase(antdVarsM);
+export const antdLessVars = toHyphenCase(antdVars) as Record<string, string>;
+export const antdLessVarsM = toHyphenCase(antdVarsM) as Record<string, string>;

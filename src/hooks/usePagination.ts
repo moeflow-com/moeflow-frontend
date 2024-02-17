@@ -1,5 +1,5 @@
 import { Canceler } from 'axios';
-import _ from 'lodash';
+import {set} from 'lodash';
 import React, { useRef, useState } from 'react';
 import { useDeepCompareEffect } from 'react-use';
 import { BasicSuccessResult, resultTypes } from '../apis';
@@ -43,8 +43,8 @@ export function usePagination<T, APIParams>({
   const currentAPIParamsRef = useRef(apiParams);
   const cancelRef = useRef<Canceler>();
 
-  _.set(apiParams as any, 'params.page', page);
-  _.set(apiParams as any, 'params.limit', limit);
+  set(apiParams as any, 'params.page', page);
+  set(apiParams as any, 'params.limit', limit);
 
   useDeepCompareEffect(() => {
     if (cancelRef.current) {

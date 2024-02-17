@@ -2,7 +2,7 @@ import { css } from '@emotion/core';
 import { Spin as AntdSpin } from 'antd';
 import { SpinProps as AntdSpinProps } from 'antd/lib/spin';
 import React from 'react';
-import { LoadingIcon } from '.';
+import { LoadingIcon } from './LoadingIcon';
 import { FC } from '../interfaces';
 
 /** Spin 的属性接口 */
