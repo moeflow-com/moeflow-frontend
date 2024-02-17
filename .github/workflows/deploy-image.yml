@@ -25,12 +25,12 @@ jobs:
       - name: Setup node and deps
         uses: actions/setup-node@v3
         with:
-          node-version: 16
-          cache: yarn
-          cache-dependency-path: 'yarn.lock'
+          node-version: "20"
+
+      - run: npm i
 
       - name: Build app
-        run: yarn && CI=false yarn build
+        run: npm run build
 
       - name: Log in to the Container registry
         uses: docker/login-action@v2.0.0
