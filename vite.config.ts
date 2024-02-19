@@ -7,7 +7,7 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import url from 'node:url';
 
 const ___dirname = path.dirname(url.fileURLToPath(import.meta.url));
-const componentsDir = path.join(__dirname, './src/components');
+const componentsDir = path.join(___dirname, './src/components');
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -17,9 +17,17 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       // external: ['lodash', 'lodash/default'],
-      output: {}
+      output: {
+        manualChunks(id, meta) {
+          if (id.includes(componentsDir)) {
+            return 'moeflow-components';
+          } else if (id.includes('antd')) {
+            return 'vendor-antd';
+          }
+          return null;
+        }
+      }
     }
-    // minify: 'terser'
   },
   define: {
     'process.env.REACT_APP_BASE_URL': JSON.stringify(process.env.REACT_APP_BASE_URL ?? '/api/')

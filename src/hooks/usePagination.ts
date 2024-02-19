@@ -1,5 +1,5 @@
 import { Canceler } from 'axios';
-import {set} from 'lodash';
+import {set} from 'lodash-es';
 import React, { useRef, useState } from 'react';
 import { useDeepCompareEffect } from 'react-use';
 import { BasicSuccessResult, resultTypes } from '../apis';
