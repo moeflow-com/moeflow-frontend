@@ -31,9 +31,10 @@
 1. 建议使用 Node.js 近期LTS版本，如v18 v20
 2. `npm install` 安装依赖项
 3. `npm start start` 启动vite 开发服务器
-    - 开发服务器自带API反向代理。默认将对 `localhost:5173/api/*` 的请求自动转发到 `localhost:5000` (本地moeflow-backend开发版的商品)
+    - 开发服务器自带API反向代理。默认将 `localhost:5173/api/*` 的请求自动转发到 `localhost:5000` (本地moeflow-backend开发版的商品)
     - 上述配置可在 `vite.config.ts` 修改。比如不在本地跑moeflow-backend，改用公网的服务器。
-4. `npm build` 发布前端代码，**请注意**此时使用的后端地址配置为 `.env.production` 中的配置。
+4. `npm build` 发布前端代码，**请注意** 此时使用的后端地址配置为 `.env.local` 中的配置。
+    - 如果没有创建 `.env.local` 则为默认值 `/api`。
 
 如果您要部署到 `Vercel` 之类的网站托管程序上，您可以直接将 `REACT_APP_BASE_URL` 相对应的后端接口地址配置到托管程序的环境变量中。
 
@@ -41,8 +42,8 @@
 
 最新版本的后端已经支持将前端项目编译完合并到后端，仅保留一个端口更好做映射！
 
-1. 复制 `.env.production` 改名为 `.env.local` 修改此文件为 `REACT_APP_BASE_URL=/`
-2. `npm run build` 发布前端代码，等待编译完成。默认的编译结果目录是 `build`
+1. 复制 `.env.sample` 改名为 `.env.local` 修改此文件为 `REACT_APP_BASE_URL=/`
+2. `npm run build` 编译前端代码。默认的编译结果目录是 `build`
 3. 打开 [萌翻后端项目](https://github.com/kozzzx/moeflow-backend) 找到 `app` 文件夹，将前端 `build/static` 整个文件夹复制到此目录。
 4. 找到后端项目 `app/templates/index.html` 文件，用前端 `build/index.html` 文件替换。
 5. 将后端跑起来，访问首页 `http://127.0.0.1:5001/`（地址以命令行提示为准） 就可以正常访问、登录等操作。
