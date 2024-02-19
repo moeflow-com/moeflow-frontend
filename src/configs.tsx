@@ -8,16 +8,16 @@ const configs = {
     team: {
       systemRole: 'member', // 团队默认角色，后端部署后不会变动
       allowApplyType: 2,
-      applicationCheckType: 2
+      applicationCheckType: 2,
     },
     project: {
       systemRole: 'supporter', // 项目默认角色，后端部署后不会变动
       allowApplyType: 3,
       applicationCheckType: 1,
       sourceLanugageCode: 'ja', // 默认源语言，后端部署后不会变动
-      targetLanguageCodes: ['zh-TW'] // 默认目标语言，后端部署后不会变动
-    }
-  }
+      targetLanguageCodes: ['zh-TW'], // 默认目标语言，后端部署后不会变动
+    },
+  },
 } as const;
 
 if (process.env.NODE_ENV === 'production') {
