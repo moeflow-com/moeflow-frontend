@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import {isArray, isPlainObject} from 'lodash-es'
 
 // 用于转换 JavaScript 中常用的大写简写
 const abbrs = [
@@ -46,18 +46,18 @@ function toUnderScoreCase(
 ) {
   if (typeof value === 'string') {
     return stringToUnderScoreCase(value);
-  } else if (_.isArray(value)) {
+  } else if (isArray(value)) {
     return value.map((v: any) => toUnderScoreCase(v));
-  } else if (_.isPlainObject(value)) {
+  } else if (isPlainObject(value)) {
     const newValue: { [key: string]: any } = {};
     for (let key in value) {
-      if (_.isPlainObject(value[key])) {
+      if (isPlainObject(value[key])) {
         // 递归处理所以子对象
         newValue[stringToUnderScoreCase(key)] = toUnderScoreCase(value[key]);
-      } else if (_.isArray(value[key])) {
+      } else if (isArray(value[key])) {
         // 递归处理所以子数组
         newValue[stringToUnderScoreCase(key)] = value[key].map((v: any) => {
-          if (_.isPlainObject(v)) return toUnderScoreCase(v)
+          if (isPlainObject(v)) return toUnderScoreCase(v)
           else return v
         });
       } else {
@@ -90,15 +90,15 @@ function toLowerCamelCase(
 ) {
   if (typeof value === 'string') {
     return stringToLowerCamelCase(value);
-  } else if (_.isArray(value)) {
+  } else if (isArray(value)) {
     return value.map((v: any) => toLowerCamelCase(v));
-  } else if (_.isPlainObject(value)) {
+  } else if (isPlainObject(value)) {
     const newValue: { [key: string]: any } = {};
     for (let key in value) {
-      if (_.isPlainObject(value[key])) {
+      if (isPlainObject(value[key])) {
         // 递归处理所以子对象
         newValue[stringToLowerCamelCase(key)] = toLowerCamelCase(value[key]);
-      } else if (_.isArray(value[key])) {
+      } else if (isArray(value[key])) {
         // 递归处理所以子数组
         newValue[stringToLowerCamelCase(key)] = value[key].map((v: any) =>
           toLowerCamelCase(v)

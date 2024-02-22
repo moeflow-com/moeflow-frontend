@@ -1,6 +1,6 @@
 import { css } from '@emotion/core';
 import Bowser from 'bowser';
-import _ from 'lodash';
+import {size, has, debounce, throttle} from 'lodash-es';
 import React, {
   forwardRef,
   ReactElement,
@@ -109,12 +109,12 @@ export const MovableArea: FC<MovableAreaProps> = ({
     }
     // 阻止小于 300ms 的 touchend，防止 iOS 上浏览器双击缩放页面
     function preventDoubleTapZoom(e: TouchEvent) {
-      var now = Date.now();
+      const now = Date.now();
       if (now - lastTouchEndRef.current <= 300) {
         // 阻止动作
         e.preventDefault();
         // 触发一个 click 来代替本次 touchend（不会触发双击缩放页面）
-        var evt = document.createEvent('Event');
+        const evt = document.createEvent('Event');
         evt.initEvent('click', true, false);
         if (e.target) {
           e.target.dispatchEvent(evt);
@@ -323,7 +323,7 @@ export interface OnZoomEnd {
 }
 /** 可移动元素的属性接口 */
 export interface MovableItemProps {
-  onFocusIndexChange?: Function;
+  onFocusIndexChange?(index: number): void;
   itemIndex?: number;
   focus?: boolean;
   allowMove?: boolean;
@@ -789,7 +789,7 @@ const MovableItemWithoutRef: React.ForwardRefRenderFunction<
     }
     move(...args);
   };
-  const debouncedMove = _.debounce(moveWhenMoving, 1);
+  const debouncedMove = debounce(moveWhenMoving, 1);
 
   // 通过 ref 调用的 zoom，进行限位
   const moveViaRef: Move = (position) => {
@@ -854,7 +854,7 @@ const MovableItemWithoutRef: React.ForwardRefRenderFunction<
     }
     zoom(...args);
   };
-  const throttledZoom = _.throttle(zoomWhenZooming, 16, { leading: false });
+  const throttledZoom = throttle(zoomWhenZooming, 16, { leading: false });
 
   // 通过 ref 调用的 zoom
   const zoomViaRef: Zoom = (...args) => {
@@ -953,7 +953,7 @@ const MovableItemWithoutRef: React.ForwardRefRenderFunction<
     };
     // 记录按下时组件初始 state
     startStateRef.current = stateRef.current;
-    if (_.size(pointersRef.current) === 1) {
+    if (size(pointersRef.current) === 1) {
       // 1个光标按下，开启移动
       movingRef.current = button === 0;
       zoomingRef.current = false;
@@ -1008,7 +1008,7 @@ const MovableItemWithoutRef: React.ForwardRefRenderFunction<
           }
         }, longPressDelay);
       }
-    } else if (_.size(pointersRef.current) === 2) {
+    } else if (size(pointersRef.current) === 2) {
       // 2个光标按下，开启移动和缩放
       movingRef.current = true;
       zoomingRef.current = true;
@@ -1047,7 +1047,7 @@ const MovableItemWithoutRef: React.ForwardRefRenderFunction<
       return;
     }
     // 不是本 item 的移动事件
-    if (!_.has(pointersRef.current, pointerId)) {
+    if (!has(pointersRef.current, pointerId)) {
       return;
     }
     // 更新光标信息
@@ -1055,7 +1055,7 @@ const MovableItemWithoutRef: React.ForwardRefRenderFunction<
       clientX,
       clientY,
     };
-    if (allowMoveRef.current && _.size(pointersRef.current) === 1) {
+    if (allowMoveRef.current && size(pointersRef.current) === 1) {
       // 1个光标移动，移动
       // 计算光标移动距离
       const distanceX = clientX - startMoveInfoRef.current.clientX;
@@ -1066,7 +1066,7 @@ const MovableItemWithoutRef: React.ForwardRefRenderFunction<
         y: startStateRef.current.y + distanceY / (areaHeight * areaScale),
       };
       debouncedMove({ ...newPosition });
-    } else if (allowZoom && _.size(pointersRef.current) === 2) {
+    } else if (allowZoom && size(pointersRef.current) === 2) {
       // 2个光标移动，缩放
       // 计算开始时双指距离 和 X、Y 轴上分别的距离用来计算 tan(x)
       const {
@@ -1170,12 +1170,12 @@ const MovableItemWithoutRef: React.ForwardRefRenderFunction<
       return;
     }
     // 忽略不是本 item 的抬起事件
-    if (!_.has(pointersRef.current, pointerId)) {
+    if (!has(pointersRef.current, pointerId)) {
       return;
     }
     // 删除光标
     delete pointersRef.current[pointerId];
-    if (_.size(pointersRef.current) === 0) {
+    if (size(pointersRef.current) === 0) {
       // 记录按下/抬起间隔
       const tapDelay = Date.now() - startMoveTimeRef.current;
       // 计算光标移动距离
@@ -1233,7 +1233,7 @@ const MovableItemWithoutRef: React.ForwardRefRenderFunction<
           button: button,
         });
       }
-    } else if (_.size(pointersRef.current) === 1) {
+    } else if (size(pointersRef.current) === 1) {
       // 抬起后剩1个，缩放结束，开始移动
       movingRef.current = true;
       zoomingRef.current = false;
@@ -1247,7 +1247,7 @@ const MovableItemWithoutRef: React.ForwardRefRenderFunction<
           ...pointersRef.current[id],
         };
       }
-    } else if (_.size(pointersRef.current) === 2) {
+    } else if (size(pointersRef.current) === 2) {
       // 抬起后剩2个，开始移动和缩放
       movingRef.current = true;
       zoomingRef.current = true;
@@ -1278,7 +1278,7 @@ const MovableItemWithoutRef: React.ForwardRefRenderFunction<
       button: e.button, // onLongPress 用于区分左右键
     });
     // 1个光标按下，开始监听
-    if (_.size(pointersRef.current) === 1) {
+    if (size(pointersRef.current) === 1) {
       window.addEventListener('pointermove', handlePointerMove);
       window.addEventListener('pointerup', handlePointerUp);
       window.addEventListener('pointercancel', handlePointerUp);
@@ -1309,7 +1309,7 @@ const MovableItemWithoutRef: React.ForwardRefRenderFunction<
       button: e.button, // onTap 用于区分左右键
     });
     // 没有光标了，取消监听（必须在 handleUp 后取消，因为在它里面增减了光标计数）
-    if (_.size(pointersRef.current) === 0) {
+    if (size(pointersRef.current) === 0) {
       window.removeEventListener('pointermove', handlePointerMove);
       window.removeEventListener('pointerup', handlePointerUp);
       window.removeEventListener('pointercancel', handlePointerUp);

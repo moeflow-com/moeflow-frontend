@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
 import api from '../apis';
-import { LoadingIcon } from '../components';
+import { LoadingIcon } from './LoadingIcon';
 import { getIntl } from '../locales';
 import style from '../style';
 import { getCancelToken } from '../utils/api';

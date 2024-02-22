@@ -1,7 +1,7 @@
 import React from 'react';
 
 // 增加了 whyDidYouRender 属性的 React.FC
-export type FC<P = {}> = React.FC<P> & {
+export type FC<P = Record<never, unknown>> = React.FC<P> & {
   whyDidYouRender?: any;
 };
 

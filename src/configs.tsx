@@ -1,5 +1,7 @@
 // 公共配置
 const configs = {
+  // 所有API请求的baseURL。
+  // 如本地开发时backend URL不匹配，可在vite server中配置反向代理
   baseURL: process.env.REACT_APP_BASE_URL,
   /** 默认值 */
   default: {
@@ -16,7 +18,7 @@ const configs = {
       targetLanguageCodes: ['zh-TW'], // 默认目标语言，后端部署后不会变动
     },
   },
-};
+} as const;
 
 if (process.env.NODE_ENV === 'production') {
   // 生产环境配置

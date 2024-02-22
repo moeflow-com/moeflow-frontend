@@ -274,10 +274,10 @@ export const ProjectCreateForm: FC<ProjectCreateFormProps> = ({
                 accept=".txt"
                 beforeUpload={(file) => {
                   return new Promise((resolve, reject) => {
-                    var reader = new FileReader();
+                    const reader = new FileReader();
                     reader.onload = function (event) {
                       if (event.target) {
-                        var content = event.target.result;
+                        const content = event.target.result;
                         if (typeof content === 'string') {
                           setLabelplusTXT(content);
                         }

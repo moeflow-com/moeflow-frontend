@@ -145,7 +145,7 @@ const importProject = ({
   data: ImportProjectData;
   configs?: AxiosRequestConfig;
 }) => {
-  var formData = new FormData();
+  const formData = new FormData();
   formData.append('project', new File([data.project], 'project'));
   formData.append('labelplus', new File([data.labelplus], 'labelplus'));
 
@@ -174,7 +174,7 @@ const uploadFile = ({
   file: Blob;
   configs?: AxiosRequestConfig;
 }) => {
-  var formData = new FormData();
+  const formData = new FormData();
   formData.append('file', new File([file], filename));
 
   return request({

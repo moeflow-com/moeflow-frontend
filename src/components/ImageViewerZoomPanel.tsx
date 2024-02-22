@@ -1,11 +1,11 @@
 import { css } from '@emotion/core';
 import { Icon } from '.';
 import { Slider } from 'antd';
-import _ from 'lodash';
+import {debounce} from 'lodash-es';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import { Tooltip } from '../components';
+import { Tooltip } from './Tooltip';
 import { AppState } from '../store';
 import style from '../style';
 import { FC } from '../interfaces';
@@ -92,7 +92,7 @@ export const ImageViewerZoomPanel: FC<ImageViewerZoomPanelProps> = ({
         {!isMobile && (
           <div className="ImageViewerZoomPanel__Slider">
             <Slider
-              onChange={_.debounce(zoomImage, 1)} // 防抖，只处理延时超过 1ms 的缩放（针对 Firefox for Android 不跟手的问题）
+              onChange={debounce(zoomImage, 1)} // 防抖，只处理延时超过 1ms 的缩放（针对 Firefox for Android 不跟手的问题）
               marks={{ 1: '' }}
               value={sliderValue}
               min={imageMinScale}

@@ -2,12 +2,12 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { css } from '@emotion/core';
 import { Modal, Spin } from 'antd';
 import Bowser from 'bowser';
-import _ from 'lodash';
+import {debounce} from 'lodash-es';
 import React, { useEffect, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Icon } from '.';
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import {
   MovableArea,
   MovableItem,
@@ -18,7 +18,7 @@ import {
   OnZoomEnd,
   OnZooming,
   OnZoomStart,
-} from '../components/Movable';
+} from './Movable';
 import { SOURCE_POSITION_TYPE } from '../constants/source';
 import { FC, File, Source } from '../interfaces';
 import { AppState } from '../store';
@@ -360,7 +360,7 @@ export const ImageViewer: FC<ImageViewerProps> = ({
   }
 
   // 防抖，缩放停止一段时间后设置 imageViewerZoomPanelSliderValue，以防止频繁 render 控制器导致的卡顿
-  const debouncedSetimageViewerZoomPanelSliderValue = _.debounce((scale) => {
+  const debouncedSetimageViewerZoomPanelSliderValue = debounce((scale) => {
     setimageViewerZoomPanelSliderValue(scale);
   }, 150);
 

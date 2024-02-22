@@ -3,7 +3,7 @@ import { Pagination } from 'antd';
 import { PaginationProps } from 'antd/lib/pagination';
 import { Canceler, CancelToken } from 'axios';
 import classNames from 'classnames';
-import _ from 'lodash';
+import {debounce} from 'lodash-es';
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import ReactResizeDetector from 'react-resize-detector';
@@ -135,7 +135,7 @@ export function List<T>({
   const [word, setWord] = useState(defaultWord); // 搜索词
   const [tempWord, setTempWord] = useState(defaultWord); // 临时搜索词（经过防抖后才会设置到搜索词）
   const handleScrollRef = useRef(
-    _.debounce(
+    debounce(
       () => {
         if (typeof domRef.current?.scrollTop === 'number') {
           onScrollTopChange?.(domRef.current?.scrollTop);
