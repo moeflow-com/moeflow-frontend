@@ -31,7 +31,7 @@ export const LanguageSelect: FC<LanguageSelectProps> = ({
   useEffect(() => {
     setLoading(true);
     apis.getLanguages().then((result) => {
-      let options = result.data.map((item) => {
+      const options = result.data.map((item) => {
         item = toLowerCamelCase(item);
         const option: SelectOption = {
           label: item.i18nName,

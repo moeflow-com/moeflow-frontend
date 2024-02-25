@@ -65,7 +65,7 @@ store.dispatch(setOSName(osName));
 for (const hotKeyName in hotKeyInitialState) {
   const name = hotKeyName as keyof HotKeyState;
   for (const index of [0, 1]) {
-    let loadedHotKey = loadHotKey({ name, index });
+    const loadedHotKey = loadHotKey({ name, index });
     if (loadedHotKey !== 'disibled') {
       let option;
       if (loadedHotKey) {
