@@ -9,6 +9,9 @@ import url from 'node:url';
 const ___dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const componentsDir = path.join(___dirname, './src/components');
 
+// origin to forward /api/ /storage/ requests to
+const backendOrigin = 'http://localhost:13080';
+
 // https://vitejs.dev/config/
 export default defineConfig({
   // root: 'src',
@@ -25,15 +28,17 @@ export default defineConfig({
             return 'vendor-antd';
           }
           return null;
-        }
-      }
-    }
+        },
+      },
+    },
   },
   define: {
-    'process.env.REACT_APP_BASE_URL': JSON.stringify(process.env.REACT_APP_BASE_URL ?? '/api/')
+    'process.env.REACT_APP_BASE_URL': JSON.stringify(
+      process.env.REACT_APP_BASE_URL ?? '/api/',
+    ),
   },
   resolve: {
-    alias: {}
+    alias: {},
   },
   plugins: [
     vitePluginImp({
@@ -41,39 +46,44 @@ export default defineConfig({
         {
           // antd 按需导入
           libName: 'antd',
-          style: (name) => `antd/es/${name}/style`
+          style: (name) => `antd/es/${name}/style`,
         },
         {
           // antd-mobile 按需导入
           libName: 'antd-mobile',
-          style: (name) => `antd-mobile/es/${name}/style`
-        }
-      ]
+          style: (name) => `antd-mobile/es/${name}/style`,
+        },
+      ],
     }),
     react({
-      jsxImportSource: '@emotion/core'
+      jsxImportSource: '@emotion/core',
     }),
     visualizer({}),
-    splitVendorChunkPlugin()
+    splitVendorChunkPlugin(),
   ],
   css: {
     preprocessorOptions: {
       less: {
         // 覆盖 antd 的 Less 样式
         javascriptEnabled: true,
-        modifyVars: ({
-          ...antdLessVars, ...antdLessVarsM
-        })
-      }
-    }
+        modifyVars: {
+          ...antdLessVars,
+          ...antdLessVarsM,
+        },
+      },
+    },
   },
   server: {
     proxy: {
       '/api/': {
         // in local dev, proxy local moeflow-backend server for web app
-        target: 'http://localhost:5000',
-        changeOrigin: true
-      }
-    }
-  }
+        target: backendOrigin,
+        changeOrigin: true,
+      },
+      '/storage/': {
+        target: backendOrigin,
+        changeOrigin: true,
+      },
+    },
+  },
 });
