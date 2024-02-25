@@ -11,9 +11,9 @@ interface ImageTranslatorSettingMouseProps {
 /**
  * 模板
  */
-export const ImageTranslatorSettingMouse: FC<ImageTranslatorSettingMouseProps> = ({
-  className,
-}) => {
+export const ImageTranslatorSettingMouse: FC<
+  ImageTranslatorSettingMouseProps
+> = ({ className }) => {
   const { formatMessage } = useIntl(); // i18n
 
   return (

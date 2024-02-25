@@ -11,7 +11,6 @@ import style from '../style';
 import { getCancelToken } from '../utils/api';
 import { clickEffect, imageClickEffect } from '../utils/style';
 
-
 /** 用于 Form.Item 校验验证码，rules={[{validator: checkCAPTCHA}]} */
 export const checkCAPTCHA = (rule: any, captcha: CAPTCHAInputValue) => {
   const intl = getIntl();
@@ -20,7 +19,7 @@ export const checkCAPTCHA = (rule: any, captcha: CAPTCHAInputValue) => {
   }
   if (captcha.value.length !== 4) {
     return Promise.reject(
-      intl.formatMessage({ id: 'form.stringLen' }, { len: 4 })
+      intl.formatMessage({ id: 'form.stringLen' }, { len: 4 }),
     );
   }
   return Promise.resolve();
@@ -70,7 +69,7 @@ const CAPTCHAInputWithoutRef: React.ForwardRefRenderFunction<
   useImperativeHandle(ref, () => {
     const imperatives = {
       ...inputRef.current,
-      refresh: getCAPTCHA
+      refresh: getCAPTCHA,
     };
     return imperatives as CAPTCHAInputRef;
   });
@@ -84,16 +83,16 @@ const CAPTCHAInputWithoutRef: React.ForwardRefRenderFunction<
 
   /** 获取验证码 */
   const getCAPTCHA = (
-    { focus = true, cancelToken, onFinish } = {} as GetCAPTCHAParams
+    { focus = true, cancelToken, onFinish } = {} as GetCAPTCHAParams,
   ) => {
     setCaptchaLoading(true);
     api
       .getCAPTCHA({
         configs: {
-          cancelToken
-        }
+          cancelToken,
+        },
       })
-      .then(result => {
+      .then((result) => {
         setCaptchaValue(''); // 清空当前值
         setCaptchaInfo(result.data.info);
         setCaptchaImage(result.data.image);
@@ -104,7 +103,7 @@ const CAPTCHAInputWithoutRef: React.ForwardRefRenderFunction<
         if (onChange) {
           onChange({
             value: '',
-            info: result.data.info
+            info: result.data.info,
           });
         }
         setCaptchaLoading(false);
@@ -112,7 +111,7 @@ const CAPTCHAInputWithoutRef: React.ForwardRefRenderFunction<
           onFinish();
         }
       })
-      .catch(result => {
+      .catch((result) => {
         result.default();
       });
   };
@@ -129,7 +128,7 @@ const CAPTCHAInputWithoutRef: React.ForwardRefRenderFunction<
     if (onChange) {
       onChange({
         value: e.target.value,
-        info: captchaInfo
+        info: captchaInfo,
       });
     }
   };

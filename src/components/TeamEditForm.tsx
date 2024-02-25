@@ -27,11 +27,11 @@ export const TeamEditForm: FC<TeamEditFormProps> = ({ className }) => {
   const [form] = AntdForm.useForm();
   const dispatch = useDispatch();
   const currentTeam = useSelector(
-    (state: AppState) => state.team.currentTeam
+    (state: AppState) => state.team.currentTeam,
   ) as UserTeam;
   const [submitting, setSubmitting] = useState(false);
   const [isAllowApply, setIsAllowApply] = useState(
-    currentTeam.allowApplyType !== GROUP_ALLOW_APPLY_TYPE.NONE
+    currentTeam.allowApplyType !== GROUP_ALLOW_APPLY_TYPE.NONE,
   );
 
   // id 改变时，获取初始值
@@ -77,7 +77,7 @@ export const TeamEditForm: FC<TeamEditFormProps> = ({ className }) => {
           // 关闭加入时，隐藏加入选项
           if (values.allowApplyType) {
             setIsAllowApply(
-              values.allowApplyType !== GROUP_ALLOW_APPLY_TYPE.NONE
+              values.allowApplyType !== GROUP_ALLOW_APPLY_TYPE.NONE,
             );
           }
         }}

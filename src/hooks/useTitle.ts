@@ -17,7 +17,7 @@ interface UseTitle {
  */
 export const useTitle: UseTitle = (
   { prefix = '', suffix = '', hyphen = ' · ' }: UseTitleParams = {},
-  deps = []
+  deps = [],
 ) => {
   const { formatMessage } = useIntl();
   if (prefix !== '') prefix = prefix + hyphen;

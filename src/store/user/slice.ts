@@ -53,7 +53,7 @@ const slice = createSlice({
           rememberMe?: boolean;
           refresh?: boolean;
         }
-      >
+      >,
     ) {
       state.token = action.payload.token;
       // 之后会触发 saga 获取用户详情

@@ -72,7 +72,7 @@ export const ImageSourceViewer: FC<ImageSourceViewerProps> = ({
               )}
               {mode === 'proofreader' && (
                 <ImageSourceViewerProofreader
-                file={file}
+                  file={file}
                   sources={sources}
                   targetID={targetID}
                 />

@@ -114,5 +114,5 @@ library.add(
     faPaste,
   ],
   // Regular icons
-  ...[faKissWinkHeartRegular]
+  ...[faKissWinkHeartRegular],
 );

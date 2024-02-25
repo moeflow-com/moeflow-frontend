@@ -38,35 +38,32 @@ export const EmailVCodeInputItem: FC<EmailVCodeInputItemProps> = (
     inputProps = {},
     className,
     ...itemProps
-  } = {} as EmailVCodeInputItemProps
+  } = {} as EmailVCodeInputItemProps,
 ) => {
   const { formatMessage } = useIntl(); // i18n
   // 邮箱输入框
   const [email, setEmail] = useState(defaultEmail);
   const [emailHelp, setEmailHelp] = useState<string | string[]>();
-  const [
-    emailValidateStatus,
-    setEmailValidateStatus,
-  ] = useState<ValidateStatus>();
+  const [emailValidateStatus, setEmailValidateStatus] =
+    useState<ValidateStatus>();
   const emailInputRef = useRef<Input>(null);
   const defaultEmailSubmitText = formatMessage({
     id: 'auth.getEmailVCode',
   });
   const [emailSubmitText, setEmailSubmitText] = useState(
-    defaultEmailSubmitText
+    defaultEmailSubmitText,
   );
   const [emailSubmitWaiting, setEmailSubmitWaiting] = useState(false);
   const emailSubmitWaitingRef = useRef(false);
   // 验证码输入框
   const [captchaInputVisible, setCAPTCHAInputVisible] = useState(false);
-  const [captchaInputButtonLoading, setCAPTCHAInputButtonLoading] = useState(
-    false
-  );
+  const [captchaInputButtonLoading, setCAPTCHAInputButtonLoading] =
+    useState(false);
   const defaultCAPTCHASubmitText = formatMessage({
     id: 'auth.getEmailVCode',
   });
   const [captchaSubmitText, setCAPTCHASubmitText] = useState(
-    defaultCAPTCHASubmitText
+    defaultCAPTCHASubmitText,
   );
   const [captchaValue, setCAPTCHAValue] = useState('');
   const [captchaInfo, setCAPTCHAInfo] = useState('');
@@ -98,7 +95,7 @@ export const EmailVCodeInputItem: FC<EmailVCodeInputItemProps> = (
 
   /** 处理在邮件 Input 按下回车 */
   const handleEmailInputPressEnter: (
-    event: React.KeyboardEvent<HTMLInputElement>
+    event: React.KeyboardEvent<HTMLInputElement>,
   ) => void = (e) => {
     e.preventDefault();
     submit();
@@ -130,7 +127,7 @@ export const EmailVCodeInputItem: FC<EmailVCodeInputItemProps> = (
    */
   /** 处理人机验证码 Input 的改变 */
   const handleCAPTCHAChange: (captcha: CAPTCHAInputValue) => void = (
-    captcha
+    captcha,
   ) => {
     if (!holdCAPTCHAHelpOnNextChangeRef.current) {
       // 清理提示
@@ -216,7 +213,7 @@ export const EmailVCodeInputItem: FC<EmailVCodeInputItemProps> = (
             setEmailError(formatMessage({ id: 'form.needWait' }));
             // 设置提交按钮文本
             startWaiting(
-              ((result.data.message as unknown) as { wait: number }).wait
+              (result.data.message as unknown as { wait: number }).wait,
             );
             // 调用已发送回调
             if (onSend) {
@@ -248,8 +245,8 @@ export const EmailVCodeInputItem: FC<EmailVCodeInputItemProps> = (
         { id: 'auth.getEmailVCodeWait' },
         {
           seconds,
-        }
-      )
+        },
+      ),
     );
     countdownWaiting(seconds);
   };
@@ -271,7 +268,7 @@ export const EmailVCodeInputItem: FC<EmailVCodeInputItemProps> = (
       seconds -= 1;
       if (seconds > 0) {
         setEmailSubmitText(
-          formatMessage({ id: 'auth.getEmailVCodeWait' }, { seconds: seconds })
+          formatMessage({ id: 'auth.getEmailVCodeWait' }, { seconds: seconds }),
         );
         countdownWaiting(seconds);
       } else {

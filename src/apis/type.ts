@@ -20,19 +20,19 @@ interface GetSystemRolesData {
 }
 /** 获取系统角色 */
 const getTypes = (
-  { typeName, groupType, params, configs } = {} as GetSystemRolesData
+  { typeName, groupType, params, configs } = {} as GetSystemRolesData,
 ) => {
   return request({
     method: 'GET',
     url: `/v1/types/${toHyphenCase(typeName)}`,
     params: {
       group_type: groupType,
-      ...toUnderScoreCase(params)
+      ...toUnderScoreCase(params),
     },
-    ...configs
+    ...configs,
   });
 };
 
 export default {
-  getTypes
+  getTypes,
 };

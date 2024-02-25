@@ -34,7 +34,7 @@ const ImageTranslator: FC = () => {
   const sources = useSelector((state: AppState) => state.source.sources);
   const sourcesLoading = useSelector((state: AppState) => state.source.loading);
   const focusedSourceID = useSelector(
-    (state: AppState) => state.source.focusedSource.id
+    (state: AppState) => state.source.focusedSource.id,
   );
   const platform = useSelector((state: AppState) => state.site.platform);
   const isMobile = platform === 'mobile';
@@ -45,7 +45,7 @@ const ImageTranslator: FC = () => {
   const sourceListHeightMobile = 200;
   const [settingModalVisible, setSettingModalVisible] = useState(false);
   const currentProject = useSelector(
-    (state: AppState) => state.project.currentProject
+    (state: AppState) => state.project.currentProject,
   );
 
   useTitle({ prefix: file?.name }, [file?.name]); // 设置标题
@@ -57,7 +57,7 @@ const ImageTranslator: FC = () => {
     let nextFocusedSourceIndex = 0;
     if (focusedSourceID) {
       const focusedSourceIndex = sources.findIndex(
-        (source) => source.id === focusedSourceID
+        (source) => source.id === focusedSourceID,
       );
       if (focusedSourceIndex + 1 >= sources.length) {
         nextFocusedSourceIndex = 0;
@@ -71,7 +71,7 @@ const ImageTranslator: FC = () => {
         id: nextFocusedSourceID,
         effects: ['focusInput', 'focusLabel', 'scrollIntoView'],
         noises: ['focusInput', 'focusLabel'],
-      })
+      }),
     );
   };
 
@@ -82,7 +82,7 @@ const ImageTranslator: FC = () => {
     let prevFocusedSourceIndex = sources.length - 1;
     if (focusedSourceID) {
       const focusedSourceIndex = sources.findIndex(
-        (source) => source.id === focusedSourceID
+        (source) => source.id === focusedSourceID,
       );
       if (focusedSourceIndex - 1 < 0) {
         prevFocusedSourceIndex = sources.length - 1;
@@ -96,7 +96,7 @@ const ImageTranslator: FC = () => {
         id: prevFocusedSourceID,
         effects: ['focusInput', 'focusLabel', 'scrollIntoView'],
         noises: ['focusInput', 'focusLabel'],
-      })
+      }),
     );
   };
 
@@ -107,12 +107,12 @@ const ImageTranslator: FC = () => {
       ignoreKeyboardElement: false,
     },
     () => {},
-    [file?.id]
+    [file?.id],
   );
 
   // 快捷键 - 下一个输入框
   const focusNextSourceHotKeyOptions = useSelector(
-    (state: AppState) => state.hotKey.focusNextSource
+    (state: AppState) => state.hotKey.focusNextSource,
   );
   useHotKey(
     {
@@ -120,7 +120,7 @@ const ImageTranslator: FC = () => {
       ...focusNextSourceHotKeyOptions[0],
     },
     focusNextSource,
-    [focusedSourceID, sources.length]
+    [focusedSourceID, sources.length],
   );
   useHotKey(
     {
@@ -128,12 +128,12 @@ const ImageTranslator: FC = () => {
       ...focusNextSourceHotKeyOptions[1],
     },
     focusNextSource,
-    [focusedSourceID, sources.length]
+    [focusedSourceID, sources.length],
   );
 
   // 快捷键 - 上一个输入框
   const focusPrevSourceHotKeyOptions = useSelector(
-    (state: AppState) => state.hotKey.focusPrevSource
+    (state: AppState) => state.hotKey.focusPrevSource,
   );
   useHotKey(
     {
@@ -141,7 +141,7 @@ const ImageTranslator: FC = () => {
       ...focusPrevSourceHotKeyOptions[0],
     },
     focusPrevSource,
-    [focusedSourceID, sources.length]
+    [focusedSourceID, sources.length],
   );
   useHotKey(
     {
@@ -149,7 +149,7 @@ const ImageTranslator: FC = () => {
       ...focusPrevSourceHotKeyOptions[1],
     },
     focusPrevSource,
-    [focusedSourceID, sources.length]
+    [focusedSourceID, sources.length],
   );
 
   // 页面尺寸

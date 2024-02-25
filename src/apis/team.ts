@@ -132,5 +132,5 @@ export default {
   getTeam,
   createTeam,
   editTeam,
-  deleteTeam
+  deleteTeam,
 };

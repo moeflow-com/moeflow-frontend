@@ -5,18 +5,18 @@ import { SourceTranslationState } from '../interfaces';
 import { Translation } from '../interfaces/translation';
 
 export const isValidTranslation = (
-  translation: Translation | undefined
+  translation: Translation | undefined,
 ): boolean => {
   if (!translation) {
     return false;
   }
   return Boolean(
-    translation.content || translation.proofreadContent || translation.selected
+    translation.content || translation.proofreadContent || translation.selected,
   );
 };
 
 export const filterValidTranslations = (
-  translations: (Translation | undefined)[]
+  translations: (Translation | undefined)[],
 ): Translation[] => {
   return translations.filter(isValidTranslation) as Translation[];
 };
@@ -35,7 +35,7 @@ export const getSortedTranslations = (source: APISource): APITranslation[] => {
   });
   // 将已选中的翻译放在第一个
   const selectedTranslationIndex = translations.findIndex(
-    (translation) => translation.selected
+    (translation) => translation.selected,
   );
   const hasSelectedTranslation = selectedTranslationIndex > -1;
   if (hasSelectedTranslation) {
@@ -47,13 +47,13 @@ export const getSortedTranslations = (source: APISource): APITranslation[] => {
 };
 
 export const getBestTranslation = (
-  source: APISource
+  source: APISource,
 ): APITranslation | undefined => {
   return getSortedTranslations(source)[0];
 };
 
 export const checkTranslationState = (
-  source: APISource
+  source: APISource,
 ): SourceTranslationState => {
   const translations = [...source.translations];
   if (source.myTranslation) {

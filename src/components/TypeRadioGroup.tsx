@@ -53,9 +53,9 @@ export const TypeRadioGroup: FC<TypeRadioGroupProps> = ({
       if (useDefaultType && types) {
         const defaultType = types.find((x) => {
           if (typeName === 'systemRole') {
-            return x.system_code === getDefaultID()
+            return x.system_code === getDefaultID();
           } else {
-            return x.id === getDefaultID()
+            return x.id === getDefaultID();
           }
         });
         if (defaultType) changeType(defaultType);
@@ -68,7 +68,7 @@ export const TypeRadioGroup: FC<TypeRadioGroupProps> = ({
   /** 处理改变 */
   const handelChange = (e: RadioChangeEvent) => {
     const type = (types as TypeData[]).find(
-      (x) => x.id === e.target.value
+      (x) => x.id === e.target.value,
     ) as TypeData;
     changeType(type);
   };

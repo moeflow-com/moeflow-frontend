@@ -44,10 +44,10 @@ export const DashboardMenu: FC<
   const userName = useSelector((state: AppState) => state.user.name);
   const platform = useSelector((state: AppState) => state.site.platform);
   const newInvitationsCount = useSelector(
-    (state: AppState) => state.site.newInvitationsCount
+    (state: AppState) => state.site.newInvitationsCount,
   );
   const relatedApplicationsCount = useSelector(
-    (state: AppState) => state.site.relatedApplicationsCount
+    (state: AppState) => state.site.relatedApplicationsCount,
   );
   const isMobile = platform === 'mobile';
   const dispatch = useDispatch();
@@ -158,7 +158,9 @@ export const DashboardMenu: FC<
         flex-direction: column;
         height: 100%;
         width: ${collapsed ? `${collapsedWidth}px` : `${uncollapsedWidth}px`};
-        transition: width 150ms, padding-right 150ms;
+        transition:
+          width 150ms,
+          padding-right 150ms;
         ${isMobile &&
         // 手机版适配
         css`

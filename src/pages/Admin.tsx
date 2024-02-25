@@ -45,7 +45,11 @@ const Admin: FC<AdminProps> = () => {
           onCollapse={(value) => setCollapsed(value)}
         >
           <div className="logo" />
-          <Menu theme="dark" defaultSelectedKeys={[defaultSelectedKey]} mode="inline">
+          <Menu
+            theme="dark"
+            defaultSelectedKeys={[defaultSelectedKey]}
+            mode="inline"
+          >
             <Menu.Item
               key="dashboard"
               onClick={() => {

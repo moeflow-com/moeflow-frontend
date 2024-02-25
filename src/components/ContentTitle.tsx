@@ -11,7 +11,10 @@ interface ContentTitleProps {
 /**
  * 一般内容标题
  */
-export const ContentTitle: FC<ContentTitleProps> = ({ children, className }) => {
+export const ContentTitle: FC<ContentTitleProps> = ({
+  children,
+  className,
+}) => {
   return (
     <div
       className={classNames(['ContentTitle', className])}

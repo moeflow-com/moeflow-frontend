@@ -133,7 +133,7 @@ export const TranslationProgress: FC<TranslationProgressProps> = ({
                     {
                       'TranslationProgress__TextItem--unfinished':
                         translatedSourceCount < sourceCount,
-                    }
+                    },
                   )}
                 >
                   <Icon
@@ -156,7 +156,7 @@ export const TranslationProgress: FC<TranslationProgressProps> = ({
                     {
                       'TranslationProgress__TextItem--unfinished':
                         checkedSourceCount < sourceCount,
-                    }
+                    },
                   )}
                 >
                   <Icon

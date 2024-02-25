@@ -36,16 +36,16 @@ export const TranslationList: FC<TranslationListProps> = ({
   const proofreadEditable = true;
   const textAreasRef = useRef<TextAreaRef>(null);
   const currentProject = useSelector(
-    (state: AppState) => state.project.currentProject
+    (state: AppState) => state.project.currentProject,
   );
   const focusedSourceID = useSelector(
-    (state: AppState) => state.source.focusedSource.id
+    (state: AppState) => state.source.focusedSource.id,
   );
   const focusedSourceEffects = useSelector(
-    (state: AppState) => state.source.focusedSource.effects
+    (state: AppState) => state.source.focusedSource.effects,
   );
   const focusedSourceNoiseFocusInput = useSelector(
-    (state: AppState) => state.source.focusedSource.noises.focusInput
+    (state: AppState) => state.source.focusedSource.noises.focusInput,
   );
   const otherValidTranslations = filterValidTranslations(otherTranslations);
 

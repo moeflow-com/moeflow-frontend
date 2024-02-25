@@ -10,7 +10,7 @@ const getCAPTCHA = ({ configs }: { configs?: AxiosRequestConfig } = {}) => {
   return request({
     method: 'POST',
     url: `/v1/captchas`,
-    ...configs
+    ...configs,
   });
 };
 
@@ -23,7 +23,7 @@ interface GetConfirmEmailVCodeData {
 /** 获取验证邮件 */
 const getConfirmEmailVCode = ({
   data,
-  configs
+  configs,
 }: {
   data: GetConfirmEmailVCodeData;
   configs?: AxiosRequestConfig;
@@ -32,7 +32,7 @@ const getConfirmEmailVCode = ({
     method: 'POST',
     url: `/v1/confirm-email-codes`,
     data: toUnderScoreCase(data),
-    ...configs
+    ...configs,
   });
 };
 
@@ -45,7 +45,7 @@ interface GetResetPasswordVCodeData {
 /** 获取验证邮件 */
 const getResetPasswordVCode = ({
   data,
-  configs
+  configs,
 }: {
   data: GetResetPasswordVCodeData;
   configs?: AxiosRequestConfig;
@@ -54,20 +54,20 @@ const getResetPasswordVCode = ({
     method: 'POST',
     url: `/v1/reset-password-codes`,
     data: toUnderScoreCase(data),
-    ...configs
+    ...configs,
   });
 };
 
 /** 获取验证邮件 */
 const getResetEmailVCode = ({
-  configs
+  configs,
 }: {
   configs?: AxiosRequestConfig;
 } = {}) => {
   return request({
     method: 'POST',
     url: `/v1/reset-email-codes`,
-    ...configs
+    ...configs,
   });
 };
 
@@ -81,7 +81,7 @@ interface RegisterData {
 /** 注册 */
 const register = ({
   data,
-  configs
+  configs,
 }: {
   data: RegisterData;
   configs?: AxiosRequestConfig;
@@ -90,7 +90,7 @@ const register = ({
     method: 'POST',
     url: `/v1/users`,
     data: toUnderScoreCase(data),
-    ...configs
+    ...configs,
   });
 };
 
@@ -103,7 +103,7 @@ interface ResetPasswordData {
 /** 获取验证邮件 */
 const resetPassword = ({
   data,
-  configs
+  configs,
 }: {
   data: ResetPasswordData;
   configs?: AxiosRequestConfig;
@@ -112,7 +112,7 @@ const resetPassword = ({
     method: 'DELETE',
     url: `/v1/user/password`,
     data: toUnderScoreCase(data),
-    ...configs
+    ...configs,
   });
 };
 
@@ -126,7 +126,7 @@ interface LoginData {
 /** 获取验证邮件 */
 const login = ({
   data,
-  configs
+  configs,
 }: {
   data: LoginData;
   configs?: AxiosRequestConfig;
@@ -135,7 +135,7 @@ const login = ({
     method: 'POST',
     url: `/v1/user/token`,
     data: toUnderScoreCase(data),
-    ...configs
+    ...configs,
   });
 };
 
@@ -146,7 +146,7 @@ interface GetUserInfoData {
 /** 获取用户信息 */
 const getUserInfo = ({
   data,
-  configs
+  configs,
 }: {
   data?: GetUserInfoData;
   configs?: AxiosRequestConfig;
@@ -154,7 +154,7 @@ const getUserInfo = ({
   return request({
     method: 'GET',
     url: `/v1/user/info`,
-    ...configs
+    ...configs,
   });
 };
 
@@ -166,5 +166,5 @@ export default {
   resetPassword,
   register,
   login,
-  getUserInfo
+  getUserInfo,
 };

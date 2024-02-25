@@ -37,7 +37,7 @@ export const ImageSelect: FC<ImageSelectProps> = ({
   const [total, setTotal] = useState(0);
   const [index, setIndex] = useState('?');
   const currentProject = useSelector(
-    (state: AppState) => state.project.currentProject
+    (state: AppState) => state.project.currentProject,
   );
   const platform = useSelector((state: AppState) => state.site.platform);
   const isMobile = platform === 'mobile';
@@ -110,7 +110,7 @@ export const ImageSelect: FC<ImageSelectProps> = ({
             `,
             css`
               color: ${style.widgetButtonActiveColor};
-            `
+            `,
           )};
         }
         .ImageSelect__MenuWrapper {
@@ -151,7 +151,7 @@ export const ImageSelect: FC<ImageSelectProps> = ({
             `,
             css`
               color: ${style.widgetButtonActiveColor};
-            `
+            `,
           )};
         }
         .ImageSelect__MenuItem--active {
@@ -170,7 +170,7 @@ export const ImageSelect: FC<ImageSelectProps> = ({
             `,
             css`
               color: ${style.widgetButtonActiveColor};
-            `
+            `,
           )};
         }
       `}

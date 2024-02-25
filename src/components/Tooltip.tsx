@@ -21,7 +21,7 @@ interface TooltipPropsWithOverlay extends AntdTooltipPropsWithOverlay {
 }
 export type TooltipProps = TooltipPropsWithTitle | TooltipPropsWithOverlay;
 export const Tooltip: FC<TooltipProps> = (
-  { disabled, children, ...args } = {} as TooltipProps
+  { disabled, children, ...args } = {} as TooltipProps,
 ) => {
   const platform = useSelector((state: AppState) => state.site.platform);
   const isMobile = platform === 'mobile';

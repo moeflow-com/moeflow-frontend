@@ -43,7 +43,7 @@ const antdValidateMessages = getAntdValidateMessages(locale);
 // 时间插件
 dayjs.extend(localizedFormat);
 dayjs.extend(relativeTime);
-dayjs.extend(utc)
+dayjs.extend(utc);
 dayjs.locale(locale.toLowerCase());
 // 用于检测是什么导致 re-render
 // if (process.env.NODE_ENV === 'development') {
@@ -91,5 +91,5 @@ ReactDOM.render(
       </ConfigProvider>
     </IntlProvider>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );

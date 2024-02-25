@@ -35,7 +35,7 @@ export const Source: FC<SourceProps> = ({
   const dispatch = useDispatch();
   const { formatMessage } = useIntl(); // i18n
   const currentProject = useSelector(
-    (state: AppState) => state.project.currentProject
+    (state: AppState) => state.project.currentProject,
   );
 
   let statusLine = checkTranslationState(source);
@@ -47,7 +47,7 @@ export const Source: FC<SourceProps> = ({
         positionType: checked
           ? SOURCE_POSITION_TYPE.IN
           : SOURCE_POSITION_TYPE.OUT,
-      })
+      }),
     );
   };
 
@@ -156,14 +156,14 @@ export const Source: FC<SourceProps> = ({
             id: source.id,
             effects: ['focusLabel'],
             noises: [],
-          })
+          }),
         );
       }}
     >
       <div
         className={classNames(
           'Source__StatusLine',
-          `Source__StatusLine--${statusLine}`
+          `Source__StatusLine--${statusLine}`,
         )}
       ></div>
       <div className="Source__Content">

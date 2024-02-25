@@ -22,22 +22,22 @@ interface ImageTranslatorSettingHotKeyProps {
 /**
  * 快捷键设置
  */
-export const ImageTranslatorSettingHotKey: FC<ImageTranslatorSettingHotKeyProps> = ({
-  className,
-}) => {
+export const ImageTranslatorSettingHotKey: FC<
+  ImageTranslatorSettingHotKeyProps
+> = ({ className }) => {
   const { formatMessage } = useIntl();
   const dispatch = useDispatch();
   const focusNextSourceHotKeyOptions = useSelector(
-    (state: AppState) => state.hotKey.focusNextSource
+    (state: AppState) => state.hotKey.focusNextSource,
   );
   const focusPrevSourceHotKeyOptions = useSelector(
-    (state: AppState) => state.hotKey.focusPrevSource
+    (state: AppState) => state.hotKey.focusPrevSource,
   );
   const goPrevPageHotKeyOptions = useSelector(
-    (state: AppState) => state.hotKey.goPrevPage
+    (state: AppState) => state.hotKey.goPrevPage,
   );
   const goNextPageHotKeyOptions = useSelector(
-    (state: AppState) => state.hotKey.goNextPage
+    (state: AppState) => state.hotKey.goNextPage,
   );
 
   const handleHotKeyChange = ({
@@ -58,7 +58,7 @@ export const ImageTranslatorSettingHotKey: FC<ImageTranslatorSettingHotKeyProps>
         hotKey.meta === false
       ) {
         alert(
-          '请勿设置 Shift + 字母/数字/符号 的快捷键，这样会导致输入框中无法输入此大写字母/符号。'
+          '请勿设置 Shift + 字母/数字/符号 的快捷键，这样会导致输入框中无法输入此大写字母/符号。',
         );
         return;
       }
@@ -74,7 +74,7 @@ export const ImageTranslatorSettingHotKey: FC<ImageTranslatorSettingHotKeyProps>
         hotKey.meta === false
       ) {
         alert(
-          '请勿设置 只含有字母/数字/符号/箭头/空格 等快捷键，这样会导致输入框中无法使用此按键。'
+          '请勿设置 只含有字母/数字/符号/箭头/空格 等快捷键，这样会导致输入框中无法使用此按键。',
         );
         return;
       }

@@ -50,10 +50,10 @@ export const ProjectSettingBase: FC<ProjectSettingBaseProps> = ({
   const [adminJoining, setAdminJoining] = useState(false);
   const currentTeam = useSelector((state: AppState) => state.team.currentTeam);
   const currentProjectSet = useSelector(
-    (state: AppState) => state.projectSet.currentProjectSet
+    (state: AppState) => state.projectSet.currentProjectSet,
   );
   const currentProject = useSelector(
-    (state: AppState) => state.project.currentProject
+    (state: AppState) => state.project.currentProject,
   ) as Project;
   const userID = useSelector((state: AppState) => state.user.id);
   const [permissionsVisible, setPermissionsVisible] = useState(false);
@@ -104,7 +104,7 @@ export const ProjectSettingBase: FC<ProjectSettingBaseProps> = ({
                 !can(currentTeam, TEAM_PERMISSION.AUTO_BECOME_PROJECT_ADMIN)
               ) {
                 history.replace(
-                  `/dashboard/teams/${currentTeam.id}/project-sets/${currentProjectSet.id}`
+                  `/dashboard/teams/${currentTeam.id}/project-sets/${currentProjectSet.id}`,
                 );
               } else {
                 dispatch(setCurrentProject(data.group));
@@ -131,7 +131,7 @@ export const ProjectSettingBase: FC<ProjectSettingBaseProps> = ({
       title: <div>{formatMessage({ id: 'project.finishTipTitle' })}</div>,
       content: formatMessage(
         { id: 'project.finishTip' },
-        { project: currentProject.name }
+        { project: currentProject.name },
       ),
       okText: formatMessage({ id: 'project.finish' }),
       cancelText: formatMessage({ id: 'form.cancel' }),
@@ -186,7 +186,7 @@ export const ProjectSettingBase: FC<ProjectSettingBaseProps> = ({
         <ContentItem>
           {formatMessage(
             { id: 'site.myRoleIs' },
-            { role: currentProject.role.name }
+            { role: currentProject.role.name },
           )}
           {currentProject.autoBecomeProjectAdmin &&
             formatMessage({ id: 'project.autoBecomeProjectAdmin' })}

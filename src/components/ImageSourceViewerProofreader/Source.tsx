@@ -33,13 +33,13 @@ const SourceWithoutRef: React.ForwardRefRenderFunction<
   const dispatch = useDispatch();
   const currentUser = useSelector((state: AppState) => state.user);
   const focusedSourceID = useSelector(
-    (state: AppState) => state.source.focusedSource.id
+    (state: AppState) => state.source.focusedSource.id,
   );
   const focusedTranslationID = useSelector(
-    (state: AppState) => state.translation.focusedTranslation.id
+    (state: AppState) => state.translation.focusedTranslation.id,
   );
   const batchSelecting = useSelector(
-    (state: AppState) => state.source.batchSelecting
+    (state: AppState) => state.source.batchSelecting,
   );
   const translations = getSortedTranslations(source);
   const hasSelectedTranslation =
@@ -49,20 +49,20 @@ const SourceWithoutRef: React.ForwardRefRenderFunction<
     if (
       focusedSourceID === source.id &&
       !translations.find(
-        (translation) => translation.id === focusedTranslationID
+        (translation) => translation.id === focusedTranslationID,
       )
     ) {
       if (translations.length > 0) {
         dispatch(
           focusTranslation({
             id: translations[0].id,
-          })
+          }),
         );
       } else {
         dispatch(
           focusTranslation({
             id: '',
-          })
+          }),
         );
       }
     }
@@ -74,7 +74,7 @@ const SourceWithoutRef: React.ForwardRefRenderFunction<
         id: source.id,
         effects: ['focusLabel', 'focusInput'],
         noises: ['focusInput'],
-      })
+      }),
     );
   };
 
@@ -83,7 +83,7 @@ const SourceWithoutRef: React.ForwardRefRenderFunction<
     dispatch(
       focusTranslation({
         id: translation.id,
-      })
+      }),
     );
   };
 
@@ -94,7 +94,7 @@ const SourceWithoutRef: React.ForwardRefRenderFunction<
         sourceID: source.id,
         translationID: translation.id,
         selected: !translation.selected,
-      })
+      }),
     );
   };
 
@@ -297,7 +297,7 @@ const SourceWithoutRef: React.ForwardRefRenderFunction<
                     'ImageSourceViewerProofreaderSource__Translation--focus':
                       source.id === focusedSourceID &&
                       translation.id === focusedTranslationID,
-                  }
+                  },
                 )}
               >
                 <div
@@ -363,7 +363,7 @@ const SourceWithoutRef: React.ForwardRefRenderFunction<
               {
                 'ImageSourceViewerProofreaderSource__Translation--focus':
                   source.id === focusedSourceID,
-              }
+              },
             )}
           >
             <div

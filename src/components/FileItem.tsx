@@ -66,7 +66,9 @@ export const FileItem: FC<FileItemProps> = ({
         height: ${height}px;
         border-radius: ${style.borderRadiusBase};
         overflow: hidden;
-        transition: box-shadow 100ms, border-color 100ms;
+        transition:
+          box-shadow 100ms,
+          border-color 100ms;
         border: 1px solid ${style.borderColorLight};
         .FileItem__ImageOCRProgressWrapper {
           display: none;
@@ -125,7 +127,7 @@ export const FileItem: FC<FileItemProps> = ({
             `,
             css`
               background-color: rgba(0, 0, 0, 0.4);
-            `
+            `,
           )};
         }
         .FileItem__Select {
@@ -148,7 +150,7 @@ export const FileItem: FC<FileItemProps> = ({
             `,
             css`
               background-color: rgba(0, 0, 0, 0.4);
-            `
+            `,
           )};
         }
         .FileItem__DeleteButtonIcon {
@@ -180,7 +182,7 @@ export const FileItem: FC<FileItemProps> = ({
               transform: scale(1.08);
               transition: transform 100ms;
             }
-          `
+          `,
         )};
       `}
       onClick={onClick}

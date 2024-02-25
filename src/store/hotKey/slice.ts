@@ -74,7 +74,7 @@ const slice = createSlice({
         name: keyof HotKeyState;
         index: number;
         option?: HotKeyOption;
-      }>
+      }>,
     ) {
       const { name, index, option } = action.payload;
       state[name][index] = option;

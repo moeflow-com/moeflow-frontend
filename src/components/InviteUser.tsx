@@ -207,7 +207,7 @@ export const InviteUser: FC<InviteUserProps> = ({
               >
                 {formatMessage(
                   { id: 'invitation.inviteAsRole' },
-                  { role: type.name }
+                  { role: type.name },
                 )}
               </Option>
             );
@@ -275,7 +275,7 @@ export const InviteUser: FC<InviteUserProps> = ({
             <EmptyTip
               text={formatMessage(
                 { id: 'invitation.emptySearchTip' },
-                { word }
+                { word },
               )}
             />
           );

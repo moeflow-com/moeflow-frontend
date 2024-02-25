@@ -1,6 +1,6 @@
 import { css } from '@emotion/core';
 import Bowser from 'bowser';
-import {size, has, debounce, throttle} from 'lodash-es';
+import { size, has, debounce, throttle } from 'lodash-es';
 import React, {
   forwardRef,
   ReactElement,
@@ -230,16 +230,14 @@ export interface Zoom {
           moveX?: number;
           moveY?: number;
         }
-      | ((
-          prevState: MovableItemState
-        ) => {
+      | ((prevState: MovableItemState) => {
           scale: number;
           centerX?: number;
           centerY?: number;
           moveX?: number;
           moveY?: number;
         }),
-    options?: ZoomOptions
+    options?: ZoomOptions,
   ): void;
 }
 /**用于更新自身尺寸的函数 */
@@ -309,7 +307,7 @@ export interface OnMoveEnd {
   (
     params: MovableItemState & {
       reset: () => void;
-    }
+    },
   ): void;
 }
 export interface OnZoomStart {
@@ -462,7 +460,7 @@ const MovableItemWithoutRef: React.ForwardRefRenderFunction<
     children,
     ...otherProps
   },
-  ref
+  ref,
 ) => {
   // 当前的位置/缩放状态 {x, y, scale}
   const defaultState: MovableItemState = {
@@ -982,7 +980,7 @@ const MovableItemWithoutRef: React.ForwardRefRenderFunction<
               pointersRef.current[pointerId].clientY -
               startMoveInfoRef.current.clientY;
             const distance = Math.sqrt(
-              Math.pow(distanceX, 2) + Math.pow(distanceY, 2)
+              Math.pow(distanceX, 2) + Math.pow(distanceY, 2),
             );
             // 长按位置
             let longPressX =
@@ -1069,13 +1067,8 @@ const MovableItemWithoutRef: React.ForwardRefRenderFunction<
     } else if (allowZoom && size(pointersRef.current) === 2) {
       // 2个光标移动，缩放
       // 计算开始时双指距离 和 X、Y 轴上分别的距离用来计算 tan(x)
-      const {
-        distance,
-        distanceX,
-        distanceY,
-        centerClientX,
-        centerClientY,
-      } = getTwoPointersInfo();
+      const { distance, distanceX, distanceY, centerClientX, centerClientY } =
+        getTwoPointersInfo();
       // 移动了的距离
       const distanceDelta = distance - startZoomInfoRef.current.distance;
       // 缩放倍数
@@ -1093,28 +1086,28 @@ const MovableItemWithoutRef: React.ForwardRefRenderFunction<
           // 未缩放的斜边
           const partWidth = getSize().height / distanceTan; // 直角三角形在矩形底边的宽度
           hypotenuse = Math.sqrt(
-            Math.pow(partWidth, 2) + Math.pow(getSize().height, 2)
+            Math.pow(partWidth, 2) + Math.pow(getSize().height, 2),
           );
           // 缩放后的斜边
           const zoomedPartWidth =
             (getSize().height * startStateRef.current.scale) / distanceTan; // 直角三角形在矩形底边的宽度
           zoomedHypotenuse = Math.sqrt(
             Math.pow(zoomedPartWidth, 2) +
-              Math.pow(getSize().height * startStateRef.current.scale, 2)
+              Math.pow(getSize().height * startStateRef.current.scale, 2),
           );
         } else {
           // 两个手指连线的角度比图片对角线的小，三角形宽度等于矩形宽度，用 宽度*tan(x) 计算
           // 未缩放的斜边
           const partHeight = getSize().width * distanceTan; // 直角三角形在矩形底边的高度
           hypotenuse = Math.sqrt(
-            Math.pow(partHeight, 2) + Math.pow(getSize().width, 2)
+            Math.pow(partHeight, 2) + Math.pow(getSize().width, 2),
           );
           // 缩放后的斜边
           const zoomedPartHeight =
             getSize().width * startStateRef.current.scale * distanceTan; // 直角三角形在矩形底边的高度
           zoomedHypotenuse = Math.sqrt(
             Math.pow(zoomedPartHeight, 2) +
-              Math.pow(getSize().width * startStateRef.current.scale, 2)
+              Math.pow(getSize().width * startStateRef.current.scale, 2),
           );
         }
       }
@@ -1182,7 +1175,7 @@ const MovableItemWithoutRef: React.ForwardRefRenderFunction<
       const distanceX = clientX - startMoveInfoRef.current.clientX;
       const distanceY = clientY - startMoveInfoRef.current.clientY;
       const distance = Math.sqrt(
-        Math.pow(distanceX, 2) + Math.pow(distanceY, 2)
+        Math.pow(distanceX, 2) + Math.pow(distanceY, 2),
       );
       // 抬起后就没了，移动结束
       movingRef.current = false;

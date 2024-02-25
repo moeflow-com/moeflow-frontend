@@ -39,7 +39,7 @@ export const TeamCreateForm: FC<TeamCreateFormProps> = ({ className }) => {
           createTeam({
             team: toLowerCamelCase<UserTeam>(result.data.team),
             unshift: true,
-          })
+          }),
         );
         dispatch(resetProjectSetsState());
         // 跳转到团队
@@ -72,7 +72,7 @@ export const TeamCreateForm: FC<TeamCreateFormProps> = ({ className }) => {
           // 关闭加入时，隐藏加入选项
           if (values.allowApplyType) {
             setIsAllowApply(
-              values.allowApplyType !== GROUP_ALLOW_APPLY_TYPE.NONE
+              values.allowApplyType !== GROUP_ALLOW_APPLY_TYPE.NONE,
             );
           }
         }}

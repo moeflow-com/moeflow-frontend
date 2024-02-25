@@ -87,14 +87,14 @@ export const AvatarUpload: FC<AvatarUploadProps> = ({
                     setUserInfo({
                       avatar: info.file.response.avatar,
                       hasAvatar: true,
-                    })
+                    }),
                   );
                 } else if (type === 'team') {
                   dispatch(
                     setCurrentTeamInfo({
                       avatar: info.file.response.avatar,
                       hasAvatar: true,
-                    })
+                    }),
                   );
                 }
               }

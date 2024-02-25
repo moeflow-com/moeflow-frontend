@@ -13,7 +13,11 @@ interface DashboardBoxProps {
 /**
  * 带有导航栏的布局
  */
-export const DashboardBox: FC<DashboardBoxProps> = ({ nav, content, className }) => {
+export const DashboardBox: FC<DashboardBoxProps> = ({
+  nav,
+  content,
+  className,
+}) => {
   return (
     <div
       className={className}

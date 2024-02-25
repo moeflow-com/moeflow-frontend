@@ -100,7 +100,7 @@ const JoinGroup: FC<JoinGroupProps> = ({ className }) => {
           if (data.group && data.group.role) {
             // 加入成功
             dispatch(
-              createTeam({ team: data.group as UserTeam, unshift: true })
+              createTeam({ team: data.group as UserTeam, unshift: true }),
             );
             // 跳转到团队
             history.replace(`/dashboard/teams/${data.group.id}`);
@@ -181,7 +181,7 @@ const JoinGroup: FC<JoinGroupProps> = ({ className }) => {
         <EmptyTip
           text={formatMessage(
             { id: 'group.joined' },
-            { groupName: group?.name }
+            { groupName: group?.name },
           )}
           buttons={
             <Button
@@ -202,7 +202,7 @@ const JoinGroup: FC<JoinGroupProps> = ({ className }) => {
               <div className="JoinGroup__Tip">
                 {formatMessage(
                   { id: 'group.joinTip' },
-                  { groupName: group?.name }
+                  { groupName: group?.name },
                 )}
               </div>
               <Input
@@ -217,7 +217,7 @@ const JoinGroup: FC<JoinGroupProps> = ({ className }) => {
             <div className="JoinGroup__Tip">
               {formatMessage(
                 { id: 'group.joinTipNoNeedCheck' },
-                { groupName: group?.name }
+                { groupName: group?.name },
               )}
             </div>
           )}

@@ -15,13 +15,13 @@ export const hover = (hover: SerializedStyles | string) => {
 interface ClickEffect {
   (
     hover?: SerializedStyles | string,
-    active?: SerializedStyles | string
+    active?: SerializedStyles | string,
   ): SerializedStyles;
 }
 /** 对手机友好的点击效果 */
 export const clickEffect: ClickEffect = (
   hover = `background-color: ${style.hoverColor};`,
-  active = `background-color: ${style.activeColor};`
+  active = `background-color: ${style.activeColor};`,
 ) => {
   return css`
     cursor: pointer;
@@ -66,7 +66,7 @@ export const cardClickEffect = () => {
     css`
       box-shadow: 0px 2px 4px #cecece;
       border: 1px solid #cecece;
-    `
+    `,
   );
 };
 export const cardActiveEffect = () => {

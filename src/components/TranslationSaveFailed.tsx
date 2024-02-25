@@ -36,7 +36,7 @@ export const TranslationSaveFailed: FC<TranslationSaveFailedProps> = ({
 
   // 检查是否有 label 状态保存中
   const labelSaving = sources.some((source) =>
-    labelSavingStatuses.includes(source.labelStatus)
+    labelSavingStatuses.includes(source.labelStatus),
   );
   if (labelSaving) {
     savingStatus = 'saving';
@@ -82,7 +82,7 @@ export const TranslationSaveFailed: FC<TranslationSaveFailedProps> = ({
           translations.push(source.myTranslation);
         }
         const translation = translations.find(
-          (translation) => translation.id === translationID
+          (translation) => translation.id === translationID,
         );
         saveFailedProodreadContents.push({
           sourceID: source.id,

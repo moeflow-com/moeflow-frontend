@@ -48,6 +48,8 @@
     "start": "vite",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
+    "format": "prettier --check src",
+    "format:fix": "prettier --write src",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "typecheck": "tsc --noEmit",

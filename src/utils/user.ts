@@ -6,7 +6,7 @@ import { Project, Team } from '../interfaces';
  */
 export const can = (
   group: Team | Project | undefined,
-  permission: number
+  permission: number,
 ): boolean => {
   if (group && group.role) {
     return group.role.permissions.findIndex((p) => p.id === permission) > -1;

@@ -7,7 +7,7 @@ export type UseHotKey = {
   (
     option: HotKeyOption,
     callback: (event: HotKeyEvent, option: HotKeyOption) => any,
-    deps?: DependencyList
+    deps?: DependencyList,
   ): void;
 };
 export const useHotKey: UseHotKey = (option, callback, deps = []) => {

@@ -46,7 +46,7 @@ const ProjectSet: FC<ProjectSetProps> = () => {
   const { projectSetID } = useParams() as { projectSetID: string };
   const { path, url } = useRouteMatch();
   const currentProjectSet = useSelector(
-    (state: AppState) => state.projectSet.currentProjectSet
+    (state: AppState) => state.projectSet.currentProjectSet,
   );
   const currentTeam = useSelector((state: AppState) => state.team.currentTeam);
 

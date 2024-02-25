@@ -112,7 +112,8 @@ export const Header: FC<HeaderProps> = ({ className }) => {
               filter: brightness(93%);
             }
             &.ant-dropdown-open {
-              box-shadow: 0 1.5px 3px -2px rgba(0, 0, 0, 0.12),
+              box-shadow:
+                0 1.5px 3px -2px rgba(0, 0, 0, 0.12),
                 0 3px 8px 0 rgba(0, 0, 0, 0.08),
                 0 4.5px 14px 4px rgba(0, 0, 0, 0.05);
             }

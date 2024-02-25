@@ -20,7 +20,7 @@ const slice = createSlice({
       state,
       action: PayloadAction<{
         id: string;
-      }>
+      }>,
     ) {
       state.focusedTranslation.id = action.payload.id;
     },

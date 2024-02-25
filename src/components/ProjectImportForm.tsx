@@ -47,10 +47,10 @@ export const ProjectImportForm: FC<ProjectImportFormProps> = ({
   const [importStatuses, setImportStatuses] = useState<string[]>([]);
   const [importFileList, setImportFileList] = useState<RcFile[]>();
   const currentTeam = useSelector(
-    (state: AppState) => state.team.currentTeam
+    (state: AppState) => state.team.currentTeam,
   ) as UserTeam;
   const currentProjectSet = useSelector(
-    (state: AppState) => state.projectSet.currentProjectSet
+    (state: AppState) => state.projectSet.currentProjectSet,
   ) as UserProjectSet;
 
   const handleImport = async () => {
@@ -62,7 +62,7 @@ export const ProjectImportForm: FC<ProjectImportFormProps> = ({
         setImportStatuses(
           produce((draft) => {
             draft[i] = `${file.name}：解压中...`;
-          })
+          }),
         );
         let project, labelplus;
         const zipReader = new zip.ZipReader(new zip.BlobReader(file));
@@ -82,7 +82,7 @@ export const ProjectImportForm: FC<ProjectImportFormProps> = ({
           setImportStatuses(
             produce((draft) => {
               draft[i] = `${file.name}：创建项目...`;
-            })
+            }),
           );
           api
             .importProject({
@@ -105,7 +105,7 @@ export const ProjectImportForm: FC<ProjectImportFormProps> = ({
                   setImportStatuses(
                     produce((draft) => {
                       draft[i] = `${file.name}：上传 "${filename}" 中...`;
-                    })
+                    }),
                   );
                   const image = await writer.getData();
                   await api
@@ -124,13 +124,13 @@ export const ProjectImportForm: FC<ProjectImportFormProps> = ({
               setImportStatuses(
                 produce((draft) => {
                   draft[i] = `${file.name}：项目导入成功！`;
-                })
+                }),
               );
               dispatch(
                 createProject({
                   project: toLowerCamelCase(result.data.project),
                   unshift: true,
-                })
+                }),
               );
               dispatch(resetFilesState());
               dispatch(resetProjectsState());
@@ -142,7 +142,7 @@ export const ProjectImportForm: FC<ProjectImportFormProps> = ({
           setImportStatuses(
             produce((draft) => {
               draft[i] = `${file.name}：格式不正确`;
-            })
+            }),
           );
         }
       }
@@ -182,7 +182,7 @@ export const ProjectImportForm: FC<ProjectImportFormProps> = ({
                 disabled={importing}
                 onChange={(file) => {
                   setImportFileList(
-                    file.fileList.map((file) => file.originFileObj)
+                    file.fileList.map((file) => file.originFileObj),
                   );
                 }}
               >

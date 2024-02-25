@@ -33,7 +33,7 @@ export const ListSearchInput: FC<ListSearchInputProps> = ({
       | React.ChangeEvent<HTMLInputElement>
       | React.MouseEvent<HTMLElement, MouseEvent>
       | React.KeyboardEvent<HTMLInputElement>
-      | undefined
+      | undefined,
   ) => {
     setWord(value);
     if (inputProps.onSearch) {

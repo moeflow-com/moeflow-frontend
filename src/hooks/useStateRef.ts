@@ -13,12 +13,12 @@ import {
  * @param initialValue 初始值
  */
 export function useStateRef<S>(
-  initialState: S | (() => S)
+  initialState: S | (() => S),
 ): [S, Dispatch<SetStateAction<S>>, MutableRefObject<S>];
 export function useStateRef<S = undefined>(): [
   S | undefined,
   Dispatch<SetStateAction<S | undefined>>,
-  MutableRefObject<S>
+  MutableRefObject<S>,
 ];
 export function useStateRef<S>(initialValue?: S) {
   const [state, setState] = useState(initialValue);

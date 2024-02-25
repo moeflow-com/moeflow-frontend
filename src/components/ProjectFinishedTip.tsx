@@ -10,7 +10,9 @@ interface ProjectFinishedTipProps {
 /**
  * 项目完结提示
  */
-export const ProjectFinishedTip: FC<ProjectFinishedTipProps> = ({ className }) => {
+export const ProjectFinishedTip: FC<ProjectFinishedTipProps> = ({
+  className,
+}) => {
   const { formatMessage } = useIntl(); // i18n
 
   return <EmptyTip text={formatMessage({ id: 'project.finishedTip' })} />;
