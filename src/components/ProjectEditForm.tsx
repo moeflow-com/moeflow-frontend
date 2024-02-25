@@ -27,11 +27,11 @@ export const ProjectEditForm: FC<ProjectEditFormProps> = ({ className }) => {
   const [form] = AntdForm.useForm();
   const dispatch = useDispatch();
   const currentProject = useSelector(
-    (state: AppState) => state.project.currentProject
+    (state: AppState) => state.project.currentProject,
   ) as Project;
   const [submitting, setSubmitting] = useState(false);
   const [isAllowApply, setIsAllowApply] = useState(
-    currentProject.allowApplyType !== GROUP_ALLOW_APPLY_TYPE.NONE
+    currentProject.allowApplyType !== GROUP_ALLOW_APPLY_TYPE.NONE,
   );
 
   // id 改变时，获取初始值
@@ -77,7 +77,7 @@ export const ProjectEditForm: FC<ProjectEditFormProps> = ({ className }) => {
           // 关闭加入时，隐藏加入选项
           if (values.allowApplyType) {
             setIsAllowApply(
-              values.allowApplyType !== GROUP_ALLOW_APPLY_TYPE.NONE
+              values.allowApplyType !== GROUP_ALLOW_APPLY_TYPE.NONE,
             );
           }
         }}

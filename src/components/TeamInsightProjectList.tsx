@@ -132,7 +132,7 @@ export const TeamInsightProjectList: FC<TeamInsightProjectListProps> = ({
     setItems(
       produce((draft) => {
         draft[index].usersLoading = true;
-      })
+      }),
     );
     apis
       .getTeamInsightProjectUsers({
@@ -151,7 +151,7 @@ export const TeamInsightProjectList: FC<TeamInsightProjectListProps> = ({
             } else {
               draft[index].users.push(...data);
             }
-          })
+          }),
         );
       });
   };
@@ -294,7 +294,7 @@ export const TeamInsightProjectList: FC<TeamInsightProjectListProps> = ({
                       <span className="TeamInsightProjectList__MoreProjectsTip">
                         {formatMessage(
                           { id: 'insight.moreProject' },
-                          { count: record.count - record.users.length }
+                          { count: record.count - record.users.length },
                         )}
                       </span>
                       <Button
@@ -363,7 +363,7 @@ export const TeamInsightProjectList: FC<TeamInsightProjectListProps> = ({
                         {output.link
                           ? formatMessage({ id: 'output.download' })
                           : output.statusDetails.find(
-                              (d) => d.id === output.status
+                              (d) => d.id === output.status,
                             )?.name}{' '}
                         {output.type === OUTPUT_TYPE.ONLY_TEXT ? 'txt' : 'zip'}
                         {' - '}

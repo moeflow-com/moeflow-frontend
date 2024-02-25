@@ -13,7 +13,7 @@ export const saveDefaultTargetID = ({
 }: DefaultTarget): void => {
   let defaultTargets: DefaultTarget[] = store.get('defaultTargets', []);
   defaultTargets = defaultTargets.filter(
-    (item) => item.projectID !== projectID
+    (item) => item.projectID !== projectID,
   );
   defaultTargets.push({ projectID, targetID });
   store.set('defaultTargets', defaultTargets.slice(-50));
@@ -26,7 +26,7 @@ export const loadDefaultTargetID = ({
 }): string | undefined => {
   const defaultTargets: DefaultTarget[] = store.get('defaultTargets', []);
   const defaultTarget = defaultTargets.find(
-    (item) => item.projectID === projectID
+    (item) => item.projectID === projectID,
   );
   return defaultTarget?.targetID;
 };
@@ -39,7 +39,7 @@ export const clearDefaultTargetID = ({
   const defaultTargets: DefaultTarget[] = store.get('defaultTargets', []);
   store.set(
     'defaultTargets',
-    defaultTargets.filter((item) => item.projectID !== projectID)
+    defaultTargets.filter((item) => item.projectID !== projectID),
   );
 };
 
@@ -56,7 +56,7 @@ export const saveHotKey = ({
 }): void => {
   const options: HotKeyStroage[] = store.get(
     `${hotKeyStoragePrefix}${name}`,
-    []
+    [],
   );
   options[index] = option ? option : 'disibled';
   store.set(`${hotKeyStoragePrefix}${name}`, options);
@@ -71,7 +71,7 @@ export const loadHotKey = ({
 }): HotKeyStroage => {
   const options: HotKeyStroage[] = store.get(
     `${hotKeyStoragePrefix}${name}`,
-    []
+    [],
   );
   return options[index] ? options[index] : null;
 };

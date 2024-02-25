@@ -10,6 +10,8 @@ interface FormItemProps {}
  * 自定义的行为：
  * - 当值变动时消除错误
  */
-export const FormItem: FC<FormItemProps & AntdFormItemProps> = ({ ...props }) => {
+export const FormItem: FC<FormItemProps & AntdFormItemProps> = ({
+  ...props
+}) => {
   return <AntdForm.Item validateTrigger="onBlur" {...props}></AntdForm.Item>;
 };

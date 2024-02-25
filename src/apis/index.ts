@@ -150,7 +150,7 @@ export const request = <T = any>(axiosConfig: AxiosRequestConfig) => {
         if (error.response.data.code === 2) {
           // 将 message 中的字段名转为小驼峰
           error.response.data.message = toLowerCamelCase(
-            error.response.data.message
+            error.response.data.message,
           );
           // 验证错误
           const result: ValidationFailureResult = {

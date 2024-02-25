@@ -50,7 +50,7 @@ export const ApplicationList: FC<ApplicationListProps> = ({
   // 弹出框
   const [spinningIDs, setSpinningIDs] = useState<string[]>([]); // 删除请求中
   const relatedApplicationsCount = useSelector(
-    (state: AppState) => state.site.relatedApplicationsCount
+    (state: AppState) => state.site.relatedApplicationsCount,
   );
 
   /** 处理申请 */
@@ -334,7 +334,7 @@ export const ApplicationList: FC<ApplicationListProps> = ({
                         <strong>
                           {formatMessage(
                             { id: 'site.join.request' },
-                            { groupType: formatGroupType(item.groupType) }
+                            { groupType: formatGroupType(item.groupType) },
                           ) + ': '}
                         </strong>
                         {item.groupType === 'project'

@@ -14,7 +14,7 @@ import { AppState } from '../../store';
 import {
   editMyTranslationSaga,
   editProofreadSaga,
-  selectTranslationSaga
+  selectTranslationSaga,
 } from '../../store/source/slice';
 import style from '../../style';
 import { clearClickEffect, clickEffect } from '../../utils/style';
@@ -71,13 +71,13 @@ export const Translation: FC<TranslationProps> = ({
   const proofreadContentStatus =
     translation && source.proodreadContentStatuses[translation.id];
   const [translationContent, setTranslationContent] = useState(
-    translation?.content
+    translation?.content,
   );
   const [proofreadContent, setProofreadContent] = useState(
-    translation?.proofreadContent
+    translation?.proofreadContent,
   );
   const currentProject = useSelector(
-    (state: AppState) => state.project.currentProject
+    (state: AppState) => state.project.currentProject,
   );
 
   useEffect(() => {
@@ -92,7 +92,7 @@ export const Translation: FC<TranslationProps> = ({
         sourceID: source.id,
         targetID,
         content: e.target.value,
-      })
+      }),
     );
   };
 
@@ -103,7 +103,7 @@ export const Translation: FC<TranslationProps> = ({
         sourceID: source.id,
         translationID: translation!.id,
         proofreadContent: e.target.value,
-      })
+      }),
     );
   };
 
@@ -123,7 +123,7 @@ export const Translation: FC<TranslationProps> = ({
         sourceID: source.id,
         targetID,
         content: content,
-      })
+      }),
     );
   };
 
@@ -133,7 +133,7 @@ export const Translation: FC<TranslationProps> = ({
         sourceID: source.id,
         translationID: translation!.id,
         selected: !translation!.selected,
-      })
+      }),
     );
   };
 
@@ -475,7 +475,7 @@ export const Translation: FC<TranslationProps> = ({
               <div
                 className={classNames('Translation__ProofreadContentDiv', {
                   'Translation__ProofreadContentDiv--empty': !Boolean(
-                    translation.proofreadContent
+                    translation.proofreadContent,
                   ),
                 })}
               >

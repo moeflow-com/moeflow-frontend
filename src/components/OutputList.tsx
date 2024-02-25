@@ -44,7 +44,7 @@ export const OutputList: FC<OutputListProps> = ({
         for (const output of outputsRef.current) {
           if (
             ![OUTPUT_STATUS.ERROR, OUTPUT_STATUS.SUCCEEDED].includes(
-              output.status
+              output.status,
             )
           ) {
             shouldRefresh = true;
@@ -114,7 +114,7 @@ export const OutputList: FC<OutputListProps> = ({
       .then((result) => {
         const data = toLowerCamelCase(result.data);
         setOutputs((outputs) =>
-          outputs ? [data, ...outputs].slice(0, 3) : [data]
+          outputs ? [data, ...outputs].slice(0, 3) : [data],
         );
       })
       .catch((error) => {
@@ -173,11 +173,11 @@ export const OutputList: FC<OutputListProps> = ({
           ? isExclude
             ? formatMessage(
                 { id: 'output.outputPartialExclude' },
-                { count: selectedFileIds.length }
+                { count: selectedFileIds.length },
               )
             : formatMessage(
                 { id: 'output.outputPartial' },
-                { count: selectedFileIds.length }
+                { count: selectedFileIds.length },
               )
           : formatMessage({ id: 'output.outputAll' })}
         {formatMessage({ id: ':' })}
@@ -243,15 +243,15 @@ export const OutputList: FC<OutputListProps> = ({
         {outputs === undefined
           ? undefined
           : outputs.length === 0
-          ? formatMessage({ id: 'output.empty' })
-          : outputs.map((output, i) => (
-              <Output
-                className="OutputList__Output"
-                output={output}
-                index={i}
-                key={output.id}
-              />
-            ))}
+            ? formatMessage({ id: 'output.empty' })
+            : outputs.map((output, i) => (
+                <Output
+                  className="OutputList__Output"
+                  output={output}
+                  index={i}
+                  key={output.id}
+                />
+              ))}
       </div>
     </div>
   );

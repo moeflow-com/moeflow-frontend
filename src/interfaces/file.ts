@@ -3,7 +3,7 @@ import {
   FileSafeStatuses,
   FileTypes,
   ParseStatuses,
-} from "../constants";
+} from '../constants';
 
 // 文件目标缓存
 export interface FileTargetCache {
@@ -38,6 +38,6 @@ export interface File {
   // 上传中的文件
   uploading?: boolean;
   uploadOverwrite?: boolean;
-  uploadState?: "uploading" | "success" | "failure";
+  uploadState?: 'uploading' | 'success' | 'failure';
   uploadPercent?: number; // 1-100
 }

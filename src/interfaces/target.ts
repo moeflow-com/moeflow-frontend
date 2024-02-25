@@ -1,4 +1,4 @@
-import { Language } from "./language";
+import { Language } from './language';
 
 // 项目目标
 export interface Target {

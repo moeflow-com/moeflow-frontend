@@ -21,10 +21,10 @@ export const TabBarM: FC<TabBarProps> = ({ className }) => {
   const history = useHistory(); // 路由
   const location = useLocation();
   const newInvitationsCount = useSelector(
-    (state: AppState) => state.site.newInvitationsCount
+    (state: AppState) => state.site.newInvitationsCount,
   );
   const relatedApplicationsCount = useSelector(
-    (state: AppState) => state.site.relatedApplicationsCount
+    (state: AppState) => state.site.relatedApplicationsCount,
   );
 
   const checkActive = ({

@@ -45,11 +45,11 @@ export const ProjectSetCreateForm: FC<ProjectSetCreateFormProps> = ({
           createProjectSet({
             projectSet: toLowerCamelCase<ProjectSet>(result.data.project_set),
             unshift: true,
-          })
+          }),
         );
         // 跳转到项目集
         history.replace(
-          `/dashboard/teams/${teamID}/project-sets/${result.data.project_set.id}`
+          `/dashboard/teams/${teamID}/project-sets/${result.data.project_set.id}`,
         );
         // 弹出提示
         message.success(result.data.message);

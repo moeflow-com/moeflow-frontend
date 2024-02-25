@@ -75,7 +75,7 @@ const Dashboard: FC<DashboardProps> = () => {
         .then((result) => {
           // 设置数量
           dispatch(
-            setNewInvitationsCount(result.headers['x-pagination-count'])
+            setNewInvitationsCount(result.headers['x-pagination-count']),
           );
         })
         .catch((error) => {})
@@ -113,7 +113,7 @@ const Dashboard: FC<DashboardProps> = () => {
         .then((result) => {
           // 设置数量
           dispatch(
-            setRelatedApplicationsCount(result.headers['x-pagination-count'])
+            setRelatedApplicationsCount(result.headers['x-pagination-count']),
           );
         })
         .catch((error) => {})

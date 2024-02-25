@@ -12,10 +12,9 @@ interface MovableAreaColorBackgroundProps {
 /**
  * 可移动区域纯色背景
  */
-export const MovableAreaColorBackground: FC<MovableAreaColorBackgroundProps> = ({
-  color,
-  className,
-}) => {
+export const MovableAreaColorBackground: FC<
+  MovableAreaColorBackgroundProps
+> = ({ color, className }) => {
   return (
     <div
       className={className}

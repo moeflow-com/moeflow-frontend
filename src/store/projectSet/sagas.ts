@@ -12,15 +12,15 @@ import { UserProjectSet } from '../../interfaces';
 
 // worker Sage
 function* setCurrentProjectSetWorker(
-  action: ReturnType<typeof setCurrentProjectSetSaga>
+  action: ReturnType<typeof setCurrentProjectSetSaga>,
 ) {
   // 清空当前 projectSet
   yield put(clearCurrentProjectSet());
   const projectSets = yield select(
-    (state: AppState) => state.projectSet.projectSets
+    (state: AppState) => state.projectSet.projectSets,
   );
   const projectSet = projectSets.find(
-    (projectSet: UserProjectSet) => projectSet.id === action.payload.id
+    (projectSet: UserProjectSet) => projectSet.id === action.payload.id,
   );
   if (projectSet) {
     // 已存在与 projectSets 中，则直接获取

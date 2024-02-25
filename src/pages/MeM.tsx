@@ -1,15 +1,15 @@
-import { css } from "@emotion/core";
-import React from "react";
-import { useIntl } from "react-intl";
-import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
-import { useTitle } from "../hooks";
-import { FC } from "../interfaces";
-import { AppState } from "../store";
-import { useDispatch, useSelector } from "react-redux";
-import { Avatar, Button, TabBarM } from "../components";
-import style from "../style";
-import { Badge } from "antd";
-import { setUserToken } from "../store/user/slice";
+import { css } from '@emotion/core';
+import React from 'react';
+import { useIntl } from 'react-intl';
+import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
+import { useTitle } from '../hooks';
+import { FC } from '../interfaces';
+import { AppState } from '../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { Avatar, Button, TabBarM } from '../components';
+import style from '../style';
+import { Badge } from 'antd';
+import { setUserToken } from '../store/user/slice';
 
 /** 用户手机版 Me 的属性接口 */
 interface MeMProps {}
@@ -23,20 +23,20 @@ const MeM: FC<MeMProps> = () => {
   const { formatMessage } = useIntl(); // i18n
   useTitle(); // 设置标题
   const platform = useSelector((state: AppState) => state.site.platform);
-  const isMobile = platform === "mobile";
+  const isMobile = platform === 'mobile';
   const newInvitationsCount = useSelector(
-    (state: AppState) => state.site.newInvitationsCount
+    (state: AppState) => state.site.newInvitationsCount,
   );
   const relatedApplicationsCount = useSelector(
-    (state: AppState) => state.site.relatedApplicationsCount
+    (state: AppState) => state.site.relatedApplicationsCount,
   );
   const currentUser = useSelector((state: AppState) => state.user);
   const dispatch = useDispatch();
 
   /** 登出 */
   const logout = () => {
-    dispatch(setUserToken({ token: "" }));
-    history.push("/login");
+    dispatch(setUserToken({ token: '' }));
+    history.push('/login');
   };
 
   return (
@@ -76,28 +76,28 @@ const MeM: FC<MeMProps> = () => {
           className="MeM__Button"
           color={style.textColor}
           onClick={() => {
-            history.push("/");
+            history.push('/');
           }}
         >
-          {formatMessage({ id: "site.index" })}
+          {formatMessage({ id: 'site.index' })}
         </Button>
         <Button
           className="MeM__Button"
           color={style.textColor}
           onClick={() => {
-            history.push("/dashboard/user/setting");
+            history.push('/dashboard/user/setting');
           }}
         >
-          {formatMessage({ id: "auth.accountSetting" })}
+          {formatMessage({ id: 'auth.accountSetting' })}
         </Button>
         <Button
           className="MeM__Button"
           color={style.textColor}
           onClick={() => {
-            history.push("/dashboard/user/invitations");
+            history.push('/dashboard/user/invitations');
           }}
         >
-          {formatMessage({ id: "me.invitation.new" })}
+          {formatMessage({ id: 'me.invitation.new' })}
           {newInvitationsCount > 0 && (
             <Badge
               className="MeM__Badge"
@@ -110,10 +110,10 @@ const MeM: FC<MeMProps> = () => {
           className="MeM__Button"
           color={style.textColor}
           onClick={() => {
-            history.push("/dashboard/user/related-applications");
+            history.push('/dashboard/user/related-applications');
           }}
         >
-          {formatMessage({ id: "me.applicatio.related" })}
+          {formatMessage({ id: 'me.applicatio.related' })}
           {relatedApplicationsCount > 0 && (
             <Badge
               className="MeM__Badge"
@@ -123,7 +123,7 @@ const MeM: FC<MeMProps> = () => {
           )}
         </Button>
         <Button className="MeM__Button" onClick={logout}>
-          {formatMessage({ id: "auth.logout" })}
+          {formatMessage({ id: 'auth.logout' })}
         </Button>
       </div>
       {location.pathname === url && isMobile && (

@@ -95,14 +95,14 @@ function* createSourceWorker(action: ReturnType<typeof createSourceSaga>) {
       positionType: action.payload.positionType,
       hasOtherLanguageTranslation: false,
       tips: [],
-    })
+    }),
   );
   yield put(
     focusSource({
       id: tempID,
       effects: [],
       noises: [],
-    })
+    }),
   );
   const [cancelToken, cancel] = getCancelToken();
   const { fileID, ...requestData } = action.payload;
@@ -121,10 +121,10 @@ function* createSourceWorker(action: ReturnType<typeof createSourceSaga>) {
         labelStatus: 'pending',
         isTemp: false,
         focus: false,
-      })
+      }),
     );
     const focusedSourceID = yield select(
-      (state: AppState) => state.source.focusedSource.id
+      (state: AppState) => state.source.focusedSource.id,
     );
     if (focusedSourceID === tempID) {
       yield put(
@@ -132,7 +132,7 @@ function* createSourceWorker(action: ReturnType<typeof createSourceSaga>) {
           id: data.id,
           effects: ['focusInput', 'scrollIntoView'],
           noises: ['focusInput'],
-        })
+        }),
       );
     }
   } catch (error) {
@@ -150,14 +150,14 @@ function* editSourceWorker(action: ReturnType<typeof editSourceSaga>) {
     editSource({
       id: action.payload.id,
       labelStatus: 'saving',
-    })
+    }),
   );
   if (action.payload.positionType !== undefined) {
     yield put(
       editSource({
         id: action.payload.id,
         positionType: action.payload.positionType,
-      })
+      }),
     );
   }
   const [cancelToken, cancel] = getCancelToken();
@@ -172,7 +172,7 @@ function* editSourceWorker(action: ReturnType<typeof editSourceSaga>) {
       editSource({
         ...data,
         labelStatus: 'pending',
-      })
+      }),
     );
   } catch (error) {
     if (
@@ -185,7 +185,7 @@ function* editSourceWorker(action: ReturnType<typeof editSourceSaga>) {
         editSource({
           id: action.payload.id,
           labelStatus: 'pending',
-        })
+        }),
       );
       // 还原标签位置
       action.payload.reset?.();
@@ -198,7 +198,7 @@ function* editSourceWorker(action: ReturnType<typeof editSourceSaga>) {
               action.payload.positionType === SOURCE_POSITION_TYPE.IN
                 ? SOURCE_POSITION_TYPE.OUT
                 : SOURCE_POSITION_TYPE.IN,
-          })
+          }),
         );
       }
     }
@@ -212,7 +212,7 @@ function* editSourceWorker(action: ReturnType<typeof editSourceSaga>) {
 
 function* deleteSourceWorker(action: ReturnType<typeof deleteSourceSaga>) {
   const source: Source = yield select((state: AppState) =>
-    state.source.sources.find((source) => source.id === action.payload.id)
+    state.source.sources.find((source) => source.id === action.payload.id),
   );
   if (
     source.myTranslation ||
@@ -241,7 +241,7 @@ function* deleteSourceWorker(action: ReturnType<typeof deleteSourceSaga>) {
     editSource({
       id: action.payload.id,
       labelStatus: 'deleting',
-    })
+    }),
   );
   const [cancelToken, cancel] = getCancelToken();
   try {
@@ -270,7 +270,7 @@ function* deleteSourceWorker(action: ReturnType<typeof deleteSourceSaga>) {
       editSource({
         id: action.payload.id,
         labelStatus: 'pending',
-      })
+      }),
     );
   }
 }
@@ -278,7 +278,7 @@ function* deleteSourceWorker(action: ReturnType<typeof deleteSourceSaga>) {
 // 翻译部分
 
 function* editMyTranslationWorker(
-  action: ReturnType<typeof editMyTranslationSaga>
+  action: ReturnType<typeof editMyTranslationSaga>,
 ) {
   const { sourceID, content, targetID, focus = false } = action.payload;
 
@@ -287,7 +287,7 @@ function* editMyTranslationWorker(
       sourceID,
       content,
       editTime: new Date().toISOString(),
-    })
+    }),
   );
 
   if (!action.payload.noDebounce) {
@@ -295,7 +295,7 @@ function* editMyTranslationWorker(
       editSource({
         id: sourceID,
         myTranslationContentStatus: 'debouncing',
-      })
+      }),
     );
     yield delay(inputDebounceDelay);
   }
@@ -306,7 +306,7 @@ function* editMyTranslationWorker(
       editSource({
         id: sourceID,
         myTranslationContentStatus: 'saving',
-      })
+      }),
     );
     const result = yield apis.createTranslation({
       sourceID: sourceID,
@@ -322,11 +322,11 @@ function* editMyTranslationWorker(
         id: sourceID,
         myTranslation: data ? data : undefined,
         myTranslationContentStatus: 'saveSuccessful',
-      })
+      }),
     );
     if (focus) {
       const focusedSourceID = yield select(
-        (state: AppState) => state.source.focusedSource.id
+        (state: AppState) => state.source.focusedSource.id,
       );
       if (focusedSourceID === sourceID) {
         yield put(focusTranslation({ id: data ? data.id : '' }));
@@ -335,7 +335,7 @@ function* editMyTranslationWorker(
   } catch (error) {
     error.default();
     yield put(
-      editSource({ id: sourceID, myTranslationContentStatus: 'saveFailed' })
+      editSource({ id: sourceID, myTranslationContentStatus: 'saveFailed' }),
     );
   } finally {
     if (yield cancelled()) {
@@ -345,7 +345,7 @@ function* editMyTranslationWorker(
 }
 
 function* batchSelectTranslationWorker(
-  action: ReturnType<typeof batchSelectTranslationSaga>
+  action: ReturnType<typeof batchSelectTranslationSaga>,
 ) {
   const { fileID, data } = action.payload;
   const [cancelToken, cancel] = getCancelToken();
@@ -360,7 +360,7 @@ function* batchSelectTranslationWorker(
     });
     // 将所有 sources 修改成 selected
     const currentUser: UserState = yield select(
-      (state: AppState) => state.user
+      (state: AppState) => state.user,
     );
     for (const { sourceID, translationID } of data) {
       yield put(
@@ -369,7 +369,7 @@ function* batchSelectTranslationWorker(
           translationID,
           selected: true,
           selector: currentUser,
-        })
+        }),
       );
     }
   } catch (error) {
@@ -383,7 +383,7 @@ function* batchSelectTranslationWorker(
 }
 
 function* selectTranslationWorker(
-  action: ReturnType<typeof selectTranslationSaga>
+  action: ReturnType<typeof selectTranslationSaga>,
 ) {
   const { sourceID, translationID, selected } = action.payload;
   const [cancelToken, cancel] = getCancelToken();
@@ -405,7 +405,7 @@ function* selectTranslationWorker(
         translationID,
         selected,
         selector: data.selector,
-      })
+      }),
     );
   } catch (error) {
     error.default();
@@ -428,7 +428,7 @@ function* editProofreadWorker(action: ReturnType<typeof editProofreadSaga>) {
       proofreadContent,
       proofreader: currentUser,
       editTime: new Date().toISOString(),
-    })
+    }),
   );
 
   if (!action.payload.noDebounce) {
@@ -437,7 +437,7 @@ function* editProofreadWorker(action: ReturnType<typeof editProofreadSaga>) {
         sourceID,
         translationID,
         status: 'debouncing',
-      })
+      }),
     );
     yield delay(inputDebounceDelay);
   }
@@ -449,7 +449,7 @@ function* editProofreadWorker(action: ReturnType<typeof editProofreadSaga>) {
         sourceID,
         translationID,
         status: 'saving',
-      })
+      }),
     );
     const result = yield apis.editTranslation({
       translationID,
@@ -466,7 +466,7 @@ function* editProofreadWorker(action: ReturnType<typeof editProofreadSaga>) {
         sourceID,
         translationID,
         status: 'saveSuccessful',
-      })
+      }),
     );
     if (data) {
       yield put(
@@ -476,7 +476,7 @@ function* editProofreadWorker(action: ReturnType<typeof editProofreadSaga>) {
           proofreadContent: data.proofreadContent,
           proofreader: data.proofreader,
           editTime: data.editTime,
-        })
+        }),
       );
     } else {
       yield put(focusTranslation({ id: '' }));
@@ -484,7 +484,7 @@ function* editProofreadWorker(action: ReturnType<typeof editProofreadSaga>) {
         deleteTranslation({
           sourceID,
           translationID,
-        })
+        }),
       );
     }
   } catch (error) {
@@ -494,7 +494,7 @@ function* editProofreadWorker(action: ReturnType<typeof editProofreadSaga>) {
         sourceID,
         translationID,
         status: 'saveFailed',
-      })
+      }),
     );
   } finally {
     if (yield cancelled()) {
@@ -512,12 +512,12 @@ function* watcher() {
     editSourceWorker,
     (action: ReturnType<typeof editSourceSaga>) => {
       return action.payload.id;
-    }
+    },
   );
   yield takeEvery(deleteSourceSaga.type, deleteSourceWorker);
   yield takeLeading(
     batchSelectTranslationSaga.type,
-    batchSelectTranslationWorker
+    batchSelectTranslationWorker,
   );
   // 翻译部分
   yield takeLatestPerKey(
@@ -525,21 +525,21 @@ function* watcher() {
     editMyTranslationWorker,
     (action: ReturnType<typeof editMyTranslationSaga>) => {
       return action.payload.sourceID + action.payload.targetID;
-    }
+    },
   );
   yield takeLatestPerKey(
     selectTranslationSaga.type,
     selectTranslationWorker,
     (action: ReturnType<typeof selectTranslationSaga>) => {
       return action.payload.sourceID;
-    }
+    },
   );
   yield takeLatestPerKey(
     editProofreadSaga.type,
     editProofreadWorker,
     (action: ReturnType<typeof editProofreadSaga>) => {
       return action.payload.translationID;
-    }
+    },
   );
 }
 

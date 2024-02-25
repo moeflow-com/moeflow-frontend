@@ -155,7 +155,7 @@ export const TeamSearchList: FC<TeamSearchListProps> = ({ className } = {}) => {
                       <div>
                         {formatMessage(
                           { id: 'team.alreadyJoinedTip' },
-                          { team: team.name }
+                          { team: team.name },
                         )}
                       </div>
                     ),
@@ -172,7 +172,7 @@ export const TeamSearchList: FC<TeamSearchListProps> = ({ className } = {}) => {
                       <div>
                         {formatMessage(
                           { id: 'team.notAllowApplyTip' },
-                          { team: team.name }
+                          { team: team.name },
                         )}
                       </div>
                     ),
@@ -247,7 +247,7 @@ export const TeamSearchList: FC<TeamSearchListProps> = ({ className } = {}) => {
             <p>
               {formatMessage(
                 { id: 'application.reasonLabel' },
-                { name: team?.name }
+                { name: team?.name },
               )}
             </p>
             <Input

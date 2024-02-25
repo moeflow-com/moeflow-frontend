@@ -42,13 +42,13 @@ export const ProjectCreateForm: FC<ProjectCreateFormProps> = ({
   const [isAllowApply, setIsAllowApply] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const currentTeam = useSelector(
-    (state: AppState) => state.team.currentTeam
+    (state: AppState) => state.team.currentTeam,
   ) as UserTeam;
   const currentProjectSet = useSelector(
-    (state: AppState) => state.projectSet.currentProjectSet
+    (state: AppState) => state.projectSet.currentProjectSet,
   ) as UserProjectSet;
   const [disableSourceLanugageIDs, setDisableSourceLanugageIDs] = useState(
-    configs.default.project.targetLanguageCodes
+    configs.default.project.targetLanguageCodes,
   );
   const [disableTargetLanugageIDs, setDisableTargetLanugageIDs] = useState([
     configs.default.project.sourceLanugageCode,
@@ -86,13 +86,13 @@ export const ProjectCreateForm: FC<ProjectCreateFormProps> = ({
           createProject({
             project: toLowerCamelCase(result.data.project),
             unshift: true,
-          })
+          }),
         );
         dispatch(resetFilesState());
         dispatch(resetProjectsState());
         // 跳转到项目
         history.replace(
-          `/dashboard/teams/${teamID}/project-sets/${projectSetID}/projects/${result.data.project.id}`
+          `/dashboard/teams/${teamID}/project-sets/${projectSetID}/projects/${result.data.project.id}`,
         );
         // 弹出提示
         message.success(result.data.message);
@@ -145,7 +145,7 @@ export const ProjectCreateForm: FC<ProjectCreateFormProps> = ({
           // 关闭加入时，隐藏加入选项
           if (values.allowApplyType) {
             setIsAllowApply(
-              values.allowApplyType !== GROUP_ALLOW_APPLY_TYPE.NONE
+              values.allowApplyType !== GROUP_ALLOW_APPLY_TYPE.NONE,
             );
           }
           // 禁用源语言中的目标语言

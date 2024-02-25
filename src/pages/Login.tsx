@@ -56,7 +56,7 @@ const Login: FC<LoginProps> = ({ beforeRedirect = false } = {}) => {
           setUserToken({
             token: result.data.token,
             rememberMe: values.rememberMe,
-          })
+          }),
         );
         // 跳转到仪表盘
         history.push('/dashboard/projects');

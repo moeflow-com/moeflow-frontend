@@ -34,7 +34,7 @@ const ProjectSetting: FC<ProjectSettingProps> = ({ project }) => {
   const { path, url } = useRouteMatch();
   const platform = useSelector((state: AppState) => state.site.platform);
   const currentProject = useSelector(
-    (state: AppState) => state.project.currentProject
+    (state: AppState) => state.project.currentProject,
   );
   const isMobile = platform === 'mobile';
 

@@ -4,4 +4,5 @@ export const APPLICATION_STATUS = {
   ALLOW: 2 as 2,
   DENY: 3 as 3,
 };
-export type ApplicationStatuses = typeof APPLICATION_STATUS[keyof typeof APPLICATION_STATUS];
+export type ApplicationStatuses =
+  (typeof APPLICATION_STATUS)[keyof typeof APPLICATION_STATUS];

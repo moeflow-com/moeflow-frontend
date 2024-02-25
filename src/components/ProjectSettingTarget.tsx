@@ -39,7 +39,7 @@ export const ProjectSettingTarget: FC<ProjectSettingTargetProps> = ({
   const [items, setItems] = useState<Target[]>([]); // 元素
   const dispatch = useDispatch();
   const currentProject = useSelector(
-    (state: AppState) => state.project.currentProject
+    (state: AppState) => state.project.currentProject,
   ) as Project;
   const [spinningIDs, setSpinningIDs] = useState<string[]>([]); // 删除请求中
 
@@ -104,7 +104,7 @@ export const ProjectSettingTarget: FC<ProjectSettingTargetProps> = ({
               increaseCurrentProjectTargetCount({
                 id: currentProject.id,
                 step: -1,
-              })
+              }),
             );
             setSpinningIDs((ids) => ids.filter((id) => id !== target.id));
             setItems((items) => {
@@ -135,7 +135,7 @@ export const ProjectSettingTarget: FC<ProjectSettingTargetProps> = ({
       .then((result) => {
         const data = toLowerCamelCase(result.data);
         dispatch(
-          increaseCurrentProjectTargetCount({ id: currentProject.id, step: 1 })
+          increaseCurrentProjectTargetCount({ id: currentProject.id, step: 1 }),
         );
         setCreating(false);
         setCreateLanguageID(undefined);

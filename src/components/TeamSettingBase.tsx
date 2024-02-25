@@ -33,7 +33,7 @@ export const TeamSettingBase: FC<TeamSettingBaseProps> = ({ className }) => {
   const [leaveLoading, setLeaveLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const currentTeam = useSelector(
-    (state: AppState) => state.team.currentTeam
+    (state: AppState) => state.team.currentTeam,
   ) as UserTeam;
   const userID = useSelector((state: AppState) => state.user.id);
   const [permissionsVisible, setPermissionsVisible] = useState(false);
@@ -112,7 +112,7 @@ export const TeamSettingBase: FC<TeamSettingBaseProps> = ({ className }) => {
       ),
       content: formatMessage(
         { id: 'team.deleteTip' },
-        { team: currentTeam.name }
+        { team: currentTeam.name },
       ),
       okText: formatMessage({ id: 'team.delete' }),
       okType: 'danger',
@@ -141,7 +141,7 @@ export const TeamSettingBase: FC<TeamSettingBaseProps> = ({ className }) => {
         <ContentItem>
           {formatMessage(
             { id: 'site.myRoleIs' },
-            { role: currentTeam.role.name }
+            { role: currentTeam.role.name },
           )}
           <Button
             className="TeamSettingBase__PermissionsToggle"

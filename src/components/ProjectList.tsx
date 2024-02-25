@@ -49,24 +49,24 @@ export const ProjectList: FC<ProjectListProps> = ({
   // 当 from 为 team 时，才有 currentProjectSet 和 currentTeam
   const currentTeam = useSelector((state: AppState) => state.team.currentTeam);
   const currentProjectSet = useSelector(
-    (state: AppState) => state.projectSet.currentProjectSet
+    (state: AppState) => state.projectSet.currentProjectSet,
   );
   const currentUser = useSelector((state: AppState) => state.user);
   const currentProject = useSelector(
-    (state: AppState) => state.project.currentProject
+    (state: AppState) => state.project.currentProject,
   );
 
   const defaultPage = useSelector(
-    (state: AppState) => state.project.projectsState.page
+    (state: AppState) => state.project.projectsState.page,
   );
   const defaultWord = useSelector(
-    (state: AppState) => state.project.projectsState.word
+    (state: AppState) => state.project.projectsState.word,
   );
   const defaultScrollTop = useSelector(
-    (state: AppState) => state.project.projectsState.scrollTop
+    (state: AppState) => state.project.projectsState.scrollTop,
   );
   const status = useSelector(
-    (state: AppState) => state.project.projectsState.status
+    (state: AppState) => state.project.projectsState.status,
   );
 
   /** 获取元素 */

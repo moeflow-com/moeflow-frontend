@@ -19,8 +19,8 @@ function textareaToArray(textarea: string): string[] {
           textarea
             .split('\n')
             .map((item) => item.trim())
-            .filter((item) => item !== '')
-        )
+            .filter((item) => item !== ''),
+        ),
       );
 }
 
@@ -75,7 +75,7 @@ export const AdminSiteSetting: FC<AdminSiteSettingProps> = ({ className }) => {
           error.data.message.whitelistEmails = [
             formatMessage(
               { id: 'site.setting.whitelistEmailsError' },
-              { line }
+              { line },
             ),
           ];
         }
@@ -86,7 +86,7 @@ export const AdminSiteSetting: FC<AdminSiteSettingProps> = ({ className }) => {
           error.data.message.autoJoinTeamIDs = [
             formatMessage(
               { id: 'site.setting.autoJoinTeamIDsError' },
-              { line }
+              { line },
             ),
           ];
         }

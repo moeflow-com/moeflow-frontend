@@ -39,7 +39,7 @@ export const ProjectSetList: FC<ProjectSetListProps> = ({
 }) => {
   const { formatMessage } = useIntl();
   const projectSets = useSelector(
-    (state: AppState) => state.projectSet.projectSets
+    (state: AppState) => state.projectSet.projectSets,
   );
   const location = useLocation();
   const history = useHistory();
@@ -48,17 +48,17 @@ export const ProjectSetList: FC<ProjectSetListProps> = ({
   const [loading, setLoading] = useState(true);
   const [total, setTotal] = useState(0); // 元素总个数
   const currentTeam = useSelector(
-    (state: AppState) => state.team.currentTeam
+    (state: AppState) => state.team.currentTeam,
   ) as UserTeam;
 
   const defaultPage = useSelector(
-    (state: AppState) => state.projectSet.projectSetsState.page
+    (state: AppState) => state.projectSet.projectSetsState.page,
   );
   const defaultWord = useSelector(
-    (state: AppState) => state.projectSet.projectSetsState.word
+    (state: AppState) => state.projectSet.projectSetsState.word,
   );
   const defaultScrollTop = useSelector(
-    (state: AppState) => state.projectSet.projectSetsState.scrollTop
+    (state: AppState) => state.projectSet.projectSetsState.scrollTop,
   );
 
   /** 获取元素 */
@@ -95,7 +95,7 @@ export const ProjectSetList: FC<ProjectSetListProps> = ({
           dispatch(
             createProjectSet({
               projectSet: toLowerCamelCase<UserProjectSet>(projectSet),
-            })
+            }),
           );
         }
       })

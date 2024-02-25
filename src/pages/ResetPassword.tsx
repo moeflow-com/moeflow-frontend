@@ -48,7 +48,7 @@ const ResetPassword: FC<ResetPasswordProps> = () => {
           cancelText: formatMessage({ id: 'form.cancel' }),
           onOk: () => {
             dispatch(
-              setUserToken({ token: result.data.token, rememberMe: true })
+              setUserToken({ token: result.data.token, rememberMe: true }),
             );
             // 跳转到仪表盘
             history.push('/dashboard/projects');

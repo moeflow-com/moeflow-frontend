@@ -25,11 +25,9 @@ interface ImageSourceViewerTranslatorProps {
 /**
  * 翻译模式
  */
-export const ImageSourceViewerTranslator: FC<ImageSourceViewerTranslatorProps> = ({
-  sources,
-  targetID,
-  className,
-}) => {
+export const ImageSourceViewerTranslator: FC<
+  ImageSourceViewerTranslatorProps
+> = ({ sources, targetID, className }) => {
   const { formatMessage } = useIntl();
   const dispatch = useDispatch();
   const platform = useSelector((state: AppState) => state.site.platform);
@@ -37,19 +35,19 @@ export const ImageSourceViewerTranslator: FC<ImageSourceViewerTranslatorProps> =
   const domRefs = useRef<(HTMLDivElement | null)[]>([]);
   const textAreaRef = useRef<TextAreaRef>(null);
   const currentProject = useSelector(
-    (state: AppState) => state.project.currentProject
+    (state: AppState) => state.project.currentProject,
   );
   const focusedSourceID = useSelector(
-    (state: AppState) => state.source.focusedSource.id
+    (state: AppState) => state.source.focusedSource.id,
   );
   const focusedSourceEffects = useSelector(
-    (state: AppState) => state.source.focusedSource.effects
+    (state: AppState) => state.source.focusedSource.effects,
   );
   const focusedSourceNoiseFocusInput = useSelector(
-    (state: AppState) => state.source.focusedSource.noises.focusInput
+    (state: AppState) => state.source.focusedSource.noises.focusInput,
   );
   const focusedSourceNoiseScrollIntoView = useSelector(
-    (state: AppState) => state.source.focusedSource.noises.scrollIntoView
+    (state: AppState) => state.source.focusedSource.noises.scrollIntoView,
   );
   let focusedSource: ISource | undefined = undefined;
   let focusedSourceIndex: number = -1;
@@ -88,14 +86,14 @@ export const ImageSourceViewerTranslator: FC<ImageSourceViewerTranslatorProps> =
   }, [focusedSourceID, focusedSourceNoiseScrollIntoView]);
 
   const handleTranslationContentChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
     dispatch(
       editMyTranslationSaga({
         sourceID: focusedSourceID,
         targetID,
         content: e.target.value,
-      })
+      }),
     );
   };
 
@@ -115,19 +113,17 @@ export const ImageSourceViewerTranslator: FC<ImageSourceViewerTranslatorProps> =
           border-bottom: 1px solid ${style.borderColorBase};
           min-height: 30px;
           ${clickEffect()};
-          ${hover(
-            css`
-              .ImageSourceViewerTranslator__TranslationContentOthersBest {
-                color: ${style.textColor};
-              }
-              .ImageSourceViewerTranslator__TranslationContentOthersBestPrefixIcon {
-                color: ${style.textColorSecondary};
-              }
-              .ImageSourceViewerTranslator__TranslationContentMine--hasProofread {
-                color: ${style.textColor};
-              }
-            `
-          )};
+          ${hover(css`
+            .ImageSourceViewerTranslator__TranslationContentOthersBest {
+              color: ${style.textColor};
+            }
+            .ImageSourceViewerTranslator__TranslationContentOthersBestPrefixIcon {
+              color: ${style.textColorSecondary};
+            }
+            .ImageSourceViewerTranslator__TranslationContentMine--hasProofread {
+              color: ${style.textColor};
+            }
+          `)};
           :last-child {
             border-bottom: 0;
           }
@@ -251,7 +247,7 @@ export const ImageSourceViewerTranslator: FC<ImageSourceViewerTranslatorProps> =
                   'ImageSourceViewerTranslator__Translation--empty': empty,
                   'ImageSourceViewerTranslator__Translation--focus':
                     focusedSourceID === source.id,
-                }
+                },
               )}
               onClick={() => {
                 dispatch(
@@ -259,7 +255,7 @@ export const ImageSourceViewerTranslator: FC<ImageSourceViewerTranslatorProps> =
                     id: source.id,
                     effects: ['focusLabel', 'focusInput'],
                     noises: ['focusInput'],
-                  })
+                  }),
                 );
               }}
             >
@@ -273,8 +269,9 @@ export const ImageSourceViewerTranslator: FC<ImageSourceViewerTranslatorProps> =
                       className={classNames(
                         'ImageSourceViewerTranslator__TranslationContentMine',
                         {
-                          'ImageSourceViewerTranslator__TranslationContentMine--hasProofread': myProofreadContent,
-                        }
+                          'ImageSourceViewerTranslator__TranslationContentMine--hasProofread':
+                            myProofreadContent,
+                        },
                       )}
                     >
                       {myContent}
@@ -344,10 +341,10 @@ export const ImageSourceViewerTranslator: FC<ImageSourceViewerTranslatorProps> =
               focusedSourceCreating
                 ? formatMessage({ id: 'imageTranslator.sourceCreating' })
                 : focusedSourceDeleting
-                ? formatMessage({ id: 'imageTranslator.sourceDeleting' })
-                : formatMessage({
-                    id: 'imageTranslator.translationPlaceholder',
-                  })
+                  ? formatMessage({ id: 'imageTranslator.sourceDeleting' })
+                  : formatMessage({
+                      id: 'imageTranslator.translationPlaceholder',
+                    })
             }
             disabled={
               !can(currentProject, PROJECT_PERMISSION.ADD_TRA) ||

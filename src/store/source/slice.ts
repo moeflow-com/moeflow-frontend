@@ -53,7 +53,7 @@ const slice = createSlice({
   reducers: {
     fetchSourcesSaga(
       state,
-      action: PayloadAction<{ fileID: string; targetID: string }>
+      action: PayloadAction<{ fileID: string; targetID: string }>,
     ) {},
     setSavingStatus(state, action: PayloadAction<SavingStatus>) {
       state.savingStatus = action.payload;
@@ -74,7 +74,7 @@ const slice = createSlice({
         x: number;
         y: number;
         positionType: number;
-      }>
+      }>,
     ) {},
     createSource(state, action: PayloadAction<Source>) {
       state.sources.push(action.payload);
@@ -87,14 +87,14 @@ const slice = createSlice({
         y?: number;
         positionType?: number;
         reset?: () => void;
-      }>
+      }>,
     ) {},
     editSource(
       state,
-      action: PayloadAction<Partial<Source> & { id: string; newID?: string }>
+      action: PayloadAction<Partial<Source> & { id: string; newID?: string }>,
     ) {
       const index = state.sources.findIndex(
-        (source) => source.id === action.payload.id
+        (source) => source.id === action.payload.id,
       );
       if (index > -1) {
         const { newID, ...newSource } = action.payload;
@@ -113,10 +113,10 @@ const slice = createSlice({
         sourceID: string;
         content: string;
         editTime: string;
-      }>
+      }>,
     ) {
       const index = state.sources.findIndex(
-        (source) => source.id === action.payload.sourceID
+        (source) => source.id === action.payload.sourceID,
       );
       if (index > -1) {
         if (state.sources[index].myTranslation) {
@@ -145,7 +145,7 @@ const slice = createSlice({
     deleteSourceSaga(state, action: PayloadAction<{ id: string }>) {},
     deleteSource(state, action: PayloadAction<{ id: string }>) {
       const index = state.sources.findIndex(
-        (source) => source.id === action.payload.id
+        (source) => source.id === action.payload.id,
       );
       if (index > -1) {
         state.sources.splice(index, 1);
@@ -157,7 +157,7 @@ const slice = createSlice({
         id: string;
         effects: FocusEffect[];
         noises: FocusEffect[];
-      }>
+      }>,
     ) {
       const { id, effects, noises = [] } = action.payload;
       const timestamp = new Date().getTime().toString();
@@ -178,14 +178,14 @@ const slice = createSlice({
     // 翻译部分
     editMyTranslationSaga(
       state,
-      action: PayloadAction<EditMyTranslationSagaAction>
+      action: PayloadAction<EditMyTranslationSagaAction>,
     ) {},
     batchSelectTranslationSaga(
       state,
       action: PayloadAction<{
         fileID: string;
         data: BatchSelectTranslationData;
-      }>
+      }>,
     ) {},
     selectTranslationSaga(
       state,
@@ -193,7 +193,7 @@ const slice = createSlice({
         sourceID: string;
         translationID: string;
         selected: boolean;
-      }>
+      }>,
     ) {},
     selectTranslation(
       state,
@@ -202,7 +202,7 @@ const slice = createSlice({
         translationID: string;
         selected: boolean;
         selector: User | null;
-      }>
+      }>,
     ) {
       const { sourceID, translationID, selected, selector } = action.payload;
       const index = state.sources.findIndex((source) => source.id === sourceID);
@@ -233,7 +233,7 @@ const slice = createSlice({
       action: PayloadAction<{
         sourceID: string;
         translationID: string;
-      }>
+      }>,
     ) {
       const { sourceID, translationID } = action.payload;
       const index = state.sources.findIndex((source) => source.id === sourceID);
@@ -243,7 +243,7 @@ const slice = createSlice({
           source.myTranslation = undefined;
         } else {
           source.translations = source.translations.filter(
-            (t) => t.id !== translationID
+            (t) => t.id !== translationID,
           );
         }
       }
@@ -257,7 +257,7 @@ const slice = createSlice({
         proofreadContent: string;
         proofreader: User | null;
         editTime: string;
-      }>
+      }>,
     ) {
       const {
         sourceID,
@@ -274,7 +274,7 @@ const slice = createSlice({
           translations.push(source.myTranslation);
         }
         const translationIndex = translations.findIndex(
-          (translation) => translation.id === translationID
+          (translation) => translation.id === translationID,
         );
         translations[translationIndex].proofreadContent = proofreadContent;
         translations[translationIndex].proofreader = proofreader;
@@ -287,7 +287,7 @@ const slice = createSlice({
         sourceID: string;
         translationID: string;
         status: InputDebounceStatus | undefined;
-      }>
+      }>,
     ) {
       const { sourceID, translationID, status } = action.payload;
       const index = state.sources.findIndex((source) => source.id === sourceID);

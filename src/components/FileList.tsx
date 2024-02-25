@@ -8,13 +8,7 @@ import { FilePond } from 'react-filepond';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import {
-  Button,
-  EmptyTip,
-  FileItem,
-  List,
-  OutputList,
-} from '.';
+import { Button, EmptyTip, FileItem, List, OutputList } from '.';
 import apis, { resultTypes } from '../apis';
 import configs from '../configs';
 import {
@@ -70,16 +64,16 @@ export const FileList: FC<FileListProps> = ({
   const currentTeam = useSelector((state: AppState) => state.team.currentTeam);
 
   const defaultPage = useSelector(
-    (state: AppState) => state.file.filesState.page
+    (state: AppState) => state.file.filesState.page,
   );
   const defaultWord = useSelector(
-    (state: AppState) => state.file.filesState.word
+    (state: AppState) => state.file.filesState.word,
   );
   const defaultScrollTop = useSelector(
-    (state: AppState) => state.file.filesState.scrollTop
+    (state: AppState) => state.file.filesState.scrollTop,
   );
   const selectedFileIds = useSelector(
-    (state: AppState) => state.file.filesState.selectedFileIds
+    (state: AppState) => state.file.filesState.selectedFileIds,
   );
 
   useEffect(() => {
@@ -103,7 +97,7 @@ export const FileList: FC<FileListProps> = ({
       title: formatMessage({ id: 'project.deleteFile' }),
       content: formatMessage(
         { id: 'project.deleteFileTip' },
-        { name: file.name }
+        { name: file.name },
       ),
       onOk: () => {
         setSpinningIDs((ids) => [file.id, ...ids]);
@@ -291,7 +285,7 @@ export const FileList: FC<FileListProps> = ({
                 crop: true,
                 canvas: true,
                 ...({ imageSmoothingQuality: 'high' } as any), // @type 版本太旧
-              }
+              },
             );
           }
           const uploadingFile: File = {
@@ -327,7 +321,7 @@ export const FileList: FC<FileListProps> = ({
                 item.uploadPercent = Math.floor(progress * 100);
               }
               return item;
-            })
+            }),
           );
         }}
         // 上传成功
@@ -337,7 +331,7 @@ export const FileList: FC<FileListProps> = ({
           setItems((items) => {
             // 覆盖时删除列表中原来的文件
             const itemsWithoutSameID = items.filter(
-              (item) => item.id !== result.id
+              (item) => item.id !== result.id,
             );
             return itemsWithoutSameID.map((item) => {
               if (item.id === file.id) {
@@ -360,7 +354,7 @@ export const FileList: FC<FileListProps> = ({
                   item.uploadState = 'failure';
                 }
                 return item;
-              })
+              }),
             );
           }
         }}
@@ -428,7 +422,7 @@ export const FileList: FC<FileListProps> = ({
             onClick={() => {
               const idsOnThisPage = items.map((item) => item.id);
               const selectedIdsOnOtherPages = selectedFileIds.filter(
-                (id) => !idsOnThisPage.includes(id)
+                (id) => !idsOnThisPage.includes(id),
               );
               dispatch(
                 setFilesState({
@@ -436,7 +430,7 @@ export const FileList: FC<FileListProps> = ({
                     ...selectedIdsOnOtherPages,
                     ...idsOnThisPage,
                   ],
-                })
+                }),
               );
             }}
           >
@@ -447,18 +441,18 @@ export const FileList: FC<FileListProps> = ({
             onClick={() => {
               const idsOnThisPage = items.map((item) => item.id);
               const selectedIdsOnThisPage = selectedFileIds.filter((id) =>
-                idsOnThisPage.includes(id)
+                idsOnThisPage.includes(id),
               );
               const selectedIdsOnOtherPages = selectedFileIds.filter(
-                (id) => !idsOnThisPage.includes(id)
+                (id) => !idsOnThisPage.includes(id),
               );
               const invertIds = idsOnThisPage.filter(
-                (id) => !selectedIdsOnThisPage.includes(id)
+                (id) => !selectedIdsOnThisPage.includes(id),
               );
               dispatch(
                 setFilesState({
                   selectedFileIds: [...selectedIdsOnOtherPages, ...invertIds],
-                })
+                }),
               );
             }}
           >
@@ -507,15 +501,15 @@ export const FileList: FC<FileListProps> = ({
                     dispatch(
                       setFilesState({
                         selectedFileIds: [...selectedFileIds, file.id],
-                      })
+                      }),
                     );
                   } else {
                     dispatch(
                       setFilesState({
                         selectedFileIds: selectedFileIds.filter(
-                          (id) => id !== file.id
+                          (id) => id !== file.id,
                         ),
-                      })
+                      }),
                     );
                   }
                 }}

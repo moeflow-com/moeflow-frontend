@@ -60,14 +60,16 @@ export const ProjectItem: FC<ProjectItemProps> = ({
       className={classNames('ProjectItem', className, {
         'ProjectItem--hasBelong': from === 'user',
         'ProjectItem--active': location.pathname.includes(
-          'projects/' + project.id
+          'projects/' + project.id,
         ),
       })}
       css={css`
         width: 100%;
         border-radius: ${style.borderRadiusBase};
         overflow: hidden;
-        transition: box-shadow 100ms, border-color 100ms;
+        transition:
+          box-shadow 100ms,
+          border-color 100ms;
         border: 1px solid ${style.borderColorLight};
         padding: 3px ${style.paddingBase - 5}px 0;
         &.ProjectItem--hasBelong {

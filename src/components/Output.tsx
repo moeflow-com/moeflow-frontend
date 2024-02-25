@@ -74,7 +74,7 @@ export const Output: FC<OutputProps> = ({ index, output, className }) => {
                       formatMessage({ id: 'output.onlyText' }) +
                       formatMessage({ id: ')' })
                     : '',
-              }
+              },
             )}
           </div>
           <div className="Output__CreateTime">
@@ -89,7 +89,7 @@ export const Output: FC<OutputProps> = ({ index, output, className }) => {
           disibled={output.status === OUTPUT_STATUS.ERROR}
           loading={
             ![OUTPUT_STATUS.SUCCEEDED, OUTPUT_STATUS.ERROR].includes(
-              output.status
+              output.status,
             )
           }
           color={style.textColor}

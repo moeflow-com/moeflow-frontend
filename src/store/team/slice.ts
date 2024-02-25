@@ -29,7 +29,7 @@ const slice = createSlice({
     },
     createTeam(
       state,
-      action: PayloadAction<{ team: UserTeam; unshift?: boolean }>
+      action: PayloadAction<{ team: UserTeam; unshift?: boolean }>,
     ) {
       const { team, unshift = false } = action.payload;
       if (unshift) {
@@ -40,7 +40,7 @@ const slice = createSlice({
     },
     editTeam(state, action: PayloadAction<UserTeam>) {
       const index = state.teams.findIndex(
-        (team) => team.id === action.payload.id
+        (team) => team.id === action.payload.id,
       );
       if (index > -1) {
         state.teams[index] = action.payload;
@@ -48,7 +48,7 @@ const slice = createSlice({
     },
     deleteTeam(state, action: PayloadAction<{ id: string }>) {
       const index = state.teams.findIndex(
-        (team) => team.id === action.payload.id
+        (team) => team.id === action.payload.id,
       );
       if (index > -1) {
         state.teams.splice(index, 1);
@@ -68,7 +68,7 @@ const slice = createSlice({
           state.currentTeam[key] = action.payload[key] as never;
         }
         const teamInList = state.teams.find(
-          (team) => team.id === state.currentTeam?.id
+          (team) => team.id === state.currentTeam?.id,
         );
         if (teamInList) {
           let key: keyof typeof action.payload;

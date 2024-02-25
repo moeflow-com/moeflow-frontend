@@ -4,4 +4,5 @@ export const INVITATION_STATUS = {
   ALLOW: 2 as 2,
   DENY: 3 as 3,
 };
-export type InvitationStatuses = typeof INVITATION_STATUS[keyof typeof INVITATION_STATUS];
+export type InvitationStatuses =
+  (typeof INVITATION_STATUS)[keyof typeof INVITATION_STATUS];

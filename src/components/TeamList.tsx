@@ -31,13 +31,13 @@ export const TeamList: FC<TeamListProps> = ({ className } = {}) => {
   const [total, setTotal] = useState(0); // 元素总个数
 
   const defaultPage = useSelector(
-    (state: AppState) => state.team.teamsState.page
+    (state: AppState) => state.team.teamsState.page,
   );
   const defaultWord = useSelector(
-    (state: AppState) => state.team.teamsState.word
+    (state: AppState) => state.team.teamsState.word,
   );
   const defaultScrollTop = useSelector(
-    (state: AppState) => state.team.teamsState.scrollTop
+    (state: AppState) => state.team.teamsState.scrollTop,
   );
 
   /** 获取元素 */

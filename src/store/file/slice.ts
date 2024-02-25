@@ -14,7 +14,7 @@ export const initialState: FileState = {
     page: 1,
     word: '',
     scrollTop: 0,
-    selectedFileIds: []
+    selectedFileIds: [],
   },
 };
 

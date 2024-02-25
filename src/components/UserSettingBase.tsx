@@ -13,9 +13,7 @@ interface UserSettingBaseProps {
 /**
  * 用户基础设置
  */
-export const UserSettingBase: FC<UserSettingBaseProps> = ({
-  className,
-}) => {
+export const UserSettingBase: FC<UserSettingBaseProps> = ({ className }) => {
   const { formatMessage } = useIntl(); // i18n
 
   return (

@@ -32,7 +32,7 @@ const slice = createSlice({
     },
     createProject(
       state,
-      action: PayloadAction<{ project: Project; unshift?: boolean }>
+      action: PayloadAction<{ project: Project; unshift?: boolean }>,
     ) {
       const { project, unshift = false } = action.payload;
       if (unshift) {
@@ -43,7 +43,7 @@ const slice = createSlice({
     },
     editProject(state, action: PayloadAction<Project>) {
       const index = state.projects.findIndex(
-        (project) => project.id === action.payload.id
+        (project) => project.id === action.payload.id,
       );
       if (index > -1) {
         state.projects[index] = action.payload;
@@ -51,7 +51,7 @@ const slice = createSlice({
     },
     deleteProject(state, action: PayloadAction<{ id: string }>) {
       const index = state.projects.findIndex(
-        (project) => project.id === action.payload.id
+        (project) => project.id === action.payload.id,
       );
       if (index > -1) {
         state.projects.splice(index, 1);
@@ -69,14 +69,14 @@ const slice = createSlice({
     },
     increaseCurrentProjectTargetCount(
       state,
-      action: PayloadAction<{ id: string; step: number }>
+      action: PayloadAction<{ id: string; step: number }>,
     ) {
       if (state.currentProject) {
         state.currentProject.targetCount += action.payload.step;
       }
       // 同时也修改列表中的项目
       const index = state.projects.findIndex(
-        (project) => project.id === action.payload.id
+        (project) => project.id === action.payload.id,
       );
       if (index > -1) {
         state.projects[index].targetCount += action.payload.step;

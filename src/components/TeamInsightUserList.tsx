@@ -49,24 +49,16 @@ export const TeamInsightUserList: FC<TeamInsightUserListProps> = ({
     projectsLoading?: boolean;
     projectsPage?: number;
   }
-  const {
-    items,
-    setItems,
-    page,
-    setPage,
-    total,
-    limit,
-    status,
-    refresh,
-  } = usePagination<
-    APIInsightUserWithPage,
-    Parameters<typeof apis.getTeamInsightUsers>[0]
-  >({
-    api: apis.getTeamInsightUsers,
-    apiParams: { teamID: team.id, params: { word: word } },
-    defaultPage,
-    defaultLimit: 10,
-  });
+  const { items, setItems, page, setPage, total, limit, status, refresh } =
+    usePagination<
+      APIInsightUserWithPage,
+      Parameters<typeof apis.getTeamInsightUsers>[0]
+    >({
+      api: apis.getTeamInsightUsers,
+      apiParams: { teamID: team.id, params: { word: word } },
+      defaultPage,
+      defaultLimit: 10,
+    });
 
   const handleLoadMoreClick = ({
     user,
@@ -80,7 +72,7 @@ export const TeamInsightUserList: FC<TeamInsightUserListProps> = ({
     setItems(
       produce((draft) => {
         draft[index].projectsLoading = true;
-      })
+      }),
     );
     apis
       .getTeamInsightUserProjects({
@@ -99,7 +91,7 @@ export const TeamInsightUserList: FC<TeamInsightUserListProps> = ({
             } else {
               draft[index].projects.push(...data);
             }
-          })
+          }),
         );
       });
   };
@@ -207,7 +199,7 @@ export const TeamInsightUserList: FC<TeamInsightUserListProps> = ({
                       <span className="TeamInsightUserList__MoreProjectsTip">
                         {formatMessage(
                           { id: 'insight.moreProject' },
-                          { count: record.count - record.projects.length }
+                          { count: record.count - record.projects.length },
                         )}
                       </span>
                       <Button

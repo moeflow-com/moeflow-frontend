@@ -12,13 +12,13 @@ import { Project } from '../../interfaces';
 
 // worker Sage
 function* setCurrentProjectWorker(
-  action: ReturnType<typeof setCurrentProjectSaga>
+  action: ReturnType<typeof setCurrentProjectSaga>,
 ) {
   // 清空当前 project
   yield put(clearCurrentProject());
   const projects = yield select((state: AppState) => state.project.projects);
   const project = projects.find(
-    (project: Project) => project.id === action.payload.id
+    (project: Project) => project.id === action.payload.id,
   );
   if (project) {
     // 已存在与 projects 中，则直接获取

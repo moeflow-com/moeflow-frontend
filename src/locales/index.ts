@@ -81,7 +81,7 @@ const getAntdValidateMessages = (locale: string) => {
     date: {
       format: '格式日期无效',
       parse: '无法被解析成时间',
-      invalid: '无效的时间'
+      invalid: '无效的时间',
     },
     types: {
       string: typeTemplate_zhCN,
@@ -96,29 +96,29 @@ const getAntdValidateMessages = (locale: string) => {
       regexp: typeTemplate_zhCN,
       email: typeTemplate_zhCN,
       url: typeTemplate_zhCN,
-      hex: typeTemplate_zhCN
+      hex: typeTemplate_zhCN,
     },
     string: {
       len: '长度必须为 ${len} 个字符',
       min: '长度最少为 ${min} 个字符',
       max: '长度最多为 ${max} 个字符',
-      range: '长度必须在 ${min} 到 ${max} 个字符之间'
+      range: '长度必须在 ${min} 到 ${max} 个字符之间',
     },
     number: {
       len: '数值必须等于 ${len}',
       min: '数值不可小于 ${min}',
       max: '数值不可大于 ${max}',
-      range: '数值必须在 ${min} 到 ${max} 之间'
+      range: '数值必须在 ${min} 到 ${max} 之间',
     },
     array: {
       len: '元素个数必须等于 ${len}',
       min: '元素个数不可小于 ${min}',
       max: '元素个数不可大于 ${max}',
-      range: '元素个数必须在 ${min} 到 ${max} 之间'
+      range: '元素个数必须在 ${min} 到 ${max} 之间',
     },
     pattern: {
-      mismatch: '不匹配正则：${pattern}'
-    }
+      mismatch: '不匹配正则：${pattern}',
+    },
   };
   return zhCN;
 };
@@ -128,7 +128,7 @@ const cache = createIntlCache();
 /** 切换语言时直接修此对象 */
 const intlConfig = {
   locale: getLocale(),
-  messages: getIntlMessages(getLocale())
+  messages: getIntlMessages(getLocale()),
 };
 /** 获取在组件外使用的 intl 实例 */
 const getIntl = () => {
@@ -141,5 +141,5 @@ export {
   getAntdLocale,
   getAntdValidateMessages,
   getIntl,
-  intlConfig
+  intlConfig,
 };

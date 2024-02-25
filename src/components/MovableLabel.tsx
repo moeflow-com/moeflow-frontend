@@ -71,7 +71,7 @@ export const MovableLabel: FC<MovableLabelProps & LabelProps> = ({
   const isIPad = platform === 'tablet' && osName === 'ios';
   const saving = labelSavingStatuses.includes(status);
   const currentProject = useSelector(
-    (state: AppState) => state.project.currentProject
+    (state: AppState) => state.project.currentProject,
   );
 
   const handleMoveEnd: OnMoveEnd = ({ x: newX, y: newY, reset }) => {
@@ -83,7 +83,7 @@ export const MovableLabel: FC<MovableLabelProps & LabelProps> = ({
           x: newX,
           y: newY,
           reset,
-        })
+        }),
       );
     }
   };
@@ -106,7 +106,7 @@ export const MovableLabel: FC<MovableLabelProps & LabelProps> = ({
             positionType === SOURCE_POSITION_TYPE.OUT
               ? SOURCE_POSITION_TYPE.IN
               : SOURCE_POSITION_TYPE.OUT,
-        })
+        }),
       );
     }
   };

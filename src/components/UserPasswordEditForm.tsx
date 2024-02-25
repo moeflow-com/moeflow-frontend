@@ -19,7 +19,9 @@ interface UserPasswordEditFormProps {
  * 从 redux 的 currentProject 中读取值，使用前必须先
  * dispatch(setCurrentProject({ id }));
  */
-export const UserPasswordEditForm: FC<UserPasswordEditFormProps> = ({ className }) => {
+export const UserPasswordEditForm: FC<UserPasswordEditFormProps> = ({
+  className,
+}) => {
   const { formatMessage } = useIntl(); // i18n
   const [form] = AntdForm.useForm();
   const dispatch = useDispatch();

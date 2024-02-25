@@ -49,7 +49,7 @@ export const ImageViewerSettingPanel: FC<ImageViewerSettingPanelProps> = ({
               `,
               css`
                 color: ${style.widgetButtonActiveColor};
-              `
+              `,
             )}
             &:last-child {
               border-radius: 0 ${style.borderRadiusBase}

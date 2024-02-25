@@ -36,7 +36,7 @@ export const UserInvitationList: FC<UserInvitationListProps> = ({
   const [total, setTotal] = useState(0); // 元素总个数
   const [items, setItems] = useState<APIInvitation[]>([]); // 元素
   const newInvitationsCount = useSelector(
-    (state: AppState) => state.site.newInvitationsCount
+    (state: AppState) => state.site.newInvitationsCount,
   );
   // 弹出框
   const [spinningIDs, setSpinningIDs] = useState<string[]>([]); // 删除请求中
@@ -243,7 +243,7 @@ export const UserInvitationList: FC<UserInvitationListProps> = ({
                     <div className={classNames('message')}>
                       {formatMessage(
                         { id: 'me.invitation.asRole' },
-                        { role: item.role.name }
+                        { role: item.role.name },
                       )}
                     </div>
                     {item.status === INVITATION_STATUS.PENDING ? (

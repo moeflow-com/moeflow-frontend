@@ -160,7 +160,7 @@ export const InvitationList: FC<InvitationListProps> = ({
       title: formatMessage({ id: 'invitation.deleteInvitation' }),
       content: formatMessage(
         { id: 'invitation.deleteInvitationTip' },
-        { user: invitation.user.name }
+        { user: invitation.user.name },
       ),
       onOk: () => {
         setSpinningIDs((ids) => [invitation.id, ...ids]);

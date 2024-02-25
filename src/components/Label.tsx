@@ -184,7 +184,9 @@ export const Label: FC<LabelProps> = ({
           }
         }
         .Label__Number {
-          transition: opacity 200ms, background-color 200ms;
+          transition:
+            opacity 200ms,
+            background-color 200ms;
           position: absolute;
           top: ${numberTop}px;
           left: ${numberLeft}px;

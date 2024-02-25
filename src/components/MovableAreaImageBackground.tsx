@@ -12,11 +12,9 @@ interface MovableAreaImageBackgroundProps {
  * 可移动区域图片背景
  * @param onLoad 当图片onLoad时调用此函数，传递当时的size
  */
-export const MovableAreaImageBackground: FC<MovableAreaImageBackgroundProps> = ({
-  src,
-  onLoad,
-  className,
-}) => {
+export const MovableAreaImageBackground: FC<
+  MovableAreaImageBackgroundProps
+> = ({ src, onLoad, className }) => {
   const domRef = useRef<HTMLImageElement>(null);
   return (
     <img

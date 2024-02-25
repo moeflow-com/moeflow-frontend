@@ -19,10 +19,9 @@ interface ProjectImportFromLabelplusStatusProps {
 /**
  * 导入进度
  */
-export const ProjectImportFromLabelplusStatus: FC<ProjectImportFromLabelplusStatusProps> = ({
-  project,
-  className,
-}) => {
+export const ProjectImportFromLabelplusStatus: FC<
+  ProjectImportFromLabelplusStatusProps
+> = ({ project, className }) => {
   const { formatMessage } = useIntl(); // i18n
   const dispatch = useDispatch();
   const delay =

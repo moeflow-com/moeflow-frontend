@@ -158,7 +158,7 @@ export const MemberList: FC<MemberListProps> = ({
           ? formatMessage({ id: 'team.leaveConfirm' })
           : formatMessage(
               { id: 'team.deleteUserConfirm' },
-              { user: user.name }
+              { user: user.name },
             ),
       onOk: () => {
         setSpinningIDs((ids) => [user.id, ...ids]);

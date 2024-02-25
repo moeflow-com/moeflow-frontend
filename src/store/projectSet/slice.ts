@@ -29,7 +29,7 @@ const slice = createSlice({
     },
     createProjectSet(
       state,
-      action: PayloadAction<{ projectSet: UserProjectSet; unshift?: boolean }>
+      action: PayloadAction<{ projectSet: UserProjectSet; unshift?: boolean }>,
     ) {
       const { projectSet, unshift = false } = action.payload;
       if (unshift) {
@@ -45,7 +45,7 @@ const slice = createSlice({
     },
     editProjectSet(state, action: PayloadAction<UserProjectSet>) {
       const index = state.projectSets.findIndex(
-        (projectSet) => projectSet.id === action.payload.id
+        (projectSet) => projectSet.id === action.payload.id,
       );
       if (index > -1) {
         state.projectSets[index] = action.payload;
@@ -53,7 +53,7 @@ const slice = createSlice({
     },
     deleteProjectSet(state, action: PayloadAction<{ id: string }>) {
       const index = state.projectSets.findIndex(
-        (projectSet) => projectSet.id === action.payload.id
+        (projectSet) => projectSet.id === action.payload.id,
       );
       if (index > -1) {
         state.projectSets.splice(index, 1);
@@ -71,7 +71,7 @@ const slice = createSlice({
     },
     setProjectSetsState(
       state,
-      action: PayloadAction<Partial<ProjectSetsState>>
+      action: PayloadAction<Partial<ProjectSetsState>>,
     ) {
       state.projectSetsState = { ...state.projectSetsState, ...action.payload };
     },

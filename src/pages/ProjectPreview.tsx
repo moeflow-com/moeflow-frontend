@@ -119,7 +119,7 @@ const ProjectPreview: FC<ProjectPreviewProps> = ({
           dispatch(editProject(data.group));
           // 跳转到项目
           history.replace(
-            `/dashboard/teams/${team.id}/project-sets/${projectSet.id}/projects/${data.group.id}`
+            `/dashboard/teams/${team.id}/project-sets/${projectSet.id}/projects/${data.group.id}`,
           );
         }
       })
@@ -215,7 +215,9 @@ const ProjectPreview: FC<ProjectPreviewProps> = ({
           height: ${coverHeight}px;
           overflow: hidden;
           border-radius: ${style.borderRadiusBase};
-          transition: box-shadow 100ms, border-color 100ms;
+          transition:
+            box-shadow 100ms,
+            border-color 100ms;
           border: 1px solid ${style.borderColorLight};
           .ProjectPreview__PreviewListImage {
             width: ${coverWidth}px;
@@ -238,7 +240,7 @@ const ProjectPreview: FC<ProjectPreviewProps> = ({
                 transform: scale(1.08);
                 transition: transform 100ms;
               }
-            `
+            `,
           )};
         }
         .ProjectPreview__PreviewListImageWrapper--active {
@@ -278,7 +280,7 @@ const ProjectPreview: FC<ProjectPreviewProps> = ({
               <div className="ProjectPreview__JoinTip">
                 {formatMessage(
                   { id: 'project.notAllowApplyTip' },
-                  { project: project.name }
+                  { project: project.name },
                 )}
               </div>
             </>
@@ -287,7 +289,7 @@ const ProjectPreview: FC<ProjectPreviewProps> = ({
               <div className="ProjectPreview__JoinTitle">
                 {formatMessage(
                   { id: 'application.reasonLabel' },
-                  { name: project.name }
+                  { name: project.name },
                 )}
               </div>
               <div className="ProjectPreview__JoinForm">
@@ -314,7 +316,7 @@ const ProjectPreview: FC<ProjectPreviewProps> = ({
               <div className="ProjectPreview__JoinTitle">
                 {formatMessage(
                   { id: 'project.applyConfirm' },
-                  { project: project.name }
+                  { project: project.name },
                 )}
               </div>
               <div className="ProjectPreview__JoinForm">
@@ -341,7 +343,7 @@ const ProjectPreview: FC<ProjectPreviewProps> = ({
                   {
                     'ProjectPreview__PreviewListImageWrapper--active':
                       item.id === currentImage?.id,
-                  }
+                  },
                 )}
                 key={item.id}
                 onClick={() => {

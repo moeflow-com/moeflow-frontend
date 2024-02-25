@@ -3,7 +3,7 @@ import { Pagination } from 'antd';
 import { PaginationProps } from 'antd/lib/pagination';
 import { Canceler, CancelToken } from 'axios';
 import classNames from 'classnames';
-import {debounce} from 'lodash-es';
+import { debounce } from 'lodash-es';
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import ReactResizeDetector from 'react-resize-detector';
@@ -37,7 +37,7 @@ interface ListProps<T> {
   itemCreater: (item: T) => React.ReactNode | React.ReactElement;
   emptyTipCreater?: () => React.ReactNode | React.ReactElement | undefined;
   searchEmptyTipCreater?: (
-    word: string
+    word: string,
   ) => React.ReactNode | React.ReactElement | undefined;
   searchRightButton?: React.ReactNode | React.ReactElement;
   searchInputVisible?: boolean;
@@ -142,8 +142,8 @@ export function List<T>({
         }
       },
       200,
-      { maxWait: 500 }
-    )
+      { maxWait: 500 },
+    ),
   );
 
   /** 第一次挂载/切换 ID */

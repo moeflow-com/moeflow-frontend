@@ -1,7 +1,7 @@
 import { css } from '@emotion/core';
 import { Icon } from '.';
 import { Slider } from 'antd';
-import {debounce} from 'lodash-es';
+import { debounce } from 'lodash-es';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
@@ -188,7 +188,7 @@ export const ImageViewerZoomPanel: FC<ImageViewerZoomPanelProps> = ({
               `,
               css`
                 color: ${style.widgetButtonActiveColor};
-              `
+              `,
             )}
             &.ImageViewerZoomPanel__ShrinkButton {
               height: 30px;
@@ -282,7 +282,7 @@ export const ImageViewerZoomPanel: FC<ImageViewerZoomPanelProps> = ({
                 `,
                 css`
                   color: ${style.widgetButtonActiveColor};
-                `
+                `,
               )}
               cursor: pointer;
               &:last-child {

@@ -20,7 +20,9 @@ interface ImageViewerLabelTextExampleProps {
  * @param originDirection 源标语言的方向
  * @param originWritingMode 源语言的书写模式
  */
-export const ImageViewerLabelTextExample: FC<ImageViewerLabelTextExampleProps> = ({
+export const ImageViewerLabelTextExample: FC<
+  ImageViewerLabelTextExampleProps
+> = ({
   visible = true,
   direction,
   writingMode,

@@ -54,7 +54,7 @@ export const ImageViewerPagingPanel: FC<ImageViewerPagingPanelProps> = ({
 
   // 快捷键 - 上一页
   const goPrevPageHotKeyOptions = useSelector(
-    (state: AppState) => state.hotKey.goPrevPage
+    (state: AppState) => state.hotKey.goPrevPage,
   );
   useHotKey(
     {
@@ -62,7 +62,7 @@ export const ImageViewerPagingPanel: FC<ImageViewerPagingPanelProps> = ({
       ...goPrevPageHotKeyOptions[0],
     },
     goPrevImage,
-    [prevImageID, targetID, loading, disibled]
+    [prevImageID, targetID, loading, disibled],
   );
   useHotKey(
     {
@@ -70,12 +70,12 @@ export const ImageViewerPagingPanel: FC<ImageViewerPagingPanelProps> = ({
       ...goPrevPageHotKeyOptions[1],
     },
     goPrevImage,
-    [prevImageID, targetID, loading, disibled]
+    [prevImageID, targetID, loading, disibled],
   );
 
   // 快捷键 - 下一页
   const goNextPageHotKeyOptions = useSelector(
-    (state: AppState) => state.hotKey.goNextPage
+    (state: AppState) => state.hotKey.goNextPage,
   );
   useHotKey(
     {
@@ -83,7 +83,7 @@ export const ImageViewerPagingPanel: FC<ImageViewerPagingPanelProps> = ({
       ...goNextPageHotKeyOptions[0],
     },
     goNextImage,
-    [nextImageID, targetID, loading, disibled]
+    [nextImageID, targetID, loading, disibled],
   );
   useHotKey(
     {
@@ -91,7 +91,7 @@ export const ImageViewerPagingPanel: FC<ImageViewerPagingPanelProps> = ({
       ...goNextPageHotKeyOptions[1],
     },
     goNextImage,
-    [nextImageID, targetID, loading, disibled]
+    [nextImageID, targetID, loading, disibled],
   );
 
   return (
@@ -123,7 +123,7 @@ export const ImageViewerPagingPanel: FC<ImageViewerPagingPanelProps> = ({
               `,
               css`
                 color: ${style.widgetButtonActiveColor};
-              `
+              `,
             )}
             &:first-of-type {
               border-radius: ${style.borderRadiusBase} 0 0

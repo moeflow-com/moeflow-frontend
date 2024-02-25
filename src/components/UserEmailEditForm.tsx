@@ -19,7 +19,9 @@ interface UserEmailEditFormProps {
  * 从 redux 的 currentProject 中读取值，使用前必须先
  * dispatch(setCurrentProject({ id }));
  */
-export const UserEmailEditForm: FC<UserEmailEditFormProps> = ({ className }) => {
+export const UserEmailEditForm: FC<UserEmailEditFormProps> = ({
+  className,
+}) => {
   const { formatMessage } = useIntl(); // i18n
   const [form] = AntdForm.useForm();
   const dispatch = useDispatch();

@@ -110,7 +110,7 @@ const ProjectFiles: FC<ProjectFilesProps> = ({ project }) => {
               });
               if (defaultTargetID) {
                 const target = targets.find(
-                  (target) => target.id === defaultTargetID
+                  (target) => target.id === defaultTargetID,
                 );
                 if (target) {
                   setCurrentTarget(target);
@@ -131,7 +131,7 @@ const ProjectFiles: FC<ProjectFilesProps> = ({ project }) => {
             } else {
               message.info(
                 formatMessage({ id: 'project.onlyOneTargetTip' }),
-                1
+                1,
               );
             }
           }}

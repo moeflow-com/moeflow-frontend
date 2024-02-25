@@ -43,9 +43,8 @@ export const CAPTCHAModal: FC<CAPTCHAModalProps> = ({
     value: '',
     info: '',
   };
-  const [captcha, setCAPTCHA] = useState<CAPTCHAInputValue>(
-    defaultCAPTCHAValue
-  );
+  const [captcha, setCAPTCHA] =
+    useState<CAPTCHAInputValue>(defaultCAPTCHAValue);
   const inputRef = useRef<CAPTCHAInputRef>(null);
 
   // 按钮默认值
@@ -146,7 +145,7 @@ export const CAPTCHAModal: FC<CAPTCHAModalProps> = ({
                 .captcha-form-close-icon {
                   color: ${style.primaryColorDarker};
                 }
-              `
+              `,
             )}
             .captcha-form-close-icon {
               color: ${style.primaryColor};

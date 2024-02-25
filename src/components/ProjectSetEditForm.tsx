@@ -9,7 +9,7 @@ import { FC, UserProjectSet } from '../interfaces';
 import { AppState } from '../store';
 import {
   editProjectSet,
-  setCurrentProjectSet
+  setCurrentProjectSet,
 } from '../store/projectSet/slice';
 import style from '../style';
 import { toLowerCamelCase } from '../utils';
@@ -23,12 +23,14 @@ interface ProjectSetEditFormProps {
  * 从 redux 的 currentProjectSet 中读取值，使用前必须先
  * dispatch(setCurrentProjectSet({ id }));
  */
-export const ProjectSetEditForm: FC<ProjectSetEditFormProps> = ({ className }) => {
+export const ProjectSetEditForm: FC<ProjectSetEditFormProps> = ({
+  className,
+}) => {
   const { formatMessage } = useIntl(); // i18n
   const [form] = AntdForm.useForm();
   const dispatch = useDispatch();
   const currentProjectSet = useSelector(
-    (state: AppState) => state.projectSet.currentProjectSet
+    (state: AppState) => state.projectSet.currentProjectSet,
   ) as UserProjectSet;
   const [submitting, setSubmitting] = useState(false);
 

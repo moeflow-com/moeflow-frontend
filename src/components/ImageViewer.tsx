@@ -2,7 +2,7 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { css } from '@emotion/core';
 import { Modal, Spin } from 'antd';
 import Bowser from 'bowser';
-import {debounce} from 'lodash-es';
+import { debounce } from 'lodash-es';
 import React, { useEffect, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
@@ -91,16 +91,16 @@ export const ImageViewer: FC<ImageViewerProps> = ({
   const platform = useSelector((state: AppState) => state.site.platform);
   const isMobile = platform === 'mobile';
   const savingStatus = useSelector(
-    (state: AppState) => state.source.savingStatus
+    (state: AppState) => state.source.savingStatus,
   );
   const focusedSourceID = useSelector(
-    (state: AppState) => state.source.focusedSource.id
+    (state: AppState) => state.source.focusedSource.id,
   );
   const focusedSourceEffects = useSelector(
-    (state: AppState) => state.source.focusedSource.effects
+    (state: AppState) => state.source.focusedSource.effects,
   );
   const focusedSourceNoiseFocusLabel = useSelector(
-    (state: AppState) => state.source.focusedSource.noises.focusLabel
+    (state: AppState) => state.source.focusedSource.noises.focusLabel,
   );
   const [focusLabelIndex, setFocusLabelIndex] = useState(-1);
   // 图片加载中
@@ -142,14 +142,11 @@ export const ImageViewer: FC<ImageViewerProps> = ({
    * 图片缩放控制面板相关
    */
   // 图片缩放控制面板拖动条的值
-  const [
-    imageViewerZoomPanelSliderValue,
-    setimageViewerZoomPanelSliderValue,
-  ] = useState(1);
+  const [imageViewerZoomPanelSliderValue, setimageViewerZoomPanelSliderValue] =
+    useState(1);
   // 是否收图片缩控制台
-  const [imageViewerZoomPanelShrunk, setimageViewerZoomPanelShrunk] = useState(
-    true
-  );
+  const [imageViewerZoomPanelShrunk, setimageViewerZoomPanelShrunk] =
+    useState(true);
   // 图片缩放控制台 ref
   const imageViewerZoomPanelRef = useRef() as MovableItemUseRef;
   // 图片缩放控制台最近的边的默认值
@@ -165,15 +162,15 @@ export const ImageViewer: FC<ImageViewerProps> = ({
   }
   // 图片缩放控制台最近的边
   const imageViewerZoomPanelMarginsRef = useRef<MovableItemMargins>(
-    defaultimageViewerZoomPanelMargins
+    defaultimageViewerZoomPanelMargins,
   );
 
   // 图片移动区域变化时，将各个控件移动到相应地方
   useEffect(() => {
     imageViewerZoomPanelRef.current.move(
       imageViewerZoomPanelRef.current.moveWithMargins(
-        imageViewerZoomPanelMarginsRef.current
-      )
+        imageViewerZoomPanelMarginsRef.current,
+      ),
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageAreaSize.width, imageAreaSize.height]);
@@ -381,7 +378,7 @@ export const ImageViewer: FC<ImageViewerProps> = ({
           x,
           y,
           positionType: SOURCE_POSITION_TYPE.IN,
-        })
+        }),
       );
     } else if (button === 2) {
       dispatch(
@@ -390,7 +387,7 @@ export const ImageViewer: FC<ImageViewerProps> = ({
           x,
           y,
           positionType: SOURCE_POSITION_TYPE.OUT,
-        })
+        }),
       );
     }
   };
@@ -404,7 +401,7 @@ export const ImageViewer: FC<ImageViewerProps> = ({
           ? ['scrollIntoView']
           : ['focusInput', 'scrollIntoView'],
         noises: isMobile ? [] : ['focusInput'],
-      })
+      }),
     );
   };
 
@@ -462,8 +459,8 @@ export const ImageViewer: FC<ImageViewerProps> = ({
       bestTranslation === undefined
         ? undefined
         : bestTranslation.proofreadContent
-        ? bestTranslation.proofreadContent
-        : bestTranslation.content;
+          ? bestTranslation.proofreadContent
+          : bestTranslation.content;
 
     return (
       <MovableLabel
@@ -503,7 +500,7 @@ export const ImageViewer: FC<ImageViewerProps> = ({
             `,
             css`
               color: ${style.widgetButtonActiveColor};
-            `
+            `,
           )}
           &.ImageViewer__BackButton {
             position: absolute;
