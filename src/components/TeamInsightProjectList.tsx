@@ -348,7 +348,7 @@ export const TeamInsightProjectList: FC<TeamInsightProjectListProps> = ({
                     <div>
                       <CustomButton
                         className="TeamInsightProjectList__OutputDownloadButton"
-                        disibled={output.status === OUTPUT_STATUS.ERROR}
+                        disabled={output.status === OUTPUT_STATUS.ERROR}
                         loading={
                           ![
                             OUTPUT_STATUS.SUCCEEDED,
