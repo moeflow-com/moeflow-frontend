@@ -1,0 +1,29 @@
+name: Check PR
+
+on:
+  pull_request:
+
+jobs:
+  check-pr:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup node and deps
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - run: npm i
+
+      - run: npm run lint
+
+      - run: npm run format
+
+      - run: npm run build
