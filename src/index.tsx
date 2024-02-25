@@ -1,7 +1,7 @@
 import { ConfigProvider } from 'antd';
 import Bowser from 'bowser';
 import 'pepjs'; // 指针事件垫片
-import React from 'react';
+import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import { IntlProvider } from 'react-intl'; // i18n
 import { Provider } from 'react-redux';
@@ -79,17 +79,19 @@ for (const hotKeyName in hotKeyInitialState) {
 }
 // 渲染 APP
 ReactDOM.render(
-  <Provider store={store}>
-    <IntlProvider locale={locale} messages={intlMessages}>
-      <ConfigProvider
-        locale={antdLocale}
-        form={{ validateMessages: antdValidateMessages }}
-      >
-        <Router>
-          <App />
-        </Router>
-      </ConfigProvider>
-    </IntlProvider>
-  </Provider>,
+  <StrictMode>
+    <Provider store={store}>
+      <IntlProvider locale={locale} messages={intlMessages}>
+        <ConfigProvider
+          locale={antdLocale}
+          form={{ validateMessages: antdValidateMessages }}
+        >
+          <Router>
+            <App />
+          </Router>
+        </ConfigProvider>
+      </IntlProvider>
+    </Provider>
+  </StrictMode>,
   document.getElementById('root'),
 );
