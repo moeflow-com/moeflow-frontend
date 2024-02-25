@@ -12,6 +12,7 @@ import ResetPassword from './pages/ResetPassword';
 import { NotFoundPage } from './pages/404';
 import { AppState } from './store';
 import style from './style';
+import { DemoOcr } from './pages/DemoOcr';
 
 const App: React.FC = () => {
   const location = useLocation();
@@ -159,6 +160,9 @@ const App: React.FC = () => {
           </Route>
           <Route path="/dashboard">
             <Dashboard />
+          </Route>
+          <Route path="/demo/ocr">
+            <DemoOcr />
           </Route>
           {userIsAdmin && (
             <Route path="/admin">
