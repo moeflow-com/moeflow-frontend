@@ -2,7 +2,7 @@ import { useTitle } from '../hooks';
 import { useHistory } from 'react-router-dom';
 import { FC, useEffect } from 'react';
 
-export const NotFoundPage: FC<{}> = (props) => {
+export const NotFoundPage: FC = (props) => {
   const history = useHistory();
   useTitle({
     prefix: 'Page not found',
