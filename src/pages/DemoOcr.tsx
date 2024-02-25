@@ -4,6 +4,7 @@ import { useIntl } from 'react-intl';
 import { useHistory } from 'react-router-dom';
 import { useTitle } from '../hooks';
 import { FC } from '../interfaces';
+import { DemoOcrFiles } from '../components/TranslateCompanion/TranslateCompanion';
 
 /** 模板的属性接口 */
 interface TmpProps {}
@@ -15,5 +16,9 @@ export const DemoOcr: FC<TmpProps> = () => {
   const { formatMessage } = useIntl();
   useTitle();
 
-  return <div css={css``}>模板</div>;
+  return (
+    <div css={css``}>
+      <DemoOcrFiles />
+    </div>
+  );
 };
