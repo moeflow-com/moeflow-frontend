@@ -86,7 +86,7 @@ export const Output: FC<OutputProps> = ({ index, output, className }) => {
       <div className="Output__Bottom">
         <Button
           className="Output__DownloadButton"
-          disibled={output.status === OUTPUT_STATUS.ERROR}
+          disabled={output.status === OUTPUT_STATUS.ERROR}
           loading={
             ![OUTPUT_STATUS.SUCCEEDED, OUTPUT_STATUS.ERROR].includes(
               output.status,

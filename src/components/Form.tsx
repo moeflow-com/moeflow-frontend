@@ -15,7 +15,7 @@ export const Form: FC<FormProps & AntdFormProps> = ({ ...props }) => {
   /** 处理 Form 值变动 */
   const handleValuesChange = (changedValues: Store, values: Store) => {
     // 当值变动时消除错误
-    for (let key in changedValues) {
+    for (const key in changedValues) {
       props.form?.setFields([{ name: key, errors: [] }]);
     }
     if (props.onValuesChange) {

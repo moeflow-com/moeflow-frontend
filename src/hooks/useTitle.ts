@@ -14,11 +14,12 @@ interface UseTitle {
  * @param prefix 前缀
  * @param suffix 后缀
  * @param hyphen 站点名和前缀/后缀之间的连字符
+ * @param deps
  */
 export const useTitle: UseTitle = (
   { prefix = '', suffix = '', hyphen = ' · ' }: UseTitleParams = {},
   deps = [],
-) => {
+): void => {
   const { formatMessage } = useIntl();
   if (prefix !== '') prefix = prefix + hyphen;
   if (suffix !== '') suffix = hyphen + suffix;

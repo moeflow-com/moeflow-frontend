@@ -125,7 +125,9 @@ export type FailureResults =
   | CancelFailureResult
   | OtherFailureResult;
 
-export const request = <T = any>(axiosConfig: AxiosRequestConfig) => {
+export const request = <T = any>(
+  axiosConfig: AxiosRequestConfig,
+): Promise<BasicSuccessResult<T>> => {
   return instance({
     // param=value1&param=value2，去除 query 中数组的 [] 结尾
     paramsSerializer: function (params) {

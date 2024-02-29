@@ -21,7 +21,7 @@ function toHyphenCase(value: string | { [propNames: string]: any }) {
     return stringToHyphenCase(value);
   } else {
     const newValue: { [key: string]: any } = {};
-    for (let key in value) {
+    for (const key in value) {
       newValue[stringToHyphenCase(key)] = value[key];
     }
     return newValue;
@@ -50,7 +50,7 @@ function toUnderScoreCase(
     return value.map((v: any) => toUnderScoreCase(v));
   } else if (isPlainObject(value)) {
     const newValue: { [key: string]: any } = {};
-    for (let key in value) {
+    for (const key in value) {
       if (isPlainObject(value[key])) {
         // 递归处理所以子对象
         newValue[stringToUnderScoreCase(key)] = toUnderScoreCase(value[key]);
@@ -94,7 +94,7 @@ function toLowerCamelCase(
     return value.map((v: any) => toLowerCamelCase(v));
   } else if (isPlainObject(value)) {
     const newValue: { [key: string]: any } = {};
-    for (let key in value) {
+    for (const key in value) {
       if (isPlainObject(value[key])) {
         // 递归处理所以子对象
         newValue[stringToLowerCamelCase(key)] = toLowerCamelCase(value[key]);
@@ -125,7 +125,7 @@ interface ToFormErrors {
  */
 const toFormErrors: ToFormErrors = (value) => {
   const newValue = [];
-  for (let key in value) {
+  for (const key in value) {
     newValue.push({
       name: stringToLowerCamelCase(key),
       errors: value[key],

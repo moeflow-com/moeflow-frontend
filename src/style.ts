@@ -12,7 +12,7 @@ function toHyphenCase(value: string | { [propNames: string]: any }) {
     return stringToHyphenCase(value);
   } else {
     const newValue: { [key: string]: any } = {};
-    for (let key in value) {
+    for (const key in value) {
       newValue[stringToHyphenCase(key)] = value[key];
     }
     return newValue;

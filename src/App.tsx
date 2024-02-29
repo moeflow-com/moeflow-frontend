@@ -9,6 +9,7 @@ import Index from './pages/Index';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ResetPassword from './pages/ResetPassword';
+import { NotFoundPage } from './pages/404';
 import { AppState } from './store';
 import style from './style';
 
@@ -164,6 +165,9 @@ const App: React.FC = () => {
               <Admin />
             </Route>
           )}
+          <Route path="/*">
+            <NotFoundPage />
+          </Route>
         </Switch>
       )}
     </>

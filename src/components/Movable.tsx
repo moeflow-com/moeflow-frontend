@@ -687,7 +687,7 @@ const MovableItemWithoutRef: React.ForwardRefRenderFunction<
    * @param size 组件的大小
    */
   const moveWithMargins: MoveWithMargins = (margins) => {
-    let position: Position = { x: 0, y: 0 };
+    const position: Position = { x: 0, y: 0 };
     // 计算 x 轴上百分比
     if (margins.x.edge === 'left') {
       // 根据左边定位
@@ -910,7 +910,7 @@ const MovableItemWithoutRef: React.ForwardRefRenderFunction<
   } {
     // 将光标位置放入数组
     const pointers = [];
-    for (let key in pointersRef.current) {
+    for (const key in pointersRef.current) {
       pointers.push(pointersRef.current[key]);
     }
     // 计算两个光标距离
@@ -1235,7 +1235,7 @@ const MovableItemWithoutRef: React.ForwardRefRenderFunction<
         onZoomEnd(stateRef.current);
       }
       // 更新初始移动状态
-      for (let id in pointersRef.current) {
+      for (const id in pointersRef.current) {
         startMoveInfoRef.current = {
           ...pointersRef.current[id],
         };

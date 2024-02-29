@@ -13,7 +13,7 @@ import { Tooltip, TooltipProps } from './Tooltip';
 interface ButtonProps {
   tooltipProps?: TooltipProps;
   loading?: boolean;
-  disibled?: boolean;
+  disabled?: boolean;
   type?: 'button' | 'link';
   linkProps?: React.DetailedHTMLProps<
     React.AnchorHTMLAttributes<HTMLAnchorElement>,
@@ -38,7 +38,7 @@ export const Button: FC<ButtonProps> = ({
   color = style.primaryColor,
   colorDisibled = style.primaryColorLightest,
   loading = false,
-  disibled = false,
+  disabled = false,
   onClick,
   className,
   children,
@@ -73,7 +73,7 @@ export const Button: FC<ButtonProps> = ({
   return (
     <div
       className={classNames('Button', className, {
-        'Button--disibled': disibled || loading,
+        'Button--disibled': disabled || loading,
         'Button--noChildren': !children,
       })}
       css={css`
@@ -98,7 +98,7 @@ export const Button: FC<ButtonProps> = ({
           color: ${color};
           margin-right: 10px;
         }
-        ${disibled || loading || clickEffect()}
+        ${disabled || loading || clickEffect()}
         &.Button--disibled {
           cursor: not-allowed;
           user-select: none;
@@ -120,7 +120,7 @@ export const Button: FC<ButtonProps> = ({
           }
         }
       `}
-      onClick={disibled || loading ? undefined : onClick}
+      onClick={disabled || loading ? undefined : onClick}
     >
       {tooltipProps ? (
         <Tooltip {...tooltipProps}>{buttonContent}</Tooltip>

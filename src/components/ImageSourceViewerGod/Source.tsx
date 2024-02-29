@@ -38,7 +38,7 @@ export const Source: FC<SourceProps> = ({
     (state: AppState) => state.project.currentProject,
   );
 
-  let statusLine = checkTranslationState(source);
+  const statusLine = checkTranslationState(source);
 
   const handleSourcePositionTypeChange = (checked: boolean) => {
     dispatch(

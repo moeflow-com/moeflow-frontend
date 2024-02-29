@@ -16,6 +16,7 @@ const backendOrigin = 'http://localhost:13080';
 export default defineConfig({
   // root: 'src',
   build: {
+    sourcemap: true,
     outDir: path.join(__dirname, './build'),
     emptyOutDir: true,
     rollupOptions: {
