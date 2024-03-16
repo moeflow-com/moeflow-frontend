@@ -31,7 +31,7 @@
 1. 建议使用 Node.js 近期LTS版本，如v18 v20
 2. `npm install` 安装依赖项
 3. `npm start start` 启动vite 开发服务器
-    - 开发服务器自带API反向代理。默认将 `localhost:5173/api/*` 的请求自动转发到 `localhost:5000` (本地moeflow-backend开发版的商品)
+    - 开发服务器自带API反向代理。默认将 `localhost:5173/api/*` 的请求自动转发到 `localhost:5000` (本地moeflow-backend开发版)
     - 上述配置可在 `vite.config.ts` 修改。比如不在本地跑moeflow-backend，改用公网的服务器。
 4. `npm build` 发布前端代码，**请注意** 此时使用的后端地址配置为 `.env.local` 中的配置。
     - 如果没有创建 `.env.local` 则为默认值 `/api`。
@@ -75,11 +75,15 @@
 
 ### Version 1.0.3
 
+(旧构架的最后稳定版本。如果新版本中遇到问题，建议回退至此版本尝试。)
+
 1. 支持设置和显示首页 HTML/CSS
 2. 同时构建linux-amd64和linux-aarch64镜像。此版本起可以部署到ARM机器。
 
-<!--
-### Version 1.0.4
+### Version 1.1.0
 
-1. 改用vite构建。
--->
+1. 抛弃create-react-app和webpack，改用vite构建。
+
+### Version NEXT
+
+- [diff](https://github.com/moeflow-com/moeflow-frontend/compare/v1.1.0...main)
