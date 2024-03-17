@@ -115,7 +115,7 @@ export const DemoOcrFiles: FC<{}> = (props) => {
         type="button"
         icon="plus"
       >
-        1. Select up to ${MAX_FILE_COUNT} image files {error}
+        1. Select up to {MAX_FILE_COUNT} image files {error}
       </Button>
       <Button
         disabled={working || !origFiles.length}
