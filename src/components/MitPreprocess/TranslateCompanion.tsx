@@ -18,7 +18,7 @@ async function startOcr(files: File[]): Promise<File> {
   const zipBlob = await createMoeflowProjectZip(
     {
       name: `${files[0]!.name}`,
-      intro: `这是由<萌翻OCR demo>生成的项目. https://moeflow.ihate.work/demo/ocr`,
+      intro: `这是由<萌翻+MitOCR demo>生成的项目. https://moeflow-.ihate.work/demo/ocr`,
       default_role: 'supporter',
       allow_apply_type: 3,
       application_check_type: 1,
