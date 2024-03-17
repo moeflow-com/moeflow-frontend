@@ -20,7 +20,7 @@ const publicPaths = [
   '/login',
   '/register',
   '/reset-password',
-  '/demo/mit-preprocess',
+  '/temp/mit-preprocess',
 ] as readonly string[];
 
 const App: React.FC = () => {

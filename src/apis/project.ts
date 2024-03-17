@@ -232,6 +232,9 @@ const finishProject = ({
   });
 };
 
+/**
+ * @deprecated being retired
+ */
 const startProjectOCR = ({
   id,
   configs,
