@@ -29,7 +29,10 @@ import user from './user';
 import group from './group';
 import insight from './insight';
 import siteSetting from './siteSetting';
+import { mitPreprocess } from './mit_preprocess';
 
+// TODO: move instance/request to a peer file, to prevent circular imports
+// TODO: can we hide this from API callsites?
 const instance = axios.create({
   baseURL: `${configs.baseURL}`,
 });
@@ -51,6 +54,7 @@ interface ResultTypes {
   CANCEL_FAILURE: 'CANCEL_FAILURE';
   OTHER_FAILURE: 'OTHER_FAILURE';
 }
+
 export const resultTypes: ResultTypes = {
   SUCCESS: 'SUCCESS',
   BASIC_FAILURE: 'BASIC_FAILURE',
@@ -76,6 +80,7 @@ interface BasicFailureResultData {
   /** 支持 i18n 的错误信息 */
   message: string;
 }
+
 /** 基础错误响应结果 */
 interface BasicFailureResult {
   type: typeof resultTypes.BASIC_FAILURE;
@@ -92,6 +97,7 @@ interface ValidationFailureResultData {
   /** 每个错误字段的支持 i18n 的错误信息 */
   message: { [fieldNames: string]: string[] };
 }
+
 /** 验证错误响应结果 */
 interface ValidationFailureResult {
   type: typeof resultTypes.VALIDATION_FAILURE;
@@ -249,6 +255,31 @@ const defaultNetworkFailure = () => {
   });
 };
 
+export const api = {
+  // TODO switch to this nested  / drop use of default export
+  application,
+  auth,
+  file,
+  group,
+  insight,
+  instance,
+  invitation,
+  language,
+  mitPreprocess,
+  me,
+  member,
+  output,
+  project,
+  projectSet,
+  siteSetting,
+  source,
+  target,
+  team,
+  tip,
+  translation,
+  type,
+  user,
+} as const;
 export default {
   instance,
   ...auth,
