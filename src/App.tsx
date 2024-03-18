@@ -12,6 +12,16 @@ import ResetPassword from './pages/ResetPassword';
 import { NotFoundPage } from './pages/404';
 import { AppState } from './store';
 import style from './style';
+import { MitPreprocessDemo } from './pages/MitPreprocessDemo';
+
+// 公共的页面
+const publicPaths = [
+  '/',
+  '/login',
+  '/register',
+  '/reset-password',
+  '/temp/mit-preprocess',
+] as readonly string[];
 
 const App: React.FC = () => {
   const location = useLocation();
@@ -19,8 +29,6 @@ const App: React.FC = () => {
   const platform = useSelector((state: AppState) => state.site.platform);
   const userIsAdmin = useSelector((state: AppState) => state.user.admin);
   const isMobile = platform === 'mobile';
-  // 公共的页面
-  const publicPaths = ['/', '/login', '/register', '/reset-password'];
 
   return (
     <>
@@ -159,6 +167,9 @@ const App: React.FC = () => {
           </Route>
           <Route path="/dashboard">
             <Dashboard />
+          </Route>
+          <Route path="/temp/mit-preprocess">
+            <MitPreprocessDemo />
           </Route>
           {userIsAdmin && (
             <Route path="/admin">
