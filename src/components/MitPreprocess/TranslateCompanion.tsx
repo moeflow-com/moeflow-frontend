@@ -10,7 +10,7 @@ import { measureImgSize } from '@jokester/ts-commonutil/lib/frontend/measure-img
 import { sumBy } from 'lodash-es';
 import { TextQuad } from '../../apis/mit_preprocess';
 
-const MAX_FILE_COUNT = 20;
+const MAX_FILE_COUNT = 30;
 
 function getQuadCenter(q: TextQuad) {
   const x = sumBy(q.pts, (p) => p[0]) / q.pts.length;
