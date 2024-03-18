@@ -14,7 +14,7 @@ export interface MitPreprocessResult {
 
 type CoordTuple = [number, number]; // x, y  in non-normalized pixels
 
-interface TextQuad {
+export interface TextQuad {
   pts: [CoordTuple, CoordTuple, CoordTuple, CoordTuple];
   raw_text: string;
   translated: string;

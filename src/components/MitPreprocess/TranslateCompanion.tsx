@@ -8,8 +8,15 @@ import { api } from '../../apis';
 import { wait } from '@jokester/ts-commonutil/lib/concurrency/timing';
 import { measureImgSize } from '@jokester/ts-commonutil/lib/frontend/measure-img';
 import { sumBy } from 'lodash-es';
+import { TextQuad } from '../../apis/mit_preprocess';
 
 const MAX_FILE_COUNT = 20;
+
+function getQuadCenter(q: TextQuad) {
+  const x = sumBy(q.pts, (p) => p[0]) / q.pts.length;
+  const y = sumBy(q.pts, (p) => p[1]) / q.pts.length;
+  return { x, y } as const;
+}
 
 async function translateFile(
   image: File,
@@ -22,24 +29,32 @@ async function translateFile(
     const task = await api.mitPreprocess.getTask(created.data.id);
     console.debug('task status', created);
     if (task.data.status === 'success') {
-      return {
-        file_name: image.name,
-        // TODO: should sort the bubbles
-        labels: task.data.result!.text_quads.map((q) => {
-          const x = sumBy(q.pts, (p) => p[0]) / q.pts.length;
-          const y = sumBy(q.pts, (p) => p[1]) / q.pts.length;
+      const labels = task.data
+        .result!.text_quads.sort((a, b) => {
+          // sort : top=>bottom , right=>left
+          const ca = getQuadCenter(a);
+          const cb = getQuadCenter(b);
+          return Math.sign(ca.y - cb.y) || Math.sign(cb.x - ca.x);
+        })
+        .map((q) => {
+          const { x, y } = getQuadCenter(q);
           return {
             x: x / size.width,
             y: y / size.height,
             position_type: 1,
             translation: q.translated,
           };
-        }),
+        });
+      console.debug('labels', labels);
+      return {
+        file_name: image.name,
+        labels,
       };
     } else if (task.data.status !== 'fail') {
       await wait(1e3);
     }
   }
+
   throw new Error('todo');
 }
 
