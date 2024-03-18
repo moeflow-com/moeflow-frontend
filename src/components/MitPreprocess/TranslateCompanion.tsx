@@ -42,7 +42,7 @@ async function translateFile(
             x: x / size.width,
             y: y / size.height,
             position_type: 1,
-            translation: q.translated,
+            translation: `${q.raw_text}\n${q.translated}`,
           };
         });
       console.debug('labels', labels);
