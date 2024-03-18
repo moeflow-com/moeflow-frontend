@@ -15,7 +15,7 @@ const MAX_FILE_COUNT = 30;
 function getQuadCenter(q: TextQuad) {
   const x = sumBy(q.pts, (p) => p[0]) / q.pts.length;
   const y = sumBy(q.pts, (p) => p[1]) / q.pts.length;
-  return { x: clamp(x, 0, 1), y: clamp(y, 0, 1) } as const;
+  return { x, y } as const;
 }
 
 async function translateFile(
@@ -39,8 +39,8 @@ async function translateFile(
         .map((q) => {
           const { x, y } = getQuadCenter(q);
           return {
-            x: x / size.width,
-            y: y / size.height,
+            x: clamp(x / size.width, 0, 1),
+            y: clamp(y / size.height, 0, 1),
             position_type: 1,
             translation: `${q.raw_text}\n${q.translated}`,
           };
