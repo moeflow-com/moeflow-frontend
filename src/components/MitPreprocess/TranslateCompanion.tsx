@@ -43,16 +43,20 @@ async function translateFile(
   throw new Error('todo');
 }
 
-async function startOcr(files: File[]): Promise<File> {
+async function startOcr(
+  files: File[],
+  onProgress?: (finished: number, total: number) => void,
+): Promise<File> {
   const translations: LPFile[] = [];
-  for (const f of files) {
+  for (const [i, f] of files.entries()) {
     const translated = await translateFile(f, { current: true });
     translations.push(translated);
+    onProgress?.(i + 1, files.length);
   }
   const zipBlob = await createMoeflowProjectZip(
     {
       name: `${files[0]!.name}`,
-      intro: `这是由<萌翻+MitOCR demo>生成的项目. https://moeflow-mit-poc.voxscape.io/temp/mit-preprocess`,
+      intro: `这是由<萌翻+Mit demo>生成的项目. https://moeflow-mit-poc.voxscape.io/temp/mit-preprocess`,
       default_role: 'supporter',
       allow_apply_type: 3,
       application_check_type: 1,
@@ -68,8 +72,14 @@ async function startOcr(files: File[]): Promise<File> {
   );
 }
 
+interface DemoWorkingState {
+  nonce: string;
+  numPages: number;
+  finished: number;
+}
+
 export const DemoOcrFiles: FC<{}> = (props) => {
-  const [working, setWorking] = useState(false);
+  const [working, setWorking] = useState<null | DemoWorkingState>(null);
   const [origFiles, setOrigFiles] = useState<File[]>(() => []);
   const [error, setError] = useState<string | null>(null);
   const [translated, setTranslated] = useState<File | null>(null);
@@ -77,13 +87,30 @@ export const DemoOcrFiles: FC<{}> = (props) => {
 
   const onStartOcr = async (files: File[]) => {
     try {
-      setWorking(true);
-      setTranslated(await startOcr(files));
+      const initState = {
+        nonce: `${Math.random()}`,
+        numPages: files.length,
+        finished: 0,
+      };
+      setWorking(initState);
+      setTranslated(
+        await startOcr(files, (finished, total) =>
+          setWorking((s) =>
+            s?.nonce === initState.nonce
+              ? {
+                  ...s,
+                  finished,
+                  numPages: total,
+                }
+              : s,
+          ),
+        ),
+      );
     } catch (e: any) {
       alert(e?.message || 'error');
       console.error(e);
     } finally {
-      setWorking(false);
+      setWorking(null);
     }
   };
   return (
@@ -110,7 +137,7 @@ export const DemoOcrFiles: FC<{}> = (props) => {
         }}
       />
       <Button
-        disabled={working || origFiles.length > 0}
+        disabled={!!working || origFiles.length > 0}
         onClick={() => filePondRef.current?.browse()}
         type="button"
         icon="plus"
@@ -118,11 +145,13 @@ export const DemoOcrFiles: FC<{}> = (props) => {
         1. Select up to {MAX_FILE_COUNT} image files {error}
       </Button>
       <Button
-        disabled={working || !origFiles.length}
+        disabled={!!working || !origFiles.length || !!translated}
         onClick={() => onStartOcr(origFiles)}
         type="button"
       >
-        2. Start
+        {working
+          ? `Working ... ${working.finished} / ${working.numPages} files done`
+          : '2. Start'}
       </Button>
       <Button
         disabled={!translated}
@@ -134,7 +163,7 @@ export const DemoOcrFiles: FC<{}> = (props) => {
           setTimeout(() => URL.revokeObjectURL(u));
         }}
       >
-        3. Download project.zip you can import to moeflow
+        3. Download project.zip and import into moeflow
       </Button>
     </div>
   );
