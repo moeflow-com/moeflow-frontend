@@ -7,7 +7,7 @@ import { createMoeflowProjectZip, LPFile } from './moeflow-packager';
 import { api } from '../../apis';
 import { wait } from '@jokester/ts-commonutil/lib/concurrency/timing';
 import { measureImgSize } from '@jokester/ts-commonutil/lib/frontend/measure-img';
-import { sumBy } from 'lodash-es';
+import { sumBy, clamp } from 'lodash-es';
 import { TextQuad } from '../../apis/mit_preprocess';
 
 const MAX_FILE_COUNT = 30;
@@ -15,7 +15,7 @@ const MAX_FILE_COUNT = 30;
 function getQuadCenter(q: TextQuad) {
   const x = sumBy(q.pts, (p) => p[0]) / q.pts.length;
   const y = sumBy(q.pts, (p) => p[1]) / q.pts.length;
-  return { x, y } as const;
+  return { x: clamp(x, 0, 1), y: clamp(y, 0, 1) } as const;
 }
 
 async function translateFile(
@@ -24,10 +24,10 @@ async function translateFile(
 ): Promise<LPFile> {
   const size = await measureImgSize(image);
   const created = await api.mitPreprocess.createTask(image);
-  console.debug('task created', created);
+  console.debug('task created', image, size, created);
   while (running.current) {
     const task = await api.mitPreprocess.getTask(created.data.id);
-    console.debug('task status', created);
+    console.debug('task status', task.data.status, task);
     if (task.data.status === 'success') {
       const labels = task.data
         .result!.text_quads.sort((a, b) => {
