@@ -52,6 +52,12 @@ async function translateFile(
       };
     } else if (task.data.status !== 'fail') {
       await wait(1e3);
+    } else {
+      await wait(5e3);
+      throw new Error(
+        task.data?.message ??
+          'error occured. please retry or report to me@jokester.io',
+      );
     }
   }
 

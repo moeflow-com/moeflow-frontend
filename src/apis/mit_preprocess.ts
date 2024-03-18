@@ -5,6 +5,7 @@ interface MitPreprocessResponse {
   id: string;
   result?: MitPreprocessResult;
   status: 'success' | 'pending' | 'fail';
+  message?: string;
 }
 
 export interface MitPreprocessResult {
