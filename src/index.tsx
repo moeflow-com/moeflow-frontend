@@ -46,9 +46,11 @@ dayjs.extend(relativeTime);
 dayjs.extend(utc);
 dayjs.locale(locale.toLowerCase());
 if (false && process.env.NODE_ENV === 'development') {
-    // 用于检测是什么导致 re-render
-    const {default: whyDidYouRender} = await import('@welldone-software/why-did-you-render');
-    whyDidYouRender(React, { trackAllPureComponents: true });
+  // 用于检测是什么导致 re-render
+  const { default: whyDidYouRender } = await import(
+    '@welldone-software/why-did-you-render'
+  );
+  whyDidYouRender(React, { trackAllPureComponents: true });
 }
 // 将 Cookie 中 token 恢复到 Store
 const cookieToken = getToken();
