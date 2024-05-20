@@ -7,7 +7,7 @@ import ImgCrop from 'antd-img-crop';
 import { Button, Upload } from 'antd';
 
 import { UploadOutlined } from '@ant-design/icons';
-import configs from '../configs';
+import { configs } from '../configs';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../store';
 import { setUserInfo } from '../store/user/slice';
