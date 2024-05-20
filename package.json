@@ -8,6 +8,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.11.2",
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "@fortawesome/react-fontawesome": "^0.1.7",
+    "@jokester/ts-commonutil": "^0.6.0",
     "@reduxjs/toolkit": "^1.2.5",
     "@zip.js/zip.js": "^2.7.20",
     "antd": "^4.15.1",
