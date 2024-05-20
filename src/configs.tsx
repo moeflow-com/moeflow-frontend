@@ -24,5 +24,11 @@ if (process.env.NODE_ENV === 'production') {
   // 生产环境配置
 } else if (process.env.NODE_ENV === 'test') {
   // 测试环境配置
+} else if (process.env.NODE_ENV === 'development') {
+  // dev
+  console.debug({
+    configs,
+    env: process.env.NODE_ENV,
+  });
 }
-export default configs;
+export { configs };
