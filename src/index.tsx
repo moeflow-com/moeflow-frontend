@@ -68,7 +68,7 @@ for (const hotKeyName in hotKeyInitialState) {
   const name = hotKeyName as keyof HotKeyState;
   for (const index of [0, 1]) {
     const loadedHotKey = loadHotKey({ name, index });
-    if (loadedHotKey !== 'disibled') {
+    if (loadedHotKey !== 'disabled') {
       let option;
       if (loadedHotKey) {
         option = loadedHotKey;
