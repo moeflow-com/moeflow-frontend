@@ -18,6 +18,7 @@ import { configs } from '../configs';
 interface HeaderProps {
   className?: string;
 }
+const showMitExperimentLink = configs.mitUiEnabled;
 /**
  * 头部
  */
@@ -71,6 +72,11 @@ export const Header: FC<HeaderProps> = ({ className }) => {
       </Menu.Item>
     </Menu>
   );
+  const mitLink = showMitExperimentLink && (
+    <a className="login" href={routes.mit.preprocessDemo}>
+      {formatMessage({ id: 'mit.title' })}
+    </a>
+  );
 
   return (
     <div
@@ -101,7 +107,7 @@ export const Header: FC<HeaderProps> = ({ className }) => {
           .register {
             color: #7f7a7a;
             font-size: 20px;
-            line-height: 25x;
+            line-height: 25px;
             padding: 7px 12px;
             border-radius: ${style.borderRadiusBase};
             ${clickEffect()};
@@ -134,6 +140,7 @@ export const Header: FC<HeaderProps> = ({ className }) => {
       </div>
       {currentUser.token ? (
         <div className="right">
+          {mitLink}
           <Dropdown
             overlay={menu}
             placement="bottomRight"
@@ -150,22 +157,13 @@ export const Header: FC<HeaderProps> = ({ className }) => {
         </div>
       ) : (
         <div className="right">
-          <div
-            className="login"
-            onClick={() => {
-              history.push('/login');
-            }}
-          >
+          {mitLink}
+          <a className="login" href={routes.login}>
             {formatMessage({ id: 'auth.login' })}
-          </div>
-          <div
-            className="register"
-            onClick={() => {
-              history.push('/register');
-            }}
-          >
+          </a>
+          <a className="register" href={routes.signUp}>
             {formatMessage({ id: 'auth.register' })}
-          </div>
+          </a>
         </div>
       )}
     </div>
