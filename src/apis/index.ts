@@ -1,10 +1,10 @@
 import { message } from 'antd';
 import { FormInstance } from 'antd/lib/form/Form';
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import qs from 'qs';
 import { createElement } from 'react';
 import { Icon } from '../components';
-import configs from '../configs';
+import { configs } from '../configs';
 import { getIntl } from '../locales';
 import store from '../store';
 import { setUserToken } from '../store/user/slice';
@@ -30,6 +30,8 @@ import group from './group';
 import insight from './insight';
 import siteSetting from './siteSetting';
 
+// TODO: move instance/request to a peer file, to prevent circular imports
+// TODO: can we hide this from API callsites?
 const instance = axios.create({
   baseURL: `${configs.baseURL}`,
 });
@@ -42,23 +44,17 @@ export interface PaginationParams {
   limit?: number;
 }
 
-/** 结果类型 */
-interface ResultTypes {
-  SUCCESS: 'SUCCESS';
-  BASIC_FAILURE: 'BASIC_FAILURE';
-  VALIDATION_FAILURE: 'VALIDATION_FAILURE';
-  NETWORK_FAILURE: 'NETWORK_FAILURE';
-  CANCEL_FAILURE: 'CANCEL_FAILURE';
-  OTHER_FAILURE: 'OTHER_FAILURE';
-}
-export const resultTypes: ResultTypes = {
+/**
+ * @enum
+ */
+export const resultTypes = {
   SUCCESS: 'SUCCESS',
   BASIC_FAILURE: 'BASIC_FAILURE',
   VALIDATION_FAILURE: 'VALIDATION_FAILURE',
   NETWORK_FAILURE: 'NETWORK_FAILURE',
   CANCEL_FAILURE: 'CANCEL_FAILURE',
   OTHER_FAILURE: 'OTHER_FAILURE',
-};
+} as const;
 
 /** 成功的响应 */
 export interface BasicSuccessResult<T = any> {
@@ -76,6 +72,7 @@ interface BasicFailureResultData {
   /** 支持 i18n 的错误信息 */
   message: string;
 }
+
 /** 基础错误响应结果 */
 interface BasicFailureResult {
   type: typeof resultTypes.BASIC_FAILURE;
@@ -92,6 +89,7 @@ interface ValidationFailureResultData {
   /** 每个错误字段的支持 i18n 的错误信息 */
   message: { [fieldNames: string]: string[] };
 }
+
 /** 验证错误响应结果 */
 interface ValidationFailureResult {
   type: typeof resultTypes.VALIDATION_FAILURE;
@@ -143,7 +141,7 @@ export const request = <T = any>(
       };
       return result;
     })
-    .catch((error) => {
+    .catch((error: AxiosError) => {
       if (
         error.response &&
         error.response.status >= 400 &&

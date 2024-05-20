@@ -1,24 +1,50 @@
 // 关闭翻译文本中 ${xxx} 的 Warning
 /* eslint-disable no-template-curly-in-string */
 import { createIntl, createIntlCache } from 'react-intl';
-// 引入 intl 的 locale message
+/**
+ * Localized messages for Intl
+ */
 import intl_zhCN from './zh-cn.json';
+import intl_en from './en-us.json';
 // 引入 antd 的 locale
 import antd_zhCN from 'antd/es/locale/zh_CN';
 
-/** 获取用户语言 */
+/** get 1st preference locale from navigator */
 const getLocale = () => {
   return navigator.language;
 };
 
+function findMatchedLocale() {
+  for (const l in navigator.languages) {
+    switch (true) {
+      case /^zh/.test(l):
+        return intl_zhCN;
+      case /^en/.test(l):
+        return intl_en;
+    }
+  }
+}
+
+function buildIntlMessages(): Record<string, string> {
+  const messages: Record<string, string> = {};
+  /**
+   * merge available locales into 1 message, to work as a fallback
+   */
+  for (const layer of [findMatchedLocale(), intl_en, intl_zhCN]) {
+    if (!layer) {
+      continue;
+    }
+    Object.keys(layer).forEach((k) => {
+      // @ts-ignore
+      messages[k] ??= layer[k];
+    });
+  }
+  return messages;
+}
+
 /** 获取 Intl 的 messages */
 const getIntlMessages = (locale: string) => {
   return intl_zhCN;
-};
-
-/** 获取 antd 所用的 locale */
-const getAntdLocale = (locale: string) => {
-  return antd_zhCN;
 };
 
 /** 获取 antd 所用的 Validate Messages */
@@ -100,19 +126,19 @@ const getAntdValidateMessages = (locale: string) => {
     },
     string: {
       len: '长度必须为 ${len} 个字符',
-      min: '长度最少为 ${min} 个字符',
+      min: '长度最少为 ${min} 个字符',
       max: '长度最多为 ${max} 个字符',
       range: '长度必须在 ${min} 到 ${max} 个字符之间',
     },
     number: {
       len: '数值必须等于 ${len}',
-      min: '数值不可小于 ${min}',
+      min: '数值不可小于 ${min}',
       max: '数值不可大于 ${max}',
       range: '数值必须在 ${min} 到 ${max} 之间',
     },
     array: {
       len: '元素个数必须等于 ${len}',
-      min: '元素个数不可小于 ${min}',
+      min: '元素个数不可小于 ${min}',
       max: '元素个数不可大于 ${max}',
       range: '元素个数必须在 ${min} 到 ${max} 之间',
     },
@@ -130,16 +156,21 @@ const intlConfig = {
   locale: getLocale(),
   messages: getIntlMessages(getLocale()),
 };
-/** 获取在组件外使用的 intl 实例 */
+/**
+ * get a global intl instance
+ * @deprecated intl should be DI-ed via React component tree
+ */
 const getIntl = () => {
   return createIntl(intlConfig, cache);
 };
 
-export {
-  getLocale,
-  getIntlMessages,
-  getAntdLocale,
-  getAntdValidateMessages,
-  getIntl,
-  intlConfig,
-};
+export const i18nAssets = {
+  intlMessages: buildIntlMessages(),
+  /**
+   * FIXME
+   */
+  antdLocale: antd_zhCN,
+  antdValidateMessages: getAntdValidateMessages(getLocale()),
+} as const;
+
+export { getLocale, getIntl };

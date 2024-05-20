@@ -9,6 +9,7 @@ const tsRules = {
   '@typescript-eslint/no-non-null-assertion': 1,
   '@typescript-eslint/no-parameter-properties': 0,
   '@typescript-eslint/no-unused-vars': 1,
+  "@typescript-eslint/ban-types": 1,
   '@typescript-eslint/no-var-requires': 1,
 };
 

@@ -4,7 +4,7 @@ import { RadioChangeEvent, RadioGroupProps } from 'antd/lib/radio';
 import React, { useEffect, useState } from 'react';
 import api from '../apis';
 import { GroupTypes, TypeNames } from '../apis/type';
-import configs from '../configs';
+import { configs } from '../configs';
 import { FC } from '../interfaces';
 import { getCancelToken } from '../utils/api';
 import { CancelToken } from 'axios';

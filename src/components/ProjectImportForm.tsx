@@ -16,14 +16,9 @@ import { createProject, resetProjectsState } from '../store/project/slice';
 import { useHistory } from 'react-router-dom';
 import { AppState } from '../store';
 import { toLowerCamelCase } from '../utils';
-import { GROUP_ALLOW_APPLY_TYPE } from '../constants';
-import configs from '../configs';
-import style from '../style';
 import { resetFilesState } from '../store/file/slice';
 import * as zip from '@zip.js/zip.js';
 import { RcFile } from 'antd/lib/upload';
-import { log } from 'console';
-import file from '../apis/file';
 import produce from 'immer';
 
 /** 导入项目表单的属性接口 */

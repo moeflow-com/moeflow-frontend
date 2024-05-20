@@ -1,4 +1,5 @@
 {
+  "site.name": "Moeflow",
   "imageTranslator.imageViewerZoomPanel.back": "Back",
   "imageTranslator.imageViewerZoomPanel.setting": "Setting",
   "imageTranslator.imageViewerZoomPanel.fixHeight": "Fix Height",

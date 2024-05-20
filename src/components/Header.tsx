@@ -1,6 +1,5 @@
 import { css } from '@emotion/core';
 import { Menu } from 'antd';
-import React from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -12,6 +11,8 @@ import style from '../style';
 import { FC } from '../interfaces';
 import { clickEffect } from '../utils/style';
 import classNames from 'classnames';
+import { routes } from '../pages/routes';
+import { configs } from '../configs';
 
 /** 头部的属性接口 */
 interface HeaderProps {

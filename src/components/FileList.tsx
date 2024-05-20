@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Button, EmptyTip, FileItem, List, OutputList } from '.';
 import apis, { resultTypes } from '../apis';
-import configs from '../configs';
+import { configs } from '../configs';
 import {
   FILE_NOT_EXIST_REASON,
   FILE_SAFE_STATUS,

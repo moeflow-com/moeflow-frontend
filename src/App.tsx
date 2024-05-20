@@ -5,13 +5,23 @@ import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import Admin from './pages/Admin';
 import Dashboard from './pages/Dashboard';
 import ImageTranslator from './pages/ImageTranslator';
-import Index from './pages/Index';
+import { IndexPage } from './pages/Index';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ResetPassword from './pages/ResetPassword';
 import { NotFoundPage } from './pages/404';
 import { AppState } from './store';
 import style from './style';
+import { routes } from './pages/routes';
+
+// 公共的页面
+const publicPaths = [
+  routes.index,
+  routes.login,
+  routes.signUp,
+  routes.resetPassword,
+  // routes.mit.preprocessDemo,
+] as readonly string[];
 
 const App: React.FC = () => {
   const location = useLocation();
@@ -19,8 +29,6 @@ const App: React.FC = () => {
   const platform = useSelector((state: AppState) => state.site.platform);
   const userIsAdmin = useSelector((state: AppState) => state.user.admin);
   const isMobile = platform === 'mobile';
-  // 公共的页面
-  const publicPaths = ['/', '/login', '/register', '/reset-password'];
 
   return (
     <>
@@ -121,7 +129,7 @@ const App: React.FC = () => {
       />
       {/* 如果没有 token 且访问路径不在公共路径中，则跳转到登陆页面 */}
       {!token && !publicPaths.includes(location.pathname) ? (
-        <Redirect to="/login" />
+        <Redirect to={routes.login} />
       ) : (
         <Switch>
           {/* 去除 URL 结尾的斜杠 */}
@@ -142,26 +150,26 @@ const App: React.FC = () => {
               <Redirect to={`/${match.params.url.replace(/\/\/+/, '/')}`} />
             )}
           />
-          <Route exact path="/">
-            <Index />
+          <Route exact path={routes.index}>
+            <IndexPage />
           </Route>
-          <Route path="/login">
+          <Route path={routes.login}>
             <Login />
           </Route>
-          <Route path="/register">
+          <Route path={routes.signUp}>
             <Register />
           </Route>
-          <Route path="/reset-password">
+          <Route path={routes.resetPassword}>
             <ResetPassword />
           </Route>
-          <Route path="/image-translator/:fileID-:targetID">
+          <Route path={routes.imageTranslator.asRouter}>
             <ImageTranslator />
           </Route>
-          <Route path="/dashboard">
+          <Route path={routes.dashboard}>
             <Dashboard />
           </Route>
           {userIsAdmin && (
-            <Route path="/admin">
+            <Route path={routes.admin}>
               <Admin />
             </Route>
           )}

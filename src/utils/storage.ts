@@ -44,7 +44,7 @@ export const clearDefaultTargetID = ({
 };
 
 export const hotKeyStoragePrefix = 'hotKey-';
-export type HotKeyStroage = HotKeyOption | null | 'disibled';
+export type HotKeyStroage = HotKeyOption | null | 'disabled';
 export const saveHotKey = ({
   name,
   index,

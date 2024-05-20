@@ -9,17 +9,12 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import './fontAwesome'; // Font Awesome
 import './index.css';
-import {
-  getAntdLocale,
-  getAntdValidateMessages,
-  getIntlMessages,
-  getLocale,
-} from './locales';
+import { i18nAssets, getLocale } from './locales';
 import store from './store';
 import { setOSName, setPlatform } from './store/site/slice';
 import { setUserToken } from './store/user/slice';
 import { getToken } from './utils/cookie';
-import { OSName, Platform } from './interfaces/common';
+import { OSName, Platform } from './interfaces';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import utc from 'dayjs/plugin/utc';
@@ -33,13 +28,12 @@ import {
 } from './store/hotKey/slice';
 import { loadHotKey } from './utils/storage';
 
-// TODO 完成一个函数，用于从服务器和cookie获取用户的语言
-// TODO 将 locale/messages 记录 Store 中，以便能时时修改
-// TODO 同时修改 locales/utils 中的 intlConfig，使组件外使用的 intl 也更改语言（“网络错误”弹窗和“CAPTCHAInput”的checkCAPTCHA中用到，测试一下）
+/**
+ * LOW PRIORITY TODO: allow user override language preference, maybe in localStorage
+ * TODO: ensure all locale stuff is DI-able via React tree (Store or Context)
+ */
 const locale = getLocale(); // 用户地域，暂时用浏览器语言
-const intlMessages = getIntlMessages(locale);
-const antdLocale = getAntdLocale(locale);
-const antdValidateMessages = getAntdValidateMessages(locale);
+const { intlMessages, antdLocale, antdValidateMessages } = i18nAssets;
 // 时间插件
 dayjs.extend(localizedFormat);
 dayjs.extend(relativeTime);
@@ -68,7 +62,7 @@ for (const hotKeyName in hotKeyInitialState) {
   const name = hotKeyName as keyof HotKeyState;
   for (const index of [0, 1]) {
     const loadedHotKey = loadHotKey({ name, index });
-    if (loadedHotKey !== 'disibled') {
+    if (loadedHotKey !== 'disabled') {
       let option;
       if (loadedHotKey) {
         option = loadedHotKey;

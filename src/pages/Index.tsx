@@ -13,7 +13,7 @@ interface IndexProps {}
 /**
  * 首页
  */
-const Index: FC<IndexProps> = () => {
+export const IndexPage: FC<IndexProps> = () => {
   const { formatMessage } = useIntl(); // i18n
   useTitle({ suffix: formatMessage({ id: 'site.slogan' }) }); // 设置标题
   const [homepageHtml, setHomepageHtml] = useState<string>();
@@ -80,7 +80,7 @@ const Index: FC<IndexProps> = () => {
           }
         `}
       />
-      <Header></Header>
+      <Header />
       <div className="Index__Title">
         <img src={brandJump} alt="Mascot" />
       </div>
@@ -101,4 +101,3 @@ const Index: FC<IndexProps> = () => {
     </>
   );
 };
-export default Index;
