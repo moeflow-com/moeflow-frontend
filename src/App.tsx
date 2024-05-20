@@ -21,7 +21,7 @@ const publicPaths = [
   routes.login,
   routes.signUp,
   routes.resetPassword,
-  // routes.mit.preprocessDemo,
+  routes.mit.preprocessDemo,
 ] as readonly string[];
 
 const App: React.FC = () => {
