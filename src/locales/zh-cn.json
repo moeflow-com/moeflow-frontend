@@ -364,5 +364,12 @@
   "translation.copyToMyTranslation": "复制到我的翻译",
   "translation.copyToMyTranslationNotEmptyTip": "您的翻译已有内容，您确定要覆盖吗？",
   "translation.best": "最佳翻译",
-  "imageTranslator.proofreaderShowSource": "显示原文"
+  "imageTranslator.proofreaderShowSource": "显示原文",
+  "mit.title": "mit翻译辅助",
+  "mit.desc": "基于manga-image-translator的自动翻译。请选择图上文字并机翻，",
+  "mit.step1PickImageFiles": "请选择图片文件 (最多30个)",
+  "mit.startPreprocess": "开始自动翻译",
+  "mit.preprocessStepLines": "定位文字",
+  "mit.preprocessStepOcr": "识别文字",
+  "mit.preprocessStepTranslate": "机翻"
 }
