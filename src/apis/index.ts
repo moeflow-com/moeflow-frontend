@@ -29,6 +29,7 @@ import user from './user';
 import group from './group';
 import insight from './insight';
 import siteSetting from './siteSetting';
+import { mitPreprocess } from './mit_preprocess';
 
 // TODO: move instance/request to a peer file, to prevent circular imports
 // TODO: can we hide this from API callsites?
@@ -247,6 +248,34 @@ const defaultNetworkFailure = () => {
   });
 };
 
+export const api = {
+  // TODO switch to this nested  / drop use of default export
+  application,
+  auth,
+  file,
+  group,
+  insight,
+  instance,
+  invitation,
+  language,
+  // mitPreprocess,
+  me,
+  member,
+  output,
+  project,
+  projectSet,
+  siteSetting,
+  source,
+  target,
+  team,
+  tip,
+  translation,
+  type,
+  user,
+} as const;
+/**
+ * @deprecated use named import
+ */
 export default {
   instance,
   ...auth,

@@ -12,6 +12,7 @@ import ResetPassword from './pages/ResetPassword';
 import { NotFoundPage } from './pages/404';
 import { AppState } from './store';
 import style from './style';
+import { MitPreprocessDemo } from './pages/mit/MitPreprocessDemo';
 import { routes } from './pages/routes';
 
 // 公共的页面
@@ -20,7 +21,7 @@ const publicPaths = [
   routes.login,
   routes.signUp,
   routes.resetPassword,
-  // routes.mit.preprocessDemo,
+  routes.mit.preprocessDemo,
 ] as readonly string[];
 
 const App: React.FC = () => {
@@ -167,6 +168,9 @@ const App: React.FC = () => {
           </Route>
           <Route path={routes.dashboard}>
             <Dashboard />
+          </Route>
+          <Route path={routes.mit.preprocessDemo}>
+            <MitPreprocessDemo />
           </Route>
           {userIsAdmin && (
             <Route path={routes.admin}>
