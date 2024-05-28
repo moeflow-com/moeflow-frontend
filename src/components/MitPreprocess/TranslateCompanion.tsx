@@ -105,7 +105,7 @@ async function* startTranslateFile(
     detectTextResult = await mitPreprocess.waitImgTask<{
       textlines: {
         prob: number;
-        pts: CoordPair[];
+        pts: BBox[];
         text: string;
         // textlines: any[]; // FIXME why did server return this?
       }[];
@@ -125,7 +125,7 @@ async function* startTranslateFile(
     });
     ocrResult = await mitPreprocess.waitImgTask<
       {
-        pts: BBox;
+        pts: BBox[];
         text: string;
         textlines: string[];
       }[]
