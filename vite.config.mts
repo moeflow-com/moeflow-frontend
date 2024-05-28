@@ -44,7 +44,7 @@ export default defineConfig({
     ),
     // works as feature flag
     'process.env.MIT_BACKEND_URL': JSON.stringify(
-      process.env.MIT_BACKEND_URL ?? '/api/',
+      process.env.MIT_BACKEND_URL ?? (null && '/api/'),
     ),
   },
   resolve: {
