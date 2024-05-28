@@ -58,7 +58,7 @@ export const saveHotKey = ({
     `${hotKeyStoragePrefix}${name}`,
     [],
   );
-  options[index] = option ? option : 'disibled';
+  options[index] = option ? option : 'disabled';
   store.set(`${hotKeyStoragePrefix}${name}`, options);
 };
 

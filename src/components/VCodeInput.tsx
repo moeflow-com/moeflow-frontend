@@ -1,4 +1,4 @@
-import { Input } from 'antd';
+import { Input, type InputRef } from 'antd';
 import { InputProps } from 'antd/lib/input';
 import React from 'react';
 
@@ -11,7 +11,7 @@ interface VCodeInputProps {
  * 验证码输入框（只允许数字）
  */
 const VCodeInputWithoutRef: React.ForwardRefRenderFunction<
-  Input,
+  InputRef,
   VCodeInputProps & Omit<InputProps, 'onChange'>
 > = ({ value = '', onChange, className, ...inputProps }, ref) => {
   /** 处理值变化 */

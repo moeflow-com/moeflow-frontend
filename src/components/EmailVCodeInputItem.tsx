@@ -1,5 +1,5 @@
 import { css } from '@emotion/core';
-import { Form, Input } from 'antd';
+import { Form, type InputRef } from 'antd';
 import { FormItemProps } from 'antd/lib/form/FormItem';
 import { InputProps } from 'antd/lib/input';
 import classNames from 'classnames';
@@ -46,7 +46,7 @@ export const EmailVCodeInputItem: FC<EmailVCodeInputItemProps> = (
   const [emailHelp, setEmailHelp] = useState<string | string[]>();
   const [emailValidateStatus, setEmailValidateStatus] =
     useState<ValidateStatus>();
-  const emailInputRef = useRef<Input>(null);
+  const emailInputRef = useRef<InputRef>(null);
   const defaultEmailSubmitText = formatMessage({
     id: 'auth.getEmailVCode',
   });
