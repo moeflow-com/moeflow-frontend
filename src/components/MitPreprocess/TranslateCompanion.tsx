@@ -7,7 +7,12 @@ import { createMoeflowProjectZip, LPFile } from './moeflow-packager';
 import { FailureResults } from '../../apis';
 import { measureImgSize } from '@jokester/ts-commonutil/lib/frontend/measure-img';
 import { clamp } from 'lodash-es';
-import { BBox, mitPreprocess, TextQuad } from '../../apis/mit_preprocess';
+import {
+  BBox,
+  CoordPair,
+  mitPreprocess,
+  TextQuad,
+} from '../../apis/mit_preprocess';
 import { ResourcePool } from '@jokester/ts-commonutil/lib/concurrency/resource-pool';
 
 const MAX_FILE_COUNT = 30;
@@ -100,7 +105,7 @@ async function* startTranslateFile(
     detectTextResult = await mitPreprocess.waitImgTask<{
       textlines: {
         prob: number;
-        pts: number[][];
+        pts: CoordPair[];
         text: string;
         // textlines: any[]; // FIXME why did server return this?
       }[];
@@ -122,7 +127,7 @@ async function* startTranslateFile(
       {
         pts: BBox;
         text: string;
-        textlines: Array<string>;
+        textlines: string[];
       }[]
     >(created.data.task_id);
     console.debug('ocrResult', ocrResult);

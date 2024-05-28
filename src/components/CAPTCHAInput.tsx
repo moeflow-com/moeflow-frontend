@@ -1,5 +1,5 @@
 import { css } from '@emotion/core';
-import { Input } from 'antd';
+import { Input, InputRef } from 'antd';
 import { CancelToken } from 'axios';
 import classNames from 'classnames';
 import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
@@ -31,7 +31,7 @@ export interface GetCAPTCHAParams {
   onFinish?: () => void;
 }
 
-export interface CAPTCHAInputRef extends Input {
+export interface CAPTCHAInputRef extends InputRef {
   /**
    * 更新验证码
    * @param focus 更新后是否 focus 到 Input（默认值 true）
@@ -63,7 +63,7 @@ const CAPTCHAInputWithoutRef: React.ForwardRefRenderFunction<
   const [captchaInfo, setCaptchaInfo] = useState(value?.info || '');
   const [captchaImage, setCaptchaImage] = useState('');
   const [captchaLoading, setCaptchaLoading] = useState(true);
-  const inputRef = useRef<Input>(null);
+  const inputRef = useRef<InputRef>(null);
 
   // 将控制函数注册到父组件的 ref
   useImperativeHandle(ref, () => {

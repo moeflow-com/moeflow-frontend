@@ -1,5 +1,5 @@
 import { css } from '@emotion/core';
-import { Button, Input } from 'antd';
+import { Button, Input, InputRef } from 'antd';
 import classNames from 'classnames';
 import React, { FC, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
@@ -27,7 +27,7 @@ export const HotKeyRecorder: FC<HotKeyRecorderProps> = ({
     ? getHotKeyDisplayName(hotKey)
     : formatMessage({ id: 'hotKeyRecorder.null' });
   const [value, setValue] = useState('');
-  const domRef = useRef<Input>(null);
+  const domRef = useRef<InputRef>(null);
 
   return (
     <div

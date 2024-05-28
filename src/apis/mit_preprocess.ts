@@ -4,23 +4,11 @@ import { wait } from '@jokester/ts-commonutil/lib/concurrency/timing';
 
 const mitApiPrefix = `/v1/mit`;
 
-interface MitPreprocessResponse {
-  id: string;
-  result?: MitPreprocessResult;
-  status: 'success' | 'pending' | 'fail';
-  message?: string;
-}
-
-export interface MitPreprocessResult {
-  target_lang: string;
-  text_quads: TextQuad[];
-}
-
-type CoordTuple = [number, number]; // x, y  in non-normalized pixels
-export type BBox = [CoordTuple, CoordTuple, CoordTuple, CoordTuple]; // left-top, right-top, right-bottom, left-bottom
+export type CoordPair = [number, number]; // x, y  in non-normalized pixels
+export type BBox = [CoordPair, CoordPair, CoordPair, CoordPair]; // left-top, right-top, right-bottom, left-bottom
 
 export interface TextQuad {
-  pts: BBox;
+  pts: BBox[];
   raw_text: string;
   translated: string;
 }

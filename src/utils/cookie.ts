@@ -23,7 +23,7 @@ const getToken = (): string | undefined => {
  * @param token 用户令牌
  */
 const setToken = (token: string, rememberMe?: boolean) => {
-  const { exp } = jwtDecode(token, { header: true }); // token 过期时间（时间戳）
+  const { exp } = jwtDecode(token, { header: true }) as { exp: number }; // token 过期时间（时间戳）
   const maxAge = exp - Math.floor(new Date().getTime() / 1000); // Cookie 过期时间（x秒后）
   if (rememberMe) {
     cookies.set('token', token, { path: '/', maxAge });

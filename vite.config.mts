@@ -9,7 +9,12 @@ import url from 'node:url';
 const ___dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const componentsDir = path.join(___dirname, './src/components');
 
-// origin to forward /api/ /storage/ requests to
+/**
+ * origin to forward /api/ /storage/ requests to
+ * note this server should rewrite /api/ /storage/ to the Python backend,
+ * like the nginx conf in https://github.com/moeflow-com/moeflow-deploy .
+ * Alternatively, configure vite's proxy to rewrite
+ */
 const backendOrigin = 'http://localhost:13080';
 
 // https://vitejs.dev/config/
@@ -39,7 +44,7 @@ export default defineConfig({
     ),
     // works as feature flag
     'process.env.MIT_BACKEND_URL': JSON.stringify(
-      process.env.MIT_BACKEND_URL ?? null,
+      process.env.MIT_BACKEND_URL ?? (null && '/api/'),
     ),
   },
   resolve: {

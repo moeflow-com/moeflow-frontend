@@ -1,5 +1,5 @@
 import { css } from '@emotion/core';
-import { Button, Form as AntdForm, Input, message } from 'antd';
+import { Button, Form as AntdForm, type InputRef, message } from 'antd';
 import React, { useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,8 +29,8 @@ export const UserEmailEditForm: FC<UserEmailEditFormProps> = ({
   const userEmail = useSelector((state: AppState) => state.user.email);
 
   // 用于输入完人机验证码后自动定位到邮件验证码输入框
-  const oldEmailVCodeInputRef = useRef<Input>(null);
-  const newEmailVCodeInputRef = useRef<Input>(null);
+  const oldEmailVCodeInputRef = useRef<InputRef>(null);
+  const newEmailVCodeInputRef = useRef<InputRef>(null);
 
   const handleFinish = (values: any) => {
     setSubmitting(true);
