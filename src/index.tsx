@@ -1,3 +1,4 @@
+import { initI18n } from './locales';
 import { ConfigProvider } from 'antd';
 import Bowser from 'bowser';
 import 'pepjs'; // 指针事件垫片
@@ -9,17 +10,11 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import './fontAwesome'; // Font Awesome
 import './index.css';
-import { i18nAssets, getLocale } from './locales';
 import store from './store';
 import { setOSName, setPlatform } from './store/site/slice';
 import { setUserToken } from './store/user/slice';
 import { getToken } from './utils/cookie';
 import { OSName, Platform } from './interfaces';
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import utc from 'dayjs/plugin/utc';
-import localizedFormat from 'dayjs/plugin/localizedFormat';
-import 'dayjs/locale/zh-cn';
 import {
   getDefaultHotKey,
   hotKeyInitialState,
@@ -28,17 +23,7 @@ import {
 } from './store/hotKey/slice';
 import { loadHotKey } from './utils/storage';
 
-/**
- * LOW PRIORITY TODO: allow user override language preference, maybe in localStorage
- * TODO: ensure all locale stuff is DI-able via React tree (Store or Context)
- */
-const locale = getLocale(); // 用户地域，暂时用浏览器语言
-const { intlMessages, antdLocale, antdValidateMessages } = i18nAssets;
 // 时间插件
-dayjs.extend(localizedFormat);
-dayjs.extend(relativeTime);
-dayjs.extend(utc);
-dayjs.locale(locale.toLowerCase());
 if (false && process.env.NODE_ENV === 'development') {
   // 用于检测是什么导致 re-render
   const { default: whyDidYouRender } = await import(
@@ -73,21 +58,29 @@ for (const hotKeyName in hotKeyInitialState) {
     }
   }
 }
-// 渲染 APP
-ReactDOM.render(
-  <StrictMode>
-    <Provider store={store}>
-      <IntlProvider locale={locale} messages={intlMessages}>
-        <ConfigProvider
-          locale={antdLocale}
-          form={{ validateMessages: antdValidateMessages }}
-        >
-          <Router>
-            <App />
-          </Router>
-        </ConfigProvider>
-      </IntlProvider>
-    </Provider>
-  </StrictMode>,
-  document.getElementById('root'),
-);
+
+async function mountApp() {
+  const { intlMessages, locale, antdLocale, antdValidateMessages } =
+    await initI18n;
+
+  // 渲染 APP
+  ReactDOM.render(
+    <StrictMode>
+      <Provider store={store}>
+        <IntlProvider locale={locale} messages={intlMessages}>
+          <ConfigProvider
+            locale={antdLocale}
+            form={{ validateMessages: antdValidateMessages }}
+          >
+            <Router>
+              <App />
+            </Router>
+          </ConfigProvider>
+        </IntlProvider>
+      </Provider>
+    </StrictMode>,
+    document.getElementById('root'),
+  );
+}
+
+Promise.resolve().then(mountApp);
