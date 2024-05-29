@@ -1,5 +1,4 @@
 // 关闭翻译文本中 ${xxx} 的 Warning
-/* eslint-disable no-template-curly-in-string */
 import { createIntl, createIntlCache, IntlShape } from 'react-intl';
 /**
  * Localized messages for Intl

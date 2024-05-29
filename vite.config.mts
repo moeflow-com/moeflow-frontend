@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import path from 'node:path';
 import { antdLessVars, antdLessVarsM } from './src/style';
 import vitePluginImp from 'vite-plugin-imp';
+import viteYaml from '@modyfi/vite-plugin-yaml';
 import { visualizer } from 'rollup-plugin-visualizer';
 import url from 'node:url';
 
@@ -51,6 +52,7 @@ export default defineConfig({
     alias: {},
   },
   plugins: [
+    viteYaml({}),
     vitePluginImp({
       libList: [
         {
