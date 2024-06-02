@@ -7,6 +7,8 @@ export const routes = {
     $: '/dashboard',
     user: {
       setting: '/dashboard/user/setting',
+      invitations: `/dashboard/user/invitations`,
+      relatedApplications: '/dashboard/user/related-applications',
     },
   },
   imageTranslator: {
