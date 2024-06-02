@@ -458,7 +458,7 @@ projectSet.default:
   en: Ungrouped
 site.projectSet:
   zhCn: 项目集
-  en: Project set
+  en: Project sets
 site.createProjectSet:
   zhCn: 创建项目集
   en: Create project set
@@ -482,7 +482,7 @@ project.emptySearchTip:
   en: No projects contain "{word}". Please try a different search term.
 project.leave:
   zhCn: 退出项目
-  en: Leave Project
+  en: Leave project
 project.info:
   zhCn: 项目信息
   en: Project Information
@@ -616,7 +616,7 @@ file.uploadTip1:
   en: Click the "Upload" button or drag and drop, paste files here to upload.
 file.uploadTip2:
   zhCn: 支持单个或批量文件上传，目前支持这些后缀的文件 .jpg, .jpeg, .png, .bmp, .gif（不区分大小写）
-  en: 'Supports single or batch file uploads. Currently supports these file extensions:
+  en: 'Supports single or multi file uploads. Currently supports these file extensions:
     .jpg, .jpeg, .png, .bmp, .gif (case insensitive).'
 file.emptyTip:
   zhCn: 还没有文件，现在上传一个吧！
@@ -690,7 +690,7 @@ imageTranslator.unloadWithSaveFailed:
     you want to leave now?"'
 imageTranslator.positionIn:
   zhCn: 框内
-  en: '"In Frame"'
+  en: In Frame
 imageTranslator.positionOut:
   zhCn: 框外
   en: Out of Frame
@@ -743,8 +743,8 @@ group.joinTip:
   zhCn: 请输入加入 {groupName} 的申请理由：
   en: 'Please enter your reason for joining {groupName}:'
 group.joinTipNoNeedCheck:
-  zhCn: '{groupName} 可以直接加入，您确定加入吗？'
-  en: '"{groupName} is open to join. Are you sure you want to join?"'
+  zhCn: "{groupName} 可以直接加入，您确定加入吗？"
+  en: "{groupName} is open to join. Are you sure you want to join?"
 site.joinTeam:
   zhCn: 加入团队
   en: Join Team
