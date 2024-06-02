@@ -1,51 +1,50 @@
 // 关闭翻译文本中 ${xxx} 的 Warning
-/* eslint-disable no-template-curly-in-string */
-import { createIntl, createIntlCache } from 'react-intl';
+import { createIntl, createIntlCache, IntlShape } from 'react-intl';
 /**
  * Localized messages for Intl
  */
-import intl_zhCN from './zh-cn.json';
-import intl_en from './en-us.json';
-// 引入 antd 的 locale
-import antd_zhCN from 'antd/es/locale/zh_CN';
+import { lazyThenable } from '@jokester/ts-commonutil/lib/concurrency/lazy-thenable';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import utc from 'dayjs/plugin/utc';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
 
-/** get 1st preference locale from navigator */
-const getLocale = () => {
-  return navigator.language;
-};
+dayjs.extend(localizedFormat);
+dayjs.extend(relativeTime);
+dayjs.extend(utc);
 
-function findMatchedLocale() {
-  for (const l in navigator.languages) {
-    switch (true) {
-      case /^zh/.test(l):
-        return intl_zhCN;
-      case /^en/.test(l):
-        return intl_en;
-    }
+async function initDayjs(locale: string) {
+  if (/^zh/.test(locale)) {
+    await import('dayjs/locale/zh-cn');
+  } else {
+    // await import('dayjs/locale/en')
+  }
+  dayjs.locale(locale.toLowerCase());
+}
+
+async function loadAntdLocale(locale: string) {
+  // 引入 antd 的 locale
+  if (/^zh/.test(locale)) {
+    const f = await import('antd/es/locale/zh_CN');
+    return f.default;
+  } else {
+    const f = await import('antd/es/locale/en_US');
+    return f.default;
   }
 }
 
-function buildIntlMessages(): Record<string, string> {
-  const messages: Record<string, string> = {};
-  /**
-   * merge available locales into 1 message, to work as a fallback
-   */
-  for (const layer of [findMatchedLocale(), intl_en, intl_zhCN]) {
-    if (!layer) {
-      continue;
-    }
-    Object.keys(layer).forEach((k) => {
-      // @ts-ignore
-      messages[k] ??= layer[k];
-    });
-  }
-  return messages;
-}
+type Messages = typeof import('./zh-cn.json') | typeof import('./en.json');
 
-/** 获取 Intl 的 messages */
-const getIntlMessages = (locale: string) => {
-  return intl_zhCN;
-};
+async function loadI18nLocale(locales: string[]): Promise<Messages> {
+  for (const l of locales) {
+    if (/^zh/i.test(l)) {
+      const f = await import('./zh-cn.json');
+      return f.default;
+    }
+  }
+  const f = await import('./en.json');
+  return f.default;
+}
 
 /** 获取 antd 所用的 Validate Messages */
 const getAntdValidateMessages = (locale: string) => {
@@ -151,26 +150,44 @@ const getAntdValidateMessages = (locale: string) => {
 
 /** 用于在 React 组件外部使用 Intl */
 const cache = createIntlCache();
-/** 切换语言时直接修此对象 */
-const intlConfig = {
-  locale: getLocale(),
-  messages: getIntlMessages(getLocale()),
-};
+
+let singletonIntl: IntlShape = null!;
 /**
  * get a global intl instance
  * @deprecated intl should be DI-ed via React component tree
  */
-const getIntl = () => {
-  return createIntl(intlConfig, cache);
+export const getIntl = () => {
+  // note this will not be NPE: it gets called after initI18n and mount of root component
+  return singletonIntl;
 };
 
-export const i18nAssets = {
-  intlMessages: buildIntlMessages(),
-  /**
-   * FIXME
+export const initI18n = lazyThenable(async () => {
+  /*
+   * LOW PRIORITY TODO: allow user override language preference, maybe in localStorage
+   * TODO: ensure all locale stuff is DI-able via React tree (Store or Context)
    */
-  antdLocale: antd_zhCN,
-  antdValidateMessages: getAntdValidateMessages(getLocale()),
-} as const;
-
-export { getLocale, getIntl };
+  /** get 1st preference locale from navigator */
+  const locales = [
+    localStorage.getItem('_override_locale'),
+    ...navigator.languages,
+  ].filter(Boolean) as string[];
+  const locale = locales[0] ?? navigator.language;
+  const [intlMessages, _dayjs, antdLocale] = await Promise.all([
+    loadI18nLocale(locales),
+    initDayjs(locale),
+    loadAntdLocale(locale),
+  ]);
+  singletonIntl = createIntl(
+    {
+      locale,
+      messages: intlMessages,
+    },
+    cache,
+  );
+  return {
+    locale,
+    intlMessages,
+    antdLocale: antdLocale,
+    antdValidateMessages: getAntdValidateMessages(locale),
+  } as const;
+});
