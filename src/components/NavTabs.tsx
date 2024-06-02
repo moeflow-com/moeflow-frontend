@@ -1,5 +1,5 @@
 import { css } from '@emotion/core';
-import { Dropdown, Menu } from 'antd';
+import { Dropdown, Menu, MenuProps } from 'antd';
 import classNames from 'classnames';
 import React, { isValidElement } from 'react';
 import { useSelector } from 'react-redux';
@@ -14,6 +14,7 @@ import { clickEffect } from '../utils/style';
 interface NavTabsProps {
   className?: string;
 }
+
 /**
  * 标签栏
  */
@@ -23,23 +24,19 @@ export const NavTabs: FC<NavTabsProps> = ({ className, children }) => {
   const [wrapperRef, { width: wrapperWidth }] = useMeasure<HTMLDivElement>();
   const [ref, { width }] = useMeasure<HTMLDivElement>();
 
-  const moreMenu = (
-    <Menu
-      css={css`
-        .ant-dropdown-menu-item > a:hover {
-          color: ${style.primaryColor};
-        }
-      `}
-    >
-      {isValidElement(children) ? (
-        <Menu.Item key={'single'}>{children}</Menu.Item>
-      ) : (
-        (children as React.ReactNodeArray).map((child, i) => (
-          <Menu.Item key={i}>{child}</Menu.Item>
-        ))
-      )}
-    </Menu>
-  );
+  const menuProps: MenuProps = {
+    items: isValidElement(children)
+      ? [
+          {
+            label: children,
+            key: 'single',
+          },
+        ]
+      : (children as React.ReactNodeArray).map((child, i) => ({
+          label: { child },
+          key: i,
+        })),
+  };
 
   return (
     <div
@@ -85,6 +82,9 @@ export const NavTabs: FC<NavTabsProps> = ({ className, children }) => {
           background-color: #fff;
           ${clickEffect()}
         }
+        .ant-dropdown-menu-item > a:hover {
+          color: ${style.primaryColor};
+        }
       `}
       ref={wrapperRef}
     >
@@ -94,7 +94,7 @@ export const NavTabs: FC<NavTabsProps> = ({ className, children }) => {
       {!isMobile && width >= wrapperWidth && (
         <Dropdown
           className="NavTabs__More"
-          overlay={moreMenu}
+          menu={menuProps}
           placement="bottomRight"
         >
           <div>
