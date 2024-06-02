@@ -3,8 +3,6 @@ import { createIntl, createIntlCache, IntlShape } from 'react-intl';
 /**
  * Localized messages for Intl
  */
-import intl_zhCN from './zh-cn.json';
-import intl_en from './en-us.json';
 import { lazyThenable } from '@jokester/ts-commonutil/lib/concurrency/lazy-thenable';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -35,32 +33,17 @@ async function loadAntdLocale(locale: string) {
   }
 }
 
-function findMatchedLocale(locales: string[]) {
-  for (const l in locales) {
-    switch (true) {
-      case /^zh/.test(l):
-        return intl_zhCN;
-      case /^en/.test(l):
-        return intl_en;
-    }
-  }
-}
+type Messages = typeof import('./zh-cn.json') | typeof import('./en.json');
 
-function buildIntlMessages(locales: string[]): Record<string, string> {
-  const messages: Record<string, string> = {};
-  /**
-   * merge available locales into 1 message, to work as a fallback
-   */
-  for (const layer of [findMatchedLocale(locales), intl_en, intl_zhCN]) {
-    if (!layer) {
-      continue;
+async function loadI18nLocale(locales: string[]): Promise<Messages> {
+  for (const l of locales) {
+    if (/^zh/i.test(l)) {
+      const f = await import('./zh-cn.json');
+      return f.default;
     }
-    Object.keys(layer).forEach((k) => {
-      // @ts-ignore
-      messages[k] ??= layer[k];
-    });
   }
-  return messages;
+  const f = await import('./en.json');
+  return f.default;
 }
 
 /** 获取 antd 所用的 Validate Messages */
@@ -185,7 +168,11 @@ export const initI18n = lazyThenable(async () => {
    */
   /** get 1st preference locale from navigator */
   const locale = navigator.language;
-  const intlMessages = buildIntlMessages(navigator.languages.slice());
+  const [intlMessages, _dayjs, antdLocale] = await Promise.all([
+    loadI18nLocale(navigator.languages.slice()),
+    initDayjs(locale),
+    loadAntdLocale(locale),
+  ]);
   singletonIntl = createIntl(
     {
       locale,
@@ -193,10 +180,6 @@ export const initI18n = lazyThenable(async () => {
     },
     cache,
   );
-  const [, antdLocale] = await Promise.all([
-    initDayjs(locale),
-    loadAntdLocale(locale),
-  ]);
   return {
     locale,
     intlMessages,
