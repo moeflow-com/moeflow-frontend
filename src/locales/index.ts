@@ -156,7 +156,7 @@ let singletonIntl: IntlShape = null!;
  * get a global intl instance
  * @deprecated intl should be DI-ed via React component tree
  */
-const getIntl = () => {
+export const getIntl = () => {
   // note this will not be NPE: it gets called after initI18n and mount of root component
   return singletonIntl;
 };
@@ -167,9 +167,13 @@ export const initI18n = lazyThenable(async () => {
    * TODO: ensure all locale stuff is DI-able via React tree (Store or Context)
    */
   /** get 1st preference locale from navigator */
-  const locale = navigator.language;
+  const locales = [
+    localStorage.getItem('_override_locale'),
+    ...navigator.languages,
+  ].filter(Boolean) as string[];
+  const locale = locales[0] ?? navigator.language;
   const [intlMessages, _dayjs, antdLocale] = await Promise.all([
-    loadI18nLocale(navigator.languages.slice()),
+    loadI18nLocale(locales),
     initDayjs(locale),
     loadAntdLocale(locale),
   ]);
@@ -187,5 +191,3 @@ export const initI18n = lazyThenable(async () => {
     antdValidateMessages: getAntdValidateMessages(locale),
   } as const;
 });
-
-export { getIntl };
