@@ -38,16 +38,6 @@ export const Header: FC<HeaderProps> = ({ className }) => {
   const history = useHistory();
   const currentUser = useSelector((state: AppState) => state.user);
 
-  /** 前往仪表盘 */
-  const goDashboard = () => {
-    history.push('/dashboard/projects');
-  };
-
-  /** 前往账号管理 */
-  const goSetting = () => {
-    history.push('/dashboard/user/setting');
-  };
-
   /** 登出 */
   const logout = () => {
     dispatch(setUserToken({ token: '' }));
@@ -66,7 +56,7 @@ export const Header: FC<HeaderProps> = ({ className }) => {
       },
       {
         label: (
-          <a css={dropDownMenuItemStyle} href={routes.user.setting}>
+          <a css={dropDownMenuItemStyle} href={routes.dashboard.user.setting}>
             {formatMessage({ id: 'auth.accountSetting' })}
           </a>
         ),
