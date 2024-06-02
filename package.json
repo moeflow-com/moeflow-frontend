@@ -51,6 +51,8 @@
     "lint:fix": "eslint --fix .",
     "format": "prettier --check src",
     "format:fix": "prettier --write src",
+    "ts-node": "node -r esbuild-runner/register",
+    "build:locale": "npm run ts-node scripts/generate-locale-json.ts",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "typecheck": "tsc --noEmit",
