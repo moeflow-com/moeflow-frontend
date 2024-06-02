@@ -1,5 +1,5 @@
 import { css } from '@emotion/core';
-import { Menu } from 'antd';
+import { MenuProps } from 'antd';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -19,6 +19,14 @@ interface HeaderProps {
   className?: string;
 }
 const showMitExperimentLink = configs.mitUiEnabled;
+
+export const dropDownMenuItemStyle = css`
+  width: 150px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 /**
  * 头部
  */
@@ -30,48 +38,46 @@ export const Header: FC<HeaderProps> = ({ className }) => {
   const history = useHistory();
   const currentUser = useSelector((state: AppState) => state.user);
 
-  /** 前往仪表盘 */
-  const goDashboard = () => {
-    history.push('/dashboard/projects');
-  };
-
-  /** 前往账号管理 */
-  const goSetting = () => {
-    history.push('/dashboard/user/setting');
-  };
-
   /** 登出 */
   const logout = () => {
     dispatch(setUserToken({ token: '' }));
     history.push('/login');
   };
 
-  const menu = (
-    <Menu
-      css={css`
-        .button {
-          width: 150px;
-          height: 30px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-      `}
-    >
-      <Menu.Item onClick={goDashboard}>
-        <div className="button">{formatMessage({ id: 'site.dashboard' })}</div>
-      </Menu.Item>
-      <Menu.Item onClick={goSetting}>
-        <div className="button">
-          {formatMessage({ id: 'auth.accountSetting' })}
-        </div>
-      </Menu.Item>
-      <Menu.Divider></Menu.Divider>
-      <Menu.Item onClick={logout}>
-        <div className="button">{formatMessage({ id: 'auth.logout' })}</div>
-      </Menu.Item>
-    </Menu>
-  );
+  const menuProps: MenuProps = {
+    items: [
+      {
+        label: (
+          <a css={dropDownMenuItemStyle} href={routes.dashboard.$}>
+            {formatMessage({ id: 'site.dashboard' })}
+          </a>
+        ),
+        key: 'site.dashboard',
+      },
+      {
+        label: (
+          <a css={dropDownMenuItemStyle} href={routes.dashboard.user.setting}>
+            {formatMessage({ id: 'auth.accountSetting' })}
+          </a>
+        ),
+        key: 'auth.accountSetting',
+      },
+      {
+        dashed: true,
+        key: 'divider1',
+      },
+      {
+        label: (
+          <a css={dropDownMenuItemStyle}>
+            {formatMessage({ id: 'auth.logout' })}
+          </a>
+        ),
+        key: 'auth.logout',
+        onClick: logout,
+      },
+    ],
+  };
+
   const mitLink = showMitExperimentLink && (
     <a className="login" href={routes.mit.preprocessDemo}>
       {formatMessage({ id: 'mit.title' })}
@@ -142,7 +148,7 @@ export const Header: FC<HeaderProps> = ({ className }) => {
         <div className="right">
           {mitLink}
           <Dropdown
-            overlay={menu}
+            menu={menuProps}
             placement="bottomRight"
             trigger={isMobile ? ['click'] : ['hover']}
             overlayStyle={{ paddingTop: '4px' }}

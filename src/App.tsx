@@ -166,7 +166,7 @@ const App: React.FC = () => {
           <Route path={routes.imageTranslator.asRouter}>
             <ImageTranslator />
           </Route>
-          <Route path={routes.dashboard}>
+          <Route path={routes.dashboard.$}>
             <Dashboard />
           </Route>
           <Route path={routes.mit.preprocessDemo}>

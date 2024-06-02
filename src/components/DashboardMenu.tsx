@@ -1,5 +1,5 @@
 import { css } from '@emotion/core';
-import { Badge, Menu } from 'antd';
+import { Badge, Menu, MenuProps } from 'antd';
 import classNames from 'classnames';
 import React from 'react';
 import { useIntl } from 'react-intl';
@@ -9,9 +9,11 @@ import { Avatar, Dropdown, Icon, ListItem, TeamList, Tooltip } from '.';
 import { FC } from '../interfaces';
 import { AppState } from '../store';
 import { resetProjectsState } from '../store/project/slice';
-import { setUserToken } from '../store/user/slice';
+import { setUserToken, UserState } from '../store/user/slice';
 import style from '../style';
 import { clickEffect } from '../utils/style';
+import { routes } from '../pages/routes';
+import UserSetting from '../pages/UserSetting';
 
 export const MENU_COLLAPSED_WIDTH = 63;
 export const MENU_UNCOLLAPSED_WIDTH = 231;
@@ -57,96 +59,10 @@ export const DashboardMenu: FC<
   const uncollapsedWidth = MENU_UNCOLLAPSED_WIDTH - 1;
   const currentUser = useSelector((state: AppState) => state.user);
 
-  /** 登出 */
-  const logout = () => {
-    dispatch(setUserToken({ token: '' }));
-    history.push('/login');
-  };
-
-  const userMenu = (
-    <Menu
-      css={css`
-        .UserMenu__Button {
-          margin: 0 auto;
-          width: 150px;
-          height: 30px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        .UserMenu__Badge {
-          margin-left: 10px;
-        }
-      `}
-    >
-      <Menu.Item onClick={logout}>
-        <div className="UserMenu__Button">
-          {formatMessage({ id: 'auth.logout' })}
-        </div>
-      </Menu.Item>
-      <Menu.Divider></Menu.Divider>
-      <Menu.Item
-        onClick={() => {
-          history.push('/');
-        }}
-      >
-        <div className="UserMenu__Button">
-          {formatMessage({ id: 'site.index' })}
-        </div>
-      </Menu.Item>
-      <Menu.Item
-        onClick={() => {
-          history.push('/dashboard/user/setting');
-        }}
-      >
-        <div className="UserMenu__Button">
-          {formatMessage({ id: 'auth.accountSetting' })}
-        </div>
-      </Menu.Item>
-      <Menu.Item
-        onClick={() => {
-          history.push('/dashboard/user/invitations');
-        }}
-      >
-        <div className="UserMenu__Button">
-          {formatMessage({ id: 'me.invitation.new' })}
-          {newInvitationsCount > 0 && (
-            <Badge
-              className="UserMenu__Badge"
-              count={newInvitationsCount}
-              size="small"
-            ></Badge>
-          )}
-        </div>
-      </Menu.Item>
-      <Menu.Item
-        onClick={() => {
-          history.push('/dashboard/user/related-applications');
-        }}
-      >
-        <div className="UserMenu__Button">
-          {formatMessage({ id: 'me.applicatio.related' })}
-          {relatedApplicationsCount > 0 && (
-            <Badge
-              className="UserMenu__Badge"
-              count={relatedApplicationsCount}
-              size="small"
-            ></Badge>
-          )}
-        </div>
-      </Menu.Item>
-      {currentUser.admin && (
-        <Menu.Item
-          onClick={() => {
-            history.push('/admin');
-          }}
-        >
-          <div className="UserMenu__Button">
-            {formatMessage({ id: 'me.adminPage' })}
-          </div>
-        </Menu.Item>
-      )}
-    </Menu>
+  const menuProps = useMenuProps(
+    currentUser,
+    newInvitationsCount,
+    relatedApplicationsCount,
   );
 
   return (
@@ -410,7 +326,7 @@ export const DashboardMenu: FC<
       {!isMobile && (
         // 电脑端底部显示用户菜单，手机版在 TabBar
         <Dropdown
-          overlay={userMenu}
+          menu={menuProps}
           placement="topRight"
           trigger={isMobile ? ['click'] : ['hover']}
           overlayStyle={{ paddingTop: '4px' }}
@@ -435,3 +351,98 @@ export const DashboardMenu: FC<
     </div>
   );
 };
+
+function useMenuProps(
+  currentUser: UserState,
+  newInvitationsCount: number,
+  relatedApplicationsCount: number,
+): MenuProps {
+  const { formatMessage } = useIntl();
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const buttonStyle = css`
+    margin: 0 auto;
+    width: 150px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  `;
+  const badgeStyle = css`
+    margin-left: 10px;
+  `;
+  const logout = () => {
+    dispatch(setUserToken({ token: '' }));
+    history.push(routes.login);
+  };
+  return {
+    // @ts-expect-error until filter(Boolean) lands
+    items: [
+      {
+        label: (
+          <div css={buttonStyle}>{formatMessage({ id: 'auth.logout' })}</div>
+        ),
+        key: 'auth.logout',
+        onClick: logout,
+      },
+      {
+        dashed: 'true',
+        key: 'divider1',
+      },
+      {
+        label: (
+          <a css={buttonStyle} href={routes.index}>
+            {formatMessage({ id: 'site.index' })}
+          </a>
+        ),
+        key: 'site.index',
+      },
+      {
+        label: (
+          <a css={buttonStyle} href={routes.dashboard.user.setting}>
+            {formatMessage({ id: 'auth.accountSetting' })}
+          </a>
+        ),
+        key: 'auth.accountSetting',
+      },
+      {
+        label: (
+          <a css={buttonStyle} href={routes.dashboard.user.invitations}>
+            {formatMessage({ id: 'me.invitation.new' })}
+            {newInvitationsCount > 0 && (
+              <Badge
+                css={badgeStyle}
+                count={newInvitationsCount}
+                size="small"
+              ></Badge>
+            )}
+          </a>
+        ),
+        key: 'me.invitation.new',
+      },
+      {
+        label: (
+          <a css={buttonStyle} href={routes.dashboard.user.relatedApplications}>
+            {formatMessage({ id: 'me.applicatio.related' })}
+            {relatedApplicationsCount > 0 && (
+              <Badge
+                css={badgeStyle}
+                count={relatedApplicationsCount}
+                size="small"
+              />
+            )}
+          </a>
+        ),
+        key: 'me.application.related',
+      },
+      currentUser.admin && {
+        label: (
+          <a css={buttonStyle} href={routes.admin}>
+            {formatMessage({ id: 'me.adminPage' })}
+          </a>
+        ),
+        key: 'me.adminPage',
+      },
+    ].filter(Boolean),
+  };
+}
