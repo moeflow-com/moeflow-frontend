@@ -1,4 +1,5 @@
-# source of truth for locale assets
+# source of truth of UI translations.
+# other JSON files are generated from this.
 imageTranslator.imageViewerZoomPanel.back:
   zhCn: 返回
   en: Back
@@ -22,178 +23,267 @@ imageTranslator.imageViewerZoomPanel.zoomOut:
   en: Zoom Out
 auth.login:
   zhCn: 登录
+  en: Log In
 auth.toReigsterTip:
   zhCn: 还没有帐号？前往注册
+  en: Don't have an account? Sign up here.
 auth.resetPassword:
   zhCn: 重置密码
+  en: Reset Password
 auth.back:
   zhCn: 返回
+  en: Back
 auth.register:
   zhCn: 注册
+  en: Sign Up
 auth.toLogin:
   zhCn: 已有帐号？前往登录
+  en: Already have an account? Go to login
 site.name:
   zhCn: 萌翻
   en: Moeflow
 site.slogan:
   zhCn: 让翻译加速！
+  en: Accelerate Translation!
 form.required:
   zhCn: 必填
+  en: Required
 form.stringLen:
   zhCn: 长度必须为 {len} 个字符
+  en: Length must be {len} characters
 auth.getEmailVCode:
   zhCn: 获取邮件验证码
+  en: '"Get Email Verification Code"'
 auth.captchaTip:
   zhCn: 请输入左侧数字
+  en: Please enter the number on the left.
 form.ok:
   zhCn: 确认
+  en: Confirm
 form.cancel:
   zhCn: 取消
+  en: Cancel
 auth.captchaTitle:
   zhCn: 人机验证
+  en: Human Verification
 auth.captchaRefreshTip:
   zhCn: 点击刷新
+  en: Click to Refresh
 api.networkError:
   zhCn: 网络错误
+  en: Network Error
 form.formatWrong:
   zhCn: 格式错误
+  en: Invalid format
 auth.sending:
   zhCn: 发送中
+  en: Sending
 auth.captchaWrong:
   zhCn: 验证码错误
+  en: Verification code error
 form.needWait:
   zhCn: 仍在冷却中，请稍后再试
+  en: Still cooling down, please try again later.
 auth.getEmailVCodeWait:
   zhCn: '{seconds} 秒后重新获取'
+  en: '"Retry in {seconds} seconds"'
 auth.sendEmailSuccessTip:
   zhCn: 发送成功，未收到的话，请也检查一下“垃圾邮件”哦。
+  en: Sent successfully. If not received, please also check your "Spam" folder.
 auth.resetPasswordSuccessTip:
   zhCn: 重置密码成功，现在登录吧！
+  en: Password reset successful, please log in now!
 auth.userNameFormatTip:
   zhCn: 仅可使用中文/日文/韩文/英文/数字/_
+  en: '"Only Chinese/Japanese/Korean/English/numbers/_ are allowed"'
 site.email:
   zhCn: 邮箱
+  en: Email
 auth.newEmail:
   zhCn: 新邮箱
+  en: New Email
 auth.oldEmail:
   zhCn: 原邮箱
+  en: Original Email
 site.vCode:
   zhCn: 验证码
+  en: Verification Code
 site.userName:
   zhCn: 用户名
+  en: Username
 site.password:
   zhCn: 密码
+  en: Password
 auth.registerAndLogin:
   zhCn: 注册并登陆
+  en: Sign Up and Log In
 auth.registerSuccessTitle:
   zhCn: 注册成功
+  en: Registration Successful
 auth.autoLoginTip:
-  zhCn: |-
-    已为您自动登录，需要在此浏览器上记住您吗？
-    （公共计算机请勿记住）
+  zhCn: '已为您自动登录，需要在此浏览器上记住您吗？
+
+    （公共计算机请勿记住）'
+  en: '"Auto-logged in for you. Remember you on this browser? (Do not remember on
+    public computers)"'
 auth.rememberMe:
   zhCn: 记住我
+  en: Remember Me
 site.avatar:
   zhCn: 头像
+  en: Profile Picture
 auth.loginedTip:
   zhCn: 您好{userName}，您已经登陆了。
+  en: Hello {userName}, you are logged in.
 auth.logout:
   zhCn: 登出
+  en: Log Out
 router.goDashboard:
   zhCn: 前往仪表盘
+  en: Go to Dashboard
 site.dashboard:
   zhCn: 仪表盘
+  en: Dashboard
 auth.accountSetting:
   zhCn: 账号管理
+  en: Account Management
 auth.toResetPasswordTip:
   zhCn: 忘记密码？
+  en: Forgot password?
 site.setting.autoJoinTeamIDs:
   zhCn: 自动加入的团队 ID
+  en: Automatically Joined Team ID
 site.setting.autoJoinTeamIDsTip:
   zhCn: 新用户注册/创建完成后，会自动加入这些团队，可以在团队设置界面查看团队 ID（每个 ID 一行）
+  en: New users will automatically join these teams after registration/creation is
+    complete. You can view the team IDs in the team settings interface (one ID per
+    line).
 site.setting.autoJoinTeamIDsError:
   zhCn: 第 {line} 行团队 ID 错误/不存在，请修改后重试
+  en: Team ID error/nonexistent in line {line}, please modify and try again.
 site.setting.homepageHtml:
   zhCn: 主页 HTML
+  en: Home HTML
 site.setting.homepageCss:
   zhCn: 主页 CSS
+  en: Home CSS
 site.setting.onlyAllowAdminCreateTeam:
   zhCn: 仅允许管理员创建团队
+  en: Only allow administrators to create teams
 site.setting.enableWhitelist:
   zhCn: 启用注册白名单
+  en: Enable Registration Whitelist
 site.setting.whitelistEmails:
   zhCn: 注册白名单邮箱
+  en: Register Whitelist Email
 site.setting.whitelistEmailsTip:
   zhCn: 启用白名单后，只有白名单中的邮箱才能注册，不影响已注册的账号（每个邮箱一行）
+  en: Once the whitelist is enabled, only emails in the whitelist can register. Existing
+    accounts are not affected (one email per line).
 site.setting.whitelistEmailsError:
   zhCn: 第 {line} 行邮箱格式错误，请修改后重试
+  en: Email format error in line {line}, please correct and try again.
 site.setting.editSuccess:
   zhCn: 修改成功
+  en: Modification Successful
 site.setting.createSuccess:
   zhCn: 创建成功
+  en: Created successfully
 form.submit:
   zhCn: 提交
+  en: Submit
 auth.newPassword:
   zhCn: 新密码
+  en: New Password
 auth.resetAndLogin:
   zhCn: 重置并登陆
+  en: Reset and Login
 auth.resetSuccessTitle:
   zhCn: 重置成功
+  en: Reset Successful
 site.permission:
   zhCn: 权限
+  en: Permissions
 form.selectRequired:
   zhCn: 必选
+  en: Required
 team.id:
   zhCn: 团队 ID
+  en: Team ID
 project.id:
   zhCn: 项目 ID
+  en: Project ID
 group.copyJoinLink:
   zhCn: 复制加入链接
+  en: Copy Join Link
 team.name:
   zhCn: 团队名
+  en: Team Name
 team.intro:
   zhCn: 团队介绍
+  en: Team Introduction
 auth.loginFirst:
   zhCn: 登陆以继续
+  en: Log in to continue
 site.myProjects:
   zhCn: 我参与的项目
+  en: My Projects
 site.team:
   zhCn: 团队
+  en: Team
 site.joinOrCreateTeam:
   zhCn: 加入/创建团队
+  en: Join/Create Team
 team.emptyTip:
   zhCn: 还没有团队，现在加入/创建一个吧！
+  en: No team yet, join/create one now!
 site.index:
   zhCn: 首页
+  en: Home
 team.emptySearchTip:
   zhCn: 没有名称含有 “{word}” 的团队，请换个搜索词试试。
+  en: No teams with names containing “{word}” found. Please try a different search
+    term.
 site.searchTeam:
   zhCn: 寻找团队
+  en: Find Team
 team.searchTip:
   zhCn: 请输入团队名来搜索团队。
+  en: Please enter a team name to search for a team.
 site.searchToCreateTip:
   zhCn: 现在创建一个团队？
+  en: Create a team now?
 site.join:
   zhCn: 加入
+  en: Join
 site.apply:
   zhCn: 申请
+  en: Apply
 team.notAllowApplyTipTitle:
   zhCn: 此团队关闭了申请加入
+  en: '"This team has closed applications to join"'
 team.notAllowApplyTip:
   zhCn: 请联系团队 “{team}” 的管理员，通过邀请加入的方式加入此团队。
+  en: Please contact the administrator of the team "{team}" to join this team by invitation.
 project.notAllowApplyTipTitle:
   zhCn: 此项目关闭了申请加入
+  en: This item is closed for joining.
 project.notAllowApplyTip:
   zhCn: 请联系团队或项目 “{project}” 的管理员，通过邀请加入的方式加入此项目。
+  en: Please contact the administrator of the team or project "{project}" to join
+    this project by invitation.
 project.applyConfirm:
   zhCn: 您确定要加入项目 “{project}” 吗？
+  en: Are you sure you want to join the project "{project}"?
 application.reason:
   zhCn: 申请理由
   en: Application message
 application.reasonLabel:
   zhCn: 申请需要管理员审核，请输入加入 “{name}” 的申请理由：
+  en: 'Please provide a reason for joining "{name}":'
 team.applyConfirm:
   zhCn: 您确定要加入团队 “{team}” 吗？
+  en: Are you sure you want to join the team "{team}"?
 team.apply:
   zhCn: 申请加入团队
   en: Apply to join team
@@ -208,10 +298,13 @@ team.alreadyJoinedTip:
   en: You have already joined the team
 site.allowApplyTypeLabel:
   zhCn: 谁可以申请加入
+  en: Who can request to join
 site.applicationCheckTypeLabel:
   zhCn: 如何处理加入申请
+  en: How to Handle Join Requests
 site.defaultRoleLabel:
   zhCn: 加入后默认角色
+  en: Default Role After Joining
 site.baseSetting:
   zhCn: 基础设置
   en: Basic settings
@@ -220,6 +313,7 @@ site.memberSetting:
   en: Members
 site.roleSetting:
   zhCn: 自定义角色
+  en: Custom Role
 site.save:
   zhCn: 保存
   en: Save
@@ -234,532 +328,802 @@ team.delete:
   en: Remove Team
 team.deleteTipTitle:
   zhCn: 您确认要解散此团队吗？
+  en: Are you sure you want to disband this team?
 team.deleteTip:
   zhCn: 注意！解散团队 “{team}” 后无法恢复，请谨慎操作！
+  en: Warning! Disbanding the team "{team}" is irreversible. Please proceed with caution!
 site.me:
   zhCn: 我
+  en: Me
 site.project:
   zhCn: 项目
+  en: Project
 team.deleteUser:
   zhCn: 删除用户
+  en: Delete User
 team.deleteUserConfirm:
   zhCn: 您确认要从团队中删除 “{user}” 吗？
+  en: Are you sure you want to remove "{user}" from the team?
 team.noMemberSearchTip:
   zhCn: 没有名称含有 “{word}” 的成员，请换个搜索词试试。
+  en: No members with names containing “{word}” found. Please try a different search
+    term.
 site.memberName:
   zhCn: 成员名
+  en: Member Name
 site.allow:
   zhCn: 允许
+  en: Allow
 site.deny:
   zhCn: 拒绝
+  en: Reject
 team.leave:
   zhCn: 退出团队
+  en: Leave Team
 team.leaveConfirm:
   zhCn: 您确定要退出团队吗？
+  en: Are you sure you want to leave the team?
 site.applicationSetting:
   zhCn: 申请管理
+  en: Application Management
 site.invitationSetting:
   zhCn: 邀请管理
+  en: Invite Management
 invitation.emptySearchTip:
   zhCn: 没有名称含有 “{word}” 的用户，请换个搜索词试试。
+  en: No users with names containing "{word}". Please try a different search term.
 invitation.emptyTip:
   zhCn: 还没有进行中的邀请，快去邀请用户吧！
+  en: No ongoing invitations, invite users now!
 invitation.inviteUser:
   zhCn: 邀请用户
+  en: Invite User
 invitation.inviteTip:
   zhCn: 请输入用户名来搜索用户。
+  en: Please enter a username to search for users.
 invitation.inviteAsRole:
   zhCn: 邀请为 “{role}”
+  en: Invite as "{role}"
 invitation.operator:
   zhCn: 邀请人：
+  en: 'Inviter:'
 invitation.deleteInvitation:
   zhCn: 取消邀请
+  en: Cancel Invitation
 invitation.deleteInvitationTip:
   zhCn: 您确认要取消对 “{user}” 的邀请吗？
+  en: Are you sure you want to cancel the invitation to "{user}"?
 invitation.denied:
   zhCn: 已拒绝
+  en: Rejected
 invitation.allow:
   zhCn: 同意
+  en: Agree
 invitation.allowed:
   zhCn: 已同意
+  en: Agreed
 application.operator:
   zhCn: 操作人：
+  en: 'Operator:'
 application.emptyTip:
   zhCn: 还没有用户申请加入。
+  en: No users have requested to join yet.
 application.denied:
   zhCn: 已拒绝
+  en: Rejected
 application.allowed:
   zhCn: 已允许
+  en: Allowed
 application.emptyMessage:
   zhCn: 未附言
+  en: No memo
 me.invitation.emptyTip:
   zhCn: 还没有收到邀请。
+  en: No invitations received yet.
 me.invitation.new:
   zhCn: 新的邀请
+  en: New Invitation
 me.invitation.asRole:
   zhCn: 邀请您为 “{role}”
+  en: '"Invite you as “{role}”"'
 me.application.new:
   zhCn: 新的申请
+  en: New Application
 me.adminPage:
   zhCn: 站点管理
+  en: Site Management
 team.me:
   zhCn: 我在团队
+  en: I'm on the team
 site.myRoleIs:
   zhCn: 角色：{role}
+  en: 'Role: {role}'
 invitation.needRole:
   zhCn: 请选择加入后角色
+  en: Please select a role to join
 site.userCount:
   zhCn: 用户数
+  en: Number of Users
 site.aboutQuota:
   zhCn: 配额相关
+  en: Quota Related
 site.create:
   zhCn: 创建
+  en: Create
 projectSet.emptySearchTip:
   zhCn: 没有名称含有 “{word}” 的项目集，请换个搜索词试试。
+  en: No Project Set contain "{word}". Please try a different search term.
 projectSet.default:
   zhCn: 未分组
+  en: Ungrouped
 site.projectSet:
   zhCn: 项目集
+  en: Project set
 site.createProjectSet:
   zhCn: 创建项目集
+  en: Create project set
 projectSet.name:
   zhCn: 项目集名称
+  en: Project set name
 projectSet.info:
   zhCn: 项目集信息
+  en: Projection set Information
 projectSet.intro:
   zhCn: 项目集介绍
+  en: Project set description
 projectSet.baseSetting:
   zhCn: 基础设置
+  en: Basic Settings
 project.emptyTip:
   zhCn: 还没有项目，现在创建一个吧！
+  en: No projects yet, create one now!
 project.emptySearchTip:
   zhCn: 没有名称含有 “{word}” 的项目，请换个搜索词试试。
+  en: No projects contain "{word}". Please try a different search term.
 project.leave:
   zhCn: 退出项目
+  en: Leave Project
 project.info:
   zhCn: 项目信息
+  en: Project Information
 project.delete:
   zhCn: 删除项目
+  en: Delete Item
 project.me:
   zhCn: 我在项目
+  en: I'm on the project
 project.leaveConfirm:
   zhCn: 您确认要退出此项目吗？
+  en: Are you sure you want to leave this project?
 project.deleteTipTitle:
   zhCn: 您确认要计划删除此项目吗？
+  en: Are you sure you want to schedule the deletion of this item?
 project.finishTipTitle:
   zhCn: 您确认要完结此项目吗？
+  en: Are you sure you want to mark this project as complete?
 project.finish:
   zhCn: 完结项目
+  en: Mark Project as complete
 project.name:
   zhCn: 项目名称
+  en: Project Name
 project.intro:
   zhCn: 项目介绍
+  en: Project Introduction
 site.createProject:
   zhCn: 创建项目
+  en: Create Project
 site.importProject:
   zhCn: 导入项目
+  en: Import Project
 project.startImport:
   zhCn: 开始导入
+  en: Start Import
 project.finishTip:
   zhCn: 此操作将删除此项目的所有文件和图片。
+  en: This action will delete all files and images for this item.
 project.deleteTip:
   zhCn: 一天后彻底删除此项目，不会留存任何信息，推荐使用完结功能。（您可以在正式删除前取消此操作）
+  en: '"Delete this item permanently after one day, no information will be retained.
+    It is recommended to use the completion function. (You can cancel this operation
+    before it is deleted)"'
 project.apply:
   zhCn: 申请加入项目
+  en: Apply to Join Project
 project.join:
   zhCn: 加入项目
+  en: Join Project
 project.autoBecomeProjectAdmin:
   zhCn: （继承自团队）
+  en: (Inherited from team)
 user.name:
   zhCn: 用户名
+  en: Username
 user.info:
   zhCn: 用户信息
+  en: User Information
 user.signature:
   zhCn: 用户签名
+  en: User Signature
 site.safeSetting:
   zhCn: 安全设置
+  en: Security Settings
 user.passwordSetting:
   zhCn: 密码设置
+  en: Password Setup
 user.emailSetting:
   zhCn: 安全邮箱设置
+  en: Security Email Settings
 site.oldPassword:
   zhCn: 原密码
+  en: Current Password
 site.newPassword:
   zhCn: 新密码
+  en: New Password
 site.oldEmail:
   zhCn: 原邮箱
+  en: Original Email
 site.oldEmailVCode:
   zhCn: 原邮箱收到的验证码
+  en: Verification code received at original email
 site.newEmail:
   zhCn: 新邮箱
+  en: New Email
 site.newEmailVCode:
   zhCn: 新邮箱收到的验证码
+  en: Verification code received at new email
 project.finishedTip:
   zhCn: 项目已完结
+  en: Project Completed
 site.sourceLanguage:
   zhCn: 源语言
+  en: Source Language
 site.targetLanguage:
   zhCn: 目标语言
+  en: Target Language
 project.targetSetting:
   zhCn: 目标语言
+  en: Target Language
 project.sourceLanguage:
   zhCn: 源语言
+  en: Source Language
 project.targetLanguages:
   zhCn: 目标语言
+  en: Target Language
 project.targetLanguagesCount:
   zhCn: 目标语言数量
+  en: Number of Target Languages
 project.deleteTargetTitle:
   zhCn: 您确认要删除此目标语言吗？
+  en: Are you sure you want to delete this target language?
 project.deleteTargetTip:
   zhCn: 注意：目标语言下的翻译将被一并删除！
+  en: 'Note: Translations in the target language will be deleted!'
 target.emptyTip:
   zhCn: 还没有目标语言，新建一个吧！
+  en: No target language yet, create one!
 site.add:
   zhCn: 添加
+  en: Add
 file.uploadSuccess:
   zhCn: 上传成功
+  en: Upload Successful
 file.uploadFail:
   zhCn: '{name} 上传失败'
+  en: '"{name} upload failed"'
 file.uploadTip1:
   zhCn: 点击“上传”按钮 或 拖放、黏贴文件到这来上传吧
+  en: Click the "Upload" button or drag and drop, paste files here to upload.
 file.uploadTip2:
   zhCn: 支持单个或批量文件上传，目前支持这些后缀的文件 .jpg, .jpeg, .png, .bmp, .gif（不区分大小写）
+  en: 'Supports single or batch file uploads. Currently supports these file extensions:
+    .jpg, .jpeg, .png, .bmp, .gif (case insensitive).'
 file.emptyTip:
   zhCn: 还没有文件，现在上传一个吧！
+  en: No files yet, upload one now!
 file.emptySearchTip:
   zhCn: 没有名称含有 “{word}” 的文件，请换个搜索词试试。
+  en: No files contain "{word}". Please try a different search term.
 project.deleteFile:
   zhCn: 删除文件
+  en: Delete File
 project.deleteFileTip:
   zhCn: 注意：此文件所有语言的翻译都将被删除！您确认要删除 {name} 吗？
+  en: 'Notice: All translations for this file will be deleted! Are you sure you want
+    to delete {name}?'
 site.upload:
   zhCn: 上传
+  en: Upload
 file.uploading:
   zhCn: 上传中
+  en: Uploading
 file.uploadFailure:
   zhCn: 上传失败
+  en: Upload Failed
 file.uploadOverwrite:
   zhCn: 覆盖
+  en: Overwrite
 project.selectTarget:
   zhCn: 请选择目标语言
+  en: Please select the target language.
 project.changeTarget:
   zhCn: 切换目标语言
+  en: Switch Target Language
 project.onlyOneTargetTip:
   zhCn: 仅有一个目标语言
+  en: '"Only one target language"'
 imageTranslator.translationPlaceholder:
   zhCn: 请输入翻译
+  en: Please enter translation
 imageTranslator.proofreadPlaceholder:
   zhCn: 请输入校对
+  en: Please enter proofreading
 imageTranslator.deleteLabelTitle:
   zhCn: 此标签已有翻译，您确认要删除吗？
+  en: '"This label is already translated. Are you sure you want to delete it?"'
 imageTranslator.deleteLabelTip:
   zhCn: 注意：将同时删除此标签下（包括其他目标语言中）的所有翻译和校对！
+  en: 'Note: This will also delete all translations and proofreadings under this label
+    (including in other target languages)!'
 imageTranslator.someSaveFailed:
   zhCn: 部分内容保存失败
+  en: '"Some content failed to save"'
 imageTranslator.retry:
   zhCn: 点击重试
+  en: Click to Retry
 imageTranslator.leaveTip:
   zhCn: 现在离开将丢失这些内容，您要现在离开吗？
+  en: '"Leaving now will lose these changes. Do you want to leave now?"'
 imageTranslator.leaveWithSaving:
   zhCn: 仍有内容保存中！
+  en: '"Content is still being saved!"'
 imageTranslator.leaveWithSaveFailed:
   zhCn: 部分内容保存失败！
+  en: Failed to save some content!
 imageTranslator.unloadWithSaving:
   zhCn: 仍有内容保存中，现在离开将丢失这些内容，您要现在离开吗？
+  en: '"Content is still being saved. Leaving now will result in losing this content.
+    Do you want to leave now?"'
 imageTranslator.unloadWithSaveFailed:
   zhCn: 有内容保存失败，现在离开将丢失这些内容，您要现在离开吗？
+  en: '"Failed to save content. Leaving now will result in losing this content. Do
+    you want to leave now?"'
 imageTranslator.positionIn:
   zhCn: 框内
+  en: '"In Frame"'
 imageTranslator.positionOut:
   zhCn: 框外
+  en: Out of Frame
 site.noPermission:
   zhCn: 没有权限
+  en: No permission
 site.output:
   zhCn: 导出
+  en: Export
 site.loading:
   zhCn: 加载中
+  en: Loading
 output.empty:
   zhCn: 暂无导出
+  en: No export available
 output.refresh:
   zhCn: 刷新
+  en: Refresh
 output.download:
   zhCn: 下载
+  en: Download
 output.noPermission:
   zhCn: 没有导出权限
+  en: No export permissions
 upload.noPermission:
   zhCn: 没有上传权限
+  en: No upload permissions
 delete.noPermission:
   zhCn: 没有删除权限
+  en: No delete permissions
 output.tip:
   zhCn: 仅保存最近三次的导出
+  en: Only save the last three exports.
 myProject.emptyTip:
   zhCn: 还未加入任何项目
+  en: No projects added yet.
 me.applicatio.related:
   zhCn: 新的申请
+  en: New Application
 site.join.request:
   zhCn: 申请加入{groupType}
+  en: Apply to join {groupType}
 site.group:
   zhCn: 团体
+  en: Group
 site.createTeam:
   zhCn: 创建团队
+  en: Create Team
 group.joinTip:
   zhCn: 请输入加入 {groupName} 的申请理由：
+  en: 'Please enter your reason for joining {groupName}:'
 group.joinTipNoNeedCheck:
   zhCn: '{groupName} 可以直接加入，您确定加入吗？'
+  en: '"{groupName} is open to join. Are you sure you want to join?"'
 site.joinTeam:
   zhCn: 加入团队
+  en: Join Team
 form.idTip:
   zhCn: ID 的长度为 24, 且只包含数字及a-f/A-F的字母
+  en: The ID must be 24 characters long and contain only numbers and letters a-f/A-F.
 error.joinLink:
   zhCn: 加入链接无效
+  en: Invalid link added
 team.notExist:
   zhCn: 团队不存在
+  en: Team does not exist
 team.notAllowAllUserJoin:
   zhCn: 此团队未开放申请加入
+  en: '"This team is not open for applications"'
 project.notExist:
   zhCn: 项目不存在
+  en: Project does not exist
 group.joined:
   zhCn: 您已经加入 {groupName} 了
+  en: You have already joined {groupName}.
 project.notAllowAllUserJoin:
   zhCn: 此项目未开放申请加入 或 仅允许团队成员申请加入
+  en: This project is not open for applications or only allows team members to apply.
 site.joinProject:
   zhCn: 加入项目
+  en: Join Project
 imageTranslator.imageViewerPagingPanel.prevImage:
   zhCn: 上一张
+  en: Previous
 imageTranslator.imageViewerPagingPanel.nextImage:
   zhCn: 下一张
+  en: Next
 avatar.upload:
   zhCn: 上传头像
+  en: Upload Avatar
 fileList.changeMode:
   zhCn: 切换显示模式
+  en: Toggle Display Mode
 file.parseNotStart:
   zhCn: 自动标记未开始
+  en: Auto Mark as Not Started
 fileList.ocrButtonTip:
   zhCn: 图片自动标记
+  en: Image Auto Tagging
 project.startOCR:
   zhCn: 开始自动标记
+  en: Start Auto Tagging
 project.startOCRTip:
   zhCn: 您要开始图片自动标记吗？（仅自动标记“未开始”、“标记失败”的图片，且仅成功时扣减限额）
+  en: Do you want to start auto-tagging images? (Only images marked as "Not Started"
+    or "Tagging Failed" will be auto-tagged, and the quota will only be deducted upon
+    successful tagging)
 site.ocrQuota:
   zhCn: 自动标记限额
+  en: Auto Tagging Limit
 ':':
   zhCn: ：
+  en: ':'
 ',':
   zhCn: ，
+  en: ','
 (:
   zhCn: （
+  en: (
 ):
   zhCn: ）
+  en: )
 site.imageUnit:
   zhCn: 张
+  en: '"Sheet"'
 imageTranslator.settingTitle:
   zhCn: 翻译器设置
+  en: Translator Settings
 hotKeyRecorder.tip:
   zhCn: 请按下按键
+  en: Press the button
 hotKeyRecorder.null:
   zhCn: 无
+  en: None
 hotKeyRecorder.unbind:
   zhCn: 删除
+  en: Delete
 hotKey.function:
   zhCn: 功能
+  en: Feature
 hotKey.mainHotKey:
   zhCn: 主快捷键
+  en: Primary Shortcut Key
 hotKey.subHotKey:
   zhCn: 副快捷键
+  en: Secondary Shortcut Key
 hotKey.focusNextSource:
   zhCn: 下一个标签
+  en: Next Tab
 hotKey.focusPrevSource:
   zhCn: 上一个标签
+  en: Previous Tab
 hotKey.goPrevPage:
   zhCn: 上一页
+  en: Previous Page
 hotKey.goNextPage:
   zhCn: 下一页
+  en: Next Page
 mouse.function:
   zhCn: 功能
+  en: Feature
 mouse.key:
   zhCn: 鼠标按键
+  en: Mouse Button
 mouse.addInLabel:
   zhCn: 新建框内标签
+  en: New Inline Label
 mouse.addOutLabel:
   zhCn: 新建框外标签
+  en: Create Out-of-Box Label
 mouse.changeLabelPosition:
   zhCn: 切换框内框外
+  en: Toggle In/Out Frame
 mouse.deleteLabel:
   zhCn: 删除标签
+  en: Delete Tag
 mouse.leftOnImage:
   zhCn: 左键点击图片
+  en: Left-click the image
 mouse.middleOnLabel:
   zhCn: 中键点击标签
+  en: Middle-click tab
 mouse.rightOnLabel:
   zhCn: 右键点击标签
+  en: Right-click the label
 mouse.rightOnImage:
   zhCn: 右键点击图片
+  en: Right-click the image
 translation.proofread:
   zhCn: 校对
+  en: Proofread
 translation.proofreaded:
   zhCn: 校对完成
+  en: Proofreading Complete
 translation.noNeedproofread:
   zhCn: 无需校对
+  en: No proofreading needed
 translation.asBest:
   zhCn: 选为最佳
+  en: Mark as Best
 site.loadMore:
   zhCn: 加载更多
+  en: Load more
 site.copy:
   zhCn: 复制
+  en: Copy
 translation.cover:
   zhCn: 覆盖
+  en: Overwrite
 site.cancel:
   zhCn: 取消
+  en: Cancel
 translation.copyToProofreadNotEmptyTip:
   zhCn: 校对已有内容，您确定要覆盖吗？
+  en: '"Proofread existing content, are you sure you want to overwrite?"'
 projectPreview.empty:
   zhCn: 项目内暂未上传文件
+  en: No files uploaded in the project yet.
 label.defaultContent:
   zhCn: 无翻译
+  en: No Translation
 label.emptyContent:
   zhCn: 空翻译
+  en: Empty Translation
 project.finished:
   zhCn: 已完结
+  en: Completed
 site.setting:
   zhCn: 设置
+  en: Settings
 project.notJoined:
   zhCn: 未加入
+  en: Not Joined
 project.working:
   zhCn: 进行中
+  en: In Progress
 project.emptyFinishedTip:
   zhCn: 还没有已完结的项目
+  en: No completed projects yet.
 application.noNeedCheckAutoAllow:
   zhCn: 无需审核，已自动允许
+  en: No review needed, automatically allowed
 application.message:
   zhCn: 附言
+  en: Note
 application.userLeft:
   zhCn: 用户已退出
+  en: User has logged out
 site.feedback:
   zhCn: 意见反馈
+  en: Feedback
 file.blockTip:
   zhCn: 非常抱歉，此图片存在敏感内容，无法在萌翻进行翻译。
+  en: Sorry, this image contains sensitive content and cannot be translated on Mengfan.
 file.generating:
   zhCn: 缩略图生成中...
+  en: Generating thumbnail...
 output.outputAll:
   zhCn: 导出项目内所有文件
+  en: Export all files in the project
 output.createButton:
   zhCn: 全部（含图片）
+  en: All (including images)
 output.createOnlyTextButton:
   zhCn: 仅翻译数据
+  en: Translate Data Only
 output.outputPartial:
   zhCn: 导出已选中的 {count} 个文件
+  en: Export {count} selected files
 output.outputPartialExclude:
   zhCn: 导出除了已选中的 {count} 个文件
+  en: Export all except the selected {count} files
 output.invert:
   zhCn: 反选
+  en: '"Deselect"'
 project.createViaLabelplus:
   zhCn: 通过“翻译数据.txt”创建：
+  en: 'Created via "translation_data.txt":'
 site.delete:
   zhCn: 删除
+  en: Delete
 project.createViaLabelplusNotSupport:
   zhCn: 多个目标语言时不支持
+  en: '"Not supported for multiple target languages"'
 file.needUploadTip:
   zhCn: 待上传
+  en: Pending Upload
 site.selectPageAll:
   zhCn: 全选本页
+  en: Select All on This Page
 site.selectPageInverse:
   zhCn: 反选本页
+  en: Deselect This Page
 site.selectCancel:
   zhCn: 取消选择
+  en: Deselect
 site.selectFile:
   zhCn: 选择文件
+  en: Select File
 imageTranslator.translatorMode:
   zhCn: 翻译模式
+  en: Translation Mode
 imageTranslator.godMode:
   zhCn: 全能模式
+  en: All-in-One Mode
 debounceStatus.debouncing:
   zhCn: 输入中
+  en: Typing...
 debounceStatus.saving:
   zhCn: 保存中
+  en: Saving...
 debounceStatus.saveFailed:
   zhCn: 保存失败
+  en: Save Failed
 debounceStatus.saveSuccessful:
   zhCn: 保存成功
+  en: Save Successful
 translation.proofreadFirstTip:
   zhCn: 优先使用此校对内容
+  en: '"Prioritize this proofread content"'
 translation.hasOthersBestContentTip:
   zhCn: 他人已翻译此条目
+  en: '"Someone else has translated this entry"'
 imageTranslator.translationNoPremissionPlaceholder:
   zhCn: 您暂无翻译权限
+  en: You do not have translation permissions.
 projectImportFromLabelplusStatus.pending:
   zhCn: 从 Labelplus 文本导入排队中
+  en: '"Importing text from Labelplus to queue"'
 projectImportFromLabelplusStatus.running:
   zhCn: 正在从 Labelplus 文本导入
+  en: '"Importing from Labelplus text"'
 output.otherResource:
   zhCn: 其他资源
+  en: Other Resources
 output.at:
   zhCn: 导出所有文件{outputType}
+  en: Export all files {outputType}
 output.partAt:
   zhCn: 导出部分文件{outputType}
+  en: Export Partial Files {outputType}
 output.onlyText:
   zhCn: 仅翻译数据
+  en: Translate Data Only
 imageTranslator.sourceCreating:
   zhCn: 创建中...
+  en: Creating...
 imageTranslator.sourceDeleting:
   zhCn: 删除中...
+  en: Deleting...
 team.projectInsight:
   zhCn: 项目统计
+  en: Project Statistics
 site.refresh:
   zhCn: 刷新
+  en: Refresh
 insight.moreProject:
   zhCn: 等 {count} 个项目
+  en: '"{count} more items"'
 insight.noWorkingProjects:
   zhCn: 暂无进行中的项目
+  en: No ongoing projects
 insight.noUserInProjects:
   zhCn: 项目内暂无成员
+  en: No members in the project
 site.projectName:
   zhCn: 项目名
+  en: Project Name
 site.member:
   zhCn: 成员
+  en: Member
 team.userInsight:
   zhCn: 成员统计
+  en: Member Statistics
 imageTranslator.proofreaderMode:
   zhCn: 校对模式
+  en: Proofreading Mode
 imageTranslator.copyTranslationContent:
   zhCn: 复制翻译内容
+  en: Copy Translated Content
 imageTranslator.checkAllTranslation:
   zhCn: 确认以上所有翻译
+  en: Confirm all of the above translations
 imageTranslator.checkAllTranslationTip:
   zhCn: 多个翻译则优先选取第一个
+  en: '"Multiple translations prioritize the first one"'
 imageTranslator.noTranslationForProofread:
   zhCn: 暂无可校对翻译
+  en: No translations available for proofreading.
 imageTranslator.checkUnfinished:
   zhCn: 审核未完成
+  en: Review Incomplete
 imageTranslator.translateUnfinished:
   zhCn: 翻译未完成
+  en: Translation Incomplete
 invitation.searchedUsers:
   zhCn: 搜索到的用户
+  en: Found Users
 invitation.teamUsers:
   zhCn: 团队用户
+  en: Team User
 invitation.inviteTipForTeam:
   zhCn: 暂无团队用户，请输入用户名来搜索团队外用户。
+  en: No team users available. Please enter a username to search for users outside
+    the team.
 project.current:
   zhCn: 当前打开的项目
+  en: Currently Open Project
 translation.pendingProofread:
   zhCn: 待校对
+  en: '"Pending Review"'
 translation.copyToProofread:
   zhCn: 复制到校对
+  en: Copy to Proofread
 translation.copyToMyTranslation:
   zhCn: 复制到我的翻译
+  en: Copy to My Translations
 translation.copyToMyTranslationNotEmptyTip:
   zhCn: 您的翻译已有内容，您确定要覆盖吗？
+  en: Are you sure you want to overwrite your existing translation?
 translation.best:
   zhCn: 最佳翻译
+  en: Best Translation
 imageTranslator.proofreaderShowSource:
   zhCn: 显示原文
+  en: Show Original
 mit.title:
   zhCn: mit翻译辅助
   en: mit assistant
 mit.desc:
   zhCn: 基于manga-image-translator的自动翻译。请选择图上文字并机翻，
-  en: >-
-    Auto translate based on manga-image-translator. Translated file can be
-    imported as Moeflow project.
+  en: Auto translate based on manga-image-translator. Translated file can be imported
+    as Moeflow project.
 mit.step1PickImageFiles:
   zhCn: 请选择图片文件 (最多30个)
   en: Please pick up to 30 image files
