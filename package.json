@@ -74,7 +74,6 @@
     ]
   },
   "devDependencies": {
-    "@modyfi/vite-plugin-yaml": "^1.1.0",
     "@tsconfig/strictest": "^2.0.3",
     "@types/blueimp-load-image": "^2.23.8",
     "@types/classnames": "^2.2.9",
