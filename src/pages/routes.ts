@@ -3,7 +3,12 @@ export const routes = {
   login: '/login',
   signUp: '/register',
   resetPassword: '/reset-password',
-  dashboard: '/dashboard',
+  dashboard: {
+    $: '/dashboard',
+    user: {
+      setting: '/dashboard/user/setting',
+    },
+  },
   imageTranslator: {
     asRouter: `/image-translator/:fileID-:targetID`,
     build: (fileId: string, targetId: string) =>
