@@ -78,6 +78,13 @@
 
 1. 抛弃create-react-app和webpack，改用vite构建。
 
+### Version 1.1.1
+
+- i18n: english locale
+- EXPERIMENTAL manga-image-translator based assisted translation
+- upgrade deps
+- minor fixes
+
 ### Version NEXT
 
-- [diff](https://github.com/moeflow-com/moeflow-frontend/compare/v1.1.0...main)
+- [diff](https://github.com/moeflow-com/moeflow-frontend/compare/v1.1.1...main)
