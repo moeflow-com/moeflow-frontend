@@ -1,4 +1,4 @@
-import { defineConfig, splitVendorChunkPlugin } from 'vite';
+import { defineConfig, ProxyOptions, splitVendorChunkPlugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'node:path';
 import { antdLessVars, antdLessVarsM } from './src/style';
@@ -10,12 +10,29 @@ const ___dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const componentsDir = path.join(___dirname, './src/components');
 
 /**
- * origin to forward /api/ /storage/ requests to
- * note this server should rewrite /api/ /storage/ to the Python backend,
- * like the nginx conf in https://github.com/moeflow-com/moeflow-deploy .
- * Alternatively, configure vite's proxy to rewrite
+ * Develop with a bare Python API server
  */
-const backendOrigin = 'http://localhost:13080';
+const bareBackendProxy: ProxyOptions = {
+  target: 'http://localhost:5000',
+  changeOrigin: true,
+  rewrite(clientReqPath: string) {
+    const toStripe = /^\/(api)/;
+    const rewritten = clientReqPath.replace(toStripe, '');
+    // console.debug('rewrite', clientReqPath, rewritten);
+    return rewritten;
+  },
+};
+
+/**
+ * Develop with server that handles /api/ /storage/ URL rewrites.
+ * e.g. a nginx configured like https://github.com/moeflow-com/moeflow-deploy .
+ */
+const rewriteBackendProxy: ProxyOptions = {
+  target: 'http://localhost:80',
+  changeOrigin: true,
+};
+
+const apiProxy = bareBackendProxy;
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -86,14 +103,9 @@ export default defineConfig({
   server: {
     proxy: {
       '/api/': {
-        // in local dev, proxy local moeflow-backend server for web app
-        target: backendOrigin,
-        changeOrigin: true,
+        ...apiProxy,
       },
-      '/storage/': {
-        target: backendOrigin,
-        changeOrigin: true,
-      },
+      // '/storage/': { ...apiProxy, },
     },
   },
 });
