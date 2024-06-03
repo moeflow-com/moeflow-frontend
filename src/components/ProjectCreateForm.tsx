@@ -316,7 +316,7 @@ export const ProjectCreateForm: FC<ProjectCreateFormProps> = ({
       </Form>
       <Modal
         title="注意事项"
-        visible={isModalVisible}
+        open={isModalVisible}
         onOk={handleOk}
         okText="我承诺不上传以上内容"
         onCancel={handleCancel}

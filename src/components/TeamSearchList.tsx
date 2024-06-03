@@ -221,7 +221,7 @@ export const TeamSearchList: FC<TeamSearchListProps> = ({ className } = {}) => {
             : formatMessage({ id: 'team.join' })
         }
         closable={false}
-        visible={modelVisible}
+        open={modelVisible}
         onOk={() => {
           handleApply(team as Team, reason);
         }}

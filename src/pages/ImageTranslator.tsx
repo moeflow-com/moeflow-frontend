@@ -310,7 +310,7 @@ const ImageTranslator: FC = () => {
         onCancel={() => {
           setSettingModalVisible(false);
         }}
-        visible={settingModalVisible}
+        open={settingModalVisible}
         footer={null}
       >
         {isMobile ? (
