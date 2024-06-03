@@ -1,4 +1,4 @@
-export { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
+export { Icon } from './icon';
 export { AdminImageSafeCheck } from './AdminImageSafeCheck';
 export { AdminUserList } from './AdminUserList';
 export { ApplicationList } from './ApplicationList';
