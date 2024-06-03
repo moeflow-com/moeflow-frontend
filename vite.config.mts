@@ -16,9 +16,9 @@ const bareBackendProxy: ProxyOptions = {
   target: 'http://localhost:5000',
   changeOrigin: true,
   rewrite(clientReqPath: string) {
-    const toStripe = /^\/(api|storage)/;
+    const toStripe = /^\/(api)/;
     const rewritten = clientReqPath.replace(toStripe, '');
-    console.debug('rewrite', clientReqPath, rewritten);
+    // console.debug('rewrite', clientReqPath, rewritten);
     return rewritten;
   },
 };
@@ -32,7 +32,7 @@ const rewriteBackendProxy: ProxyOptions = {
   changeOrigin: true,
 };
 
-const apiProxy = rewriteBackendProxy;
+const apiProxy = bareBackendProxy;
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -105,9 +105,7 @@ export default defineConfig({
       '/api/': {
         ...apiProxy,
       },
-      '/storage/': {
-        ...apiProxy,
-      },
+      // '/storage/': { ...apiProxy, },
     },
   },
 });
