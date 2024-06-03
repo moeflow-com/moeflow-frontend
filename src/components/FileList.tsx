@@ -567,7 +567,7 @@ export const FileList: FC<FileListProps> = ({
         }
         placement={isMobile ? 'bottom' : 'right'}
         onClose={() => setOutputDrawerVisible(false)}
-        visible={outputDrawerVisible}
+        open={outputDrawerVisible}
         width={350}
         height="70%"
         destroyOnClose={true}

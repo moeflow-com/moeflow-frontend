@@ -353,7 +353,7 @@ export const InvitationList: FC<InvitationListProps> = ({
         onClose={() => {
           setDrawerVisible(false);
         }}
-        visible={drawerVisible}
+        open={drawerVisible}
       >
         <InviteUser
           onInviteSuccess={handleInviteSuccess}
