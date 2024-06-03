@@ -30,13 +30,13 @@
   - uuid
   - fontmin // 字体剪切
 
-## 开发步骤
+## 本地开发
 
-1. 建议使用 Node.js 近期LTS版本，如v18 v20
+1. 安装 Node.js 近期LTS版本，如v18 v20
 2. `npm install` 安装依赖项
-3. `npm start start` 启动vite 开发服务器
-    - 开发服务器自带API反向代理。默认将 `localhost:5173/api/*` 的请求自动转发到 `localhost:5000` (本地moeflow-backend开发版)
-    - 上述配置可在 `vite.config.ts` 修改。比如不在本地跑moeflow-backend，改用公网的服务器。
+3. `npm start` 启动vite 开发服务器
+    - 开发服务器自带API反向代理。默认将 `localhost:5173/api/*` `localhost:5173/storage/*` 的请求转发到 `localhost:5000/*` (本地moeflow-backend开发版地址)
+    - 上述配置可在 `vite.config.ts` 修改。比如不用本地的moeflow-backend，改用公网的服务器。
 4. `npm build` 发布前端代码，**请注意** 此时使用的后端地址配置为 `.env.local` 中的配置。
     - 如果没有创建 `.env.local` 则为默认值 `/api`。
 
