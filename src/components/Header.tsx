@@ -1,5 +1,6 @@
 import { css } from '@emotion/core';
 import { MenuProps } from 'antd';
+import { Icon } from './icon';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -13,6 +14,7 @@ import { clickEffect } from '../utils/style';
 import classNames from 'classnames';
 import { routes } from '../pages/routes';
 import { configs } from '../configs';
+import { availableLocales, setLocale } from '../locales';
 
 /** 头部的属性接口 */
 interface HeaderProps {
@@ -20,13 +22,14 @@ interface HeaderProps {
 }
 const showMitExperimentLink = configs.mitUiEnabled;
 
-export const dropDownMenuItemStyle = css`
+const dropDownMenuItemStyle = css`
   width: 150px;
   height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
+
 /**
  * 头部
  */
@@ -94,21 +97,12 @@ export const Header: FC<HeaderProps> = ({ className }) => {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        .left {
-          .icon-text {
-            height: 44px;
-            line-height: 44px;
-            padding: 0 12px;
-            color: #7f7a7a;
-            font-size: 25px;
-            font-weight: bold;
-            cursor: pointer;
-            user-select: none;
-          }
-        }
         .right {
           display: flex;
           flex-direction: row;
+          * + * {
+            margin-left: 8px;
+          }
           .login,
           .register {
             color: #7f7a7a;
@@ -135,14 +129,22 @@ export const Header: FC<HeaderProps> = ({ className }) => {
       `}
     >
       <div className="left">
-        <div
+        <a
           className="icon-text"
-          onClick={() => {
-            history.push('/');
-          }}
+          href={routes.index}
+          css={css`
+            height: 44px;
+            line-height: 44px;
+            padding: 0 12px;
+            color: #7f7a7a;
+            font-size: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+          `}
         >
           {formatMessage({ id: 'site.name' })}
-        </div>
+        </a>
       </div>
       {currentUser.token ? (
         <div className="right">
@@ -160,6 +162,7 @@ export const Header: FC<HeaderProps> = ({ className }) => {
               url={currentUser.avatar}
             />
           </Dropdown>
+          <LocalePicker />
         </div>
       ) : (
         <div className="right">
@@ -170,8 +173,26 @@ export const Header: FC<HeaderProps> = ({ className }) => {
           <a className="register" href={routes.signUp}>
             {formatMessage({ id: 'auth.register' })}
           </a>
+          <LocalePicker />
         </div>
       )}
     </div>
+  );
+};
+
+const LocalePicker: FC = () => {
+  const menuProps: MenuProps = {
+    items: Object.entries(availableLocales).map(([locale, label]) => ({
+      label: <div css={dropDownMenuItemStyle}>{label}</div>,
+      key: `locale-${locale}`,
+      onClick: () => setLocale(locale),
+    })),
+  };
+  return (
+    <Dropdown menu={menuProps}>
+      <div>
+        <Icon icon="language" size="3x" />
+      </div>
+    </Dropdown>
   );
 };

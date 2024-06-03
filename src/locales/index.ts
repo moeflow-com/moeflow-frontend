@@ -161,17 +161,18 @@ export const getIntl = () => {
   return singletonIntl;
 };
 
-export const initI18n = lazyThenable(async () => {
+export const availableLocales = {
+  en: 'English',
+  'zh-CN': '简体中文',
+} as const;
+
+const _STORAGE_KEY_LOCALE = '_override_locale';
+
+async function doInitI18n(locale: string, locales: string[]) {
   /*
-   * LOW PRIORITY TODO: allow user override language preference, maybe in localStorage
    * TODO: ensure all locale stuff is DI-able via React tree (Store or Context)
    */
   /** get 1st preference locale from navigator */
-  const locales = [
-    localStorage.getItem('_override_locale'),
-    ...navigator.languages,
-  ].filter(Boolean) as string[];
-  const locale = locales[0] ?? navigator.language;
   const [intlMessages, _dayjs, antdLocale] = await Promise.all([
     loadI18nLocale(locales),
     initDayjs(locale),
@@ -190,4 +191,22 @@ export const initI18n = lazyThenable(async () => {
     antdLocale: antdLocale,
     antdValidateMessages: getAntdValidateMessages(locale),
   } as const;
+}
+
+export function setLocale(l: string) {
+  if (l in availableLocales) {
+    localStorage.setItem(_STORAGE_KEY_LOCALE, l);
+    location.reload();
+  }
+}
+
+export const initI18n = lazyThenable(() => {
+  const _savedPref = localStorage.getItem(_STORAGE_KEY_LOCALE);
+  const savedPref =
+    _savedPref && _savedPref in availableLocales ? _savedPref : null;
+  const locale = savedPref || navigator.language;
+  const locales = [savedPref, ...navigator.languages].filter(
+    Boolean,
+  ) as string[];
+  return doInitI18n(locale, locales);
 });

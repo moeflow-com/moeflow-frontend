@@ -1,5 +1,5 @@
 import { css } from '@emotion/core';
-import { Icon } from '.';
+import { Icon } from './icon';
 import { Slider } from 'antd';
 import { debounce } from 'lodash-es';
 import React from 'react';
