@@ -1,4 +1,3 @@
-// 关闭翻译文本中 ${xxx} 的 Warning
 import { createIntl, createIntlCache, IntlShape } from 'react-intl';
 /**
  * Localized messages for Intl
@@ -13,37 +12,40 @@ dayjs.extend(localizedFormat);
 dayjs.extend(relativeTime);
 dayjs.extend(utc);
 
-async function initDayjs(locale: string) {
-  if (/^zh/.test(locale)) {
-    await import('dayjs/locale/zh-cn');
-  } else {
-    // await import('dayjs/locale/en')
+async function initDayjs(locale: string): Promise<void> {
+  switch (matchLocale(locale)) {
+    case 'en':
+      await import('dayjs/locale/en');
+      return;
+    case 'zh-CN':
+      await import('dayjs/locale/zh-cn');
+      return;
   }
-  dayjs.locale(locale.toLowerCase());
 }
 
 async function loadAntdLocale(locale: string) {
   // 引入 antd 的 locale
-  if (/^zh/.test(locale)) {
-    const f = await import('antd/es/locale/zh_CN');
-    return f.default;
-  } else {
-    const f = await import('antd/es/locale/en_US');
-    return f.default;
+  switch (matchLocale(locale)) {
+    case 'zh-CN':
+      return import('antd/es/locale/zh_CN').then((_) => _.default);
+    case 'en':
+      return import('antd/es/locale/en_US').then((_) => _.default);
   }
+  return import('antd/es/locale/en_US').then((_) => _.default);
 }
 
 type Messages = typeof import('./zh-cn.json') | typeof import('./en.json');
 
 async function loadI18nLocale(locales: string[]): Promise<Messages> {
   for (const l of locales) {
-    if (/^zh/i.test(l)) {
-      const f = await import('./zh-cn.json');
-      return f.default;
+    switch (matchLocale(l)) {
+      case 'en':
+        return import('./en.json').then((_) => _.default);
+      case 'zh-CN':
+        return import('./zh-cn.json').then((_) => _.default);
     }
   }
-  const f = await import('./en.json');
-  return f.default;
+  return import('./en.json').then((_) => _.default);
 }
 
 /** 获取 antd 所用的 Validate Messages */
@@ -165,6 +167,15 @@ export const availableLocales = {
   en: 'English',
   'zh-CN': '简体中文',
 } as const;
+
+function matchLocale(l: string): keyof typeof availableLocales {
+  if (/^zh/i.test(l)) {
+    return 'zh-CN';
+  } else if (/^en/i.test(l)) {
+    return 'en';
+  }
+  return 'en';
+}
 
 const _STORAGE_KEY_LOCALE = '_override_locale';
 
