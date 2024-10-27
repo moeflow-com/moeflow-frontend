@@ -53,7 +53,7 @@ form.stringLen:
   en: Length must be {len} characters
 auth.getEmailVCode:
   zhCn: 获取邮件验证码
-  en: '"Get Email Verification Code"'
+  en: Get Email Verification Code
 auth.captchaTip:
   zhCn: 请输入左侧数字
   en: Please enter the number on the left.
@@ -86,7 +86,7 @@ form.needWait:
   en: Still cooling down, please try again later.
 auth.getEmailVCodeWait:
   zhCn: '{seconds} 秒后重新获取'
-  en: '"Retry in {seconds} seconds"'
+  en: "Retry in {seconds} seconds"
 auth.sendEmailSuccessTip:
   zhCn: 发送成功，未收到的话，请也检查一下“垃圾邮件”哦。
   en: Sent successfully. If not received, please also check your "Spam" folder.
@@ -95,7 +95,7 @@ auth.resetPasswordSuccessTip:
   en: Password reset successful, please log in now!
 auth.userNameFormatTip:
   zhCn: 仅可使用中文/日文/韩文/英文/数字/_
-  en: '"Only Chinese/Japanese/Korean/English/numbers/_ are allowed"'
+  en: "Only Chinese/Japanese/Korean/English/numbers/_ are allowed"
 site.email:
   zhCn: 邮箱
   en: Email
@@ -115,17 +115,14 @@ site.password:
   zhCn: 密码
   en: Password
 auth.registerAndLogin:
-  zhCn: 注册并登陆
+  zhCn: 注册并登录
   en: Sign Up and Log In
 auth.registerSuccessTitle:
   zhCn: 注册成功
   en: Registration Successful
 auth.autoLoginTip:
-  zhCn: '已为您自动登录，需要在此浏览器上记住您吗？
-
-    （公共计算机请勿记住）'
-  en: '"Auto-logged in for you. Remember you on this browser? (Do not remember on
-    public computers)"'
+  zhCn: '已为您自动登录，需要在此浏览器上记住您吗？（公共计算机请勿记住）'
+  en: "Auto-logged in for you. Remember you on this browser? (Do not remember on public computers)"
 auth.rememberMe:
   zhCn: 记住我
   en: Remember Me
@@ -133,7 +130,7 @@ site.avatar:
   zhCn: 头像
   en: Profile Picture
 auth.loginedTip:
-  zhCn: 您好{userName}，您已经登陆了。
+  zhCn: 您好{userName}，您已经登录了。
   en: Hello {userName}, you are logged in.
 auth.logout:
   zhCn: 登出
@@ -242,8 +239,7 @@ site.index:
   en: Home
 team.emptySearchTip:
   zhCn: 没有名称含有 “{word}” 的团队，请换个搜索词试试。
-  en: No teams with names containing “{word}” found. Please try a different search
-    term.
+  en: No teams with names containing “{word}” found. Please try a different search term.
 site.searchTeam:
   zhCn: 寻找团队
   en: Find Team
@@ -261,17 +257,16 @@ site.apply:
   en: Apply
 team.notAllowApplyTipTitle:
   zhCn: 此团队关闭了申请加入
-  en: '"This team has closed applications to join"'
+  en: "This team has closed applications to join"
 team.notAllowApplyTip:
   zhCn: 请联系团队 “{team}” 的管理员，通过邀请加入的方式加入此团队。
-  en: Please contact the administrator of the team "{team}" to join this team by invitation.
+  en: Please contact the administrator of the team "{team}" to invite you.
 project.notAllowApplyTipTitle:
   zhCn: 此项目关闭了申请加入
   en: This item is closed for joining.
 project.notAllowApplyTip:
-  zhCn: 请联系团队或项目 “{project}” 的管理员，通过邀请加入的方式加入此项目。
-  en: Please contact the administrator of the team or project "{project}" to join
-    this project by invitation.
+  zhCn: 请联系项目 “{project}” 的管理员，通过邀请加入的方式加入此项目。
+  en: Please contact the administrator of the team or project "{project}" to invite you.
 project.applyConfirm:
   zhCn: 您确定要加入项目 “{project}” 吗？
   en: Are you sure you want to join the project "{project}"?
@@ -280,7 +275,7 @@ application.reason:
   en: Application message
 application.reasonLabel:
   zhCn: 申请需要管理员审核，请输入加入 “{name}” 的申请理由：
-  en: 'Please provide a reason for joining "{name}":'
+  en: 'Please provide an application message for "{name}":'
 team.applyConfirm:
   zhCn: 您确定要加入团队 “{team}” 吗？
   en: Are you sure you want to join the team "{team}"?
@@ -346,8 +341,7 @@ team.deleteUserConfirm:
   en: Are you sure you want to remove "{user}" from the team?
 team.noMemberSearchTip:
   zhCn: 没有名称含有 “{word}” 的成员，请换个搜索词试试。
-  en: No members with names containing “{word}” found. Please try a different search
-    term.
+  en: No members with names containing “{word}” found. Please try a different search term.
 site.memberName:
   zhCn: 成员名
   en: Member Name
@@ -425,7 +419,7 @@ me.invitation.new:
   en: New Invitation
 me.invitation.asRole:
   zhCn: 邀请您为 “{role}”
-  en: '"Invite you as “{role}”"'
+  en: "Invite you as “{role}”"
 me.application.new:
   zhCn: 新的申请
   en: New Application
@@ -452,7 +446,7 @@ site.create:
   en: Create
 projectSet.emptySearchTip:
   zhCn: 没有名称含有 “{word}” 的项目集，请换个搜索词试试。
-  en: No Project Set contain "{word}". Please try a different search term.
+  en: No Project set contain "{word}". Please try a different search term.
 projectSet.default:
   zhCn: 未分组
   en: Ungrouped
@@ -613,7 +607,7 @@ file.uploadFail:
   en: '"{name} upload failed"'
 file.uploadTip1:
   zhCn: 点击“上传”按钮 或 拖放、黏贴文件到这来上传吧
-  en: Click the "Upload" button or drag and drop, paste files here to upload.
+  en: Click the "Upload" button or drag or paste files here to upload.
 file.uploadTip2:
   zhCn: 支持单个或批量文件上传，目前支持这些后缀的文件 .jpg, .jpeg, .png, .bmp, .gif（不区分大小写）
   en: 'Supports single or multi file uploads. Currently supports these file extensions:
@@ -651,7 +645,7 @@ project.changeTarget:
   en: Switch Target Language
 project.onlyOneTargetTip:
   zhCn: 仅有一个目标语言
-  en: '"Only one target language"'
+  en: "Only one target language"
 imageTranslator.translationPlaceholder:
   zhCn: 请输入翻译
   en: Please enter translation
@@ -660,34 +654,34 @@ imageTranslator.proofreadPlaceholder:
   en: Please enter proofreading
 imageTranslator.deleteLabelTitle:
   zhCn: 此标签已有翻译，您确认要删除吗？
-  en: '"This label is already translated. Are you sure you want to delete it?"'
+  en: "This label is already translated. Are you sure you want to delete it?"
 imageTranslator.deleteLabelTip:
   zhCn: 注意：将同时删除此标签下（包括其他目标语言中）的所有翻译和校对！
   en: 'Note: This will also delete all translations and proofreadings under this label
     (including in other target languages)!'
 imageTranslator.someSaveFailed:
   zhCn: 部分内容保存失败
-  en: '"Some content failed to save"'
+  en: "Failed to save some content"""
 imageTranslator.retry:
   zhCn: 点击重试
   en: Click to Retry
 imageTranslator.leaveTip:
   zhCn: 现在离开将丢失这些内容，您要现在离开吗？
-  en: '"Leaving now will lose these changes. Do you want to leave now?"'
+  en: "Leaving now will lose these changes. Do you want to leave now?"
 imageTranslator.leaveWithSaving:
   zhCn: 仍有内容保存中！
-  en: '"Content is still being saved!"'
+  en: "Content is still being saved!"
 imageTranslator.leaveWithSaveFailed:
   zhCn: 部分内容保存失败！
   en: Failed to save some content!
 imageTranslator.unloadWithSaving:
   zhCn: 仍有内容保存中，现在离开将丢失这些内容，您要现在离开吗？
-  en: '"Content is still being saved. Leaving now will result in losing this content.
-    Do you want to leave now?"'
+  en: "Saving in progress. Leaving now will result in losing this content.
+    Do you want to leave now?"
 imageTranslator.unloadWithSaveFailed:
   zhCn: 有内容保存失败，现在离开将丢失这些内容，您要现在离开吗？
-  en: '"Failed to save content. Leaving now will result in losing this content. Do
-    you want to leave now?"'
+  en: "Failed to save content. Leaving now will result in losing this content. Do
+    you want to leave now?"
 imageTranslator.positionIn:
   zhCn: 框内
   en: In Frame
@@ -759,7 +753,7 @@ team.notExist:
   en: Team does not exist
 team.notAllowAllUserJoin:
   zhCn: 此团队未开放申请加入
-  en: '"This team is not open for applications"'
+  en: This team is not open for applications
 project.notExist:
   zhCn: 项目不存在
   en: Project does not exist
@@ -905,7 +899,7 @@ site.cancel:
   en: Cancel
 translation.copyToProofreadNotEmptyTip:
   zhCn: 校对已有内容，您确定要覆盖吗？
-  en: '"Proofread existing content, are you sure you want to overwrite?"'
+  en: Other proofread text existed. Are you sure to overwrite?
 projectPreview.empty:
   zhCn: 项目内暂未上传文件
   en: No files uploaded in the project yet.
@@ -965,10 +959,10 @@ output.outputPartialExclude:
   en: Export all except the selected {count} files
 output.invert:
   zhCn: 反选
-  en: '"Deselect"'
+  en: Invert selection
 project.createViaLabelplus:
-  zhCn: 通过“翻译数据.txt”创建：
-  en: 'Created via "translation_data.txt":'
+  zhCn: 通过 LabalPlus “翻译数据.txt”创建：
+  en: 'Import from LabelPlus txt file:'
 site.delete:
   zhCn: 删除
   en: Delete
@@ -1010,19 +1004,19 @@ debounceStatus.saveSuccessful:
   en: Save Successful
 translation.proofreadFirstTip:
   zhCn: 优先使用此校对内容
-  en: '"Prioritize this proofread content"'
+  en: Prioritize this proofread content
 translation.hasOthersBestContentTip:
   zhCn: 他人已翻译此条目
-  en: '"Someone else has translated this entry"'
+  en: Translation(s) from other user exists
 imageTranslator.translationNoPremissionPlaceholder:
   zhCn: 您暂无翻译权限
   en: You do not have translation permissions.
 projectImportFromLabelplusStatus.pending:
   zhCn: 从 Labelplus 文本导入排队中
-  en: '"Importing text from Labelplus to queue"'
+  en: Waiting for import to start
 projectImportFromLabelplusStatus.running:
   zhCn: 正在从 Labelplus 文本导入
-  en: '"Importing from Labelplus text"'
+  en: Waiting for import to finish
 output.otherResource:
   zhCn: 其他资源
   en: Other Resources
@@ -1031,7 +1025,7 @@ output.at:
   en: Export all files {outputType}
 output.partAt:
   zhCn: 导出部分文件{outputType}
-  en: Export Partial Files {outputType}
+  en: Export partial files {outputType}
 output.onlyText:
   zhCn: 仅翻译数据
   en: Translate Data Only
@@ -1049,7 +1043,7 @@ site.refresh:
   en: Refresh
 insight.moreProject:
   zhCn: 等 {count} 个项目
-  en: '"{count} more items"'
+  en: "{count} more items"
 insight.noWorkingProjects:
   zhCn: 暂无进行中的项目
   en: No ongoing projects
@@ -1076,7 +1070,7 @@ imageTranslator.checkAllTranslation:
   en: Confirm all of the above translations
 imageTranslator.checkAllTranslationTip:
   zhCn: 多个翻译则优先选取第一个
-  en: '"Multiple translations prioritize the first one"'
+  en: Multiple translations prioritize the first one
 imageTranslator.noTranslationForProofread:
   zhCn: 暂无可校对翻译
   en: No translations available for proofreading.
@@ -1101,7 +1095,7 @@ project.current:
   en: Currently Open Project
 translation.pendingProofread:
   zhCn: 待校对
-  en: '"Pending Review"'
+  en: Available for proofreading
 translation.copyToProofread:
   zhCn: 复制到校对
   en: Copy to Proofread
