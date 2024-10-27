@@ -661,7 +661,7 @@ imageTranslator.deleteLabelTip:
     (including in other target languages)!'
 imageTranslator.someSaveFailed:
   zhCn: 部分内容保存失败
-  en: "Failed to save some content"""
+  en: "Failed to save some content"
 imageTranslator.retry:
   zhCn: 点击重试
   en: Click to Retry
