@@ -6,8 +6,6 @@
 
 **由于部分API代码调整，请更新萌翻后端到对应 Version.1.0.1 后继续使用。**
 
-**由于部分API代码调整，请更新萌翻后端到对应 Version.1.0.1 后继续使用。**
-
 ## 部署方法
 
 非开发者建议参考 [moeflow-deploy](https://github.com/moeflow-com/moeflow-deploy) ，用docker和docker-compose部署。
