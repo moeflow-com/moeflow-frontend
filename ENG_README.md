@@ -1,4 +1,8 @@
 # MoeFlow Frontend Project
+[![GitHubStars](https://img.shields.io/github/stars/moeflow-com/moeflow-frontend)]()
+[![GitHubForks](https://img.shields.io/github/forks/moeflow-com/moeflow-frontend)]()
+[![Chinese README](https://img.shields.io/badge/README-Chinese-red)](README.md)
+[![English README](https://img.shields.io/badge/README-English-blue)](ENG_README.md)
 
 **Due to some API code adjustments, please update the MoeFlow backend to Version 1.0.1 before continuing to use.**
 
