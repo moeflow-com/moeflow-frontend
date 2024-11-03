@@ -143,6 +143,16 @@ const login = ({
 interface GetUserInfoData {
   token: string;
 }
+
+export interface GetUserInfoResponse {
+  id: string;
+  name: string;
+  signature?: string;
+  avatar?: string;
+  has_avatar: boolean;
+  // local
+  admin?: boolean;
+}
 /** 获取用户信息 */
 const getUserInfo = ({
   data,
@@ -150,8 +160,8 @@ const getUserInfo = ({
 }: {
   data?: GetUserInfoData;
   configs?: AxiosRequestConfig;
-} = {}) => {
-  return request({
+}) => {
+  return request<GetUserInfoResponse>({
     method: 'GET',
     url: `/v1/user/info`,
     ...configs,

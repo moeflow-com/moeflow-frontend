@@ -1,8 +1,9 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import { initialState, setUserInfo, setUserToken } from './slice';
 import { toLowerCamelCase } from '../../utils';
-import api from '../../apis';
+import { api, BasicSuccessResult } from '../../apis';
 import { setToken, removeToken } from '../../utils/cookie';
+import { GetUserInfoResponse } from '../../apis/auth';
 
 // worker Sage
 function* getUserInfoAsync(action: ReturnType<typeof setUserToken>) {
@@ -23,9 +24,12 @@ function* getUserInfoAsync(action: ReturnType<typeof setUserToken>) {
     }
     // 获取并记录用户信息到 Store
     try {
-      const result = yield api.getUserInfo({ data: { token } });
+      const result: BasicSuccessResult<GetUserInfoResponse> =
+        yield api.auth.getUserInfo({
+          data: { token },
+        });
       yield put(setUserInfo(toLowerCamelCase(result.data)));
-    } catch (error) {
+    } catch (error: any) {
       error.default();
     }
   }
