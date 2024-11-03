@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import utc from 'dayjs/plugin/utc';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
+import { setRequestLanguage } from '../apis';
 
 dayjs.extend(localizedFormat);
 dayjs.extend(relativeTime);
@@ -50,54 +51,54 @@ async function loadI18nLocale(locales: string[]): Promise<Messages> {
 
 /** 获取 antd 所用的 Validate Messages */
 const getAntdValidateMessages = (locale: string) => {
-  // const typeTemplate_enUS = 'Value is not a valid ${type}';
-  // const enUS = {
-  //   default: 'Validation error on field',
-  //   required: 'Value is required',
-  //   enum: 'Value must be one of [${enum}]',
-  //   whitespace: 'Value cannot be empty',
-  //   date: {
-  //     format: 'Value is invalid for format date',
-  //     parse: 'Value could not be parsed as date',
-  //     invalid: 'Value is invalid date'
-  //   },
-  //   types: {
-  //     string: typeTemplate_enUS,
-  //     method: typeTemplate_enUS,
-  //     array: typeTemplate_enUS,
-  //     object: typeTemplate_enUS,
-  //     number: typeTemplate_enUS,
-  //     date: typeTemplate_enUS,
-  //     boolean: typeTemplate_enUS,
-  //     integer: typeTemplate_enUS,
-  //     float: typeTemplate_enUS,
-  //     regexp: typeTemplate_enUS,
-  //     email: typeTemplate_enUS,
-  //     url: typeTemplate_enUS,
-  //     hex: typeTemplate_enUS
-  //   },
-  //   string: {
-  //     len: 'Value must be exactly ${len} characters',
-  //     min: 'Value must be at least ${min} characters',
-  //     max: 'Value cannot be longer than ${max} characters',
-  //     range: 'Value must be between ${min} and ${max} characters'
-  //   },
-  //   number: {
-  //     len: 'Value must equal ${len}',
-  //     min: 'Value cannot be less than ${min}',
-  //     max: 'Value cannot be greater than ${max}',
-  //     range: 'Value must be between ${min} and ${max}'
-  //   },
-  //   array: {
-  //     len: 'Value must be exactly ${len} in length',
-  //     min: 'Value cannot be less than ${min} in length',
-  //     max: 'Value cannot be greater than ${max} in length',
-  //     range: 'Value must be between ${min} and ${max} in length'
-  //   },
-  //   pattern: {
-  //     mismatch: 'Value does not match pattern ${pattern}'
-  //   }
-  // };
+  const typeTemplate_enUS = 'Value is not a valid ${type}';
+  const enUS = {
+    default: 'Validation error on field',
+    required: 'Value is required',
+    enum: 'Value must be one of [${enum}]',
+    whitespace: 'Value cannot be empty',
+    date: {
+      format: 'Value is invalid for format date',
+      parse: 'Value could not be parsed as date',
+      invalid: 'Value is invalid date',
+    },
+    types: {
+      string: typeTemplate_enUS,
+      method: typeTemplate_enUS,
+      array: typeTemplate_enUS,
+      object: typeTemplate_enUS,
+      number: typeTemplate_enUS,
+      date: typeTemplate_enUS,
+      boolean: typeTemplate_enUS,
+      integer: typeTemplate_enUS,
+      float: typeTemplate_enUS,
+      regexp: typeTemplate_enUS,
+      email: typeTemplate_enUS,
+      url: typeTemplate_enUS,
+      hex: typeTemplate_enUS,
+    },
+    string: {
+      len: 'Value must be exactly ${len} characters',
+      min: 'Value must be at least ${min} characters',
+      max: 'Value cannot be longer than ${max} characters',
+      range: 'Value must be between ${min} and ${max} characters',
+    },
+    number: {
+      len: 'Value must equal ${len}',
+      min: 'Value cannot be less than ${min}',
+      max: 'Value cannot be greater than ${max}',
+      range: 'Value must be between ${min} and ${max}',
+    },
+    array: {
+      len: 'Value must be exactly ${len} in length',
+      min: 'Value cannot be less than ${min} in length',
+      max: 'Value cannot be greater than ${max} in length',
+      range: 'Value must be between ${min} and ${max} in length',
+    },
+    pattern: {
+      mismatch: 'Value does not match pattern ${pattern}',
+    },
+  };
 
   const typeTemplate_zhCN = '类型不是合法的 ${type}';
   const zhCN = {
@@ -147,7 +148,13 @@ const getAntdValidateMessages = (locale: string) => {
       mismatch: '不匹配正则：${pattern}',
     },
   };
-  return zhCN;
+
+  switch (matchLocale(locale)) {
+    case 'zh-CN':
+      return zhCN;
+    default:
+      return enUS;
+  }
 };
 
 /** 用于在 React 组件外部使用 Intl */
@@ -168,7 +175,9 @@ export const availableLocales = {
   'zh-CN': '简体中文',
 } as const;
 
-function matchLocale(l: string): keyof typeof availableLocales {
+export type SupportedLocale = keyof typeof availableLocales;
+
+function matchLocale(l: string): SupportedLocale {
   if (/^zh/i.test(l)) {
     return 'zh-CN';
   } else if (/^en/i.test(l)) {
@@ -216,6 +225,7 @@ export const initI18n = lazyThenable(() => {
   const savedPref =
     _savedPref && _savedPref in availableLocales ? _savedPref : null;
   const locale = savedPref || navigator.language;
+  setRequestLanguage(matchLocale(locale));
   const locales = [savedPref, ...navigator.languages].filter(
     Boolean,
   ) as string[];
