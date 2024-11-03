@@ -1,6 +1,4 @@
 export { Icon } from './icon';
-export { AdminImageSafeCheck } from './AdminImageSafeCheck';
-export { AdminUserList } from './AdminUserList';
 export { ApplicationList } from './ApplicationList';
 export { AuthFormWrapper } from './AuthFormWrapper';
 export { AuthLoginedTip } from './AuthLoginedTip';
@@ -92,6 +90,4 @@ export { UserEmailEditForm } from './UserEmailEditForm';
 export { UserInvitationList } from './UserInvitationList';
 export { UserPasswordEditForm } from './UserPasswordEditForm';
 export { VCodeInput } from './VCodeInput';
-export { AdminSiteSetting } from './AdminSiteSetting';
-export { AdminVCodeList } from './AdminVCodeList';
 export { ProjectImportForm } from './ProjectImportForm';

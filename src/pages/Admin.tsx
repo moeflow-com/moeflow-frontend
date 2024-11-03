@@ -8,16 +8,15 @@ import {
   useLocation,
   useRouteMatch,
 } from 'react-router-dom';
-import {
-  AdminImageSafeCheck,
-  AdminSiteSetting,
-  AdminUserList,
-  AdminVCodeList,
-} from '../components';
-import { useTitle } from '../hooks';
-import { FC } from '../interfaces';
+import { useTitle } from '@/hooks';
+import { FC } from '@/interfaces';
 
 import { Layout, Menu } from 'antd';
+import { useIntl } from 'react-intl';
+import { AdminUserList } from '@/components/admin/AdminUserList';
+import { AdminImageSafeCheck } from '@/components/admin/AdminImageSafeCheck';
+import { AdminSiteSetting } from '@/components/admin/AdminSiteSetting';
+import { AdminVCodeList } from '@/components/admin/AdminVCodeList';
 
 const { Sider } = Layout;
 
@@ -33,6 +32,7 @@ const Admin: FC<AdminProps> = () => {
   const location = useLocation();
   const defaultSelectedKey =
     location.pathname.split('/')[location.pathname.split('/').length - 1];
+  const { formatMessage } = useIntl();
 
   useTitle(); // 设置标题
 
@@ -56,7 +56,7 @@ const Admin: FC<AdminProps> = () => {
                 history.push(`/dashboard`);
               }}
             >
-              {'<'} 返回仪表盘
+              {'<'} {formatMessage({ id: 'admin.backToDashboard' })}
             </Menu.Item>
             <Menu.Item
               key="site-setting"
@@ -64,7 +64,7 @@ const Admin: FC<AdminProps> = () => {
                 history.push(`${url}/site-setting`);
               }}
             >
-              站点管理
+              {formatMessage({ id: 'admin.siteSettings' })}
             </Menu.Item>
             <Menu.Item
               key="users"
@@ -72,15 +72,15 @@ const Admin: FC<AdminProps> = () => {
                 history.push(`${url}/users`);
               }}
             >
-              用户管理
+              {formatMessage({ id: 'admin.users' })}
             </Menu.Item>
             <Menu.Item
-              key="image-check"
+              key="image-moderation"
               onClick={() => {
-                history.push(`${url}/image-check`);
+                history.push(`${url}/image-moderation`);
               }}
             >
-              图片检查
+              {formatMessage({ id: 'admin.imageModeration' })}
             </Menu.Item>
             <Menu.Item
               key="site-v-code"
@@ -88,7 +88,7 @@ const Admin: FC<AdminProps> = () => {
                 history.push(`${url}/site-v-code`);
               }}
             >
-              验证码
+              {formatMessage({ id: 'admin.captchas' })}
             </Menu.Item>
           </Menu>
         </Sider>
@@ -100,7 +100,7 @@ const Admin: FC<AdminProps> = () => {
             <Route path={`${path}/users`}>
               <AdminUserList />
             </Route>
-            <Route path={`${path}/image-check`}>
+            <Route path={`${path}/image-moderation`}>
               <AdminImageSafeCheck />
             </Route>
             <Route path={`${path}/site-setting`}>

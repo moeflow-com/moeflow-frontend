@@ -149,12 +149,14 @@ auth.toResetPasswordTip:
   en: Forgot password?
 site.setting.autoJoinTeamIDs:
   zhCn: 自动加入的团队 ID
-  en: Automatically Joined Team ID
+  en: Add new user to team id
 site.setting.autoJoinTeamIDsTip:
-  zhCn: 新用户注册/创建完成后，会自动加入这些团队，可以在团队设置界面查看团队 ID（每个 ID 一行）
-  en: New users will automatically join these teams after registration/creation is
-    complete. You can view the team IDs in the team settings interface (one ID per
-    line).
+  zhCn: |
+    新用户注册/创建完成后，会自动加入这些团队（每个 ID 一行）
+    可以在团队设置界面查看团队 ID
+  en: |
+    New users will automatically join these teams upon sign up (one ID per line).
+    Team ID can be found in the team settings page
 site.setting.autoJoinTeamIDsError:
   zhCn: 第 {line} 行团队 ID 错误/不存在，请修改后重试
   en: Team ID error/nonexistent in line {line}, please modify and try again.
@@ -424,8 +426,8 @@ me.application.new:
   zhCn: 新的申请
   en: New Application
 me.adminPage:
-  zhCn: 站点管理
-  en: Site Management
+  zhCn: 站点设置
+  en: Site Settings
 team.me:
   zhCn: 我在团队
   en: I'm on the team
@@ -1133,3 +1135,38 @@ mit.preprocessStepOcr:
 mit.preprocessStepTranslate:
   zhCn: 机翻
   en: Translating
+admin.backToDashboard:
+  zhCn: 返回仪表盘
+  en: Back to dashboard
+admin.siteSettings:
+  zhCn: 站点设置
+  en: Site Settings
+admin.users:
+  zhCn: 用户管理
+  en: User Management
+admin.searchUser:
+  zhCn: 搜索用户
+  en: Search User
+admin.createUser:
+  zhCn: 创建用户
+  en: Create User
+admin.setAdmin:
+  zhCn: 设为管理员
+  en: Set as Admin
+admin.unsetAdmin:
+  zhCn: 取消管理员
+  en: Unset as Admin
+admin.actions:
+  zhCn: 操作
+  en: Actions
+admin.resetPassword:
+  zhCn: 重置密码
+  en: Reset Password
+admin.imageModeration:
+  zhCn: 图片审核
+  en: Image Moderation
+admin.captchas:
+  zhCn: 验证码
+  en: Captchas
+
+
