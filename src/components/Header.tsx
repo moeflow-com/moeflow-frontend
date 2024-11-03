@@ -14,7 +14,7 @@ import { clickEffect } from '../utils/style';
 import classNames from 'classnames';
 import { routes } from '../pages/routes';
 import { configs } from '../configs';
-import { availableLocales, setLocale } from '../locales';
+import { LocalePicker } from './setting/LocalePicker';
 
 /** 头部的属性接口 */
 interface HeaderProps {
@@ -154,7 +154,7 @@ export const Header: FC<HeaderProps> = ({ className }) => {
       </div>
       {currentUser.token ? (
         <div className="right">
-          {mitLink}
+          {/*{mitLink}*/}
           <Dropdown
             menu={menuProps}
             placement="bottomRight"
@@ -184,22 +184,5 @@ export const Header: FC<HeaderProps> = ({ className }) => {
         </div>
       )}
     </div>
-  );
-};
-
-const LocalePicker: FC = () => {
-  const menuProps: MenuProps = {
-    items: Object.entries(availableLocales).map(([locale, label]) => ({
-      label: <div css={dropDownMenuItemStyle}>{label}</div>,
-      key: `locale-${locale}`,
-      onClick: () => setLocale(locale),
-    })),
-  };
-  return (
-    <Dropdown menu={menuProps}>
-      <div>
-        <Icon icon="language" size="3x" />
-      </div>
-    </Dropdown>
   );
 };

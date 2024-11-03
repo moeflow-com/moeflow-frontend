@@ -3,17 +3,12 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
-import {
-  DashboardBox,
-  NavTab,
-  NavTabs,
-  Spin,
-  UserSettingBase,
-  UserSettingSafe,
-} from '../components';
+import { DashboardBox, NavTab, NavTabs, Spin } from '../components';
 import { FC } from '../interfaces';
 import { AppState } from '../store';
 import { useTitle } from '../hooks';
+import { UserBasicSettings } from '../components/setting/UserBasicSettings';
+import { UserSecuritySettings } from '../components/setting/UserSecuritySettings';
 
 /** 团队设置页的属性接口 */
 interface UserSettingProps {}
@@ -56,10 +51,10 @@ const UserSetting: FC<UserSettingProps> = () => {
               <Redirect exact from={`${path}`} to={`${path}/base`} />
             )}
             <Route path={`${path}/base`}>
-              <UserSettingBase />
+              <UserBasicSettings />
             </Route>
             <Route path={`${path}/safe`}>
-              <UserSettingSafe />
+              <UserSecuritySettings />
             </Route>
           </Switch>
         ) : (
