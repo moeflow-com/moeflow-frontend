@@ -87,6 +87,12 @@ export const Header: FC<HeaderProps> = ({ className }) => {
     </a>
   );
 
+  const githubLink = (
+    <a className="login" href="https://github.com/moeflow-com" target="_blank">
+      <Icon icon={['fab', 'github']} size="1x" />
+    </a>
+  );
+
   return (
     <div
       className={classNames(['Header', className])}
@@ -166,7 +172,7 @@ export const Header: FC<HeaderProps> = ({ className }) => {
         </div>
       ) : (
         <div className="right">
-          {mitLink}
+          {/*{mitLink}*/}
           <a className="login" href={routes.login}>
             {formatMessage({ id: 'auth.login' })}
           </a>
@@ -174,6 +180,7 @@ export const Header: FC<HeaderProps> = ({ className }) => {
             {formatMessage({ id: 'auth.register' })}
           </a>
           <LocalePicker />
+          {githubLink}
         </div>
       )}
     </div>
