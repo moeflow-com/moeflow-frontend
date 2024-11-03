@@ -46,7 +46,7 @@
   "auth.logout": "登出",
   "router.goDashboard": "前往仪表盘",
   "site.dashboard": "仪表盘",
-  "auth.accountSetting": "账号管理",
+  "auth.accountSetting": "用户设置",
   "auth.toResetPasswordTip": "忘记密码？",
   "site.setting.autoJoinTeamIDs": "自动加入的团队 ID",
   "site.setting.autoJoinTeamIDsTip": "新用户注册/创建完成后，会自动加入这些团队，可以在团队设置界面查看团队 ID（每个 ID 一行）",

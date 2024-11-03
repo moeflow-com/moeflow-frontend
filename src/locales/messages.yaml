@@ -142,8 +142,8 @@ site.dashboard:
   zhCn: 仪表盘
   en: Dashboard
 auth.accountSetting:
-  zhCn: 账号管理
-  en: Account Management
+  zhCn: 用户设置
+  en: User settings
 auth.toResetPasswordTip:
   zhCn: 忘记密码？
   en: Forgot password?

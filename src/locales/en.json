@@ -46,7 +46,7 @@
   "auth.logout": "Log Out",
   "router.goDashboard": "Go to Dashboard",
   "site.dashboard": "Dashboard",
-  "auth.accountSetting": "Account Management",
+  "auth.accountSetting": "User settings",
   "auth.toResetPasswordTip": "Forgot password?",
   "site.setting.autoJoinTeamIDs": "Automatically Joined Team ID",
   "site.setting.autoJoinTeamIDsTip": "New users will automatically join these teams after registration/creation is complete. You can view the team IDs in the team settings interface (one ID per line).",
