@@ -1,4 +1,8 @@
 # 萌翻[MoeFlow]前端项目
+[![GitHubStars](https://img.shields.io/github/stars/moeflow-com/moeflow-frontend)]()
+[![GitHubForks](https://img.shields.io/github/forks/moeflow-com/moeflow-frontend)]()
+[![Chinese README](https://img.shields.io/badge/README-中文-red)](README.md)
+[![English README](https://img.shields.io/badge/README-English-blue)](ENG_README.md)
 
 **由于部分API代码调整，请更新萌翻后端到对应 Version.1.0.1 后继续使用。**
 
