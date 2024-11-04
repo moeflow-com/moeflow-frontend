@@ -39,12 +39,19 @@ const instance = axios.create({
   baseURL: `${configs.baseURL}`,
 });
 
+let languageInterceptor: number | null = null;
+
 /**
  * @param l
  * (as backend User.locale is not used , this solely determines backend locale)
  */
 export function setRequestLanguage(l: string) {
-  instance.interceptors.request.use((req) => {
+  // Remove existing interceptor if any
+  if (languageInterceptor !== null) {
+    instance.interceptors.request.eject(languageInterceptor);
+  }
+  // Add new interceptor and store its ID
+  languageInterceptor = instance.interceptors.request.use((req) => {
     debugLogger('axios request interceptor: language', l, req);
     return {
       ...req,
