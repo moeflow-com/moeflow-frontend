@@ -8,17 +8,17 @@ import {
   UserEmailEditForm,
   UserPasswordEditForm,
 } from '..';
-import style from '../../style';
-import { FC } from '../../interfaces';
+import style from '@/style';
+import { FC } from '@/interfaces';
 
 /** 用户安全设置的属性接口 */
-interface UserSettingSafeProps {
+interface UserSecuritySettingsProps {
   className?: string;
 }
 /**
  * 用户安全设置
  */
-export const UserSecuritySettings: FC<UserSettingSafeProps> = ({
+export const UserSecuritySettings: FC<UserSecuritySettingsProps> = ({
   className,
 }) => {
   const { formatMessage } = useIntl(); // i18n

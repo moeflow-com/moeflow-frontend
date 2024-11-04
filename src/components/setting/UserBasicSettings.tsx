@@ -1,21 +1,23 @@
 import { css } from '@emotion/core';
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { Content, ContentItem, ContentTitle } from '..';
-import { FC } from '../../interfaces';
+import { Content, ContentItem, ContentTitle } from '@/components';
+import { FC } from '@/interfaces';
 import style from '../../style';
 import { AvatarUpload } from '../AvatarUpload';
 import { UserEditForm } from './UserEditForm';
 import { LocalePicker } from './LocalePicker';
 
 /** 用户基础设置的属性接口 */
-interface UserSettingBaseProps {
+interface UserBasicSettingsProps {
   className?: string;
 }
 /**
  * 用户基础设置
  */
-export const UserBasicSettings: FC<UserSettingBaseProps> = ({ className }) => {
+export const UserBasicSettings: FC<UserBasicSettingsProps> = ({
+  className,
+}) => {
   const { formatMessage } = useIntl(); // i18n
 
   return (
