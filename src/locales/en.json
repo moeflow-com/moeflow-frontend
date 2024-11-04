@@ -39,7 +39,7 @@
   "site.password": "Password",
   "auth.registerAndLogin": "Sign Up and Log In",
   "auth.registerSuccessTitle": "Registration Successful",
-  "auth.autoLoginTip": "Auto-logged in for you. Remember you on this browser? (Do not remember on public computers)",
+  "auth.autoLoginTip": "Logged in. Stay logged in on this browser? (Don't do this on public computers)\"",
   "auth.rememberMe": "Remember Me",
   "site.avatar": "Profile Picture",
   "auth.loginedTip": "Hello {userName}, you are logged in.",

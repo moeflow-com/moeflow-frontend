@@ -121,8 +121,8 @@ auth.registerSuccessTitle:
   zhCn: 注册成功
   en: Registration Successful
 auth.autoLoginTip:
-  zhCn: '已为您自动登录，需要在此浏览器上记住您吗？（公共计算机请勿记住）'
-  en: "Auto-logged in for you. Remember you on this browser? (Do not remember on public computers)"
+  zhCn: 登录成功，是否在此浏览器上保持登录状态？（请勿在公共设备上选择）
+  en: Logged in. Stay logged in on this browser? (Don't do this on public computers)"
 auth.rememberMe:
   zhCn: 记住我
   en: Remember Me

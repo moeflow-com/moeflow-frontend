@@ -39,7 +39,7 @@
   "site.password": "密码",
   "auth.registerAndLogin": "注册并登录",
   "auth.registerSuccessTitle": "注册成功",
-  "auth.autoLoginTip": "已为您自动登录，需要在此浏览器上记住您吗？（公共计算机请勿记住）",
+  "auth.autoLoginTip": "登录成功，是否在此浏览器上保持登录状态？（请勿在公共设备上选择）",
   "auth.rememberMe": "记住我",
   "site.avatar": "头像",
   "auth.loginedTip": "您好{userName}，您已经登录了。",
