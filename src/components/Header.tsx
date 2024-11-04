@@ -14,7 +14,7 @@ import { clickEffect } from '../utils/style';
 import classNames from 'classnames';
 import { routes } from '../pages/routes';
 import { configs } from '../configs';
-import { availableLocales, setLocale } from '../locales';
+import { LocalePicker } from './setting/LocalePicker';
 
 /** 头部的属性接口 */
 interface HeaderProps {
@@ -87,6 +87,12 @@ export const Header: FC<HeaderProps> = ({ className }) => {
     </a>
   );
 
+  const githubLink = (
+    <a className="login" href="https://github.com/moeflow-com" target="_blank">
+      <Icon icon={['fab', 'github']} size="1x" />
+    </a>
+  );
+
   return (
     <div
       className={classNames(['Header', className])}
@@ -148,7 +154,7 @@ export const Header: FC<HeaderProps> = ({ className }) => {
       </div>
       {currentUser.token ? (
         <div className="right">
-          {mitLink}
+          {/*{mitLink}*/}
           <Dropdown
             menu={menuProps}
             placement="bottomRight"
@@ -166,7 +172,7 @@ export const Header: FC<HeaderProps> = ({ className }) => {
         </div>
       ) : (
         <div className="right">
-          {mitLink}
+          {/*{mitLink}*/}
           <a className="login" href={routes.login}>
             {formatMessage({ id: 'auth.login' })}
           </a>
@@ -174,25 +180,9 @@ export const Header: FC<HeaderProps> = ({ className }) => {
             {formatMessage({ id: 'auth.register' })}
           </a>
           <LocalePicker />
+          {githubLink}
         </div>
       )}
     </div>
-  );
-};
-
-const LocalePicker: FC = () => {
-  const menuProps: MenuProps = {
-    items: Object.entries(availableLocales).map(([locale, label]) => ({
-      label: <div css={dropDownMenuItemStyle}>{label}</div>,
-      key: `locale-${locale}`,
-      onClick: () => setLocale(locale),
-    })),
-  };
-  return (
-    <Dropdown menu={menuProps}>
-      <div>
-        <Icon icon="language" size="3x" />
-      </div>
-    </Dropdown>
   );
 };

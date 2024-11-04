@@ -58,6 +58,7 @@ import {
   faPaste,
 } from '@fortawesome/free-solid-svg-icons';
 import { faKissWinkHeart as faKissWinkHeartRegular } from '@fortawesome/free-regular-svg-icons';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 library.add(
   ...[
     faSyncAlt,
@@ -115,4 +116,6 @@ library.add(
   ],
   // Regular icons
   ...[faKissWinkHeartRegular],
+  // Brand icons
+  ...[faGithub],
 );

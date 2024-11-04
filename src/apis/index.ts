@@ -5,6 +5,7 @@ import qs from 'qs';
 import { createElement } from 'react';
 import { Icon } from '../components';
 import { configs } from '../configs';
+import { createDebugLogger } from '../utils/debug-logger';
 import { getIntl } from '../locales';
 import store from '../store';
 import { setUserToken } from '../store/user/slice';
@@ -29,13 +30,38 @@ import user from './user';
 import group from './group';
 import insight from './insight';
 import siteSetting from './siteSetting';
-import { mitPreprocess } from './mit_preprocess';
+
+const debugLogger = createDebugLogger('apis');
 
 // TODO: move instance/request to a peer file, to prevent circular imports
 // TODO: can we hide this from API callsites?
 const instance = axios.create({
   baseURL: `${configs.baseURL}`,
 });
+
+let languageInterceptor: number | null = null;
+
+/**
+ * @param l
+ * (as backend User.locale is not used , this solely determines backend locale)
+ */
+export function setRequestLanguage(l: string) {
+  // Remove existing interceptor if any
+  if (languageInterceptor !== null) {
+    instance.interceptors.request.eject(languageInterceptor);
+  }
+  // Add new interceptor and store its ID
+  languageInterceptor = instance.interceptors.request.use((req) => {
+    debugLogger('axios request interceptor: language', l, req);
+    return {
+      ...req,
+      headers: {
+        ...req.headers,
+        'Accept-Language': l,
+      },
+    };
+  });
+}
 
 /** 分页的请求参数 */
 export interface PaginationParams {
@@ -124,7 +150,7 @@ export type FailureResults =
   | CancelFailureResult
   | OtherFailureResult;
 
-export const request = <T = any>(
+export const request = <T = unknown>(
   axiosConfig: AxiosRequestConfig,
 ): Promise<BasicSuccessResult<T>> => {
   return instance({

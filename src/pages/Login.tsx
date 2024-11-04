@@ -1,10 +1,10 @@
 import { css } from '@emotion/core';
-import { Button, Input, Switch, Form as AntdForm } from 'antd';
+import { Button, Input, Switch, Form as AntdForm, InputRef } from 'antd';
 import React, { useRef } from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import api, { FailureResults, resultTypes } from '../apis';
+import { FailureResults, resultTypes, api } from '../apis';
 import {
   AuthFormWrapper,
   CAPTCHAInput,
@@ -35,11 +35,11 @@ const Login: FC<LoginProps> = ({ beforeRedirect = false } = {}) => {
   const captchaInputRef = useRef<CAPTCHAInputRef>(null);
 
   // 用于密码错误，自动定位到密码输入框（因为密码错误刷新人机验证码，会错误 focus 到人机验证码输入框）
-  const passwordInputRef = useRef<Input>(null);
+  const passwordInputRef = useRef<InputRef>(null);
 
   /** 提交表单 */
   const handleFinish = (values: any) => {
-    api
+    api.auth
       .login({
         data: {
           email: values.email,
@@ -184,7 +184,9 @@ const Login: FC<LoginProps> = ({ beforeRedirect = false } = {}) => {
                 }
               `}
             >
-              <div className="label">记住我</div>
+              <div className="label">
+                {formatMessage({ id: 'auth.rememberMe' })}
+              </div>
               <FormItem name="rememberMe" valuePropName="checked" noStyle>
                 <Switch />
               </FormItem>

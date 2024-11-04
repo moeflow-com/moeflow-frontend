@@ -1,15 +1,15 @@
 import { css } from '@emotion/core';
-import { Button, Form as AntdForm, Input, message, Spin, Switch } from 'antd';
+import { Button, Form as AntdForm, message, Spin, Switch } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
-import apis from '../apis';
-import { APISiteSetting } from '../apis/siteSetting';
-import { FC } from '../interfaces';
-import { toLowerCamelCase } from '../utils';
-import { Form } from './Form';
-import { FormItem } from './FormItem';
+import apis from '@/apis';
+import { APISiteSetting } from '@/apis/siteSetting';
+import { FC } from '@/interfaces';
+import { toLowerCamelCase } from '@/utils';
+import { Form } from '@/components/Form';
+import { FormItem } from '@/components/FormItem';
 
 function textareaToArray(textarea: string): string[] {
   return textarea.trim() === ''

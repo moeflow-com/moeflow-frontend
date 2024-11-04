@@ -1,18 +1,18 @@
 import { css } from '@emotion/core';
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useTitle } from '../hooks';
-import { FC, File } from '../interfaces';
-import apis from '../apis';
+import { useTitle } from '@/hooks';
+import { FC, File } from '@/interfaces';
+import apis from '@/apis';
 import {
   FileNotExistReasons,
   FileSafeStatuses,
   FILE_NOT_EXIST_REASON,
   FILE_SAFE_STATUS,
-} from '../constants';
-import { toLowerCamelCase } from '../utils';
+} from '@/constants';
+import { toLowerCamelCase } from '@/utils';
 import classNames from 'classnames';
 import { Button, Pagination, Radio, Spin } from 'antd';
+import { useIntl } from 'react-intl';
 
 /** 图片安全检查页面的属性接口 */
 interface AdminImageSafeCheckProps {
@@ -24,6 +24,7 @@ interface AdminImageSafeCheckProps {
 export const AdminImageSafeCheck: FC<AdminImageSafeCheckProps> = ({
   className,
 }) => {
+  const { formatMessage } = useIntl();
   useTitle(); // 设置标题
   const [files, setFiles] = useState<File[]>();
   const pageSize = 40;
@@ -224,7 +225,7 @@ export const AdminImageSafeCheck: FC<AdminImageSafeCheckProps> = ({
             onClick={safeCheck}
             loading={submitting}
           >
-            提交
+            {formatMessage({ id: 'form.submit' })}
           </Button>
         )}
       </div>

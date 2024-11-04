@@ -65,7 +65,12 @@ export default defineConfig({
     ),
   },
   resolve: {
-    alias: {},
+    alias: [
+      {
+        find: /^@\//,
+        replacement: path.join(___dirname, 'src') + '/',
+      },
+    ],
   },
   plugins: [
     vitePluginImp({

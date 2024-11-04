@@ -3,13 +3,13 @@ import { Button, Form as AntdForm, Input, message } from 'antd';
 import React, { useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form, FormItem } from '.';
-import api from '../apis';
-import { FC } from '../interfaces';
-import { AppState } from '../store';
-import { setUserInfo } from '../store/user/slice';
-import { toLowerCamelCase } from '../utils';
-import { USER_NAME_REGEX } from '../utils/regex';
+import { Form, FormItem } from '..';
+import { api } from '../../apis';
+import { FC } from '../../interfaces';
+import { AppState } from '../../store';
+import { setUserInfo } from '../../store/user/slice';
+import { toLowerCamelCase } from '../../utils';
+import { USER_NAME_REGEX } from '../../utils/regex';
 
 /** 修改项目表单的属性接口 */
 interface UserEditFormProps {
@@ -29,7 +29,7 @@ export const UserEditForm: FC<UserEditFormProps> = ({ className }) => {
 
   const handleFinish = (values: any) => {
     setSubmitting(true);
-    api
+    api.user
       .editUser({ data: values })
       .then((result) => {
         const data = toLowerCamelCase(result.data);
@@ -57,7 +57,7 @@ export const UserEditForm: FC<UserEditFormProps> = ({ className }) => {
       <Form
         form={form}
         onFinish={handleFinish}
-        hideRequiredMark
+        requiredMark={false}
         initialValues={{ ...user, locale: user.locale.id }}
       >
         <FormItem

@@ -2,10 +2,10 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { OSName, Platform } from '../../interfaces';
 
 export interface SiteState {
-  readonly osName: OSName;
-  readonly platform: Platform;
-  readonly newInvitationsCount: number;
-  readonly relatedApplicationsCount: number;
+  osName?: OSName;
+  platform?: Platform;
+  newInvitationsCount: number;
+  relatedApplicationsCount: number;
 }
 
 const initialState: SiteState = {

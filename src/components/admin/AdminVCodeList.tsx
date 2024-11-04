@@ -1,12 +1,11 @@
 import { css } from '@emotion/core';
 import { Table, TablePaginationConfig } from 'antd';
-import type { FilterValue } from 'antd/es/table/interface';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
-import apis from '../apis';
-import { APIVCode } from '../apis/user';
-import { FC } from '../interfaces';
-import { toLowerCamelCase } from '../utils';
+import apis from '@/apis';
+import { APIVCode } from '@/apis/user';
+import { FC } from '@/interfaces';
+import { toLowerCamelCase } from '@/utils';
 import dayjs from 'dayjs';
 
 /** 验证码列表的属性接口 */

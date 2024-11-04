@@ -1,7 +1,7 @@
 import { css } from '@emotion/core';
 import React, { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
-import { FC } from '../interfaces';
+import { FC } from '@/interfaces';
 import classNames from 'classnames';
 import {
   Button,
@@ -14,13 +14,13 @@ import {
   Form as AntdForm,
 } from 'antd';
 import type { FilterValue, SorterResult } from 'antd/es/table/interface';
-import apis from '../apis';
-import { toLowerCamelCase } from '../utils';
-import { APIUser } from '../apis/user';
-import { FormItem } from './FormItem';
-import { Form } from './Form';
-import { EmailInput } from './EmailInput';
-import { EMAIL_REGEX, USER_NAME_REGEX } from '../utils/regex';
+import { api } from '@/apis';
+import { toLowerCamelCase } from '@/utils';
+import { APIUser } from '@/apis/user';
+import { FormItem } from '@/components/FormItem';
+import { Form } from '@/components/Form';
+import { EmailInput } from '@/components/EmailInput';
+import { EMAIL_REGEX, USER_NAME_REGEX } from '@/utils/regex';
 
 interface TableParams {
   pagination?: TablePaginationConfig;
@@ -59,7 +59,7 @@ export const AdminUserList: FC<AdminUserListProps> = ({ className }) => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const result = await apis.adminGetUserList({
+      const result = await api.user.adminGetUserList({
         params: {
           page: pagination?.current,
           limit: pagination?.pageSize,
@@ -90,7 +90,7 @@ export const AdminUserList: FC<AdminUserListProps> = ({ className }) => {
   const handelChangeAdminStatus = async (record: APIUser) => {
     setLoading(true);
     try {
-      await apis.adminChangeAdminStatus({
+      await api.user.adminChangeAdminStatus({
         data: {
           userId: record.id,
           status: !record.admin,
@@ -117,7 +117,7 @@ export const AdminUserList: FC<AdminUserListProps> = ({ className }) => {
   };
 
   const handleCreateUserFormFinish = (values: any) => {
-    apis
+    api.user
       .adminCreateUser({
         data: values,
       })
@@ -138,7 +138,7 @@ export const AdminUserList: FC<AdminUserListProps> = ({ className }) => {
   const handelChangePassword = async (userID: string, password: string) => {
     setLoading(true);
     try {
-      await apis.adminEditUserPassword({
+      await api.user.adminEditUserPassword({
         userID: userID,
         data: { password },
       });
@@ -152,17 +152,17 @@ export const AdminUserList: FC<AdminUserListProps> = ({ className }) => {
 
   const columns = [
     {
-      title: '用户名',
+      title: formatMessage({ id: 'site.userName' }),
       dataIndex: 'name',
       key: 'name',
     },
     {
-      title: '邮箱',
+      title: formatMessage({ id: 'site.email' }),
       dataIndex: 'email',
       key: 'email',
     },
     {
-      title: '操作',
+      title: formatMessage({ id: 'admin.actions' }),
       key: 'action',
       render: (_: any, record: APIUser) => (
         <Space size="middle">
@@ -171,7 +171,9 @@ export const AdminUserList: FC<AdminUserListProps> = ({ className }) => {
               handelChangeAdminStatus(record);
             }}
           >
-            {record.admin ? '取消管理员' : '设置管理员'}
+            {record.admin
+              ? formatMessage({ id: 'admin.setAdmin' })
+              : formatMessage({ id: 'admin.unsetAdmin' })}
           </a>
           <a
             onClick={() => {
@@ -179,7 +181,7 @@ export const AdminUserList: FC<AdminUserListProps> = ({ className }) => {
               setChangePasswordModalOpen(true);
             }}
           >
-            修改密码
+            {formatMessage({ id: 'admin.resetPassword' })}
           </a>
         </Space>
       ),
@@ -199,7 +201,7 @@ export const AdminUserList: FC<AdminUserListProps> = ({ className }) => {
           onChange={(e) => {
             setWord(e.target.value);
           }}
-          placeholder="搜索用户名"
+          placeholder={formatMessage({ id: 'admin.searchUser' })}
           css={css`
             margin-right: 8px;
           `}
@@ -210,7 +212,7 @@ export const AdminUserList: FC<AdminUserListProps> = ({ className }) => {
             setCreateUserModalOpen(true);
           }}
         >
-          创建用户
+          {formatMessage({ id: 'admin.createUser' })}
         </Button>
       </header>
       <Table
@@ -222,7 +224,7 @@ export const AdminUserList: FC<AdminUserListProps> = ({ className }) => {
         onChange={handleTableChange}
       />
       <Modal
-        title="修改密码"
+        title={formatMessage({ id: 'admin.resetPassword' })}
         visible={changePasswordModalOpen}
         onOk={handleChangePasswordModalOk}
         onCancel={handleChangePasswordModalCancel}
@@ -236,7 +238,7 @@ export const AdminUserList: FC<AdminUserListProps> = ({ className }) => {
         />
       </Modal>
       <Modal
-        title="创建用户"
+        title={formatMessage({ id: 'admin.createUser' })}
         visible={createUserModalOpen}
         onCancel={handleCreateUserModalCancel}
         footer={null}
