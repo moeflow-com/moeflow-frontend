@@ -1,9 +1,3 @@
-FROM scratch AS builder
-# NOTE Dockerfile只用来打包 (否则给多个arch构建镜像会更慢)
-# `docker build` 前应先执行 `npm run build` .
-COPY . /app
-
-#######
-
-FROM nginx:1
-COPY --from=builder /app/build /build
+FROM nginx:1.26
+# NOTE assuming `npm build` is executed, like in CI workflow.
+COPY ./build /build

@@ -36,6 +36,9 @@ jobs:
       - name: Build app
         run: npm run build
 
+      - name: gzip static files # for nginx
+        run: find ./build -name '*.js' -or -name '*.css' -or -name '*.html' -or -name '*.json' | xargs -n 1 -P 8 gzip -9 --keep && find ./build
+
       - name: Log in to the Container registry
         uses: docker/login-action@v2.0.0
         with:
