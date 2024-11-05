@@ -1,14 +1,14 @@
 import { css } from '@emotion/core';
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { FC, Project } from '../interfaces';
+import { FC, Project } from '@/interfaces';
 import classNames from 'classnames';
-import { IMPORT_FROM_LABELPLUS_STATUS } from '../constants';
+import { IMPORT_FROM_LABELPLUS_STATUS } from '@/constants';
 import { useInterval } from 'react-use';
-import apis from '../apis';
-import { toLowerCamelCase } from '../utils';
+import apis from '../../apis';
+import { toLowerCamelCase } from '@/utils';
 import { useDispatch } from 'react-redux';
-import { editProject, setCurrentProject } from '../store/project/slice';
+import { editProject, setCurrentProject } from '@/store/project/slice';
 import { Progress, Result } from 'antd';
 
 /** 导入进度的属性接口 */

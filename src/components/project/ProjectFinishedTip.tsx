@@ -1,7 +1,7 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { FC } from '../interfaces';
-import { EmptyTip } from '.';
+import { FC } from '../../interfaces';
+import { EmptyTip } from '..';
 
 /** 项目完结提示的属性接口 */
 interface ProjectFinishedTipProps {

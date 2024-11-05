@@ -6,15 +6,15 @@ import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import apis from '../apis';
-import { Spin } from '../components';
-import { IMAGE_COVER, PROJECT_ALLOW_APPLY_TYPE } from '../constants';
-import { useTitle } from '../hooks';
-import { FC, File, Project, ProjectSet, Team } from '../interfaces';
-import { AppState } from '../store';
-import { editProject, setCurrentProject } from '../store/project/slice';
+import { Spin } from '@/components';
+import { IMAGE_COVER, PROJECT_ALLOW_APPLY_TYPE } from '@/constants';
+import { useTitle } from '@/hooks';
+import { FC, File, Project, ProjectSet, Team } from '@/interfaces';
+import { AppState } from '@/store';
+import { editProject, setCurrentProject } from '@/store/project/slice';
 import style from '../style';
-import { toLowerCamelCase } from '../utils';
-import { cardActiveEffect, cardClickEffect, clickEffect } from '../utils/style';
+import { toLowerCamelCase } from '@/utils';
+import { cardActiveEffect, cardClickEffect, clickEffect } from '@/utils/style';
 
 /** 团队设置页的属性接口 */
 interface ProjectPreviewProps {

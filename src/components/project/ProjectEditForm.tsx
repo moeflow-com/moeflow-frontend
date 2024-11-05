@@ -1,17 +1,17 @@
 import { css } from '@emotion/core';
 import { Button, Form as AntdForm, Input, message } from 'antd';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { Form, FormItem, RoleRadioGroup, TypeRadioGroup } from '.';
-import api from '../apis';
-import { GROUP_ALLOW_APPLY_TYPE, PROJECT_PERMISSION } from '../constants';
-import { FC, Project } from '../interfaces';
-import { AppState } from '../store';
-import { editProject, setCurrentProject } from '../store/project/slice';
-import { toLowerCamelCase } from '../utils';
-import { can } from '../utils/user';
+import { Form, FormItem, RoleRadioGroup, TypeRadioGroup } from '..';
+import api from '../../apis';
+import { GROUP_ALLOW_APPLY_TYPE, PROJECT_PERMISSION } from '@/constants';
+import { FC, Project } from '@/interfaces';
+import { AppState } from '@/store';
+import { editProject, setCurrentProject } from '@/store/project/slice';
+import { toLowerCamelCase } from '@/utils';
+import { can } from '@/utils/user';
 
 /** 修改项目表单的属性接口 */
 interface ProjectEditFormProps {
@@ -107,7 +107,9 @@ export const ProjectEditForm: FC<ProjectEditFormProps> = ({ className }) => {
         <FormItem label={formatMessage({ id: 'project.targetLanguagesCount' })}>
           <div>
             <span>{currentProject.targetCount} </span>
-            <NavLink to={`target`}>{formatMessage({id: 'project.targetLanguages'})}</NavLink>
+            <NavLink to={`target`}>
+              {formatMessage({ id: 'project.targetLanguages' })}
+            </NavLink>
           </div>
         </FormItem>
         <FormItem

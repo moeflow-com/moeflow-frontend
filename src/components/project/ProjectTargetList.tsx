@@ -4,18 +4,18 @@ import classNames from 'classnames';
 import React, { useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import api, { resultTypes } from '../apis';
+import api, { resultTypes } from '../../apis';
 import {
   EmptyTip,
   List,
   ListItem,
   LIST_ITEM_DEFAULT_HEIGHT,
   TranslationProgress,
-} from '../components';
-import { FC, Project, Target } from '../interfaces';
-import { AppState } from '../store';
-import { toLowerCamelCase } from '../utils';
-import style from '../style';
+} from '..';
+import { FC, Project, Target } from '../../interfaces';
+import { AppState } from '../../store';
+import { toLowerCamelCase } from '../../utils';
+import style from '../../style';
 
 /** 项目目标列表页的属性接口 */
 interface ProjectTargetListProps {

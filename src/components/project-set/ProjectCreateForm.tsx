@@ -1,6 +1,6 @@
 import { css } from '@emotion/core';
 import { Button, Form as AntdForm, Input, message, Modal, Upload } from 'antd';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useIntl } from 'react-intl';
 import {
   Form,
@@ -8,18 +8,18 @@ import {
   RoleRadioGroup,
   TypeRadioGroup,
   LanguageSelect,
-} from '.';
-import api from '../apis';
-import { FC, UserProjectSet, UserTeam } from '../interfaces';
+} from '..';
+import api from '@/apis';
+import { FC, UserProjectSet, UserTeam } from '@/interfaces';
 import { useDispatch, useSelector } from 'react-redux';
-import { createProject, resetProjectsState } from '../store/project/slice';
+import { createProject, resetProjectsState } from '@/store/project/slice';
 import { useHistory } from 'react-router-dom';
-import { AppState } from '../store';
-import { toLowerCamelCase } from '../utils';
-import { GROUP_ALLOW_APPLY_TYPE } from '../constants';
-import { configs } from '../configs';
-import style from '../style';
-import { resetFilesState } from '../store/file/slice';
+import { AppState } from '@/store';
+import { toLowerCamelCase } from '@/utils';
+import { GROUP_ALLOW_APPLY_TYPE } from '@/constants';
+import { configs } from '@/configs';
+import style from '../../style';
+import { resetFilesState } from '@/store/file/slice';
 
 /** 创建项目表单的属性接口 */
 interface ProjectCreateFormProps {
