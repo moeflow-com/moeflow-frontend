@@ -160,6 +160,7 @@ export const TeamSettingBase: FC<TeamSettingBaseProps> = ({ className }) => {
         {permissionsVisible && (
           <ContentItem>
             <div className="permissions">
+              {/* FIXME: this should be presented in a table */}
               {currentTeam.role.permissions.map((x) => {
                 return (
                   <Tooltip

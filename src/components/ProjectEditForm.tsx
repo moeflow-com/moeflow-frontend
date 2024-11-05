@@ -107,7 +107,7 @@ export const ProjectEditForm: FC<ProjectEditFormProps> = ({ className }) => {
         <FormItem label={formatMessage({ id: 'project.targetLanguagesCount' })}>
           <div>
             <span>{currentProject.targetCount} </span>
-            <NavLink to={`target`}>前往设置</NavLink>
+            <NavLink to={`target`}>{formatMessage({id: 'project.targetLanguages'})}</NavLink>
           </div>
         </FormItem>
         <FormItem

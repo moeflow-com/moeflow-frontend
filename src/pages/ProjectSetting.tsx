@@ -1,5 +1,4 @@
 import { css } from '@emotion/core';
-import React from 'react';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
