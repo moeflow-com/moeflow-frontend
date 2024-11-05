@@ -3,6 +3,8 @@
  */
 import { request } from '.';
 import { AxiosRequestConfig } from 'axios';
+import { getIntl } from '@/locales';
+import { toLowerCamelCase } from '@/utils';
 
 export interface APILanguage {
   id: string;
@@ -20,14 +22,24 @@ export interface APILanguage {
 interface GetLanguagesData {
   configs?: AxiosRequestConfig;
 }
-/** 获取系统角色 */
-const getLanguages = ({ configs = {} } = {} as GetLanguagesData) => {
-  return request<APILanguage[]>({
+
+/** Get global lang list */
+async function getLanguages({ configs = {} } = {} as GetLanguagesData) {
+  const res = await request<APILanguage[]>({
     method: 'GET',
     url: `/v1/languages`,
     ...configs,
   });
-};
+  res.data = res.data.map((item) => toLowerCamelCase(item));
+  const intl = getIntl();
+  if (intl.locale === 'en') {
+    res.data.forEach((item) => {
+      // workaround server's corrupted data
+      item.i18nName = item.enName;
+    });
+  }
+  return res;
+}
 
 export default {
   getLanguages,
