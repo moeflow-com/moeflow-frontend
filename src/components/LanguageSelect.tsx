@@ -3,9 +3,8 @@ import { Select } from 'antd';
 import { SelectProps } from 'antd/lib/select';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
-import apis from '../apis';
-import { FC } from '../interfaces';
-import { toLowerCamelCase } from '../utils';
+import { api } from '@/apis';
+import { FC } from '@/interfaces';
 
 interface SelectOption {
   label: string;
@@ -30,9 +29,8 @@ export const LanguageSelect: FC<LanguageSelectProps> = ({
 
   useEffect(() => {
     setLoading(true);
-    apis.getLanguages().then((result) => {
+    api.language.getLanguages().then((result) => {
       const options = result.data.map((item) => {
-        item = toLowerCamelCase(item);
         const option: SelectOption = {
           label: item.i18nName,
           value: item.code,

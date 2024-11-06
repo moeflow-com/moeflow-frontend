@@ -3,24 +3,20 @@ import { message, Spin } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import {
-  FileList,
-  Icon,
-  ListItem,
-  ProjectFinishedTip,
-  ProjectImportFromLabelplusStatus,
-  ProjectTargetList,
-} from '../components';
-import { IMPORT_FROM_LABELPLUS_STATUS, PROJECT_STATUS } from '../constants';
-import { useTitle } from '../hooks';
-import { FC, Project, Target } from '../interfaces';
-import { AppState } from '../store';
+import { FileList, Icon, ListItem } from '@/components';
+import { IMPORT_FROM_LABELPLUS_STATUS, PROJECT_STATUS } from '@/constants';
+import { useTitle } from '@/hooks';
+import { FC, Project, Target } from '@/interfaces';
+import { AppState } from '@/store';
 import style from '../style';
 import {
   clearDefaultTargetID,
   loadDefaultTargetID,
   saveDefaultTargetID,
-} from '../utils/storage';
+} from '@/utils/storage';
+import { ProjectFinishedTip } from '@/components/project/ProjectFinishedTip';
+import { ProjectTargetList } from '@/components/project/ProjectTargetList';
+import { ProjectImportFromLabelplusStatus } from '@/components/project/ProjectImportFromLabelplusStatus';
 
 /** 项目文件页的属性接口 */
 interface ProjectFilesProps {

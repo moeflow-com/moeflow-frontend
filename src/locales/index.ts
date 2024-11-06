@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import utc from 'dayjs/plugin/utc';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
-import { setRequestLanguage } from '../apis';
+import { setRequestLanguage } from '@/apis';
 
 dayjs.extend(localizedFormat);
 dayjs.extend(relativeTime);
@@ -217,6 +217,8 @@ export function setLocale(l: string) {
   if (l in availableLocales) {
     localStorage.setItem(_STORAGE_KEY_LOCALE, l);
     location.reload();
+  } else {
+    throw new Error(`unsupported locale: ${l}`);
   }
 }
 

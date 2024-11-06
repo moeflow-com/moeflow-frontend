@@ -1,5 +1,4 @@
 import { css } from '@emotion/core';
-import React from 'react';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
@@ -10,16 +9,16 @@ import {
   MemberList,
   NavTab,
   NavTabs,
-  ProjectFinishedTip,
-  ProjectSettingBase,
-  ProjectSettingTarget,
   Spin,
-} from '../components';
-import { PROJECT_PERMISSION, PROJECT_STATUS } from '../constants';
-import { useTitle } from '../hooks';
-import { FC, Project } from '../interfaces';
-import { AppState } from '../store';
-import { can } from '../utils/user';
+} from '@/components';
+import { PROJECT_PERMISSION, PROJECT_STATUS } from '@/constants';
+import { useTitle } from '@/hooks';
+import { FC, Project } from '@/interfaces';
+import { AppState } from '@/store';
+import { can } from '@/utils/user';
+import { ProjectFinishedTip } from '@/components/project/ProjectFinishedTip';
+import { ProjectSettingBase } from '@/components/project/ProjectSettingBase';
+import { ProjectSettingTarget } from '@/components/project/ProjectSettingTarget';
 
 /** 团队设置页的属性接口 */
 interface ProjectSettingProps {

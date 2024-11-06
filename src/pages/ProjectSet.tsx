@@ -16,20 +16,20 @@ import {
   DashboardBox,
   Icon,
   ListItem,
-  ProjectCreateForm,
-  ProjectImportForm,
   ProjectList,
   Spin,
   Tooltip,
 } from '../components';
-import { TEAM_PERMISSION } from '../constants';
-import { useTitle } from '../hooks';
-import { FC } from '../interfaces';
-import { AppState } from '../store';
-import { setCurrentProjectSetSaga } from '../store/projectSet/slice';
+import { TEAM_PERMISSION } from '@/constants';
+import { useTitle } from '@/hooks';
+import { FC } from '@/interfaces';
+import { AppState } from '@/store';
+import { setCurrentProjectSetSaga } from '@/store/projectSet/slice';
 import style from '../style';
-import { can } from '../utils/user';
+import { can } from '@/utils/user';
 import Project from './Project';
+import { ProjectCreateForm } from '@/components/project-set/ProjectCreateForm';
+import { ProjectImportForm } from '@/components/project-set/ProjectImportForm';
 
 /** 项目集页的属性接口 */
 interface ProjectSetProps {}

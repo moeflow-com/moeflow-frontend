@@ -12,25 +12,25 @@ import {
   ContentTitle,
   FormItem,
   Icon,
-  ProjectEditForm,
   Tooltip,
-} from '.';
-import api from '../apis';
+} from '@/components';
+import api from '../../apis';
 import {
   PROJECT_PERMISSION,
   PROJECT_STATUS,
   TEAM_PERMISSION,
-} from '../constants';
-import { FC, Project } from '../interfaces';
-import { AppState } from '../store';
+} from '@/constants';
+import { FC, Project } from '@/interfaces';
+import { AppState } from '@/store';
 import {
   deleteProject,
   editProject,
   setCurrentProject,
-} from '../store/project/slice';
-import style from '../style';
-import { toLowerCamelCase } from '../utils';
-import { can } from '../utils/user';
+} from '@/store/project/slice';
+import style from '../../style';
+import { toLowerCamelCase } from '@/utils';
+import { can } from '@/utils/user';
+import { ProjectEditForm } from './ProjectEditForm';
 
 /** 项目基础设置的属性接口 */
 interface ProjectSettingBaseProps {

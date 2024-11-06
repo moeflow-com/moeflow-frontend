@@ -585,7 +585,7 @@ project.sourceLanguage:
   en: Source Language
 project.targetLanguages:
   zhCn: 目标语言
-  en: Target Language
+  en: Target Language(s)
 project.targetLanguagesCount:
   zhCn: 目标语言数量
   en: Number of Target Languages
@@ -970,7 +970,7 @@ site.delete:
   en: Delete
 project.createViaLabelplusNotSupport:
   zhCn: 多个目标语言时不支持
-  en: '"Not supported for multiple target languages"'
+  en: Unavailable for project of multiple target languages
 file.needUploadTip:
   zhCn: 待上传
   en: Pending Upload

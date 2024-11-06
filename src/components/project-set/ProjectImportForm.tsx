@@ -2,21 +2,14 @@ import { css } from '@emotion/core';
 import { Button, Form as AntdForm, Input, message, Modal, Upload } from 'antd';
 import React, { useState } from 'react';
 import { useIntl } from 'react-intl';
-import {
-  Form,
-  FormItem,
-  RoleRadioGroup,
-  TypeRadioGroup,
-  LanguageSelect,
-} from '.';
-import api from '../apis';
-import { FC, UserProjectSet, UserTeam } from '../interfaces';
+import api from '../../apis';
+import { FC, UserProjectSet, UserTeam } from '@/interfaces';
 import { useDispatch, useSelector } from 'react-redux';
-import { createProject, resetProjectsState } from '../store/project/slice';
+import { createProject, resetProjectsState } from '@/store/project/slice';
 import { useHistory } from 'react-router-dom';
-import { AppState } from '../store';
-import { toLowerCamelCase } from '../utils';
-import { resetFilesState } from '../store/file/slice';
+import { AppState } from '@/store';
+import { toLowerCamelCase } from '@/utils';
+import { resetFilesState } from '@/store/file/slice';
 import * as zip from '@zip.js/zip.js';
 import { RcFile } from 'antd/lib/upload';
 import produce from 'immer';
