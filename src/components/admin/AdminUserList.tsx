@@ -172,8 +172,8 @@ export const AdminUserList: FC<AdminUserListProps> = ({ className }) => {
             }}
           >
             {record.admin
-              ? formatMessage({ id: 'admin.setAdmin' })
-              : formatMessage({ id: 'admin.unsetAdmin' })}
+              ? formatMessage({ id: 'admin.unsetAdmin' })
+              : formatMessage({ id: 'admin.setAdmin' })}
           </a>
           <a
             onClick={() => {
