@@ -1,9 +1,9 @@
 import { css } from '@emotion/core';
 import classNames from 'classnames';
 import React from 'react';
-import { Avatar, Icon, Tooltip } from '.';
-import { FC } from '../interfaces';
-import style from '../style';
+import { Avatar, Icon, Tooltip } from '@/components';
+import { FC } from '@/interfaces';
+import style from '@/style';
 
 /** 翻译用户显示的属性接口 */
 interface TranslationUserProps {

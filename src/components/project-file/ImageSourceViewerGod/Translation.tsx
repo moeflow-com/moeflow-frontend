@@ -6,7 +6,7 @@ import { lighten } from 'polished';
 import React, { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import { DebounceStatus, Icon, Tooltip, TranslationUser } from '@/components';
+import { DebounceStatus, Icon, Tooltip } from '@/components';
 import { PROJECT_PERMISSION } from '@/constants';
 import { FC, Source } from '@/interfaces';
 import { Translation as ITranslation } from '@/interfaces/translation';
@@ -19,6 +19,7 @@ import {
 import style from '@/style';
 import { clearClickEffect, clickEffect } from '@/utils/style';
 import { can } from '@/utils/user';
+import { TranslationUser } from '../TranslationUser';
 
 export interface OnTextAreaChange {
   (event: React.ChangeEvent<HTMLTextAreaElement>): void;

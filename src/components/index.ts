@@ -61,7 +61,6 @@ export { TeamSearchList } from './TeamSearchList';
 export { TeamSettingBase } from './TeamSettingBase';
 export { Tooltip } from './Tooltip';
 export { TranslationProgress } from './TranslationProgress';
-export { TranslationUser } from './TranslationUser';
 export { TypeRadioGroup } from './TypeRadioGroup';
 export { UserEmailEditForm } from './UserEmailEditForm';
 export { UserInvitationList } from './UserInvitationList';
