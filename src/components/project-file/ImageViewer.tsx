@@ -18,21 +18,21 @@ import {
   OnZoomEnd,
   OnZooming,
   OnZoomStart,
-} from './Movable';
-import { SOURCE_POSITION_TYPE } from '../constants/source';
-import { FC, File, Source } from '../interfaces';
-import { AppState } from '../store';
-import { createSourceSaga, focusSource } from '../store/source/slice';
-import style from '../style';
-import { getBestTranslation } from '../utils/source';
-import { clickEffect } from '../utils/style';
+} from '@/components/Movable';
+import { SOURCE_POSITION_TYPE } from '@/constants/source';
+import { FC, File, Source } from '@/interfaces';
+import { AppState } from '@/store';
+import { createSourceSaga, focusSource } from '@/store/source/slice';
+import style from '@/style';
+import { getBestTranslation } from '@/utils/source';
+import { clickEffect } from '@/utils/style';
 import { ImageViewerPagingPanel } from './ImageViewerPagingPanel';
 import { ImageViewerSettingPanel } from './ImageViewerSettingPanel';
 import { ImageViewerZoomPanel } from './ImageViewerZoomPanel';
 import { MovableAreaColorBackground } from './MovableAreaColorBackground';
 import { MovableAreaImageBackground } from './MovableAreaImageBackground';
 import { MovableLabel } from './MovableLabel';
-import { Tooltip } from './Tooltip';
+import { Tooltip } from '@/components/Tooltip';
 
 /**
  * 🖥浏览器识别
@@ -71,8 +71,6 @@ interface ImageViewerProps {
 }
 /**
  * 图片翻译标记器
- * @param width 宽
- * @param height 高
  */
 export const ImageViewer: FC<ImageViewerProps> = ({
   file,

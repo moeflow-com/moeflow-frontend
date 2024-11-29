@@ -1,4 +1,4 @@
-import { APISource } from '../apis/source';
+import { APISource } from '@/apis/source';
 
 export const labelSavingStatuses = ['creating', 'saving', 'deleting'];
 

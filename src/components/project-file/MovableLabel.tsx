@@ -1,19 +1,19 @@
 import React, { useContext, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { PROJECT_PERMISSION } from '../constants';
-import { SOURCE_POSITION_TYPE } from '../constants/source';
-import { FC, labelSavingStatuses } from '../interfaces';
-import { AppState } from '../store';
-import { deleteSourceSaga, editSourceSaga } from '../store/source/slice';
-import { can } from '../utils/user';
-import { Label, LabelProps } from './Label';
+import { PROJECT_PERMISSION } from '@/constants';
+import { SOURCE_POSITION_TYPE } from '@/constants/source';
+import { FC, labelSavingStatuses } from '@/interfaces';
+import { AppState } from '@/store';
+import { deleteSourceSaga, editSourceSaga } from '@/store/source/slice';
+import { can } from '@/utils/user';
+import { Label, LabelProps } from '@/components/Label';
 import {
   MovableInfoContext,
   MovableItem,
   OnLongPress,
   OnMoveEnd,
   OnTap,
-} from './Movable';
+} from '@/components/Movable';
 
 /**
  * 标签（使用 Context，进行自动缩放/激活）

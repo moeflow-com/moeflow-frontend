@@ -1,6 +1,6 @@
 import { css } from '@emotion/core';
 import React from 'react';
-import { FC } from '../interfaces';
+import { FC } from '@/interfaces';
 
 /**
  * 可移动区域纯色背景属性接口

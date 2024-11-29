@@ -1,14 +1,14 @@
 import { css } from '@emotion/core';
-import { Icon, ImageSelect, useHotKey } from '.';
+import { Icon, ImageSelect, useHotKey } from '@/components';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useHistory } from 'react-router-dom';
-import { Tooltip } from '../components';
-import { FC } from '../interfaces';
-import style from '../style';
+import { Tooltip } from '@/components';
+import { FC } from '@/interfaces';
+import style from '@/style';
 import classNames from 'classnames';
-import { clearClickEffect, clickEffect } from '../utils/style';
-import { AppState } from '../store';
+import { clearClickEffect, clickEffect } from '@/utils/style';
+import { AppState } from '@/store';
 import { useSelector } from 'react-redux';
 
 /** 图片浏览器设置面板的属性接口 */

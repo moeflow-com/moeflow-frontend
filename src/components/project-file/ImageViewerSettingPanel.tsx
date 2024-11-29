@@ -2,11 +2,10 @@ import { css } from '@emotion/core';
 import classNames from 'classnames';
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { Icon } from '.';
-import { Tooltip } from '../components';
-import { FC } from '../interfaces';
-import style from '../style';
-import { clickEffect } from '../utils/style';
+import { Icon, Tooltip } from '@/components';
+import { FC } from '@/interfaces';
+import style from '@/style';
+import { clickEffect } from '@/utils/style';
 
 /** 图片浏览器设置面板的属性接口 */
 interface ImageViewerSettingPanelProps {

@@ -8,9 +8,9 @@ import {
   ImageSourceViewerTranslator,
   TranslationSaveFailed,
 } from '.';
-import { FC, File } from '../interfaces';
-import { Source as ISource } from '../interfaces/source';
-import { AppState } from '../store';
+import { FC, File } from '@/interfaces';
+import { Source as ISource } from '@/interfaces/source';
+import { AppState } from '@/store';
 
 /** 原文列表的属性接口 */
 interface ImageSourceViewerProps {

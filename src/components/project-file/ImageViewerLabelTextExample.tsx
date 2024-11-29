@@ -1,7 +1,7 @@
 import { css } from '@emotion/core';
 import classNames from 'classnames';
 import React from 'react';
-import { Direction, FC, WritingMode } from '../interfaces';
+import { Direction, FC, WritingMode } from '@/interfaces';
 
 /** 标记相对文本位置示例的属性接口 */
 interface ImageViewerLabelTextExampleProps {

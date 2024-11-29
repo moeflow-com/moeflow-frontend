@@ -1,6 +1,6 @@
 import { css } from '@emotion/core';
 import React, { useRef } from 'react';
-import { FC } from '../interfaces';
+import { FC } from '@/interfaces';
 
 /** 可移动区域图片背景的属性接口 */
 interface MovableAreaImageBackgroundProps {

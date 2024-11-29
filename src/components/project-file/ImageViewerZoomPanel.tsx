@@ -1,16 +1,15 @@
 import { css } from '@emotion/core';
-import { Icon } from './icon';
+import { Icon, Tooltip } from '@/components';
 import { Slider } from 'antd';
 import { debounce } from 'lodash-es';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import { Tooltip } from './Tooltip';
-import { AppState } from '../store';
-import style from '../style';
-import { FC } from '../interfaces';
+import { AppState } from '@/store';
+import style from '@/style';
+import { FC } from '@/interfaces';
 import { MovableItemBars } from './MovableItemBars';
-import { clickEffect } from '../utils/style';
+import { clickEffect } from '@/utils/style';
 
 /** 图片浏览器缩放控制面板的属性接口 */
 interface ImageViewerZoomPanelProps {

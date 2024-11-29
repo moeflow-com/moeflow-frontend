@@ -13,10 +13,10 @@ import {
   FILE_NOT_EXIST_REASON,
   FILE_SAFE_STATUS,
   IMAGE_COVER,
-} from '../constants';
-import { FC, File } from '../interfaces';
+} from '@/constants';
+import { FC, File } from '@/interfaces';
 import style from '../style';
-import { cardClickEffect, clickEffect } from '../utils/style';
+import { cardClickEffect, clickEffect } from '@/utils/style';
 
 /** 文件条目的属性接口 */
 interface FileItemProps {
