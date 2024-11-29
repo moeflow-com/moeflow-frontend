@@ -96,7 +96,7 @@
   "team.alreadyJoinedTipTitle": "You are already in the team",
   "team.alreadyJoinedTip": "You have already joined the team",
   "site.allowApplyTypeLabel": "Who can request to join",
-  "site.applicationCheckTypeLabel": "How to handle join Requests",
+  "site.applicationCheckTypeLabel": "How to handle join requests",
   "site.defaultRoleLabel": "Default Role After Joining",
   "site.baseSetting": "Basic settings",
   "site.memberSetting": "Members",

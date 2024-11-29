@@ -298,7 +298,7 @@ site.allowApplyTypeLabel:
   en: Who can request to join
 site.applicationCheckTypeLabel:
   zhCn: 如何处理加入申请
-  en: How to handle join Requests
+  en: How to handle join requests
 site.defaultRoleLabel:
   zhCn: 加入后默认角色
   en: Default Role After Joining
