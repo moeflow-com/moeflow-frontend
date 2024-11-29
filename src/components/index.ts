@@ -26,7 +26,6 @@ export { GroupJoinForm } from './GroupJoinForm';
 export { Header } from './Header';
 export { useHotKey } from './HotKey';
 export { ImageOCRProgress } from './ImageOCRProgress';
-export { ImageViewer } from './project-file/ImageViewer';
 export { InvitationList } from './InvitationList';
 export { InviteUser } from './InviteUser';
 export { Label } from './Label';

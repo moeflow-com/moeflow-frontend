@@ -1,18 +1,13 @@
-import { FC } from '../../interfaces';
+import { FC } from '@/interfaces';
 import { RefObject, useRef, useState } from 'react';
 import { FilePond } from 'react-filepond';
 import { css } from '@emotion/core';
 import { Button } from '../Button';
 import { createMoeflowProjectZip, LPFile } from './moeflow-packager';
-import { FailureResults } from '../../apis';
+import { FailureResults } from '@/apis';
 import { measureImgSize } from '@jokester/ts-commonutil/lib/frontend/measure-img';
 import { clamp } from 'lodash-es';
-import {
-  BBox,
-  CoordPair,
-  mitPreprocess,
-  TextQuad,
-} from '../../apis/mit_preprocess';
+import { BBox, mitPreprocess, TextQuad } from '@/apis/mit_preprocess';
 import { ResourcePool } from '@jokester/ts-commonutil/lib/concurrency/resource-pool';
 
 const MAX_FILE_COUNT = 30;

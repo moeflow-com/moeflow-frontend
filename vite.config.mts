@@ -1,4 +1,4 @@
-import { defineConfig, ProxyOptions, splitVendorChunkPlugin } from 'vite';
+import { defineConfig, ProxyOptions } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'node:path';
 import { antdLessVars, antdLessVarsM } from './src/style';
@@ -45,11 +45,28 @@ export default defineConfig({
       // external: ['lodash', 'lodash/default'],
       output: {
         manualChunks(id, meta) {
+          // console.debug('manualChunks', id, meta);
           if (id.includes(componentsDir)) {
             return 'moeflow-components';
-          } else if (id.includes('antd')) {
-            return 'vendor-antd';
           }
+
+          for (const [key, value] of Object.entries({
+            antd: 'antd',
+            'antd-mobile': 'antd',
+            react: 'base',
+            'react-dom': 'base',
+            'react-router': 'base',
+            i18next: 'base',
+          })) {
+            if (id.includes(`node_modules/${key}/`)) {
+              return `vendor-${value}`;
+            }
+          }
+
+          if (id.includes('node_modules/')) {
+            return `vendor-${hashModuleId(id)}`;
+          }
+
           return null;
         },
       },
@@ -91,7 +108,7 @@ export default defineConfig({
       jsxImportSource: '@emotion/core',
     }),
     visualizer({}),
-    splitVendorChunkPlugin(),
+    // splitVendorChunkPlugin(),
   ],
   css: {
     preprocessorOptions: {
@@ -114,3 +131,12 @@ export default defineConfig({
     },
   },
 });
+
+function hashModuleId(id: string): string {
+  const palette = '01234567';
+  let s = 0;
+  for (let i = 0; i < id.length; i++) {
+    s += id.charCodeAt(i);
+  }
+  return palette[s % palette.length];
+}
