@@ -5,9 +5,9 @@ import { useSelector } from 'react-redux';
 import { FC, File } from '@/interfaces';
 import { Source as ISource } from '@/interfaces/source';
 import { AppState } from '@/store';
-import { TranslationSaveFailed } from '@/components/TranslationSaveFailed';
+import { TranslationSaveFailed } from './TranslationSaveFailed';
 import { ImageSourceViewerGod } from './ImageSourceViewerGod';
-import { ImageSourceViewerTranslator } from '@/components/project-file/ImageSourceViewerTranslator';
+import { ImageSourceViewerTranslator } from './ImageSourceViewerTranslator';
 import { ImageSourceViewerProofreader } from './ImageSourceViewerProofreader';
 
 /** 原文列表的属性接口 */
