@@ -1,5 +1,5 @@
 import { css } from '@emotion/core';
-import { Icon, ImageSelect, useHotKey } from '@/components';
+import { Icon, useHotKey } from '@/components';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useHistory } from 'react-router-dom';
@@ -10,6 +10,7 @@ import classNames from 'classnames';
 import { clearClickEffect, clickEffect } from '@/utils/style';
 import { AppState } from '@/store';
 import { useSelector } from 'react-redux';
+import { ImageSelect } from './ImageSelect';
 
 /** 图片浏览器设置面板的属性接口 */
 interface ImageViewerPagingPanelProps {

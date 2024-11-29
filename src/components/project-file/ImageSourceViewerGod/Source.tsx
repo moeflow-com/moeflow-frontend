@@ -4,16 +4,16 @@ import classNames from 'classnames';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import { Icon } from '..';
-import { PROJECT_PERMISSION } from '../../constants';
-import { SOURCE_POSITION_TYPE } from '../../constants/source';
-import { FC } from '../../interfaces';
-import { Source as ISource } from '../../interfaces/source';
-import { AppState } from '../../store';
-import { editSourceSaga, focusSource } from '../../store/source/slice';
-import style from '../../style';
-import { checkTranslationState } from '../../utils/source';
-import { can } from '../../utils/user';
+import { Icon } from '@/components';
+import { PROJECT_PERMISSION } from '@/constants';
+import { SOURCE_POSITION_TYPE } from '@/constants/source';
+import { FC } from '@/interfaces';
+import { Source as ISource } from '@/interfaces/source';
+import { AppState } from '@/store';
+import { editSourceSaga, focusSource } from '@/store/source/slice';
+import style from '@/style';
+import { checkTranslationState } from '@/utils/source';
+import { can } from '@/utils/user';
 import { TranslationList } from './TranslationList';
 
 /** 原文的属性接口 */

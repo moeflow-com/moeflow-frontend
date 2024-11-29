@@ -5,15 +5,15 @@ import { clearFix, darken } from 'polished';
 import React, { useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import { DebounceStatus, Icon, Tooltip } from '..';
-import { APITranslation } from '../../apis/translation';
-import { Source as ISource } from '../../interfaces';
-import { AppState } from '../../store';
-import { focusSource, selectTranslationSaga } from '../../store/source/slice';
-import { focusTranslation } from '../../store/translation/slice';
-import style from '../../style';
-import { getSortedTranslations } from '../../utils/source';
-import { clickEffect, hover } from '../../utils/style';
+import { DebounceStatus, Icon, Tooltip } from '@/components';
+import { APITranslation } from '@/apis/translation';
+import { Source as ISource } from '@/interfaces';
+import { AppState } from '@/store';
+import { focusSource, selectTranslationSaga } from '@/store/source/slice';
+import { focusTranslation } from '@/store/translation/slice';
+import style from '@/style';
+import { getSortedTranslations } from '@/utils/source';
+import { clickEffect, hover } from '@/utils/style';
 
 /** 原文的属性接口 */
 interface SourceProps {

@@ -5,29 +5,21 @@ import classNames from 'classnames';
 import React, { useEffect, useRef } from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  DebounceStatus,
-  ImageSourceViewerModeControl,
-  TranslationUser,
-} from '..';
-import { APITranslation } from '../../apis/translation';
-import {
-  FC,
-  File,
-  InputDebounceStatus,
-  Source as ISource,
-} from '../../interfaces';
-import { AppState } from '../../store';
+import { DebounceStatus, TranslationUser } from '@/components';
+import { APITranslation } from '@/apis/translation';
+import { FC, File, InputDebounceStatus, Source as ISource } from '@/interfaces';
+import { AppState } from '@/store';
 import {
   batchSelectTranslationSaga,
   editMyTranslationSaga,
   editProofreadSaga,
-} from '../../store/source/slice';
-import { focusTranslation } from '../../store/translation/slice';
-import style from '../../style';
-import { getBestTranslation } from '../../utils/source';
-import { hover } from '../../utils/style';
+} from '@/store/source/slice';
+import { focusTranslation } from '@/store/translation/slice';
+import style from '@/style';
+import { getBestTranslation } from '@/utils/source';
+import { hover } from '@/utils/style';
 import { Source } from './Source';
+import { ImageSourceViewerModeControl } from '../ImageSourceViewerModeControl';
 
 /** 校对模式的属性接口 */
 interface ImageSourceViewerProofreaderProps {

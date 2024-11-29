@@ -2,15 +2,13 @@ import { css } from '@emotion/core';
 import classNames from 'classnames';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import {
-  ImageSourceViewerGod,
-  ImageSourceViewerProofreader,
-  ImageSourceViewerTranslator,
-  TranslationSaveFailed,
-} from '.';
 import { FC, File } from '@/interfaces';
 import { Source as ISource } from '@/interfaces/source';
 import { AppState } from '@/store';
+import { TranslationSaveFailed } from '@/components/TranslationSaveFailed';
+import { ImageSourceViewerGod } from './ImageSourceViewerGod';
+import { ImageSourceViewerTranslator } from '@/components/project-file/ImageSourceViewerTranslator';
+import { ImageSourceViewerProofreader } from './ImageSourceViewerProofreader';
 
 /** 原文列表的属性接口 */
 interface ImageSourceViewerProps {

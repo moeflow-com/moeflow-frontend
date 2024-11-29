@@ -3,13 +3,13 @@ import classNames from 'classnames';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import { PROJECT_PERMISSION } from '../constants';
-import { FC } from '../interfaces';
-import { AppState } from '../store';
-import { setImageTranslatorMode } from '../store/imageTranslator/slice';
-import style from '../style';
-import { clearClickEffect, clickEffect } from '../utils/style';
-import { can } from '../utils/user';
+import { PROJECT_PERMISSION } from '@/constants';
+import { FC } from '@/interfaces';
+import { AppState } from '@/store';
+import { setImageTranslatorMode } from '@/store/imageTranslator/slice';
+import style from '@/style';
+import { clearClickEffect, clickEffect } from '@/utils/style';
+import { can } from '@/utils/user';
 
 /** 模板的属性接口 */
 interface ImageSourceViewerModeControlProps {

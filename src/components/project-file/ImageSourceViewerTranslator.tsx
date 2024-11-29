@@ -5,16 +5,17 @@ import { darken } from 'polished';
 import React, { useEffect, useRef } from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import { DebounceStatus, Icon, ImageSourceViewerModeControl, Tooltip } from '.';
-import { APITranslation } from '../apis/translation';
-import { PROJECT_PERMISSION } from '../constants';
-import { FC, Source as ISource } from '../interfaces';
-import { AppState } from '../store';
-import { editMyTranslationSaga, focusSource } from '../store/source/slice';
-import style from '../style';
-import { getBestTranslation } from '../utils/source';
-import { clickEffect, hover } from '../utils/style';
-import { can } from '../utils/user';
+import { DebounceStatus, Icon, Tooltip } from '@/components';
+import { APITranslation } from '@/apis/translation';
+import { PROJECT_PERMISSION } from '@/constants';
+import { FC, Source as ISource } from '@/interfaces';
+import { AppState } from '@/store';
+import { editMyTranslationSaga, focusSource } from '@/store/source/slice';
+import style from '@/style';
+import { getBestTranslation } from '@/utils/source';
+import { clickEffect, hover } from '@/utils/style';
+import { can } from '@/utils/user';
+import { ImageSourceViewerModeControl } from './ImageSourceViewerModeControl';
 
 /** 翻译模式的属性接口 */
 interface ImageSourceViewerTranslatorProps {

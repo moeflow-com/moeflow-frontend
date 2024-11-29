@@ -3,17 +3,17 @@ import classNames from 'classnames';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import { FC } from '../interfaces';
-import { AppState } from '../store';
-import { HotKeyState, setHotKey } from '../store/hotKey/slice';
-import { saveHotKey } from '../utils/storage';
-import { HotKeyRecorder } from './HotKey';
+import { FC } from '@/interfaces';
+import { AppState } from '@/store';
+import { HotKeyState, setHotKey } from '@/store/hotKey/slice';
+import { saveHotKey } from '@/utils/storage';
+import { HotKeyRecorder } from '@/components/HotKey';
 import {
   ARROW_KEY_EVENT_CODES,
   MAIN_KEY_EVENT_CODES,
   SPACE_KEY_EVENT_CODES,
-} from './HotKey/constants';
-import { HotKeyEvent } from './HotKey/interfaces';
+} from '@/components/HotKey/constants';
+import { HotKeyEvent } from '@/components/HotKey/interfaces';
 
 /** 快捷键设置的属性接口 */
 interface ImageTranslatorSettingHotKeyProps {

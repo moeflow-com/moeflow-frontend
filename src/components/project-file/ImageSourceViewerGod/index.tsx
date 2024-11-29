@@ -1,9 +1,9 @@
 import { css } from '@emotion/core';
 import classNames from 'classnames';
 import React from 'react';
-import { ImageSourceViewerModeControl } from '..';
-import { FC, Source as ISource } from '../../interfaces';
-import style from '../../style';
+import { ImageSourceViewerModeControl } from '../ImageSourceViewerModeControl';
+import { FC, Source as ISource } from '@/interfaces';
+import style from '@/style';
 import { Source } from './Source';
 
 /** 全能模式的属性接口 */

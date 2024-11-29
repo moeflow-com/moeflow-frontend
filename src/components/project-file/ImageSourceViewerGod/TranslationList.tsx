@@ -4,16 +4,13 @@ import classNames from 'classnames';
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Translation } from './Translation';
-import { PROJECT_PERMISSION } from '../../constants';
-import { FC, Source } from '../../interfaces';
-import { Translation as ITranslation } from '../../interfaces/translation';
-import { AppState } from '../../store';
-import style from '../../style';
-import {
-  filterValidTranslations,
-  isValidTranslation,
-} from '../../utils/source';
-import { can } from '../../utils/user';
+import { PROJECT_PERMISSION } from '@/constants';
+import { FC, Source } from '@/interfaces';
+import { Translation as ITranslation } from '@/interfaces/translation';
+import { AppState } from '@/store';
+import style from '@/style';
+import { filterValidTranslations, isValidTranslation } from '@/utils/source';
+import { can } from '@/utils/user';
 
 /** 翻译列表的属性接口 */
 interface TranslationListProps {

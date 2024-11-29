@@ -5,12 +5,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useClickAway } from 'react-use';
-import apis from '../apis';
-import { FC, File } from '../interfaces';
-import { AppState } from '../store';
-import style from '../style';
-import { toLowerCamelCase } from '../utils';
-import { clickEffect } from '../utils/style';
+import apis from '@/apis';
+import { FC, File } from '@/interfaces';
+import { AppState } from '@/store';
+import style from '@/style';
+import { toLowerCamelCase } from '@/utils';
+import { clickEffect } from '@/utils/style';
 
 /** 图片文件选择下拉框的属性接口 */
 interface ImageSelectProps {

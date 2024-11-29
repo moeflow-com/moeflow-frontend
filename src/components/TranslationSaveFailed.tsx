@@ -1,7 +1,7 @@
 import { css } from '@emotion/core';
 import React, { useEffect } from 'react';
 import { useIntl } from 'react-intl';
-import { FC, labelSavingStatuses, Source } from '../interfaces';
+import { FC, labelSavingStatuses, Source } from '@/interfaces';
 import classNames from 'classnames';
 import { Button } from 'antd';
 import {
@@ -11,9 +11,9 @@ import {
   EditProofreadSagaAction,
   SavingStatus,
   setSavingStatus,
-} from '../store/source/slice';
+} from '@/store/source/slice';
 import { useDispatch } from 'react-redux';
-import style from '../style';
+import style from '@/style';
 
 /** 翻译/校对保存出错提示的属性接口 */
 interface TranslationSaveFailedProps {
