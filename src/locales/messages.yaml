@@ -298,7 +298,7 @@ site.allowApplyTypeLabel:
   en: Who can request to join
 site.applicationCheckTypeLabel:
   zhCn: 如何处理加入申请
-  en: How to Handle Join Requests
+  en: How to handle join requests
 site.defaultRoleLabel:
   zhCn: 加入后默认角色
   en: Default Role After Joining
@@ -361,16 +361,16 @@ team.leaveConfirm:
   en: Are you sure you want to leave the team?
 site.applicationSetting:
   zhCn: 申请管理
-  en: Application Management
+  en: Applications
 site.invitationSetting:
   zhCn: 邀请管理
-  en: Invite Management
+  en: Invitations
 invitation.emptySearchTip:
   zhCn: 没有名称含有 “{word}” 的用户，请换个搜索词试试。
   en: No users with names containing "{word}". Please try a different search term.
 invitation.emptyTip:
   zhCn: 还没有进行中的邀请，快去邀请用户吧！
-  en: No ongoing invitations, invite users now!
+  en: No pending invitations. Try inviting someone!
 invitation.inviteUser:
   zhCn: 邀请用户
   en: Invite User
@@ -403,13 +403,13 @@ application.operator:
   en: 'Operator:'
 application.emptyTip:
   zhCn: 还没有用户申请加入。
-  en: No users have requested to join yet.
+  en: No pending join requests yet.
 application.denied:
   zhCn: 已拒绝
   en: Rejected
 application.allowed:
   zhCn: 已允许
-  en: Allowed
+  en: Approved
 application.emptyMessage:
   zhCn: 未附言
   en: No memo
@@ -505,7 +505,7 @@ project.name:
   en: Project Name
 project.intro:
   zhCn: 项目介绍
-  en: Project Introduction
+  en: Project Description
 site.createProject:
   zhCn: 创建项目
   en: Create Project
@@ -585,7 +585,7 @@ project.sourceLanguage:
   en: Source Language
 project.targetLanguages:
   zhCn: 目标语言
-  en: Target Language
+  en: Target Language(s)
 project.targetLanguagesCount:
   zhCn: 目标语言数量
   en: Number of Target Languages
@@ -647,7 +647,7 @@ project.changeTarget:
   en: Switch Target Language
 project.onlyOneTargetTip:
   zhCn: 仅有一个目标语言
-  en: "Only one target language"
+  en: Only one target language
 imageTranslator.translationPlaceholder:
   zhCn: 请输入翻译
   en: Please enter translation
@@ -826,7 +826,7 @@ hotKeyRecorder.unbind:
   en: Delete
 hotKey.function:
   zhCn: 功能
-  en: Feature
+  en: Operation
 hotKey.mainHotKey:
   zhCn: 主快捷键
   en: Primary Shortcut Key
@@ -847,7 +847,7 @@ hotKey.goNextPage:
   en: Next Page
 mouse.function:
   zhCn: 功能
-  en: Feature
+  en: Operation
 mouse.key:
   zhCn: 鼠标按键
   en: Mouse Button
@@ -970,7 +970,7 @@ site.delete:
   en: Delete
 project.createViaLabelplusNotSupport:
   zhCn: 多个目标语言时不支持
-  en: '"Not supported for multiple target languages"'
+  en: Unavailable for project of multiple target languages
 file.needUploadTip:
   zhCn: 待上传
   en: Pending Upload
@@ -988,7 +988,7 @@ site.selectFile:
   en: Select File
 imageTranslator.translatorMode:
   zhCn: 翻译模式
-  en: Translation Mode
+  en: Translations
 imageTranslator.godMode:
   zhCn: 全能模式
   en: All-in-One Mode
@@ -1063,7 +1063,7 @@ team.userInsight:
   en: Member Statistics
 imageTranslator.proofreaderMode:
   zhCn: 校对模式
-  en: Proofreading Mode
+  en: Proofreading
 imageTranslator.copyTranslationContent:
   zhCn: 复制翻译内容
   en: Copy Translated Content

@@ -1,25 +1,22 @@
 import { css, Global } from '@emotion/core';
 import { Modal } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import api from '../apis';
-import {
-  ImageTranslatorSettingHotKey,
-  ImageTranslatorSettingMouse,
-  ImageViewer,
-  ImageSourceViewer,
-  useHotKey,
-} from '../components';
-import { FC, File } from '../interfaces';
-import { AppState } from '../store';
-import { setCurrentProjectSaga } from '../store/project/slice';
-import { fetchSourcesSaga, focusSource } from '../store/source/slice';
+import { useHotKey } from '@/components';
+import { ImageViewer, ImageSourceViewer } from '@/components/project-file';
+import { FC, File } from '@/interfaces';
+import { AppState } from '@/store';
+import { setCurrentProjectSaga } from '@/store/project/slice';
+import { fetchSourcesSaga, focusSource } from '@/store/source/slice';
 import style from '../style';
-import { toLowerCamelCase } from '../utils';
-import { getCancelToken } from '../utils/api';
-import { useTitle } from '../hooks';
+import { toLowerCamelCase } from '@/utils';
+import { getCancelToken } from '@/utils/api';
+import { useTitle } from '@/hooks';
+import { ImageTranslatorSettingMouse } from '@/components/project-file/ImageTranslatorSettingMouse';
+import { ImageTranslatorSettingHotKey } from '@/components/project-file/ImageTranslatorSettingHotKey';
 
 /**
  * 全屏显示的图片翻译器
@@ -284,26 +281,30 @@ const ImageTranslator: FC = () => {
         `}
       />
       {file && (
-        <ImageViewer
-          className="ImageTranslator__ImageViewer"
-          file={file}
-          targetID={targetID}
-          labels={sources}
-          width={imageTranslatorSize.width}
-          height={imageTranslatorSize.height}
-          loading={!Boolean(currentProject) || sourcesLoading}
-          onSettingButtonClick={() => {
-            setSettingModalVisible(true);
-          }}
-        />
+        <Suspense fallback={null}>
+          <ImageViewer
+            className="ImageTranslator__ImageViewer"
+            file={file}
+            targetID={targetID}
+            labels={sources}
+            width={imageTranslatorSize.width}
+            height={imageTranslatorSize.height}
+            loading={!Boolean(currentProject) || sourcesLoading}
+            onSettingButtonClick={() => {
+              setSettingModalVisible(true);
+            }}
+          />
+        </Suspense>
       )}
-      <ImageSourceViewer
-        className="ImageTranslator__ImageSourceViewer"
-        file={file}
-        sources={sources}
-        targetID={targetID}
-        loading={!Boolean(currentProject) || sourcesLoading}
-      />
+      <Suspense fallback={null}>
+        <ImageSourceViewer
+          className="ImageTranslator__ImageSourceViewer"
+          file={file}
+          sources={sources}
+          targetID={targetID}
+          loading={!Boolean(currentProject) || sourcesLoading}
+        />
+      </Suspense>
       <Modal
         width={700}
         title={formatMessage({ id: 'imageTranslator.settingTitle' })}

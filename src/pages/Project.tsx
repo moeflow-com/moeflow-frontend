@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useParams, useRouteMatch } from 'react-router-dom';
-import { useTitle } from '../hooks';
-import { FC } from '../interfaces';
-import { AppState } from '../store';
+import { useTitle } from '@/hooks';
+import { FC } from '@/interfaces';
+import { AppState } from '@/store';
 import {
   clearCurrentProject,
   setCurrentProjectSaga,
-} from '../store/project/slice';
+} from '@/store/project/slice';
 import ProjectFiles from './ProjectFiles';
 import ProjectPreview from './ProjectPreview';
 import ProjectSetting from './ProjectSetting';
