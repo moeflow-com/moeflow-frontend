@@ -45,6 +45,9 @@ export default defineConfig({
       // external: ['lodash', 'lodash/default'],
       output: {
         manualChunks(id, meta) {
+          if (true) {
+            return null;
+          }
           // console.debug('manualChunks', id, meta);
           if (id.includes(componentsDir)) {
             return 'moeflow-components';
