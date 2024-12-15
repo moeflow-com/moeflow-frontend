@@ -55,6 +55,7 @@ export default defineConfig({
             'antd-mobile': 'antd',
             react: 'base',
             'react-dom': 'base',
+            scheduler: 'base',
             'react-router': 'base',
             i18next: 'base',
           })) {
