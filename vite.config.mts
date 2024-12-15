@@ -59,6 +59,11 @@ export default defineConfig({
             }
           }
 
+          if (false && id.includes(componentsDir)) {
+            // splitting this way creates a larger chunk wtf
+            return 'moeflow-components';
+          }
+
           if (false && id.includes('node_modules/')) {
             return `vendor-${hashModuleId(id)}`;
           }
