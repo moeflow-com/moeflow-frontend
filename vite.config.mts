@@ -45,16 +45,12 @@ export default defineConfig({
       // external: ['lodash', 'lodash/default'],
       output: {
         manualChunks(id, meta) {
-          // console.debug('manualChunks', id, meta);
-          if (id.includes(componentsDir)) {
-            return 'moeflow-components';
-          }
-
           for (const [key, value] of Object.entries({
             antd: 'antd',
             'antd-mobile': 'antd',
             react: 'base',
             'react-dom': 'base',
+            scheduler: 'base',
             'react-router': 'base',
             i18next: 'base',
           })) {
@@ -63,7 +59,12 @@ export default defineConfig({
             }
           }
 
-          if (id.includes('node_modules/')) {
+          if (false && id.includes(componentsDir)) {
+            // splitting this way creates a larger chunk wtf
+            return 'moeflow-components';
+          }
+
+          if (false && id.includes('node_modules/')) {
             return `vendor-${hashModuleId(id)}`;
           }
 
