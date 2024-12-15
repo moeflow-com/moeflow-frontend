@@ -45,14 +45,6 @@ export default defineConfig({
       // external: ['lodash', 'lodash/default'],
       output: {
         manualChunks(id, meta) {
-          if (true) {
-            return null;
-          }
-          // console.debug('manualChunks', id, meta);
-          if (id.includes(componentsDir)) {
-            return 'moeflow-components';
-          }
-
           for (const [key, value] of Object.entries({
             antd: 'antd',
             'antd-mobile': 'antd',
@@ -67,7 +59,7 @@ export default defineConfig({
             }
           }
 
-          if (id.includes('node_modules/')) {
+          if (false && id.includes('node_modules/')) {
             return `vendor-${hashModuleId(id)}`;
           }
 
