@@ -3,7 +3,6 @@
  */
 import { request } from '.';
 import { AxiosRequestConfig } from 'axios';
-import { getIntl } from '@/locales';
 import { toLowerCamelCase } from '@/utils';
 
 export interface APILanguage {
@@ -31,13 +30,6 @@ async function getLanguages({ configs = {} } = {} as GetLanguagesData) {
     ...configs,
   });
   res.data = res.data.map((item) => toLowerCamelCase(item));
-  const intl = getIntl();
-  if (intl.locale === 'en') {
-    res.data.forEach((item) => {
-      // workaround server's corrupted data
-      item.i18nName = item.enName;
-    });
-  }
   return res;
 }
 
