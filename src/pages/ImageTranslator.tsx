@@ -309,7 +309,7 @@ const ImageTranslator: FC = () => {
         footer={null}
       >
         {isMobile ? (
-          '暂无设置'
+          formatMessage({ id: 'imageTranslator.mouseHotkeySettingUnavailable' })
         ) : (
           <>
             <ImageTranslatorSettingMouse />

@@ -9,6 +9,7 @@ import { TranslationSaveFailed } from './TranslationSaveFailed';
 import { ImageSourceViewerGod } from './ImageSourceViewerGod';
 import { ImageSourceViewerTranslator } from './ImageSourceViewerTranslator';
 import { ImageSourceViewerProofreader } from './ImageSourceViewerProofreader';
+import { useIntl } from 'react-intl';
 
 /** 原文列表的属性接口 */
 interface ImageSourceViewerProps {
@@ -31,6 +32,7 @@ export const ImageSourceViewer: FC<ImageSourceViewerProps> = ({
   const platform = useSelector((state: AppState) => state.site.platform);
   const isMobile = platform === 'mobile';
   const mode = useSelector((state: AppState) => state.imageTranslator.mode);
+  const { formatMessage } = useIntl();
 
   return (
     <div
@@ -78,14 +80,34 @@ export const ImageSourceViewer: FC<ImageSourceViewerProps> = ({
             </div>
           ) : isMobile ? (
             <div className="ImageSourceViewer__Empty">
-              <div>点击图片新增框内标记</div>
-              <div>长按标记来删除标记</div>
+              <div>
+                {formatMessage({
+                  id: 'imageTranslator.sourceViewer.tapToMarkSource',
+                })}
+              </div>
+              <div>
+                {formatMessage({
+                  id: 'imageTranslator.sourceViewer.longTapToRemoveMark',
+                })}
+              </div>
             </div>
           ) : (
             <div className="ImageSourceViewer__Empty">
-              <div>左键点击图片新增框内标记</div>
-              <div>右键点击图片新增框外标记</div>
-              <div>右键点击标记来删除标记</div>
+              <div>
+                {formatMessage({
+                  id: 'imageTranslator.sourceViewer.leftClickToMarkSource',
+                })}
+              </div>
+              <div>
+                {formatMessage({
+                  id: 'imageTranslator.sourceViewer.rightClickToMarkSource',
+                })}
+              </div>
+              <div>
+                {formatMessage({
+                  id: 'imageTranslator.sourceViewer.rightClickMarkToRemove',
+                })}
+              </div>
             </div>
           )}
         </>

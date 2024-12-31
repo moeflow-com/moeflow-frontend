@@ -690,6 +690,24 @@ imageTranslator.positionIn:
 imageTranslator.positionOut:
   zhCn: 框外
   en: Out of Frame
+imageTranslator.mouseHotkeySettingUnavailable:
+    zhCn: '暂无设置'
+    en: 'No available settings'
+imageTranslator.sourceViewer.tapToMarkSource:
+  zhCn: 点击图片新增框内标记
+  en: Tap image to mark source text
+imageTranslator.sourceViewer.longTapToRemoveMark:
+  zhCn: 长按标记来删除标记
+  en: Long tap to remove a mark
+imageTranslator.sourceViewer.leftClickToMarkSource:
+  zhCn: 左键点击图片新增框内标记
+  en: Left click on image to mark in-balloon text
+imageTranslator.sourceViewer.rightClickToMarkSource:
+  zhCn: 右键点击图片新增框外标记
+  en: Right click on image to mark out-of-balloon text
+imageTranslator.sourceViewer.rightClickMarkToRemove:
+  zhCn: 右键点击标记来删除标记
+  en: Right click a mark to remove it
 site.noPermission:
   zhCn: 没有权限
   en: No permission
