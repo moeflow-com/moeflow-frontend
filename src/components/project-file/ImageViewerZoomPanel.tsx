@@ -97,7 +97,7 @@ export const ImageViewerZoomPanel: FC<ImageViewerZoomPanelProps> = ({
               min={imageMinScale}
               max={imageMaxScale}
               step={imageScaleStep / 5}
-              tipFormatter={null}
+              tooltip={{ formatter: null }}
               vertical={isMobile}
             />
           </div>
