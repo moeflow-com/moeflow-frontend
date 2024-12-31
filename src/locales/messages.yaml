@@ -686,10 +686,10 @@ imageTranslator.unloadWithSaveFailed:
     you want to leave now?"
 imageTranslator.positionIn:
   zhCn: 框内
-  en: In Frame
+  en: In balloon
 imageTranslator.positionOut:
   zhCn: 框外
-  en: Out of Frame
+  en: Non balloon
 imageTranslator.mouseHotkeySettingUnavailable:
     zhCn: '暂无设置'
     en: 'No available settings'
@@ -871,16 +871,16 @@ mouse.key:
   en: Mouse Button
 mouse.addInLabel:
   zhCn: 新建框内标签
-  en: New Inline Label
+  en: Create in-balloon marker
 mouse.addOutLabel:
   zhCn: 新建框外标签
-  en: Create Out-of-Box Label
+  en: Create non-balloon marker
 mouse.changeLabelPosition:
   zhCn: 切换框内框外
-  en: Toggle In/Out Frame
+  en: Toggle marker type
 mouse.deleteLabel:
   zhCn: 删除标签
-  en: Delete Tag
+  en: Delete Marker
 mouse.leftOnImage:
   zhCn: 左键点击图片
   en: Left-click the image
@@ -1009,7 +1009,10 @@ imageTranslator.translatorMode:
   en: Translations
 imageTranslator.godMode:
   zhCn: 全能模式
-  en: All-in-One Mode
+  en: Overview
+imageTranslator.markerMode:
+  zhCn: 标记模式
+  en: Sources
 debounceStatus.debouncing:
   zhCn: 输入中
   en: Typing...
