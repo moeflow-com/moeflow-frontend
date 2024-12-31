@@ -36,6 +36,7 @@ export const ImageSourceViewerModeControl: FC<
         justify-content: space-evenly;
         align-items: center;
         border-bottom: 1px solid ${style.borderColorBase};
+
         .ImageSourceViewerModeControl__Button {
           display: flex;
           justify-content: center;
@@ -45,20 +46,33 @@ export const ImageSourceViewerModeControl: FC<
           border-right: 1px solid ${style.borderColorBase};
           text-align: center;
           padding: 1px 0;
+
           :last-child {
             border-right: 0;
           }
+
           ${clickEffect(
             `background-color: #f7f7f7;`,
             `background-color: #fff`,
           )};
         }
+
         .ImageSourceViewerModeControl__Button--active {
           background: #fff;
           ${clearClickEffect()};
         }
       `}
     >
+      <div
+        className={classNames('ImageSourceViewerModeControl__Button', {
+          'ImageSourceViewerModeControl__Button--active': mode === 'source',
+        })}
+        onClick={() => {
+          dispatch(setImageTranslatorMode('source'));
+        }}
+      >
+        {formatMessage({ id: 'imageTranslator.markerMode' })}
+      </div>
       <div
         className={classNames('ImageSourceViewerModeControl__Button', {
           'ImageSourceViewerModeControl__Button--active': mode === 'translator',

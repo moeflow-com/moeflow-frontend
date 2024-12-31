@@ -1,6 +1,5 @@
 import { css } from '@emotion/core';
 import classNames from 'classnames';
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { FC, File } from '@/interfaces';
 import { Source as ISource } from '@/interfaces/source';
@@ -10,6 +9,7 @@ import { ImageSourceViewerGod } from './ImageSourceViewerGod';
 import { ImageSourceViewerTranslator } from './ImageSourceViewerTranslator';
 import { ImageSourceViewerProofreader } from './ImageSourceViewerProofreader';
 import { useIntl } from 'react-intl';
+import { ImageSourceViewerSource } from '@/components/project-file/ImageSourceViewerSource';
 
 /** 原文列表的属性接口 */
 interface ImageSourceViewerProps {
@@ -61,8 +61,11 @@ export const ImageSourceViewer: FC<ImageSourceViewerProps> = ({
           <TranslationSaveFailed sources={sources} targetID={targetID} />
           {sources.length > 0 ? (
             <div className="ImageSourceViewer__List">
-              {mode === 'god' && (
-                <ImageSourceViewerGod sources={sources} targetID={targetID} />
+              {mode === 'source' && (
+                <ImageSourceViewerSource
+                  sources={sources}
+                  targetID={targetID}
+                />
               )}
               {mode === 'translator' && (
                 <ImageSourceViewerTranslator
@@ -76,6 +79,9 @@ export const ImageSourceViewer: FC<ImageSourceViewerProps> = ({
                   sources={sources}
                   targetID={targetID}
                 />
+              )}
+              {mode === 'god' && (
+                <ImageSourceViewerGod sources={sources} targetID={targetID} />
               )}
             </div>
           ) : isMobile ? (
