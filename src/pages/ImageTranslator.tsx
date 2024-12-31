@@ -1,10 +1,10 @@
 import { css, Global } from '@emotion/core';
 import { Modal } from 'antd';
-import React, { useEffect, useState, Suspense } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import api from '../apis';
+import { api } from '@/apis';
 import { useHotKey } from '@/components';
 import { ImageViewer, ImageSourceViewer } from '@/components/project-file';
 import { FC, File } from '@/interfaces';
@@ -100,7 +100,7 @@ const ImageTranslator: FC = () => {
   // 快捷键 - 当 ImageViewer 未加载完成是，忽略所有快捷键
   useHotKey(
     {
-      disibled: Boolean(file?.id),
+      disabled: Boolean(file?.id),
       ignoreKeyboardElement: false,
     },
     () => {},
@@ -113,7 +113,7 @@ const ImageTranslator: FC = () => {
   );
   useHotKey(
     {
-      disibled: !Boolean(focusNextSourceHotKeyOptions[0]),
+      disabled: !Boolean(focusNextSourceHotKeyOptions[0]),
       ...focusNextSourceHotKeyOptions[0],
     },
     focusNextSource,
@@ -121,7 +121,7 @@ const ImageTranslator: FC = () => {
   );
   useHotKey(
     {
-      disibled: !Boolean(focusNextSourceHotKeyOptions[1]),
+      disabled: !Boolean(focusNextSourceHotKeyOptions[1]),
       ...focusNextSourceHotKeyOptions[1],
     },
     focusNextSource,
@@ -134,7 +134,7 @@ const ImageTranslator: FC = () => {
   );
   useHotKey(
     {
-      disibled: !Boolean(focusPrevSourceHotKeyOptions[0]),
+      disabled: !Boolean(focusPrevSourceHotKeyOptions[0]),
       ...focusPrevSourceHotKeyOptions[0],
     },
     focusPrevSource,
@@ -142,7 +142,7 @@ const ImageTranslator: FC = () => {
   );
   useHotKey(
     {
-      disibled: !Boolean(focusPrevSourceHotKeyOptions[1]),
+      disabled: !Boolean(focusPrevSourceHotKeyOptions[1]),
       ...focusPrevSourceHotKeyOptions[1],
     },
     focusPrevSource,
@@ -204,7 +204,7 @@ const ImageTranslator: FC = () => {
     dispatch(fetchSourcesSaga({ fileID, targetID }));
     setFile(undefined);
     const [cancelToken, cancel] = getCancelToken();
-    api
+    api.file
       .getFile({
         fileID,
         params: {
@@ -281,36 +281,30 @@ const ImageTranslator: FC = () => {
         `}
       />
       {file && (
-        <Suspense fallback={null}>
-          <ImageViewer
-            className="ImageTranslator__ImageViewer"
-            file={file}
-            targetID={targetID}
-            labels={sources}
-            width={imageTranslatorSize.width}
-            height={imageTranslatorSize.height}
-            loading={!Boolean(currentProject) || sourcesLoading}
-            onSettingButtonClick={() => {
-              setSettingModalVisible(true);
-            }}
-          />
-        </Suspense>
-      )}
-      <Suspense fallback={null}>
-        <ImageSourceViewer
-          className="ImageTranslator__ImageSourceViewer"
+        <ImageViewer
+          className="ImageTranslator__ImageViewer"
           file={file}
-          sources={sources}
           targetID={targetID}
-          loading={!Boolean(currentProject) || sourcesLoading}
+          labels={sources}
+          width={imageTranslatorSize.width}
+          height={imageTranslatorSize.height}
+          loading={!currentProject || sourcesLoading}
+          onSettingButtonClick={() => {
+            setSettingModalVisible(true);
+          }}
         />
-      </Suspense>
+      )}
+      <ImageSourceViewer
+        className="ImageTranslator__ImageSourceViewer"
+        file={file}
+        sources={sources}
+        targetID={targetID}
+        loading={!currentProject || sourcesLoading}
+      />
       <Modal
         width={700}
         title={formatMessage({ id: 'imageTranslator.settingTitle' })}
-        onCancel={() => {
-          setSettingModalVisible(false);
-        }}
+        onCancel={() => setSettingModalVisible(false)}
         open={settingModalVisible}
         footer={null}
       >

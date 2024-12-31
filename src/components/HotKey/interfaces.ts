@@ -18,6 +18,10 @@ export type HotKeyOption = {
   meta?: boolean;
   keyDown?: boolean;
   keyUp?: boolean;
+  disabled?: boolean;
+  /**
+   * @deprecated
+   */
   disibled?: boolean;
   preventDefault?: boolean;
   stopPropagation?: boolean;

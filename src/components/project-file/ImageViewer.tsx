@@ -451,7 +451,7 @@ export const ImageViewer: FC<ImageViewerProps> = ({
   );
 
   // 标签
-  const movableLabels = labels.map((label, index) => {
+  const movableLabels = labels.map((label: Label, index) => {
     const bestTranslation = getBestTranslation(label);
     const content =
       bestTranslation === undefined
