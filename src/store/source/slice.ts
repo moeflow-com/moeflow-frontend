@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { BatchSelectTranslationData } from '../../apis/translation';
-import { InputDebounceStatus, Source } from '../../interfaces';
-import { User } from '../../interfaces/user';
+import { BatchSelectTranslationData } from '@/apis/translation';
+import { InputDebounceStatus, Source } from '@/interfaces';
+import { User } from '@/interfaces/user';
 
 export type SavingStatus = 'saving' | 'saveSuccessful' | 'saveFailed';
 export type FocusEffect = 'focusInput' | 'focusLabel' | 'scrollIntoView';

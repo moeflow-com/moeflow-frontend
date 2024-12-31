@@ -20,7 +20,7 @@ export type HotKeyOption = {
   keyUp?: boolean;
   disabled?: boolean;
   /**
-   * @deprecated
+   * @deprecated use `disabled`
    */
   disibled?: boolean;
   preventDefault?: boolean;
