@@ -12,7 +12,7 @@ import {
 } from 'redux-saga/effects';
 import { v4 as uuidv4 } from 'uuid';
 import { AppState } from '..';
-import apis, { BasicSuccessResult, resultTypes } from '../../apis';
+import apis, { api, BasicSuccessResult, resultTypes } from '../../apis';
 import { APISource } from '@/apis/source';
 import { APITranslation } from '@/apis/translation';
 import { SOURCE_POSITION_TYPE } from '@/constants/source';
@@ -32,9 +32,11 @@ import {
   editProofread,
   editProofreadSaga,
   editSource,
+  editSourceSaga,
   fetchSourcesSaga,
   focusSource,
-  editSourceSaga,
+  rerankSource,
+  rerankSourceSaga,
   selectTranslation,
   selectTranslationSaga,
   editProofreadContentStatuses,
@@ -45,7 +47,6 @@ import {
   setBatchSelecting,
   deleteTranslation,
 } from './slice';
-const { confirm } = Modal;
 const inputDebounceDelay = 500;
 
 // worker Sage
@@ -54,7 +55,7 @@ function* fetchSourcesWorker(action: ReturnType<typeof fetchSourcesSaga>) {
   yield put(setSources([]));
   const [cancelToken, cancel] = getCancelToken();
   try {
-    const result: BasicSuccessResult<APISource[]> = yield apis.getSources({
+    const result: BasicSuccessResult<APISource[]> = yield api.source.getSources({
       fileID: action.payload.fileID,
       params: { targetID: action.payload.targetID },
       configs: { cancelToken },
@@ -221,7 +222,7 @@ function* deleteSourceWorker(action: ReturnType<typeof deleteSourceSaga>) {
   ) {
     const stop = yield new Promise((resolve) => {
       const intl = getIntl();
-      confirm({
+      Modal.confirm({
         icon: createElement(ExclamationCircleOutlined),
         title: intl.formatMessage({ id: 'imageTranslator.deleteLabelTitle' }),
         content: intl.formatMessage({ id: 'imageTranslator.deleteLabelTip' }),
@@ -273,6 +274,11 @@ function* deleteSourceWorker(action: ReturnType<typeof deleteSourceSaga>) {
       }),
     );
   }
+}
+
+function rerankSourceWorker(action: ReturnType<typeof rerankSourceSaga>) {
+  const wtf = action.payload.id
+
 }
 
 // 翻译部分
@@ -389,7 +395,7 @@ function* selectTranslationWorker(
   const [cancelToken, cancel] = getCancelToken();
   try {
     yield put(editSource({ id: sourceID, selecting: true }));
-    const result = yield apis.editTranslation({
+    const result: BasicSuccessResult<APITranslation> = yield api.translation.editTranslation({
       translationID,
       data: {
         selected,
@@ -514,6 +520,10 @@ function* watcher() {
       return action.payload.id;
     },
   );
+  yield takeEvery(
+    rerankSourceSaga.type,
+    rerankSourceWorker,
+  )
   yield takeEvery(deleteSourceSaga.type, deleteSourceWorker);
   yield takeLeading(
     batchSelectTranslationSaga.type,

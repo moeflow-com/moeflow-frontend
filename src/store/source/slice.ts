@@ -151,6 +151,10 @@ const slice = createSlice({
         state.sources.splice(index, 1);
       }
     },
+    rerankSourceSaga(state, action: PayloadAction<{id: string, }>) {},
+    rerankSource(state, action: PayloadAction<{}>){
+
+    },
     focusSource(
       state,
       action: PayloadAction<{
@@ -308,6 +312,8 @@ export const {
   editSourceSaga,
   editSource,
   editSourceMyTranslationContent,
+  rerankSourceSaga,
+  rerankSource,
   deleteSourceSaga,
   deleteSource,
   focusSource,
