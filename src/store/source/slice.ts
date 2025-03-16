@@ -85,6 +85,7 @@ const slice = createSlice({
         id: string;
         x?: number;
         y?: number;
+        content?: string;
         positionType?: number;
         reset?: () => void;
       }>,

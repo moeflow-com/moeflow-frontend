@@ -124,7 +124,7 @@ function* createSourceWorker(action: ReturnType<typeof createSourceSaga>) {
         focus: false,
       }),
     );
-    const focusedSourceID = yield select(
+    const focusedSourceID: string = yield select(
       (state: AppState) => state.source.focusedSource.id,
     );
     if (focusedSourceID === tempID) {

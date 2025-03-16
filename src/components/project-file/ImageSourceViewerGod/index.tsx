@@ -13,7 +13,7 @@ interface ImageSourceViewerGodProps {
   className?: string;
 }
 /**
- * 全能模式
+ * Overview aka 全能模式
  */
 export const ImageSourceViewerGod: FC<ImageSourceViewerGodProps> = ({
   sources,
