@@ -154,7 +154,7 @@ export const FileList: FC<FileListProps> = ({
       .then((result) => {
         const data = (result.data as File[]).map((d) => toLowerCamelCase(d));
         setItems(data);
-        setTotal(~~result.headers['x-pagination-count']);
+        setTotal(Number(result.headers['x-pagination-count']));
         setLoading(false);
       })
       .catch((error) => {
