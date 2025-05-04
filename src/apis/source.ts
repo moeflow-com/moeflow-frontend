@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 import { PaginationParams, request } from '.';
-import { toUnderScoreCase } from '../utils';
+import { toUnderScoreCase } from '@/utils';
 import { APITip } from './tip';
 import { APITranslation } from './translation';
 

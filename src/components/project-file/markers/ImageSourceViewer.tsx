@@ -5,11 +5,11 @@ import { FC, File } from '@/interfaces';
 import { Source as ISource } from '@/interfaces/source';
 import { AppState } from '@/store';
 import { TranslationSaveFailed } from './TranslationSaveFailed';
-import { ImageSourceViewerGod } from './ImageSourceViewerGod';
-import { ImageSourceViewerTranslator } from './ImageSourceViewerTranslator';
-import { ImageSourceViewerProofreader } from './ImageSourceViewerProofreader';
+import { ImageSourceViewerSource } from './source';
+import { ImageSourceViewerTranslator } from './translate';
+import { ImageSourceViewerProofreader } from './proofread';
+import { ImageSourceViewerGod } from './overview';
 import { useIntl } from 'react-intl';
-import { ImageSourceViewerSource } from '@/components/project-file/ImageSourceViewerSource';
 
 /** 原文列表的属性接口 */
 interface ImageSourceViewerProps {

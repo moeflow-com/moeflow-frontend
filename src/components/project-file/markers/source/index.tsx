@@ -12,7 +12,8 @@ import { css } from '@emotion/core';
 import style from '@/style';
 import { clickEffect, hover } from '@/utils/style';
 import { darken } from 'polished';
-import { ImageSourceViewerModeControl } from '@/components/project-file/ImageSourceViewerModeControl';
+// FIXME: should move this to parent component
+import { ImageSourceViewerModeControl } from '@/components/project-file/markers/ImageSourceViewerModeControl';
 import { DebounceStatus, Icon, Tooltip } from '@/components';
 import { can } from '@/utils/user';
 import { PROJECT_PERMISSION } from '@/constants';
