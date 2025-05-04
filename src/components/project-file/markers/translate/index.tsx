@@ -23,7 +23,7 @@ interface ImageSourceViewerTranslatorProps {
   className?: string;
 }
 /**
- * 翻译模式
+ * "translate" model, the panel to fill in text 翻译模式
  */
 export const ImageSourceViewerTranslator: FC<
   ImageSourceViewerTranslatorProps

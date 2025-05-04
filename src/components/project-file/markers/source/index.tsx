@@ -1,20 +1,20 @@
-import { FC, Source as ISource } from '@/interfaces';
+import { css } from '@emotion/core';
+import TextArea, { TextAreaRef } from 'antd/lib/input/TextArea';
+import classNames from 'classnames';
+import { darken } from 'polished';
+import React, { useEffect, useRef } from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppState } from '@/store';
-import React, { useEffect, useRef } from 'react';
-import TextArea, { TextAreaRef } from 'antd/lib/input/TextArea';
-import { APITranslation } from '@/apis/translation';
-import { getBestTranslation } from '@/utils/source';
-import { editMyTranslationSaga, focusSource } from '@/store/source/slice';
-import classNames from 'classnames';
-import { css } from '@emotion/core';
-import style from '@/style';
-import { clickEffect, hover } from '@/utils/style';
-import { darken } from 'polished';
 import { DebounceStatus, Icon, Tooltip } from '@/components';
-import { can } from '@/utils/user';
+import { APITranslation } from '@/apis/translation';
 import { PROJECT_PERMISSION } from '@/constants';
+import { FC, Source as ISource } from '@/interfaces';
+import { AppState } from '@/store';
+import { editMyTranslationSaga, focusSource } from '@/store/source/slice';
+import style from '@/style';
+import { getBestTranslation } from '@/utils/source';
+import { clickEffect, hover } from '@/utils/style';
+import { can } from '@/utils/user';
 
 interface ImageSourceViewerSourceProps {
   sources: ISource[];
@@ -29,6 +29,7 @@ export const ImageSourceViewerSource: FC<ImageSourceViewerSourceProps> = ({
   targetID,
   className,
 }) => {
+  throw new Error(`not implemented`);
   const { formatMessage } = useIntl();
   const dispatch = useDispatch();
   const platform = useSelector((state: AppState) => state.site.platform);
