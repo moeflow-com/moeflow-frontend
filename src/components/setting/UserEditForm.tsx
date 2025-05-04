@@ -4,12 +4,12 @@ import React, { useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, FormItem } from '..';
-import { api } from '../../apis';
-import { FC } from '../../interfaces';
-import { AppState } from '../../store';
-import { setUserInfo } from '../../store/user/slice';
-import { toLowerCamelCase } from '../../utils';
-import { USER_NAME_REGEX } from '../../utils/regex';
+import { api } from '@/apis';
+import { FC } from '@/interfaces';
+import { AppState } from '@/store';
+import { setUserInfo } from '@/store/user/slice';
+import { toLowerCamelCase } from '@/utils';
+import { USER_NAME_REGEX } from '@/utils/regex';
 
 /** 修改项目表单的属性接口 */
 interface UserEditFormProps {

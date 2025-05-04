@@ -12,7 +12,7 @@ import {
 } from 'redux-saga/effects';
 import { v4 as uuidv4 } from 'uuid';
 import { AppState } from '..';
-import apis, { api, BasicSuccessResult, resultTypes } from '../../apis';
+import { api, BasicSuccessResult, resultTypes } from '@/apis';
 import { APISource } from '@/apis/source';
 import { APITranslation } from '@/apis/translation';
 import { SOURCE_POSITION_TYPE } from '@/constants/source';
@@ -55,11 +55,13 @@ function* fetchSourcesWorker(action: ReturnType<typeof fetchSourcesSaga>) {
   yield put(setSources([]));
   const [cancelToken, cancel] = getCancelToken();
   try {
-    const result: BasicSuccessResult<APISource[]> = yield api.source.getSources({
-      fileID: action.payload.fileID,
-      params: { targetID: action.payload.targetID },
-      configs: { cancelToken },
-    });
+    const result: BasicSuccessResult<APISource[]> = yield api.source.getSources(
+      {
+        fileID: action.payload.fileID,
+        params: { targetID: action.payload.targetID },
+        configs: { cancelToken },
+      },
+    );
     const data: Source[] = result.data.map((source) => ({
       ...toLowerCamelCase(source),
       isTemp: false,
@@ -108,11 +110,13 @@ function* createSourceWorker(action: ReturnType<typeof createSourceSaga>) {
   const [cancelToken, cancel] = getCancelToken();
   const { fileID, ...requestData } = action.payload;
   try {
-    const result: BasicSuccessResult<APISource> = yield apis.createSource({
-      fileID,
-      data: requestData,
-      configs: { cancelToken },
-    });
+    const result: BasicSuccessResult<APISource> = yield api.source.createSource(
+      {
+        fileID,
+        data: requestData,
+        configs: { cancelToken },
+      },
+    );
     const data = toLowerCamelCase(result.data);
     yield put(
       editSource({
@@ -163,7 +167,7 @@ function* editSourceWorker(action: ReturnType<typeof editSourceSaga>) {
   }
   const [cancelToken, cancel] = getCancelToken();
   try {
-    const result = yield apis.editSource({
+    const result = yield api.source.editSource({
       sourceID: action.payload.id,
       data: action.payload,
       configs: { cancelToken },
@@ -220,7 +224,7 @@ function* deleteSourceWorker(action: ReturnType<typeof deleteSourceSaga>) {
     source.translations.length > 0 ||
     source.hasOtherLanguageTranslation
   ) {
-    const stop = yield new Promise((resolve) => {
+    const stop: boolean = yield new Promise((resolve) => {
       const intl = getIntl();
       Modal.confirm({
         icon: createElement(ExclamationCircleOutlined),
@@ -246,7 +250,7 @@ function* deleteSourceWorker(action: ReturnType<typeof deleteSourceSaga>) {
   );
   const [cancelToken, cancel] = getCancelToken();
   try {
-    yield apis.deleteSource({
+    yield api.source.deleteSource({
       sourceID: action.payload.id,
       configs: { cancelToken },
     });
@@ -314,14 +318,15 @@ function* editMyTranslationWorker(
         myTranslationContentStatus: 'saving',
       }),
     );
-    const result = yield apis.createTranslation({
-      sourceID: sourceID,
-      data: {
-        content,
-        targetID,
-      },
-      configs: { cancelToken },
-    });
+    const result: BasicSuccessResult<APITranslation> =
+      yield api.translation.createTranslation({
+        sourceID: sourceID,
+        data: {
+          content,
+          targetID,
+        },
+        configs: { cancelToken },
+      });
     const data: APITranslation = toLowerCamelCase(result.data);
     yield put(
       editSource({
@@ -357,7 +362,7 @@ function* batchSelectTranslationWorker(
   const [cancelToken, cancel] = getCancelToken();
   try {
     yield put(setBatchSelecting(true));
-    yield apis.batchSelectTranslation({
+    yield api.translation.batchSelectTranslation({
       fileID,
       data,
       configs: {
@@ -395,15 +400,14 @@ function* selectTranslationWorker(
   const [cancelToken, cancel] = getCancelToken();
   try {
     yield put(editSource({ id: sourceID, selecting: true }));
-    const result: BasicSuccessResult<APITranslation> = yield api.translation.editTranslation({
-      translationID,
-      data: {
-        selected,
-      },
-      configs: {
-        cancelToken,
-      },
-    });
+    const result: BasicSuccessResult<APITranslation> =
+      yield api.translation.editTranslation({
+        translationID,
+        data: { selected },
+        configs: {
+          cancelToken,
+        },
+      });
     const data: APITranslation = toLowerCamelCase(result.data);
     yield put(
       selectTranslation({
@@ -457,15 +461,16 @@ function* editProofreadWorker(action: ReturnType<typeof editProofreadSaga>) {
         status: 'saving',
       }),
     );
-    const result = yield apis.editTranslation({
-      translationID,
-      data: {
-        proofreadContent,
-      },
-      configs: {
-        cancelToken,
-      },
-    });
+    const result: BasicSuccessResult<APITranslation> =
+      yield api.translation.editTranslation({
+        translationID,
+        data: {
+          proofreadContent,
+        },
+        configs: {
+          cancelToken,
+        },
+      });
     const data: APITranslation = toLowerCamelCase(result.data);
     yield put(
       editProofreadContentStatuses({
@@ -520,10 +525,7 @@ function* watcher() {
       return action.payload.id;
     },
   );
-  yield takeEvery(
-    rerankSourceSaga.type,
-    rerankSourceWorker,
-  )
+  yield takeEvery(rerankSourceSaga.type, rerankSourceWorker);
   yield takeEvery(deleteSourceSaga.type, deleteSourceWorker);
   yield takeLeading(
     batchSelectTranslationSaga.type,
