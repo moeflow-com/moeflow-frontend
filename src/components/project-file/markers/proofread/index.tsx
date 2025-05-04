@@ -20,7 +20,6 @@ import style from '@/style';
 import { getBestTranslation } from '@/utils/source';
 import { hover } from '@/utils/style';
 import { Source } from './Source';
-import { ImageSourceViewerModeControl } from '../ImageSourceViewerModeControl';
 
 /** 校对模式的属性接口 */
 interface ImageSourceViewerProofreaderProps {
@@ -322,7 +321,6 @@ export const ImageSourceViewerProofreader: FC<
       `}
     >
       <div className="ImageSourceViewerProofreader__Translations">
-        <ImageSourceViewerModeControl />
         {sources.map((source, index) => (
           <Source
             ref={(ref) => (domRefs.current[index] = ref)}

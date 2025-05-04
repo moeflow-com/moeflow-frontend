@@ -15,8 +15,6 @@ import style from '@/style';
 import { getBestTranslation } from '@/utils/source';
 import { clickEffect, hover } from '@/utils/style';
 import { can } from '@/utils/user';
-// FIXME move to parent component
-import { ImageSourceViewerModeControl } from '../ImageSourceViewerModeControl';
 
 /** 翻译模式的属性接口 */
 interface ImageSourceViewerTranslatorProps {
@@ -222,7 +220,6 @@ export const ImageSourceViewerTranslator: FC<
       `}
     >
       <div className="ImageSourceViewerTranslator__Translations">
-        <ImageSourceViewerModeControl />
         {myTranslations.map((myTranslation, i) => {
           const source = sources[i];
           const othersBestTranslation = othersBestTranslations[i];

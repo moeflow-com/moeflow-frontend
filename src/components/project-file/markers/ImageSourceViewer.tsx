@@ -10,6 +10,7 @@ import { ImageSourceViewerTranslator } from './translate';
 import { ImageSourceViewerProofreader } from './proofread';
 import { ImageSourceViewerGod } from './overview';
 import { useIntl } from 'react-intl';
+import { ImageSourceViewerModeControl } from '@/components/project-file/markers/ImageSourceViewerModeControl';
 
 /** 原文列表的属性接口 */
 interface ImageSourceViewerProps {
@@ -61,6 +62,7 @@ export const ImageSourceViewer: FC<ImageSourceViewerProps> = ({
           <TranslationSaveFailed sources={sources} targetID={targetID} />
           {sources.length > 0 ? (
             <div className="ImageSourceViewer__List">
+              <ImageSourceViewerModeControl />
               {mode === 'source' && (
                 <ImageSourceViewerSource
                   sources={sources}

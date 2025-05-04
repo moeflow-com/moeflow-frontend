@@ -1,7 +1,6 @@
 import { css } from '@emotion/core';
 import classNames from 'classnames';
 import React from 'react';
-import { ImageSourceViewerModeControl } from '../ImageSourceViewerModeControl';
 import { FC, Source as ISource } from '@/interfaces';
 import style from '@/style';
 import { Source } from './Source';
@@ -46,7 +45,6 @@ export const ImageSourceViewerGod: FC<ImageSourceViewerGodProps> = ({
         }
       `}
     >
-      <ImageSourceViewerModeControl />
       {sources.map((source, index) => {
         return (
           <Source
