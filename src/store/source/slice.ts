@@ -152,9 +152,39 @@ const slice = createSlice({
         state.sources.splice(index, 1);
       }
     },
-    rerankSourceSaga(state, action: PayloadAction<{id: string, }>) {},
-    rerankSource(state, action: PayloadAction<{}>){
+    rerankSourceSaga(
+      state,
+      action: PayloadAction<{ id: string; next_source_id: string | 'end' }>,
+    ) {
+      // placeholder for the saga worker
+    },
+    rerankSource(
+      state,
+      action: PayloadAction<{ id: string; next_source_id: string | 'end' }>,
+    ) {
+      const index = state.sources.findIndex((s) => s.id === action.payload.id);
+      if (index < 0) {
+        // should not happen
+        return;
+      }
 
+      if (action.payload.next_source_id === 'end') {
+        const [source] = state.sources.splice(index, 1);
+        state.sources.push(source);
+      } else {
+        if (
+          !state.sources.find((s) => s.id === action.payload.next_source_id)
+        ) {
+          // should not happen
+          return;
+        }
+        const [source] = state.sources.splice(index, 1);
+
+        const otherIndex = state.sources.findIndex(
+          (s) => s.id === action.payload.next_source_id,
+        );
+        state.sources.splice(otherIndex, 0, source);
+      }
     },
     focusSource(
       state,

@@ -281,8 +281,12 @@ function* deleteSourceWorker(action: ReturnType<typeof deleteSourceSaga>) {
 }
 
 function rerankSourceWorker(action: ReturnType<typeof rerankSourceSaga>) {
-  const wtf = action.payload.id
+  const { id, next_source_id } = action.payload;
 
+  const f: BasicSuccessResult = yield api.source.rerankSource({
+    sourceID: id,
+    nextSourceID: next_source_id,
+  });
 }
 
 // 翻译部分
