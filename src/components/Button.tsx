@@ -9,11 +9,20 @@ import style from '../style';
 import { clickEffect } from '@/utils/style';
 import { Tooltip, TooltipProps } from './Tooltip';
 
+const sizeMap = {
+  xs: 24,
+  sm: 28,
+  default: 45,
+} as const;
+
 /** 按钮的属性接口 */
 interface ButtonProps {
   tooltipProps?: TooltipProps;
+  /**
+   * defaults to be 'div' but unpreferable
+   */
   elem?: 'button';
-  minSizePx?: number;
+  size?: keyof typeof sizeMap;
   loading?: boolean;
   disabled?: boolean;
   type?: 'button' | 'link';
@@ -34,7 +43,7 @@ interface ButtonProps {
  */
 export const Button: FC<ButtonProps> = ({
   elem = 'div',
-  minSizePx = 45,
+  size = 'default',
   icon,
   tooltipProps,
   iconProps,
@@ -86,13 +95,15 @@ export const Button: FC<ButtonProps> = ({
         'Button--noChildren': !children,
       }),
       css: css`
+        background-color: transparent;
+        border: none;
         .Button__Content {
           padding: 0 ${style.paddingBase}px;
           display: flex;
           justify-content: center;
           align-items: center;
-          height: ${minSizePx}px;
-          min-width: ${minSizePx};
+          height: ${sizeMap[size]}px;
+          min-width: ${sizeMap[size]}px;
           color: ${color};
           font-size: 13px;
           font-weight: bold;

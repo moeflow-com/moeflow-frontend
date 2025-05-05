@@ -5,8 +5,8 @@ import {
 } from 'antd/lib/tooltip';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { AppState } from '../store';
-import { FC } from '../interfaces';
+import { AppState } from '@/store';
+import { FC } from '@/interfaces';
 import { css, Global } from '@emotion/core';
 import style from '../style';
 
