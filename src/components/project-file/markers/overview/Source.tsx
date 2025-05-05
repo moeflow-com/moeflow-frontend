@@ -24,6 +24,7 @@ import { TranslationList } from './TranslationList';
 interface SourceProps {
   source: ISource;
   prevSource?: ISource;
+  nextSource?: ISource;
   next2Source?: ISource;
   targetID: string;
   index: number;
@@ -35,6 +36,7 @@ interface SourceProps {
 export const Source: FC<SourceProps> = ({
   source,
   prevSource,
+  nextSource,
   next2Source,
   targetID,
   index,
@@ -66,7 +68,10 @@ export const Source: FC<SourceProps> = ({
   };
   const handleRerankDown = () => {
     dispatch(
-      rerankSourceSaga({ id: source.id, next_source_id: next2Source!.id }),
+      rerankSourceSaga({
+        id: source.id,
+        next_source_id: next2Source?.id ?? 'end',
+      }),
     );
   };
 
@@ -207,7 +212,7 @@ export const Source: FC<SourceProps> = ({
                 onClick={handleRerankUp}
               />
             )}
-            {next2Source && (
+            {nextSource && (
               <Button
                 className="Source__RerankButton"
                 elem="button"
