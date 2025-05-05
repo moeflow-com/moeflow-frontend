@@ -19,14 +19,15 @@ export const useHotKey: UseHotKey = (option, callback, deps = []) => {
     meta = false,
     keyDown = true,
     keyUp = false,
-    disibled = false,
     preventDefault = true,
     stopPropagation = true,
     ignoreKeyboardElement = true,
   } = option;
 
+  const disabled = option.disabled ?? option.disibled ?? false;
+
   useEffect(() => {
-    if (disibled) return;
+    if (disabled) return;
     const listener = (nativeEvent: KeyboardEvent) => {
       // Ignore modifier keys
       if (MODIFIER_KEY_EVENT_KEYS.includes(nativeEvent.key)) return;
@@ -65,7 +66,7 @@ export const useHotKey: UseHotKey = (option, callback, deps = []) => {
     meta,
     keyDown,
     keyUp,
-    disibled,
+    disabled,
     preventDefault,
     stopPropagation,
     // eslint-disable-next-line react-hooks/exhaustive-deps

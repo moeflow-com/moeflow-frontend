@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { PROJECT_STATUS } from '../../constants';
-import { Project } from '../../interfaces';
+import { PROJECT_STATUS } from '@/constants';
+import { Project } from '@/interfaces';
 
 export interface ProjectsState {
   page: number;

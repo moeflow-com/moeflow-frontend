@@ -1,7 +1,6 @@
 import { css } from '@emotion/core';
 import classNames from 'classnames';
 import React from 'react';
-import { ImageSourceViewerModeControl } from '../ImageSourceViewerModeControl';
 import { FC, Source as ISource } from '@/interfaces';
 import style from '@/style';
 import { Source } from './Source';
@@ -13,7 +12,7 @@ interface ImageSourceViewerGodProps {
   className?: string;
 }
 /**
- * 全能模式
+ * Overview aka 全能模式
  */
 export const ImageSourceViewerGod: FC<ImageSourceViewerGodProps> = ({
   sources,
@@ -46,12 +45,14 @@ export const ImageSourceViewerGod: FC<ImageSourceViewerGodProps> = ({
         }
       `}
     >
-      <ImageSourceViewerModeControl />
       {sources.map((source, index) => {
         return (
           <Source
             className="ImageSourceViewerGod__Source"
             source={source}
+            prevSource={sources[index - 1]}
+            nextSource={sources[index + 1]}
+            next2Source={sources[index + 2]}
             targetID={targetID}
             index={index}
             key={source.id}

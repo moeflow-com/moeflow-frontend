@@ -55,4 +55,6 @@ function createStore() {
   sagaMiddleware.run(rootSaga);
   return store;
 }
-export default createStore();
+
+const store = createStore();
+export default store;

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export type TranslatorMode = 'god' | 'translator' | 'proofreader';
+export type TranslatorMode = 'source' | 'translator' | 'proofreader' | 'god';
 export interface ImageTranslator {
   readonly mode: TranslatorMode;
 }

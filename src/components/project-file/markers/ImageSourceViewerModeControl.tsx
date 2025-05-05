@@ -36,30 +36,45 @@ export const ImageSourceViewerModeControl: FC<
         justify-content: space-evenly;
         align-items: center;
         border-bottom: 1px solid ${style.borderColorBase};
+
         .ImageSourceViewerModeControl__Button {
-          display: flex;
-          justify-content: center;
-          align-items: center;
+          text-align: center;
           background: #eee;
           width: 50%;
+          border: none; // remove UA style
           border-right: 1px solid ${style.borderColorBase};
-          text-align: center;
-          padding: 1px 0;
+          padding: 4px 0;
+
           :last-child {
             border-right: 0;
           }
+
           ${clickEffect(
             `background-color: #f7f7f7;`,
             `background-color: #fff`,
           )};
         }
+
         .ImageSourceViewerModeControl__Button--active {
           background: #fff;
           ${clearClickEffect()};
         }
       `}
     >
-      <div
+      <button
+        type="button"
+        style={{ display: 'none' }}
+        className={classNames('ImageSourceViewerModeControl__Button', {
+          'ImageSourceViewerModeControl__Button--active': mode === 'source',
+        })}
+        onClick={() => {
+          dispatch(setImageTranslatorMode('source'));
+        }}
+      >
+        {formatMessage({ id: 'imageTranslator.markerMode' })}
+      </button>
+      <button
+        type="button"
         className={classNames('ImageSourceViewerModeControl__Button', {
           'ImageSourceViewerModeControl__Button--active': mode === 'translator',
         })}
@@ -68,9 +83,10 @@ export const ImageSourceViewerModeControl: FC<
         }}
       >
         {formatMessage({ id: 'imageTranslator.translatorMode' })}
-      </div>
+      </button>
       {can(currentProject, PROJECT_PERMISSION.PROOFREAD_TRA) && (
-        <div
+        <button
+          type="button"
           className={classNames('ImageSourceViewerModeControl__Button', {
             'ImageSourceViewerModeControl__Button--active':
               mode === 'proofreader',
@@ -80,9 +96,10 @@ export const ImageSourceViewerModeControl: FC<
           }}
         >
           {formatMessage({ id: 'imageTranslator.proofreaderMode' })}
-        </div>
+        </button>
       )}
-      <div
+      <button
+        type="button"
         className={classNames('ImageSourceViewerModeControl__Button', {
           'ImageSourceViewerModeControl__Button--active': mode === 'god',
         })}
@@ -91,7 +108,7 @@ export const ImageSourceViewerModeControl: FC<
         }}
       >
         {formatMessage({ id: 'imageTranslator.godMode' })}
-      </div>
+      </button>
     </div>
   );
 };

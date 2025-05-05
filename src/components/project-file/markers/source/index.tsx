@@ -15,20 +15,20 @@ import style from '@/style';
 import { getBestTranslation } from '@/utils/source';
 import { clickEffect, hover } from '@/utils/style';
 import { can } from '@/utils/user';
-import { ImageSourceViewerModeControl } from './ImageSourceViewerModeControl';
 
-/** 翻译模式的属性接口 */
-interface ImageSourceViewerTranslatorProps {
+interface ImageSourceViewerSourceProps {
   sources: ISource[];
   targetID: string;
   className?: string;
 }
 /**
- * 翻译模式
+ * The panel for source markers and texts
  */
-export const ImageSourceViewerTranslator: FC<
-  ImageSourceViewerTranslatorProps
-> = ({ sources, targetID, className }) => {
+export const ImageSourceViewerSource: FC<ImageSourceViewerSourceProps> = ({
+  sources,
+  targetID,
+  className,
+}) => {
   const { formatMessage } = useIntl();
   const dispatch = useDispatch();
   const platform = useSelector((state: AppState) => state.site.platform);
@@ -103,10 +103,12 @@ export const ImageSourceViewerTranslator: FC<
       className={classNames('ImageSourceViewerTranslator', className)}
       css={css`
         height: 100%;
+
         .ImageSourceViewerTranslator__Translations {
           height: calc(100% - ${bottomHeight}px);
           overflow-y: auto;
         }
+
         .ImageSourceViewerTranslator__Translation {
           display: flex;
           padding: 4px 5px;
@@ -118,23 +120,29 @@ export const ImageSourceViewerTranslator: FC<
             .ImageSourceViewerTranslator__TranslationContentOthersBest {
               color: ${style.textColor};
             }
+
             .ImageSourceViewerTranslator__TranslationContentOthersBestPrefixIcon {
               color: ${style.textColorSecondary};
             }
+
             .ImageSourceViewerTranslator__TranslationContentMine--hasProofread {
               color: ${style.textColor};
             }
           `)};
+
           :last-child {
             border-bottom: 0;
           }
         }
+
         .ImageSourceViewerTranslator__Translation--empty {
           border-left-color: ${style.primaryColorLightest};
         }
+
         .ImageSourceViewerTranslator__Translation--focus {
           background-color: ${style.backgroundFocus};
         }
+
         .ImageSourceViewerTranslator__TranslationIndex {
           flex: none;
           color: ${style.textColorSecondary};
@@ -145,23 +153,28 @@ export const ImageSourceViewerTranslator: FC<
           min-width: 17px;
           text-align: center;
         }
+
         .ImageSourceViewerTranslator__SingleDebounceStatus {
           float: right;
           margin-right: 3px;
         }
+
         .ImageSourceViewerTranslator__TranslationContent {
           flex: auto;
           color: ${style.textColor};
         }
+
         .ImageSourceViewerTranslator__TranslationContentMine {
           width: 100%;
           min-height: 22px;
           white-space: pre-wrap;
           word-break: break-all;
         }
+
         .ImageSourceViewerTranslator__TranslationContentMine--hasProofread {
           color: ${style.textColorSecondary};
         }
+
         .ImageSourceViewerTranslator__TranslationContentMineProofread {
           width: 100%;
           margin-top: 4px;
@@ -170,32 +183,39 @@ export const ImageSourceViewerTranslator: FC<
           white-space: pre-wrap;
           word-break: break-all;
         }
+
         .ImageSourceViewerTranslator__TranslationContentMineProofreadPrefix {
           margin-right: 4px;
         }
+
         .ImageSourceViewerTranslator__TranslationContentMineProofreadPrefixIcon {
           width: 12px;
           color: ${style.textColorSecondary};
         }
+
         .ImageSourceViewerTranslator__TranslationContentOthersBest {
           width: 100%;
           color: ${style.textColorSecondary};
           white-space: pre-wrap;
           word-break: break-all;
         }
+
         .ImageSourceViewerTranslator__TranslationContentOthersBestPrefix {
           margin-right: 4px;
         }
+
         .ImageSourceViewerTranslator__TranslationContentOthersBestPrefixIcon {
           width: 14px;
           color: ${style.textColorSecondaryLighter};
         }
+
         .ImageSourceViewerTranslator__Bottom {
           display: flex;
           flex-direction: column;
           height: ${bottomHeight}px;
           border-top: 3px solid ${style.borderColorBase};
         }
+
         .ImageSourceViewerTranslator__TextArea {
           flex: auto;
           width: 100%;
@@ -203,25 +223,27 @@ export const ImageSourceViewerTranslator: FC<
           border-width: 0;
           padding: 7px 11px;
           resize: none;
+
           &.ant-input {
             border-right-width: 0px !important;
             outline: 0;
             box-shadow: none;
           }
         }
+
         .ImageSourceViewerTranslator__StatusBar {
           background-color: ${style.backgroundColorLight};
           border-top: 1px solid ${style.borderColorBase};
           display: flex;
           padding: 0 5px;
         }
+
         .ImageSourceViewerTranslator__DebounceStatus {
           margin-left: auto;
         }
       `}
     >
       <div className="ImageSourceViewerTranslator__Translations">
-        <ImageSourceViewerModeControl />
         {myTranslations.map((myTranslation, i) => {
           const source = sources[i];
           const othersBestTranslation = othersBestTranslations[i];

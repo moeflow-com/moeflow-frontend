@@ -1,14 +1,14 @@
 import { cancelled, put, select, takeLatest } from 'redux-saga/effects';
-import api from '../../apis';
-import { toLowerCamelCase } from '../../utils';
-import { getCancelToken } from '../../utils/api';
+import { api, BasicSuccessResult } from '@/apis';
+import { toLowerCamelCase } from '@/utils';
+import { getCancelToken } from '@/utils/api';
 import {
   clearCurrentProjectSet,
   setCurrentProjectSet,
   setCurrentProjectSetSaga,
 } from './slice';
 import { AppState } from '..';
-import { UserProjectSet } from '../../interfaces';
+import { UserProjectSet } from '@/interfaces';
 
 // worker Sage
 function* setCurrentProjectSetWorker(
@@ -29,10 +29,11 @@ function* setCurrentProjectSetWorker(
     // 从 API 获取当前 projectSet
     const [cancelToken, cancel] = getCancelToken();
     try {
-      const result = yield api.getProjectSet({
-        id: action.payload.id,
-        configs: { cancelToken },
-      });
+      const result: BasicSuccessResult<UserProjectSet> =
+        yield api.projectSet.getProjectSet({
+          id: action.payload.id,
+          configs: { cancelToken },
+        });
       yield put(setCurrentProjectSet(toLowerCamelCase(result.data)));
     } catch (error) {
       error.default();

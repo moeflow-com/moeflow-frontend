@@ -60,7 +60,7 @@ export const ImageSelect: FC<ImageSelectProps> = ({
       })
       .then((result) => {
         const data = toLowerCamelCase(result.data);
-        setTotal(result.headers['x-pagination-count']);
+        setTotal(Number(result.headers['x-pagination-count']));
         let newImages = data;
         if (images && !replace) {
           newImages = [...images, ...data];

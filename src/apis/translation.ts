@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 import { request } from '.';
-import { toUnderScoreCase } from '../utils';
+import { toUnderScoreCase } from '@/utils';
 import { APISource } from './source';
 import { APITarget } from './target';
 import { APIUser } from './user';

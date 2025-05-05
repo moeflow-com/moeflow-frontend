@@ -1,14 +1,16 @@
 import { css } from '@emotion/core';
 import classNames from 'classnames';
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { FC, File } from '@/interfaces';
 import { Source as ISource } from '@/interfaces/source';
 import { AppState } from '@/store';
 import { TranslationSaveFailed } from './TranslationSaveFailed';
-import { ImageSourceViewerGod } from './ImageSourceViewerGod';
-import { ImageSourceViewerTranslator } from './ImageSourceViewerTranslator';
-import { ImageSourceViewerProofreader } from './ImageSourceViewerProofreader';
+import { ImageSourceViewerSource } from './source';
+import { ImageSourceViewerTranslator } from './translate';
+import { ImageSourceViewerProofreader } from './proofread';
+import { ImageSourceViewerGod } from './overview';
+import { useIntl } from 'react-intl';
+import { ImageSourceViewerModeControl } from '@/components/project-file/markers/ImageSourceViewerModeControl';
 
 /** 原文列表的属性接口 */
 interface ImageSourceViewerProps {
@@ -31,6 +33,7 @@ export const ImageSourceViewer: FC<ImageSourceViewerProps> = ({
   const platform = useSelector((state: AppState) => state.site.platform);
   const isMobile = platform === 'mobile';
   const mode = useSelector((state: AppState) => state.imageTranslator.mode);
+  const { formatMessage } = useIntl();
 
   return (
     <div
@@ -59,8 +62,12 @@ export const ImageSourceViewer: FC<ImageSourceViewerProps> = ({
           <TranslationSaveFailed sources={sources} targetID={targetID} />
           {sources.length > 0 ? (
             <div className="ImageSourceViewer__List">
-              {mode === 'god' && (
-                <ImageSourceViewerGod sources={sources} targetID={targetID} />
+              <ImageSourceViewerModeControl />
+              {mode === 'source' && (
+                <ImageSourceViewerSource
+                  sources={sources}
+                  targetID={targetID}
+                />
               )}
               {mode === 'translator' && (
                 <ImageSourceViewerTranslator
@@ -75,17 +82,40 @@ export const ImageSourceViewer: FC<ImageSourceViewerProps> = ({
                   targetID={targetID}
                 />
               )}
+              {mode === 'god' && (
+                <ImageSourceViewerGod sources={sources} targetID={targetID} />
+              )}
             </div>
           ) : isMobile ? (
             <div className="ImageSourceViewer__Empty">
-              <div>点击图片新增框内标记</div>
-              <div>长按标记来删除标记</div>
+              <div>
+                {formatMessage({
+                  id: 'imageTranslator.sourceViewer.tapToMarkSource',
+                })}
+              </div>
+              <div>
+                {formatMessage({
+                  id: 'imageTranslator.sourceViewer.longTapToRemoveMark',
+                })}
+              </div>
             </div>
           ) : (
             <div className="ImageSourceViewer__Empty">
-              <div>左键点击图片新增框内标记</div>
-              <div>右键点击图片新增框外标记</div>
-              <div>右键点击标记来删除标记</div>
+              <div>
+                {formatMessage({
+                  id: 'imageTranslator.sourceViewer.leftClickToMarkSource',
+                })}
+              </div>
+              <div>
+                {formatMessage({
+                  id: 'imageTranslator.sourceViewer.rightClickToMarkSource',
+                })}
+              </div>
+              <div>
+                {formatMessage({
+                  id: 'imageTranslator.sourceViewer.rightClickMarkToRemove',
+                })}
+              </div>
             </div>
           )}
         </>

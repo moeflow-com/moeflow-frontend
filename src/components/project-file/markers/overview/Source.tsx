@@ -4,13 +4,17 @@ import classNames from 'classnames';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import { Icon } from '@/components';
+import { Icon, Button } from '@/components';
 import { PROJECT_PERMISSION } from '@/constants';
 import { SOURCE_POSITION_TYPE } from '@/constants/source';
 import { FC } from '@/interfaces';
 import { Source as ISource } from '@/interfaces/source';
 import { AppState } from '@/store';
-import { editSourceSaga, focusSource } from '@/store/source/slice';
+import {
+  editSourceSaga,
+  focusSource,
+  rerankSourceSaga,
+} from '@/store/source/slice';
 import style from '@/style';
 import { checkTranslationState } from '@/utils/source';
 import { can } from '@/utils/user';
@@ -19,15 +23,21 @@ import { TranslationList } from './TranslationList';
 /** 原文的属性接口 */
 interface SourceProps {
   source: ISource;
+  prevSource?: ISource;
+  nextSource?: ISource;
+  next2Source?: ISource;
   targetID: string;
   index: number;
   className?: string;
 }
 /**
- * 原文
+ * An item in Overview tab
  */
 export const Source: FC<SourceProps> = ({
   source,
+  prevSource,
+  nextSource,
+  next2Source,
   targetID,
   index,
   className,
@@ -47,6 +57,20 @@ export const Source: FC<SourceProps> = ({
         positionType: checked
           ? SOURCE_POSITION_TYPE.IN
           : SOURCE_POSITION_TYPE.OUT,
+      }),
+    );
+  };
+
+  const handleRerankUp = () => {
+    dispatch(
+      rerankSourceSaga({ id: source.id, next_source_id: prevSource!.id }),
+    );
+  };
+  const handleRerankDown = () => {
+    dispatch(
+      rerankSourceSaga({
+        id: source.id,
+        next_source_id: next2Source?.id ?? 'end',
       }),
     );
   };
@@ -124,9 +148,15 @@ export const Source: FC<SourceProps> = ({
           color: ${style.textColorSecondary};
         }
         .Source__Info {
-          flex: none;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
           min-width: 18px;
           border-right: 1px solid ${style.borderColorLight};
+
+          > .Source__RerankButton {
+            margin-top: 8px;
+          }
         }
         .Source__Index {
           text-align: center;
@@ -170,6 +200,30 @@ export const Source: FC<SourceProps> = ({
         <div className="Source__ContentTop">
           <div className="Source__Info">
             <div className="Source__Index">{index + 1}</div>
+            {prevSource && (
+              <Button
+                className="Source__RerankButton"
+                elem="button"
+                size="sm"
+                icon="chevron-up"
+                tooltipProps={{
+                  title: formatMessage({ id: 'imageTranslator.rerankUp' }),
+                }}
+                onClick={handleRerankUp}
+              />
+            )}
+            {nextSource && (
+              <Button
+                className="Source__RerankButton"
+                elem="button"
+                size="sm"
+                icon="chevron-down"
+                tooltipProps={{
+                  title: formatMessage({ id: 'imageTranslator.rerankDown' }),
+                }}
+                onClick={handleRerankDown}
+              />
+            )}
           </div>
           <div className="Source__TranslaitonListWrapper">
             <TranslationList
@@ -183,7 +237,7 @@ export const Source: FC<SourceProps> = ({
         </div>
         <div className="Source__ContentBottom">
           <div className="Source__ContentBottomIconWrapper">
-            <Icon className="Source__ContentBottomIcon" icon="tag"></Icon>
+            <Icon className="Source__ContentBottomIcon" icon="tag" />
           </div>
           {can(currentProject, PROJECT_PERMISSION.MOVE_LABEL) ? (
             <Switch

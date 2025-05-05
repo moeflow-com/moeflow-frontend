@@ -4,12 +4,12 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import qs from 'qs';
 import { createElement } from 'react';
 import { Icon } from '../components';
-import { configs } from '../configs';
-import { createDebugLogger } from '../utils/debug-logger';
-import { getIntl } from '../locales';
+import { configs } from '@/configs';
+import { createDebugLogger } from '@/utils/debug-logger';
+import { getIntl } from '@/locales';
 import store from '../store';
-import { setUserToken } from '../store/user/slice';
-import { toFormErrors, toLowerCamelCase } from '../utils';
+import { setUserToken } from '@/store/user/slice';
+import { toFormErrors, toLowerCamelCase } from '@/utils';
 import application from './application';
 import auth from './auth';
 import file from './file';
@@ -84,10 +84,10 @@ export const resultTypes = {
 } as const;
 
 /** 成功的响应 */
-export interface BasicSuccessResult<T = any> {
+export interface BasicSuccessResult<T = unknown> {
   type: typeof resultTypes.SUCCESS;
   data: T;
-  headers: any;
+  headers: Record<string, string>;
 }
 
 /** 基础错误响应结果的数据 */
@@ -282,7 +282,7 @@ export const api = {
   group,
   insight,
   instance,
-  invitation,
+  // invitation,
   language,
   // mitPreprocess,
   me,

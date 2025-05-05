@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { BatchSelectTranslationData } from '../../apis/translation';
-import { InputDebounceStatus, Source } from '../../interfaces';
-import { User } from '../../interfaces/user';
+import { BatchSelectTranslationData } from '@/apis/translation';
+import { InputDebounceStatus, Source } from '@/interfaces';
+import { User } from '@/interfaces/user';
 
 export type SavingStatus = 'saving' | 'saveSuccessful' | 'saveFailed';
 export type FocusEffect = 'focusInput' | 'focusLabel' | 'scrollIntoView';
@@ -85,6 +85,7 @@ const slice = createSlice({
         id: string;
         x?: number;
         y?: number;
+        content?: string;
         positionType?: number;
         reset?: () => void;
       }>,
@@ -151,15 +152,49 @@ const slice = createSlice({
         state.sources.splice(index, 1);
       }
     },
+    rerankSourceSaga(
+      state,
+      action: PayloadAction<{ id: string; next_source_id: string | 'end' }>,
+    ) {
+      // placeholder for the saga worker
+    },
+    rerankSource(
+      state,
+      action: PayloadAction<{ id: string; next_source_id: string | 'end' }>,
+    ) {
+      const index = state.sources.findIndex((s) => s.id === action.payload.id);
+      if (index < 0) {
+        // should not happen
+        return;
+      }
+
+      if (action.payload.next_source_id === 'end') {
+        const [source] = state.sources.splice(index, 1);
+        state.sources.push(source);
+      } else {
+        if (
+          !state.sources.find((s) => s.id === action.payload.next_source_id)
+        ) {
+          // should not happen
+          return;
+        }
+        const [source] = state.sources.splice(index, 1);
+
+        const otherIndex = state.sources.findIndex(
+          (s) => s.id === action.payload.next_source_id,
+        );
+        state.sources.splice(otherIndex, 0, source);
+      }
+    },
     focusSource(
       state,
       action: PayloadAction<{
         id: string;
-        effects: FocusEffect[];
-        noises: FocusEffect[];
+        effects?: FocusEffect[];
+        noises?: FocusEffect[];
       }>,
     ) {
-      const { id, effects, noises = [] } = action.payload;
+      const { id, effects = [], noises = [] } = action.payload;
       const timestamp = new Date().getTime().toString();
       // 添加噪声
       const newNoises = { ...state.focusedSource.noises };
@@ -308,6 +343,8 @@ export const {
   editSourceSaga,
   editSource,
   editSourceMyTranslationContent,
+  rerankSourceSaga,
+  rerankSource,
   deleteSourceSaga,
   deleteSource,
   focusSource,
