@@ -190,11 +190,11 @@ const slice = createSlice({
       state,
       action: PayloadAction<{
         id: string;
-        effects: FocusEffect[];
-        noises: FocusEffect[];
+        effects?: FocusEffect[];
+        noises?: FocusEffect[];
       }>,
     ) {
-      const { id, effects, noises = [] } = action.payload;
+      const { id, effects = [], noises = [] } = action.payload;
       const timestamp = new Date().getTime().toString();
       // 添加噪声
       const newNoises = { ...state.focusedSource.noises };

@@ -280,13 +280,15 @@ function* deleteSourceWorker(action: ReturnType<typeof deleteSourceSaga>) {
   }
 }
 
-function rerankSourceWorker(action: ReturnType<typeof rerankSourceSaga>) {
+function* rerankSourceWorker(action: ReturnType<typeof rerankSourceSaga>) {
   const { id, next_source_id } = action.payload;
 
-  const f: BasicSuccessResult = yield api.source.rerankSource({
+  yield api.source.rerankSource({
     sourceID: id,
     nextSourceID: next_source_id,
   });
+  yield put(rerankSource({ id, next_source_id }));
+  yield put(focusSource({ id }));
 }
 
 // 翻译部分

@@ -50,6 +50,8 @@ export const ImageSourceViewerGod: FC<ImageSourceViewerGodProps> = ({
           <Source
             className="ImageSourceViewerGod__Source"
             source={source}
+            prevSource={sources[index - 1]}
+            next2Source={sources[index + 2]}
             targetID={targetID}
             index={index}
             key={source.id}
