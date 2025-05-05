@@ -29,7 +29,6 @@ export const ImageSourceViewerSource: FC<ImageSourceViewerSourceProps> = ({
   targetID,
   className,
 }) => {
-  throw new Error(`not implemented`);
   const { formatMessage } = useIntl();
   const dispatch = useDispatch();
   const platform = useSelector((state: AppState) => state.site.platform);
