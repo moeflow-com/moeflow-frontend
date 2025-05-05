@@ -1010,6 +1010,12 @@ imageTranslator.translatorMode:
 imageTranslator.godMode:
   zhCn: 全能模式
   en: Overview
+imageTranslator.rerankUp:
+  zhCn: 上移
+  en: Move up
+imageTranslator.rerankDown:
+  zhCn: 下移
+  en: Move down
 imageTranslator.markerMode:
   zhCn: 标记模式
   en: Sources
