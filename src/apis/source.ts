@@ -65,11 +65,18 @@ const createSource = ({
 /**
  * move source identified by {@name sourceID} to its new position identified by {@name nextSourceID}
  */
-const rerankSource = ({sourceID, nextSourceID}: {sourceID: string, nextSourceID: string | 'end'}) => request<unknown>({
-  method: 'PUT',
-  url: `/v1/sources/${sourceID}/rank`,
-  data: toUnderScoreCase({ nextSourceID })
-})
+const rerankSource = ({
+  sourceID,
+  nextSourceID,
+}: {
+  sourceID: string;
+  nextSourceID: string | 'end';
+}) =>
+  request<unknown>({
+    method: 'PUT',
+    url: `/v1/sources/${sourceID}/rank`,
+    data: toUnderScoreCase({ nextSourceID }),
+  });
 
 /** 修改原文的请求数据 */
 interface EditSourceData {
