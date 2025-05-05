@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import { Icon } from '@/components';
+import { Icon, Button } from '@/components';
 import { PROJECT_PERMISSION } from '@/constants';
 import { SOURCE_POSITION_TYPE } from '@/constants/source';
 import { FC } from '@/interfaces';
@@ -145,11 +145,12 @@ export const Source: FC<SourceProps> = ({
         .Source__Info {
           display: flex;
           flex-direction: column;
+          align-items: center;
           min-width: 18px;
           border-right: 1px solid ${style.borderColorLight};
 
           > .Source__RerankButton {
-            font-size: 16px;
+            margin-top: 8px;
           }
         }
         .Source__Index {
@@ -195,22 +196,28 @@ export const Source: FC<SourceProps> = ({
           <div className="Source__Info">
             <div className="Source__Index">{index + 1}</div>
             {prevSource && (
-              <button
+              <Button
                 className="Source__RerankButton"
-                type="button"
+                elem="button"
+                size="sm"
+                icon="chevron-up"
+                tooltipProps={{
+                  title: formatMessage({ id: 'imageTranslator.rerankUp' }),
+                }}
                 onClick={handleRerankUp}
-              >
-                up
-              </button>
+              />
             )}
             {next2Source && (
-              <button
+              <Button
                 className="Source__RerankButton"
-                type="button"
+                elem="button"
+                size="sm"
+                icon="chevron-down"
+                tooltipProps={{
+                  title: formatMessage({ id: 'imageTranslator.rerankDown' }),
+                }}
                 onClick={handleRerankDown}
-              >
-                down
-              </button>
+              />
             )}
           </div>
           <div className="Source__TranslaitonListWrapper">
@@ -225,7 +232,7 @@ export const Source: FC<SourceProps> = ({
         </div>
         <div className="Source__ContentBottom">
           <div className="Source__ContentBottomIconWrapper">
-            <Icon className="Source__ContentBottomIcon" icon="tag"></Icon>
+            <Icon className="Source__ContentBottomIcon" icon="tag" />
           </div>
           {can(currentProject, PROJECT_PERMISSION.MOVE_LABEL) ? (
             <Switch
