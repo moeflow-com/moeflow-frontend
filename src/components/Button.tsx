@@ -1,17 +1,19 @@
-import { css } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import React from 'react';
+import type React from 'react';
 import { Icon } from '.';
-import { FC } from '../interfaces';
+import { FC } from '@/interfaces';
 import style from '../style';
-import { clickEffect } from '../utils/style';
+import { clickEffect } from '@/utils/style';
 import { Tooltip, TooltipProps } from './Tooltip';
 
 /** 按钮的属性接口 */
 interface ButtonProps {
   tooltipProps?: TooltipProps;
+  elem?: 'button';
+  minSizePx?: number;
   loading?: boolean;
   disabled?: boolean;
   type?: 'button' | 'link';
@@ -26,10 +28,13 @@ interface ButtonProps {
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   className?: string;
 }
+
 /**
  * 模板
  */
 export const Button: FC<ButtonProps> = ({
+  elem = 'div',
+  minSizePx = 45,
   icon,
   tooltipProps,
   iconProps,
@@ -61,7 +66,7 @@ export const Button: FC<ButtonProps> = ({
       {children}
     </>
   );
-  const buttonContent =
+  let buttonContent =
     type === 'link' ? (
       <a className="Button__Content" {...linkProps}>
         {buttonContentInner}
@@ -69,21 +74,25 @@ export const Button: FC<ButtonProps> = ({
     ) : (
       <div className="Button__Content">{buttonContentInner}</div>
     );
+  if (tooltipProps) {
+    buttonContent = <Tooltip {...tooltipProps}>{buttonContent}</Tooltip>;
+  }
 
-  return (
-    <div
-      className={classNames('Button', className, {
-        'Button--disibled': disabled || loading,
+  return jsx(
+    elem ?? 'div',
+    {
+      className: classNames('Button', className, {
+        'Button--disabled': disabled || loading,
         'Button--noChildren': !children,
-      })}
-      css={css`
+      }),
+      css: css`
         .Button__Content {
           padding: 0 ${style.paddingBase}px;
           display: flex;
           justify-content: center;
           align-items: center;
-          height: 45px;
-          min-width: 45px;
+          height: ${minSizePx}px;
+          min-width: ${minSizePx};
           color: ${color};
           font-size: 13px;
           font-weight: bold;
@@ -99,7 +108,7 @@ export const Button: FC<ButtonProps> = ({
           margin-right: 10px;
         }
         ${disabled || loading || clickEffect()}
-        &.Button--disibled {
+        &.Button--disabled {
           cursor: not-allowed;
           user-select: none;
           .Button__Icon,
@@ -119,14 +128,9 @@ export const Button: FC<ButtonProps> = ({
             }
           }
         }
-      `}
-      onClick={disabled || loading ? undefined : onClick}
-    >
-      {tooltipProps ? (
-        <Tooltip {...tooltipProps}>{buttonContent}</Tooltip>
-      ) : (
-        buttonContent
-      )}
-    </div>
+      `,
+      onClick: disabled || loading ? undefined : onClick,
+    },
+    buttonContent,
   );
 };
