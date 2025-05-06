@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import { api } from '@/apis';
 import { useHotKey } from '@/components';
 import { ImageViewer, ImageSourceViewer } from '@/components/project-file';
-import { FC, File } from '@/interfaces';
+import { FC } from '@/interfaces';
 import { AppState } from '@/store';
 import { setCurrentProjectSaga } from '@/store/project/slice';
 import { fetchSourcesSaga, focusSource } from '@/store/source/slice';
@@ -17,6 +17,7 @@ import { getCancelToken } from '@/utils/api';
 import { useTitle } from '@/hooks';
 import { ImageTranslatorSettingMouse } from '@/components/project-file/ImageTranslatorSettingMouse';
 import { ImageTranslatorSettingHotKey } from '@/components/project-file/ImageTranslatorSettingHotKey';
+import { GetFileReturn } from '@/apis/file';
 
 /**
  * 全屏显示的图片翻译器
@@ -37,7 +38,7 @@ const ImageTranslator: FC = () => {
   const isMobile = platform === 'mobile';
   const osName = useSelector((state: AppState) => state.site.osName);
   const isIOS = osName === 'ios';
-  const [file, setFile] = useState<File>();
+  const [file, setFile] = useState<GetFileReturn>();
   const sourceListWidth = 400;
   const sourceListHeightMobile = 200;
   const [settingModalVisible, setSettingModalVisible] = useState(false);
@@ -283,6 +284,7 @@ const ImageTranslator: FC = () => {
       {file && (
         <ImageViewer
           className="ImageTranslator__ImageViewer"
+          projectId={file.projectID}
           file={file}
           targetID={targetID}
           labels={sources}

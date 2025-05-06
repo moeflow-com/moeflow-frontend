@@ -33,6 +33,7 @@ import { MovableAreaColorBackground } from './MovableAreaColorBackground';
 import { MovableAreaImageBackground } from './MovableAreaImageBackground';
 import { MovableLabel } from './MovableLabel';
 import { Tooltip } from '@/components/Tooltip';
+import { routes } from '@/pages/routes';
 
 /**
  * 🖥浏览器识别
@@ -61,6 +62,7 @@ export interface OnCreateLabel {
 /** 图片翻译标记器的属性接口 */
 interface ImageViewerProps {
   file: File;
+  projectId: string;
   targetID: string;
   width: number;
   height: number;
@@ -74,6 +76,7 @@ interface ImageViewerProps {
  */
 export const ImageViewer: FC<ImageViewerProps> = ({
   file,
+  projectId,
   targetID,
   width: imageAreaWidth,
   height: imageAreaHeight,
@@ -450,6 +453,17 @@ export const ImageViewer: FC<ImageViewerProps> = ({
     <div></div>
   );
 
+  const goBack = () => {
+    if (history.length > 2) {
+      history.goBack();
+    } else {
+      // replace when there is no previous state
+      history.replace(
+        routes.dashboard.project.show.replace(':projectId', projectId),
+      );
+    }
+  };
+
   // 标签
   const movableLabels = labels.map((label: Label, index) => {
     const bestTranslation = getBestTranslation(label);
@@ -621,15 +635,13 @@ export const ImageViewer: FC<ImageViewerProps> = ({
                   id: 'imageTranslator.leaveTip',
                 }),
                 icon: <ExclamationCircleOutlined />,
-                onOk: () => {
-                  history.goBack();
-                },
+                onOk: goBack,
                 onCancel: () => {},
                 okText: formatMessage({ id: 'form.ok' }),
                 cancelText: formatMessage({ id: 'form.cancel' }),
               });
             } else {
-              history.goBack();
+              goBack();
             }
           }}
         >

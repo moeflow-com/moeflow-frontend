@@ -3,10 +3,10 @@
  */
 import { request } from '.';
 import { AxiosRequestConfig } from 'axios';
-import { toUnderScoreCase } from '../utils';
+import { toUnderScoreCase } from '@/utils';
 import { PaginationParams } from '.';
-import { File } from '../interfaces';
-import { FileSafeStatuses } from '../constants';
+import { File } from '@/interfaces';
+import { FileSafeStatuses } from '@/constants';
 
 /** 获取项目中文件列表的请求数据 */
 interface GetProjectFilesParams {
@@ -35,7 +35,7 @@ const getProjectFiles = ({
 interface GetFileParams {
   target?: string;
 }
-interface GetFileReturn extends File {
+export interface GetFileReturn extends File {
   projectID: string;
 }
 /** 获取文件 */
