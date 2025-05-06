@@ -17,11 +17,11 @@ import {
   TabBarM,
   Tooltip,
 } from '../components';
-import { useTitle } from '../hooks';
-import { FC } from '../interfaces';
-import { AppState } from '../store';
-import { clearCurrentProjectSet } from '../store/projectSet/slice';
-import { clearCurrentTeam } from '../store/team/slice';
+import { useTitle } from '@/hooks';
+import { FC } from '@/interfaces';
+import { AppState } from '@/store';
+import { clearCurrentProjectSet } from '@/store/projectSet/slice';
+import { clearCurrentTeam } from '@/store/team/slice';
 import style from '../style';
 import Project from './Project';
 

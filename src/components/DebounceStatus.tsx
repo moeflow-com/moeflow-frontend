@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { Icon } from '.';
-import { FC, InputDebounceStatus } from '../interfaces';
+import { FC, InputDebounceStatus } from '@/interfaces';
 import style from '../style';
 
 /** 输入框防抖状态的属性接口 */
