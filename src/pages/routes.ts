@@ -21,8 +21,5 @@ export const routes = {
     build: (fileId: string, targetId: string) =>
       `/image-translator/${fileId}-${targetId}`,
   },
-  mit: {
-    preprocessDemo: '/mit/preprocess-demo',
-  },
   admin: '/admin',
 } as const;
