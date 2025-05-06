@@ -1,11 +1,11 @@
 import { GroupTypes } from './type';
 import { request, PaginationParams } from '.';
-import { toPlural, toUnderScoreCase } from '../utils';
+import { toPlural, toUnderScoreCase } from '@/utils';
 import { AxiosRequestConfig } from 'axios';
 import { APIUser } from './user';
-import { Role, UserTeam } from '../interfaces';
+import { Role, UserTeam } from '@/interfaces';
 import { APIProject } from './project';
-import { ApplicationStatuses } from '../constants';
+import { ApplicationStatuses } from '@/constants';
 
 export interface APIBaseApplication {
   id: string;

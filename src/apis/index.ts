@@ -43,7 +43,7 @@ let languageInterceptor: number | null = null;
 
 /**
  * @param l
- * (as backend User.locale is not used , this solely determines backend locale)
+ * (as backend User.locale is not used , this solely determines locale in backend API handler)
  */
 export function setRequestLanguage(l: string) {
   // Remove existing interceptor if any
@@ -150,9 +150,9 @@ export type FailureResults =
   | CancelFailureResult
   | OtherFailureResult;
 
-export const request = <T = unknown>(
+export async function request<T = unknown>(
   axiosConfig: AxiosRequestConfig,
-): Promise<BasicSuccessResult<T>> => {
+): Promise<BasicSuccessResult<T>> {
   return instance({
     // param=value1&param=value2，去除 query 中数组的 [] 结尾
     paramsSerializer: function (params) {
@@ -231,7 +231,7 @@ export const request = <T = unknown>(
         }
       }
     });
-};
+}
 
 /** 基础错误的默认行为 [生成器] */
 const defaultBasicFailure = (data: BasicFailureResultData) => {

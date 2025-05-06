@@ -9,8 +9,8 @@ import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Button, EmptyTip, FileItem, List, OutputList } from '.';
-import apis, { resultTypes } from '../apis';
-import { configs } from '../configs';
+import { api, resultTypes } from '../apis';
+import { configs } from '@/configs';
 import {
   FILE_NOT_EXIST_REASON,
   FILE_SAFE_STATUS,
@@ -18,13 +18,13 @@ import {
   IMAGE_COVER,
   PARSE_STATUS,
   PROJECT_PERMISSION,
-} from '../constants';
-import { FC, File, Project, Target, Team } from '../interfaces';
-import { AppState } from '../store';
-import { setFilesState } from '../store/file/slice';
+} from '@/constants';
+import { FC, File, Project, Target, Team } from '@/interfaces';
+import { AppState } from '@/store';
+import { setFilesState } from '@/store/file/slice';
 import style from '../style';
-import { toLowerCamelCase } from '../utils';
-import { can } from '../utils/user';
+import { toLowerCamelCase } from '@/utils';
+import { can } from '@/utils/user';
 
 /** 文件列表的属性接口 */
 interface FileListProps {
@@ -78,7 +78,7 @@ export const FileList: FC<FileListProps> = ({
 
   useEffect(() => {
     if (!currentTeam) {
-      apis.getProject({ id: project.id }).then((result) => {
+      api.project.getProject({ id: project.id }).then((result) => {
         const data = toLowerCamelCase(result.data);
         setTeam(data.team);
       });
@@ -101,7 +101,7 @@ export const FileList: FC<FileListProps> = ({
       ),
       onOk: () => {
         setSpinningIDs((ids) => [file.id, ...ids]);
-        apis
+        api.file
           .deleteFile({
             id: file.id,
           })
@@ -138,7 +138,7 @@ export const FileList: FC<FileListProps> = ({
     cancelToken: CancelToken;
   }) => {
     setLoading(true);
-    return apis
+    return api.file
       .getProjectFiles({
         projectID: project.id,
         params: {

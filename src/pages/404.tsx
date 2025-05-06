@@ -1,4 +1,4 @@
-import { useTitle } from '../hooks';
+import { useTitle } from '@/hooks';
 import { useHistory } from 'react-router-dom';
 import { FC, useEffect } from 'react';
 
