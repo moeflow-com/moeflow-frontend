@@ -7,7 +7,7 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import url from 'node:url';
 
 const ___dirname = path.dirname(url.fileURLToPath(import.meta.url));
-const componentsDir = path.join(___dirname, './src/components');
+const moeflowSrc = path.join(___dirname, './src');
 
 /**
  * Develop with a bare Python API server
@@ -70,8 +70,8 @@ export default defineConfig({
             return 'vendor-rc';
           }
 
-          if (id.includes(componentsDir)) {
-            return 'moeflow-components';
+          if (id.includes(moeflowSrc)) {
+            return 'moeflow';
           }
 
           if (id.includes('node_modules/')) {
