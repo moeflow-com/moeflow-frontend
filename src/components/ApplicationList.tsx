@@ -6,22 +6,22 @@ import React, { useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { Avatar, EmptyTip, Icon, List, ListItem, RoleSelect } from '.';
-import api, { resultTypes } from '../apis';
-import { APIApplication } from '../apis/application';
-import { GroupTypes } from '../apis/type';
+import { api, resultTypes } from '@/apis';
+import { APIApplication } from '@/apis/application';
+import { GroupTypes } from '@/apis/type';
 import {
   APPLICATION_STATUS,
   PROJECT_PERMISSION,
   TEAM_PERMISSION,
-} from '../constants';
-import { FC, Project, UserTeam } from '../interfaces';
-import { AppState } from '../store';
-import { setRelatedApplicationsCount } from '../store/site/slice';
+} from '@/constants';
+import { FC, Project, UserTeam } from '@/interfaces';
+import { AppState } from '@/store';
+import { setRelatedApplicationsCount } from '@/store/site/slice';
 import style from '../style';
-import { toLowerCamelCase } from '../utils';
-import { formatGroupType } from '../utils/i18n';
-import { clickEffect } from '../utils/style';
-import { can } from '../utils/user';
+import { toLowerCamelCase } from '@/utils';
+import { formatGroupType } from '@/utils/i18n';
+import { clickEffect } from '@/utils/style';
+import { can } from '@/utils/user';
 import { Spin } from './Spin';
 
 /** 申请管理页的属性接口 */
@@ -56,7 +56,7 @@ export const ApplicationList: FC<ApplicationListProps> = ({
   /** 处理申请 */
   const dealApplication = (application: APIApplication, allow: boolean) => {
     setSpinningIDs((ids) => [application.id, ...ids]);
-    api
+    api.application
       .dealApplication({
         applicationID: application.id,
         data: { allow },
@@ -96,7 +96,7 @@ export const ApplicationList: FC<ApplicationListProps> = ({
     roleID: string;
   }) => {
     setSpinningIDs((ids) => [application.id, ...ids]);
-    api
+    api.member
       .editMember({
         groupID: application.group.id,
         groupType: application.group.groupType,
@@ -148,7 +148,7 @@ export const ApplicationList: FC<ApplicationListProps> = ({
     setLoading(true);
     let getApplications;
     if (type === 'group') {
-      getApplications = api.getApplications({
+      getApplications = api.application.getApplications({
         groupType: groupType!,
         groupID: currentGroup!.id,
         params: {
@@ -160,7 +160,7 @@ export const ApplicationList: FC<ApplicationListProps> = ({
         },
       });
     } else {
-      getApplications = api.getRelatedApplications({
+      getApplications = api.me.getRelatedApplications({
         params: {
           page,
           limit: pageSize,
@@ -174,7 +174,7 @@ export const ApplicationList: FC<ApplicationListProps> = ({
     getApplications
       .then((result) => {
         // 设置数量
-        setTotal(result.headers['x-pagination-count']);
+        setTotal(Number(result.headers['x-pagination-count']));
         setLoading(false);
         // 转成大写
         setItems(result.data?.map((item) => toLowerCamelCase(item)));
