@@ -1,5 +1,5 @@
 import { Cookies } from 'react-cookie';
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 const cookies = new Cookies();
 

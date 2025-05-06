@@ -2,8 +2,8 @@ import { css } from '@emotion/core';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useHistory } from 'react-router-dom';
-import { useTitle } from '../hooks';
-import { FC } from '../interfaces';
+import { useTitle } from '@/hooks';
+import { FC } from '@/interfaces';
 
 /** 模板的属性接口 */
 interface TmpProps {}

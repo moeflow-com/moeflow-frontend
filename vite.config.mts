@@ -7,7 +7,7 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import url from 'node:url';
 
 const ___dirname = path.dirname(url.fileURLToPath(import.meta.url));
-const componentsDir = path.join(___dirname, './src/components');
+const moeflowSrc = path.join(___dirname, './src');
 
 /**
  * Develop with a bare Python API server
@@ -47,7 +47,14 @@ export default defineConfig({
         manualChunks(id, meta) {
           for (const [key, value] of Object.entries({
             antd: 'antd',
+            '@ant-design': 'antd',
             'antd-mobile': 'antd',
+            axios: 'base',
+            '@fortawesome': 'base',
+            'core-js': 'base',
+            lodash: 'base',
+            'lodash-es': 'base',
+            '@emotion': 'base',
             react: 'base',
             'react-dom': 'base',
             scheduler: 'base',
@@ -59,13 +66,16 @@ export default defineConfig({
             }
           }
 
-          if (false && id.includes(componentsDir)) {
-            // splitting this way creates a larger chunk wtf
-            return 'moeflow-components';
+          if (/node_modules\/@?rc-/i.test(id)) {
+            return 'vendor-rc';
           }
 
-          if (false && id.includes('node_modules/')) {
-            return `vendor-${hashModuleId(id)}`;
+          if (id.includes(moeflowSrc)) {
+            return 'moeflow';
+          }
+
+          if (id.includes('node_modules/')) {
+            return `vendor-other`;
           }
 
           return null;
@@ -76,10 +86,6 @@ export default defineConfig({
   define: {
     'process.env.REACT_APP_BASE_URL': JSON.stringify(
       process.env.REACT_APP_BASE_URL ?? '/api/',
-    ),
-    // works as feature flag
-    'process.env.MIT_BACKEND_URL': JSON.stringify(
-      process.env.MIT_BACKEND_URL ?? (null && '/api/'),
     ),
   },
   resolve: {

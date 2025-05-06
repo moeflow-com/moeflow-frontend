@@ -4,7 +4,7 @@ import TextArea from 'antd/lib/input/TextArea';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
-import apis from '@/apis';
+import { api } from '@/apis';
 import { APISiteSetting } from '@/apis/siteSetting';
 import { FC } from '@/interfaces';
 import { toLowerCamelCase } from '@/utils';
@@ -50,7 +50,7 @@ export const AdminSiteSetting: FC<AdminSiteSettingProps> = ({ className }) => {
   }
 
   const handleFinish = (values: APISiteSettingFormData) => {
-    apis
+    api.siteSetting
       .editSiteSetting({
         data: {
           ...values,
@@ -99,7 +99,7 @@ export const AdminSiteSetting: FC<AdminSiteSettingProps> = ({ className }) => {
   };
 
   useEffect(() => {
-    apis
+    api.siteSetting
       .getSiteSetting({})
       .then((result) => {
         const data = toLowerCamelCase(result.data);

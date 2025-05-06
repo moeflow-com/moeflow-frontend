@@ -1,7 +1,8 @@
-import { Project, Team } from '../interfaces';
+import { Project, Team } from '@/interfaces';
 
 /**
  * 测试用户是否有某些权限
+ * @param group
  * @param permission
  */
 export const can = (

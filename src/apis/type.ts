@@ -2,7 +2,7 @@
  * 各种类型选项（系统角色/加入审核类型等） API
  */
 import { request } from '.';
-import { toUnderScoreCase, toHyphenCase } from '../utils';
+import { toUnderScoreCase, toHyphenCase } from '@/utils';
 import { AxiosRequestConfig } from 'axios';
 
 export type TypeNames =
