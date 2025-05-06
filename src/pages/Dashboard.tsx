@@ -12,20 +12,20 @@ import {
   useLocation,
   useRouteMatch,
 } from 'react-router-dom';
-import apis from '../apis';
+import { api } from '@/apis';
 import { ApplicationList, DashboardMenu, Icon, TabBarM } from '../components';
-import { UserInvitationList } from '../components';
-import { APPLICATION_STATUS } from '../constants/application';
-import { INVITATION_STATUS } from '../constants/invitation';
-import { FC } from '../interfaces';
-import { AppState } from '../store';
+import { UserInvitationList } from '@/components';
+import { APPLICATION_STATUS } from '@/constants';
+import { INVITATION_STATUS } from '@/constants';
+import { FC } from '@/interfaces';
+import { AppState } from '@/store';
 import {
   setNewInvitationsCount,
   setRelatedApplicationsCount,
-} from '../store/site/slice';
+} from '@/store/site/slice';
 import style from '../style';
-import { getCancelToken } from '../utils/api';
-import { useTitle } from '../hooks';
+import { getCancelToken } from '@/utils/api';
+import { useTitle } from '@/hooks';
 import JoinGroup from './JoinGroup';
 import NewProject from './NewProject';
 import NewTeam from './NewTeam';
@@ -34,7 +34,7 @@ import MyProject from './MyProject';
 import Team from './Team';
 import TeamSetting from './TeamSetting';
 import UserSetting from './UserSetting';
-import { MENU_COLLAPSED_WIDTH } from '../components/DashboardMenu';
+import { MENU_COLLAPSED_WIDTH } from '@/components/DashboardMenu';
 
 /** 仪表盘的属性接口 */
 interface DashboardProps {}
@@ -51,7 +51,7 @@ const Dashboard: FC<DashboardProps> = () => {
   const isMobile = platform === 'mobile';
 
   const [menuCollapsed, setMenuCollapsed] = useState(true);
-  const [menuRightBottonVisible, setMenuRightBottonVisible] = useState(false);
+  const [menuRightButtonVisible, setMenuRightButtonVisible] = useState(false);
   const { path, url } = useRouteMatch();
   const currentUser = useSelector((state: AppState) => state.user);
 
@@ -65,7 +65,7 @@ const Dashboard: FC<DashboardProps> = () => {
       }
       const [cancelToken, cancel] = getCancelToken();
       lastCancel = cancel;
-      apis
+      api.me
         .getUserInvitations({
           params: { limit: 1, status: [INVITATION_STATUS.PENDING] },
           configs: {
@@ -75,7 +75,9 @@ const Dashboard: FC<DashboardProps> = () => {
         .then((result) => {
           // 设置数量
           dispatch(
-            setNewInvitationsCount(result.headers['x-pagination-count']),
+            setNewInvitationsCount(
+              Number(result.headers['x-pagination-count']),
+            ),
           );
         })
         .catch((error) => {})
@@ -103,7 +105,7 @@ const Dashboard: FC<DashboardProps> = () => {
       }
       const [cancelToken, cancel] = getCancelToken();
       lastCancel = cancel;
-      apis
+      api.me
         .getRelatedApplications({
           params: { limit: 1, status: [APPLICATION_STATUS.PENDING] },
           configs: {
@@ -113,7 +115,9 @@ const Dashboard: FC<DashboardProps> = () => {
         .then((result) => {
           // 设置数量
           dispatch(
-            setRelatedApplicationsCount(result.headers['x-pagination-count']),
+            setRelatedApplicationsCount(
+              Number(result.headers['x-pagination-count']),
+            ),
           );
         })
         .catch((error) => {})
@@ -144,7 +148,7 @@ const Dashboard: FC<DashboardProps> = () => {
   const menu = (
     <DashboardMenu
       collapsed={isMobile ? false : menuCollapsed}
-      rightBottonVisible={isMobile ? true : menuRightBottonVisible}
+      rightBottonVisible={isMobile ? true : menuRightButtonVisible}
     />
   );
 
@@ -156,12 +160,12 @@ const Dashboard: FC<DashboardProps> = () => {
         setMenuCollapsed(false);
         // 延迟显示右侧按钮，以免 flex 挤压左侧 logo 造成闪烁
         setTimeout(() => {
-          setMenuRightBottonVisible(true);
+          setMenuRightButtonVisible(true);
         }, 75);
       }}
       onMouseLeave={() => {
         setMenuCollapsed(true);
-        setMenuRightBottonVisible(false);
+        setMenuRightButtonVisible(false);
       }}
     >
       {menu}

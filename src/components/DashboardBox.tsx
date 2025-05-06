@@ -1,6 +1,6 @@
 import { css } from '@emotion/core';
 import React from 'react';
-import { FC } from '../interfaces';
+import { FC } from '@/interfaces';
 import style from '../style';
 
 /** 带有导航栏的布局的属性接口 */

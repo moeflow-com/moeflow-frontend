@@ -1,19 +1,18 @@
 import { css } from '@emotion/core';
-import { Badge, Menu, MenuProps } from 'antd';
+import { Badge, MenuProps } from 'antd';
 import classNames from 'classnames';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { matchPath, useHistory, useLocation } from 'react-router-dom';
 import { Avatar, Dropdown, Icon, ListItem, TeamList, Tooltip } from '.';
-import { FC } from '../interfaces';
-import { AppState } from '../store';
-import { resetProjectsState } from '../store/project/slice';
-import { setUserToken, UserState } from '../store/user/slice';
+import { FC } from '@/interfaces';
+import { AppState } from '@/store';
+import { resetProjectsState } from '@/store/project/slice';
+import { setUserToken, UserState } from '@/store/user/slice';
 import style from '../style';
-import { clickEffect } from '../utils/style';
-import { routes } from '../pages/routes';
-import UserSetting from '../pages/UserSetting';
+import { clickEffect } from '@/utils/style';
+import { routes } from '@/pages/routes';
 
 export const MENU_COLLAPSED_WIDTH = 63;
 export const MENU_UNCOLLAPSED_WIDTH = 231;

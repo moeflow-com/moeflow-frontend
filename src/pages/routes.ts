@@ -10,6 +10,11 @@ export const routes = {
       invitations: `/dashboard/user/invitations`,
       relatedApplications: '/dashboard/user/related-applications',
     },
+    project: {
+      new: `/dashboard/new-project`,
+      show: `/dashboard/projects/:projectId`,
+      asRouter: `/dashboard/projects/:projectId`,
+    },
   },
   imageTranslator: {
     asRouter: `/image-translator/:fileID-:targetID`,

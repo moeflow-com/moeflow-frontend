@@ -3,9 +3,9 @@
  */
 import { AxiosRequestConfig } from 'axios';
 import { PaginationParams, request } from '.';
-import { ApplicationStatuses } from '../constants';
-import { InvitationStatuses } from '../constants';
-import { toUnderScoreCase } from '../utils';
+import { ApplicationStatuses } from '@/constants';
+import { InvitationStatuses } from '@/constants';
+import { toUnderScoreCase } from '@/utils';
 import { APIApplication } from './application';
 import { APIInvitation } from './invitation';
 
