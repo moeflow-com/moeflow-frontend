@@ -5,7 +5,7 @@ import { css } from '@emotion/core';
 import { Button } from '../Button';
 import { createMoeflowProjectZip, LPFile } from './moeflow-packager';
 import { FailureResults } from '@/apis';
-import { measureImgSize } from '@jokester/ts-commonutil/lib/frontend/measure-img';
+import { measureImgSize } from '@jokester/ts-commonutil/lib/web/measure-img';
 import { clamp } from 'lodash-es';
 import { BBox, mitPreprocess, TextQuad } from '@/apis/mit_preprocess';
 import { ResourcePool } from '@jokester/ts-commonutil/lib/concurrency/resource-pool';
