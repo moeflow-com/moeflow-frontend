@@ -49,6 +49,12 @@ export default defineConfig({
             antd: 'antd',
             '@ant-design': 'antd',
             'antd-mobile': 'antd',
+            axios: 'base',
+            '@fortawesome': 'base',
+            'core-js': 'base',
+            lodash: 'base',
+            'lodash-es': 'base',
+            '@emotion': 'base',
             react: 'base',
             'react-dom': 'base',
             scheduler: 'base',
@@ -60,11 +66,9 @@ export default defineConfig({
             }
           }
 
-          if (/node_modules\/rc-/i.test(id)) {
+          if (/node_modules\/@?rc-/i.test(id)) {
             return 'vendor-rc';
           }
-
-          // console.debug('manualChunks', id, meta);
 
           if (id.includes(componentsDir)) {
             return 'moeflow-components';
