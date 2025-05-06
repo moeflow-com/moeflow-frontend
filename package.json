@@ -79,7 +79,6 @@
   "devDependencies": {
     "@tsconfig/strictest": "^2.0.5",
     "@types/blueimp-load-image": "^5.16.6",
-    "@types/classnames": "^2.3.4",
     "@types/debug": "^4.1.12",
     "@types/jest": "^29.5.14",
     "@types/js-yaml": "^4.0.9",
