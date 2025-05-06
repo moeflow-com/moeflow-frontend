@@ -2,9 +2,9 @@ import { Canceler } from 'axios';
 import { set } from 'lodash-es';
 import React, { useRef, useState } from 'react';
 import { useDeepCompareEffect } from 'react-use';
-import { BasicSuccessResult, resultTypes } from '../apis';
-import { toLowerCamelCase } from '../utils';
-import { getCancelToken } from '../utils/api';
+import { BasicSuccessResult, resultTypes } from '@/apis';
+import { toLowerCamelCase } from '@/utils';
+import { getCancelToken } from '@/utils/api';
 
 type RequestStatus = 'loading' | 'success' | 'failure';
 interface UsePaginationParams<T, APIParams> {
@@ -65,7 +65,7 @@ export function usePagination<T, APIParams>({
           const data = toLowerCamelCase(result.data);
           setItems(data);
           setStatus('success');
-          setTotal(result.headers['x-pagination-count']);
+          setTotal(Number(result.headers['x-pagination-count']));
         }
       })
       .catch((error) => {
