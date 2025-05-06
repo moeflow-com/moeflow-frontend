@@ -47,37 +47,22 @@ export default defineConfig({
         manualChunks(id, meta) {
           for (const [key, value] of Object.entries({
             antd: 'antd',
-            '@ant-design': 'antd',
             'antd-mobile': 'antd',
             axios: 'base',
-            '@fortawesome': 'base',
-            'core-js': 'base',
             lodash: 'base',
             'lodash-es': 'base',
             '@emotion': 'base',
             react: 'base',
             'react-dom': 'base',
             scheduler: 'base',
-            'react-router': 'base',
             i18next: 'base',
           })) {
             if (id.includes(`node_modules/${key}/`)) {
-              return `vendor-${value}`;
+              return value;
             }
           }
 
-          if (/node_modules\/@?rc-/i.test(id)) {
-            return 'vendor-rc';
-          }
-
-          if (id.includes(moeflowSrc)) {
-            return 'moeflow';
-          }
-
-          if (id.includes('node_modules/')) {
-            return `vendor-other`;
-          }
-
+          // if (id.includes(moeflowSrc)) { return 'moeflow'; }
           return null;
         },
       },
