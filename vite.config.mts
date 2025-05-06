@@ -47,6 +47,7 @@ export default defineConfig({
         manualChunks(id, meta) {
           for (const [key, value] of Object.entries({
             antd: 'antd',
+            '@ant-design': 'antd',
             'antd-mobile': 'antd',
             react: 'base',
             'react-dom': 'base',
@@ -59,13 +60,19 @@ export default defineConfig({
             }
           }
 
-          if (false && id.includes(componentsDir)) {
+          if (/node_modules\/rc-/i.test(id)) {
+            return 'vendor-rc';
+          }
+
+          // console.debug('manualChunks', id, meta);
+
+          if (id.includes(componentsDir)) {
             // splitting this way creates a larger chunk wtf
             return 'moeflow-components';
           }
 
-          if (false && id.includes('node_modules/')) {
-            return `vendor-${hashModuleId(id)}`;
+          if (id.includes('node_modules/')) {
+            return `vendor-other`;
           }
 
           return null;
