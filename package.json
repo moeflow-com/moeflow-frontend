@@ -15,7 +15,7 @@
     "antd": "^4.24.16",
     "antd-img-crop": "^3.16.0",
     "antd-mobile": "^2.3.4",
-    "axios": "^0.19.2",
+    "axios": "1.8.2",
     "blueimp-load-image": "^5.16.0",
     "bowser": "^2.11.0",
     "classnames": "^2.5.1",
