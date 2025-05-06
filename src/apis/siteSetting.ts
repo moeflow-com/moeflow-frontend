@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 import { request } from '.';
-import { toUnderScoreCase } from '../utils';
+import { toUnderScoreCase } from '@/utils';
 
 export interface APISiteSetting {
   enableWhitelist: boolean;
@@ -10,7 +10,7 @@ export interface APISiteSetting {
 }
 
 const getSiteSetting = ({ configs }: { configs?: AxiosRequestConfig }) => {
-  return request({
+  return request<APISiteSetting>({
     method: 'GET',
     url: `/v1/admin/site-setting`,
     ...configs,

@@ -2,11 +2,11 @@ import { css } from '@emotion/core';
 import { Radio, Skeleton } from 'antd';
 import { RadioChangeEvent, RadioGroupProps } from 'antd/lib/radio';
 import React, { useEffect, useState } from 'react';
-import api from '../apis';
-import { GroupTypes, TypeNames } from '../apis/type';
-import { configs } from '../configs';
-import { FC } from '../interfaces';
-import { getCancelToken } from '../utils/api';
+import { api } from '@/apis';
+import { GroupTypes, TypeNames } from '@/apis/type';
+import { configs } from '@/configs';
+import { FC } from '@/interfaces';
+import { getCancelToken } from '@/utils/api';
 import { CancelToken } from 'axios';
 import { useRouteMatch } from 'react-router-dom';
 
@@ -87,7 +87,7 @@ export const TypeRadioGroup: FC<TypeRadioGroupProps> = ({
 
   /** 获取系统类型 */
   const getTypes = ({ cancelToken }: { cancelToken?: CancelToken } = {}) => {
-    return api
+    return api.type
       .getTypes({
         typeName,
         groupType,
@@ -96,7 +96,7 @@ export const TypeRadioGroup: FC<TypeRadioGroupProps> = ({
         },
       })
       .then((result) => {
-        setTypes(result.data);
+        setTypes(result.data as TypeData[]);
         return result.data as TypeData[];
       })
       .catch((error) => {

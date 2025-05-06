@@ -1,8 +1,8 @@
 import { css } from '@emotion/core';
-import { Button, Form as AntdForm, Input, message, Modal, Upload } from 'antd';
+import { Button, message, Upload } from 'antd';
 import React, { useState } from 'react';
 import { useIntl } from 'react-intl';
-import api from '../../apis';
+import { api } from '@/apis';
 import { FC, UserProjectSet, UserTeam } from '@/interfaces';
 import { useDispatch, useSelector } from 'react-redux';
 import { createProject, resetProjectsState } from '@/store/project/slice';
@@ -72,7 +72,7 @@ export const ProjectImportForm: FC<ProjectImportFormProps> = ({
               draft[i] = `${file.name}：创建项目...`;
             }),
           );
-          api
+          api.project
             .importProject({
               teamID: currentTeam.id,
               projectSetID: currentProjectSet.id,
@@ -96,7 +96,7 @@ export const ProjectImportForm: FC<ProjectImportFormProps> = ({
                     }),
                   );
                   const image = await writer.getData();
-                  await api
+                  await api.project
                     .uploadFile({
                       projectID: result.data.project.id,
                       filename,
@@ -170,7 +170,7 @@ export const ProjectImportForm: FC<ProjectImportFormProps> = ({
                 disabled={importing}
                 onChange={(file) => {
                   setImportFileList(
-                    file.fileList.map((file) => file.originFileObj),
+                    file.fileList.map((file) => file.originFileObj!),
                   );
                 }}
               >

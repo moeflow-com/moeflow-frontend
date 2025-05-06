@@ -1,4 +1,4 @@
-import { Input } from 'antd';
+import { Input, InputRef } from 'antd';
 import { InputProps } from 'antd/lib/input';
 import React from 'react';
 
@@ -11,7 +11,7 @@ interface EmailInputProps {
  * 邮箱输入框（不允许空格）
  */
 const EmailInputWithoutRef: React.ForwardRefRenderFunction<
-  Input,
+  InputRef,
   EmailInputProps & Omit<InputProps, 'onChange'>
 > = ({ value = '', onChange, className, ...inputProps }, ref) => {
   /** 处理值变化 */

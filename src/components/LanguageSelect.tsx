@@ -13,7 +13,7 @@ interface SelectOption {
 }
 /** 语言选择器的属性接口 */
 interface LanguageSelectProps extends SelectProps<string | string[]> {
-  disabledLanguageIDs?: string[];
+  disabledLanguageIDs?: readonly string[];
   className?: string;
 }
 /**

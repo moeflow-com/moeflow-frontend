@@ -2,7 +2,7 @@
  * 注册/登陆等帐号相关 API
  */
 import { request } from '.';
-import { toUnderScoreCase } from '../utils';
+import { toUnderScoreCase } from '@/utils';
 import { AxiosRequestConfig } from 'axios';
 
 /** 获取验证码 */
@@ -131,7 +131,7 @@ const login = ({
   data: LoginData;
   configs?: AxiosRequestConfig;
 }) => {
-  return request({
+  return request<{ token: string }>({
     method: 'POST',
     url: `/v1/user/token`,
     data: toUnderScoreCase(data),

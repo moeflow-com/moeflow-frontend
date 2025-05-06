@@ -1,5 +1,12 @@
 import { css } from '@emotion/core';
-import { Button, Form as AntdForm, Input, message, Modal } from 'antd';
+import {
+  Button,
+  Form as AntdForm,
+  Input,
+  message,
+  Modal,
+  InputRef,
+} from 'antd';
 import React, { useRef } from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
@@ -11,10 +18,10 @@ import {
   FormItem,
   Header,
   VCodeInput,
-} from '../components';
-import { setUserToken } from '../store/user/slice';
-import { useTitle } from '../hooks';
-import { FC } from '../interfaces';
+} from '@/components';
+import { setUserToken } from '@/store/user/slice';
+import { useTitle } from '@/hooks';
+import { FC } from '@/interfaces';
 import { useHistory } from 'react-router-dom';
 
 /** 重置密码页的属性接口 */
@@ -30,7 +37,7 @@ const ResetPassword: FC<ResetPasswordProps> = () => {
   const history = useHistory();
 
   // 用于输入完人机验证码后自动定位到邮件验证码输入框
-  const emailVCodeInputRef = useRef<Input>(null);
+  const emailVCodeInputRef = useRef<InputRef>(null);
 
   /** 提交表单 */
   const handleFinish = (values: any) => {

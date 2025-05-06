@@ -3,7 +3,7 @@
  */
 import { request } from '.';
 import { AxiosRequestConfig } from 'axios';
-import { toUnderScoreCase } from '../utils';
+import { toUnderScoreCase } from '@/utils';
 import { PaginationParams } from '.';
 import { APILanguage } from './language';
 

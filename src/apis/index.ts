@@ -1,6 +1,11 @@
 import { message } from 'antd';
 import { FormInstance } from 'antd/lib/form/Form';
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, {
+  AxiosError,
+  AxiosHeaders,
+  AxiosRequestConfig,
+  AxiosResponse,
+} from 'axios';
 import qs from 'qs';
 import { createElement } from 'react';
 import { Icon } from '../components';
@@ -87,7 +92,7 @@ export const resultTypes = {
 export interface BasicSuccessResult<T = unknown> {
   type: typeof resultTypes.SUCCESS;
   data: T;
-  headers: Record<string, string>;
+  headers: Partial<AxiosHeaders>;
 }
 
 /** 基础错误响应结果的数据 */
