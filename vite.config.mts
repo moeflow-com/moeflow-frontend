@@ -67,7 +67,6 @@ export default defineConfig({
           // console.debug('manualChunks', id, meta);
 
           if (id.includes(componentsDir)) {
-            // splitting this way creates a larger chunk wtf
             return 'moeflow-components';
           }
 
