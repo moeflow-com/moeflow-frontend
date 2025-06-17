@@ -31,11 +31,6 @@ if (false && process.env.NODE_ENV === 'development') {
   );
   whyDidYouRender(React, { trackAllPureComponents: true });
 }
-// 将 Cookie 中 token 恢复到 Store
-const cookieToken = getToken();
-if (cookieToken) {
-  store.dispatch(setUserToken({ token: cookieToken, refresh: true }));
-}
 // 浏览器识别
 const browser = Bowser.getParser(window.navigator.userAgent);
 const platform = browser.getPlatformType() as Platform;
@@ -62,6 +57,13 @@ for (const hotKeyName in hotKeyInitialState) {
 async function mountApp() {
   const { intlMessages, locale, antdLocale, antdValidateMessages } =
     await initI18n;
+  /**
+   * Set user token from cookie
+   */
+  const cookieToken = getToken();
+  if (cookieToken) {
+    store.dispatch(setUserToken({ token: cookieToken, refresh: true }));
+  }
 
   // 渲染 APP
   ReactDOM.render(
