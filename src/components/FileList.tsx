@@ -50,7 +50,9 @@ export const FileList: FC<FileListProps> = ({
   const [listMode] = useState<'image' | 'text'>('image');
   const [total, setTotal] = useState(0); // 元素总个数
   const runtimeConfigLoaded = usePromised(runtimeConfig);
-  const uploadAPI = runtimeConfigLoaded.fulfilled && `${runtimeConfigLoaded.value.baseURL}/v1/projects/${project.id}/files`;
+  const uploadAPI =
+    runtimeConfigLoaded.fulfilled &&
+    `${runtimeConfigLoaded.value.baseURL}/v1/projects/${project.id}/files`;
   const token = useSelector((state: AppState) => state.user.token);
   const platform = useSelector((state: AppState) => state.site.platform);
   const isMobile = platform === 'mobile';
@@ -121,7 +123,7 @@ export const FileList: FC<FileListProps> = ({
             setSpinningIDs((ids) => ids.filter((id) => id !== file.id));
           });
       },
-      onCancel: () => { },
+      onCancel: () => {},
       okText: formatMessage({ id: 'form.ok' }),
       cancelText: formatMessage({ id: 'form.cancel' }),
     });

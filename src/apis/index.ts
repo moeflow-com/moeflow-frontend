@@ -39,9 +39,11 @@ import { lazyThenable } from '@jokester/ts-commonutil/lib/concurrency/lazy-thena
 
 const debugLogger = createDebugLogger('apis');
 
-const instanceP = lazyThenable(async () => axios.create({
-  baseURL: `${(await runtimeConfig).baseURL}`,
-}));
+const instanceP = lazyThenable(async () =>
+  axios.create({
+    baseURL: `${(await runtimeConfig).baseURL}`,
+  }),
+);
 
 let languageInterceptor: number | null = null;
 

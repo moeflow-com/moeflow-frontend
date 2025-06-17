@@ -28,7 +28,7 @@ export const AvatarUpload: FC<AvatarUploadProps> = ({
   disabled = false,
   className,
 }) => {
-  const runtimeConfigLoaded = usePromised(runtimeConfig)
+  const runtimeConfigLoaded = usePromised(runtimeConfig);
   const { formatMessage } = useIntl(); // i18n
   const dispatch = useDispatch();
   const [status, setStatus] = useState<

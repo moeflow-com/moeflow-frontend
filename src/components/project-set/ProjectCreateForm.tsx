@@ -36,7 +36,7 @@ export const ProjectCreateForm: FC<ProjectCreateFormProps> = ({
   projectSetID,
   className,
 }) => {
-  const runtimeConfigLoaded = usePromised(runtimeConfig)
+  const runtimeConfigLoaded = usePromised(runtimeConfig);
   const { formatMessage } = useIntl(); // i18n
   const [form] = AntdForm.useForm();
   const dispatch = useDispatch();
