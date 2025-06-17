@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Button, EmptyTip, FileItem, List, OutputList } from '.';
 import { api, resultTypes } from '../apis';
-import { configs } from '@/configs';
+import { runtimeConfig } from '@/configs';
 import {
   FILE_NOT_EXIST_REASON,
   FILE_SAFE_STATUS,
@@ -25,6 +25,7 @@ import { setFilesState } from '@/store/file/slice';
 import style from '../style';
 import { toLowerCamelCase } from '@/utils';
 import { can } from '@/utils/user';
+import { usePromised } from '@jokester/ts-commonutil/lib/react/hook/use-promised';
 
 /** 文件列表的属性接口 */
 interface FileListProps {
@@ -48,7 +49,10 @@ export const FileList: FC<FileListProps> = ({
   const [loading, setLoading] = useState(true);
   const [listMode] = useState<'image' | 'text'>('image');
   const [total, setTotal] = useState(0); // 元素总个数
-  const uploadAPI = `${configs.baseURL}/v1/projects/${project.id}/files`;
+  const runtimeConfigLoaded = usePromised(runtimeConfig);
+  const uploadAPI =
+    runtimeConfigLoaded.fulfilled &&
+    `${runtimeConfigLoaded.value.baseURL}/v1/projects/${project.id}/files`;
   const token = useSelector((state: AppState) => state.user.token);
   const platform = useSelector((state: AppState) => state.site.platform);
   const isMobile = platform === 'mobile';

@@ -13,14 +13,12 @@ import { FC } from '../interfaces';
 import { clickEffect } from '../utils/style';
 import classNames from 'classnames';
 import { routes } from '../pages/routes';
-import { configs } from '../configs';
 import { LocalePicker } from './setting/LocalePicker';
 
 /** 头部的属性接口 */
 interface HeaderProps {
   className?: string;
 }
-const showMitExperimentLink = configs.mitUiEnabled;
 
 const dropDownMenuItemStyle = css`
   width: 150px;
@@ -80,12 +78,6 @@ export const Header: FC<HeaderProps> = ({ className }) => {
       },
     ],
   };
-
-  const mitLink = showMitExperimentLink && (
-    <a className="login" href={routes.mit.preprocessDemo}>
-      {formatMessage({ id: 'mit.title' })}
-    </a>
-  );
 
   const githubLink = (
     <a className="login" href="https://github.com/moeflow-com" target="_blank">

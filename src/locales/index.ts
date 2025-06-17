@@ -222,12 +222,12 @@ export function setLocale(l: string) {
   }
 }
 
-export const initI18n = lazyThenable(() => {
+export const initI18n = lazyThenable(async () => {
   const _savedPref = localStorage.getItem(_STORAGE_KEY_LOCALE);
   const savedPref =
     _savedPref && _savedPref in availableLocales ? _savedPref : null;
   const locale = savedPref || navigator.language;
-  setRequestLanguage(matchLocale(locale));
+  await setRequestLanguage(matchLocale(locale));
   const locales = [savedPref, ...navigator.languages].filter(
     Boolean,
   ) as string[];
