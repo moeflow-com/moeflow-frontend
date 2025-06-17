@@ -1,9 +1,35 @@
-// 公共配置
-const configs = {
-  // 所有API请求的baseURL。
-  // 如本地开发时backend URL不匹配，可在vite server中配置反向代理
-  baseURL: process.env.REACT_APP_BASE_URL,
-  /** 默认值 */
+import { lazyThenable } from '@jokester/ts-commonutil/lib/concurrency/lazy-thenable';
+
+interface RuntimeConfig {
+  // base URL for API requests
+  baseURL: string;
+}
+
+/**
+ * overridable runtime config
+ * priority DESC:
+ * 1. /moeflow-runtime-config.json
+ * 2. value from vite config
+ * 3. fallback
+ */
+export const runtimeConfig = lazyThenable<RuntimeConfig>(async () => {
+  const overriden: RuntimeConfig = await fetch('/moeflow-runtime-config.json')
+    .then((res) => res.json())
+    .catch(() => null);
+  const merged = {
+    ...{
+      // defaults
+      baseURL: process.env.REACT_APP_BASE_URL || '/api/',
+    },
+    ...overriden,
+  };
+
+  // console.debug('runtimeConfig', merged);
+  return merged;
+});
+
+/** consts */
+export const configs = {
   default: {
     team: {
       systemRole: 'member', // 团队默认角色，后端部署后不会变动
@@ -30,5 +56,6 @@ if (process.env.NODE_ENV === 'production') {
     configs,
     env: process.env.NODE_ENV,
   });
+} else {
+  throw new Error(`unexpected environment: ${process.env.NODE_ENV}`);
 }
-export { configs };

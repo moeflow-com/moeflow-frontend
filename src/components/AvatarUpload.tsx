@@ -7,12 +7,13 @@ import ImgCrop from 'antd-img-crop';
 import { Button, Upload } from 'antd';
 
 import { UploadOutlined } from '@ant-design/icons';
-import { configs } from '../configs';
+import { runtimeConfig } from '../configs';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../store';
 import { setUserInfo } from '../store/user/slice';
 import { setCurrentTeamInfo } from '../store/team/slice';
 import { Avatar } from '.';
+import { usePromised } from '@jokester/ts-commonutil/lib/react/hook/use-promised';
 /** 头像上传的属性接口 */
 interface AvatarUploadProps {
   type: 'user' | 'team';
@@ -27,6 +28,7 @@ export const AvatarUpload: FC<AvatarUploadProps> = ({
   disabled = false,
   className,
 }) => {
+  const runtimeConfigLoaded = usePromised(runtimeConfig)
   const { formatMessage } = useIntl(); // i18n
   const dispatch = useDispatch();
   const [status, setStatus] = useState<
@@ -65,11 +67,11 @@ export const AvatarUpload: FC<AvatarUploadProps> = ({
           size="large"
         />
       )}
-      {!disabled && (
+      {!disabled && runtimeConfigLoaded.fulfilled && (
         <ImgCrop rotate>
           <Upload
             name="file"
-            action={`${configs.baseURL}/v1/avatar`}
+            action={`${runtimeConfigLoaded.value.baseURL}/v1/avatar`}
             method="PUT"
             showUploadList={false}
             data={{

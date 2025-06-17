@@ -17,9 +17,10 @@ import { useHistory } from 'react-router-dom';
 import { AppState } from '@/store';
 import { toLowerCamelCase } from '@/utils';
 import { GROUP_ALLOW_APPLY_TYPE } from '@/constants';
-import { configs } from '@/configs';
+import { configs, runtimeConfig } from '@/configs';
 import style from '../../style';
 import { resetFilesState } from '@/store/file/slice';
+import { usePromised } from '@jokester/ts-commonutil/lib/react/hook/use-promised';
 
 /** 创建项目表单的属性接口 */
 interface ProjectCreateFormProps {
@@ -35,6 +36,7 @@ export const ProjectCreateForm: FC<ProjectCreateFormProps> = ({
   projectSetID,
   className,
 }) => {
+  const runtimeConfigLoaded = usePromised(runtimeConfig)
   const { formatMessage } = useIntl(); // i18n
   const [form] = AntdForm.useForm();
   const dispatch = useDispatch();

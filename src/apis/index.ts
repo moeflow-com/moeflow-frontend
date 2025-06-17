@@ -9,7 +9,7 @@ import axios, {
 import qs from 'qs';
 import { createElement } from 'react';
 import { Icon } from '../components';
-import { configs } from '@/configs';
+import { configs, runtimeConfig } from '@/configs';
 import { createDebugLogger } from '@/utils/debug-logger';
 import { getIntl } from '@/locales';
 import store from '../store';
@@ -35,23 +35,27 @@ import user from './user';
 import group from './group';
 import insight from './insight';
 import siteSetting from './siteSetting';
+import { lazyThenable } from '@jokester/ts-commonutil/lib/concurrency/lazy-thenable';
 
 const debugLogger = createDebugLogger('apis');
 
-// TODO: move instance/request to a peer file, to prevent circular imports
-// TODO: can we hide this from API callsites?
-const instance = axios.create({
-  baseURL: `${configs.baseURL}`,
-});
+const instanceP = lazyThenable(async () => axios.create({
+  baseURL: `${(await runtimeConfig).baseURL}`,
+}));
 
 let languageInterceptor: number | null = null;
+
+export async function getAxiosInstance() {
+  return instanceP;
+}
 
 /**
  * @param l
  * (as backend User.locale is not used , this solely determines locale in backend API handler)
  */
-export function setRequestLanguage(l: string) {
+export async function setRequestLanguage(l: string) {
   // Remove existing interceptor if any
+  const instance = await instanceP;
   if (languageInterceptor !== null) {
     instance.interceptors.request.eject(languageInterceptor);
   }
@@ -64,7 +68,7 @@ export function setRequestLanguage(l: string) {
         ...req.headers,
         'Accept-Language': l,
       },
-    };
+    } as unknown as typeof req;
   });
 }
 
@@ -158,6 +162,7 @@ export type FailureResults =
 export async function request<T = unknown>(
   axiosConfig: AxiosRequestConfig,
 ): Promise<BasicSuccessResult<T>> {
+  const instance = await instanceP;
   return instance({
     // param=value1&param=value2，去除 query 中数组的 [] 结尾
     paramsSerializer: function (params) {
@@ -280,13 +285,13 @@ const defaultNetworkFailure = () => {
 };
 
 export const api = {
+  getAxiosInstance,
   // TODO switch to this nested  / drop use of default export
   application,
   auth,
   file,
   group,
   insight,
-  instance,
   // invitation,
   language,
   // mitPreprocess,
@@ -308,7 +313,6 @@ export const api = {
  * @deprecated use named import
  */
 export default {
-  instance,
   ...auth,
   ...type,
   ...group,
