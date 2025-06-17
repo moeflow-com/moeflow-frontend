@@ -41,8 +41,8 @@ For non-developers, it is recommended to refer to [moeflow-deploy](https://githu
 3. Run `npm start` to start the Vite development server.
     - The development server includes API reverse proxying. By default, requests to `localhost:5173/api/*` are forwarded to `localhost:5000/*` (local moeflow-backend development version address).
     - This configuration can be modified in `vite.config.ts`. For instance, you can use a public server instead of the local moeflow-backend.
-4. Run `npm build` to build the frontend code for production. **Note** that the backend address used will be configured in `.env.local`.
-    - If `.env.local` is not created, the default value is `/api`.
+4. Run `npm build` to build the frontend code for production. **Note** that the backend address used will be configured in `.env`.
+    - If `.env` is not created, the default value is `/api`.
 
 If deploying on hosting services like `Vercel`, you can set `REACT_APP_BASE_URL` to the corresponding backend API address in the hosting environment variables.
 

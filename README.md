@@ -41,8 +41,8 @@
 3. `npm start` 启动vite 开发服务器
     - 开发服务器自带API反向代理。默认将 `localhost:5173/api/*` 的请求转发到 `localhost:5000/*` (本地moeflow-backend开发版地址)
     - 上述配置可在 `vite.config.ts` 修改。比如不用本地的moeflow-backend，改用公网的服务器。
-4. `npm build` 发布前端代码，**请注意** 此时使用的后端地址配置为 `.env.local` 中的配置。
-    - 如果没有创建 `.env.local` 则为默认值 `/api`。
+4. `npm build` 发布前端代码，**请注意** 此时使用的后端地址配置为 `.env` 中的配置。
+    - 如果没有创建 `.env` 则为默认值 `/api`。
 
 如果您要部署到 `Vercel` 之类的网站托管程序上，您可以直接将 `REACT_APP_BASE_URL` 相对应的后端接口地址配置到托管程序的环境变量中。
 
