@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useParams, useRouteMatch } from 'react-router-dom';
 import { useTitle } from '@/hooks';
@@ -13,7 +13,7 @@ import ProjectPreview from './ProjectPreview';
 import ProjectSetting from './ProjectSetting';
 
 /** 项目路由的属性接口 */
-interface ProjectProps {}
+interface ProjectProps { }
 /**
  * 项目路由
  */
