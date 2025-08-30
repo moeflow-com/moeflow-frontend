@@ -1,5 +1,5 @@
-import { request } from '.';
-import { uploadRequest } from './_request';
+import { request } from '../../apis';
+import { uploadRequest } from '../../apis/_request';
 import { wait } from '@jokester/ts-commonutil/lib/concurrency/timing';
 
 const mitApiPrefix = `/v1/mit`;

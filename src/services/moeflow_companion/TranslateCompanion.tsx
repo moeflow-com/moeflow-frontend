@@ -7,7 +7,7 @@ import { createMoeflowProjectZip, LPFile } from '../labelplus_packager';
 import { FailureResults } from '@/apis';
 import { measureImgSize } from '@jokester/ts-commonutil/lib/web/measure-img';
 import { clamp } from 'lodash-es';
-import { BBox, mitPreprocess, TextQuad } from '@/apis/mit_preprocess';
+import { BBox, mitPreprocess, TextQuad } from './mit_preprocess';
 import { ResourcePool } from '@jokester/ts-commonutil/lib/concurrency/resource-pool';
 
 const MAX_FILE_COUNT = 30;
@@ -248,10 +248,10 @@ export const DemoOcrFiles: FC<{}> = (props) => {
           setWorking((s) =>
             s?.nonce === initState.nonce
               ? {
-                  ...s,
-                  finished: Math.max(s.finished, finished),
-                  numPages: total,
-                }
+                ...s,
+                finished: Math.max(s.finished, finished),
+                numPages: total,
+              }
               : s,
           ),
         ),
