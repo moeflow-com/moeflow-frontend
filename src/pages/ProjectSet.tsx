@@ -32,7 +32,7 @@ import { ProjectCreateForm } from '@/components/project-set/ProjectCreateForm';
 import { ProjectImportForm } from '@/components/project-set/ProjectImportForm';
 
 /** 项目集页的属性接口 */
-interface ProjectSetProps {}
+interface ProjectSetProps { }
 /**
  * 项目集页
  */
@@ -60,7 +60,7 @@ const ProjectSet: FC<ProjectSetProps> = () => {
 
   const rightButton = (
     <Tooltip
-      title={formatMessage({ id: 'site.createProject' })}
+      title={formatMessage({ id: 'project.createProject' })}
       placement="right"
     >
       <div className="ListItem__RightButton">
@@ -172,7 +172,7 @@ const ProjectSet: FC<ProjectSetProps> = () => {
                     `}
                   >
                     <ContentTitle>
-                      {formatMessage({ id: 'site.createProject' })}
+                      {formatMessage({ id: 'project.createProject' })}
                     </ContentTitle>
                     <ContentItem>
                       <ProjectCreateForm
