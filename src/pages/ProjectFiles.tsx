@@ -1,6 +1,6 @@
 import { css } from '@emotion/core';
 import { message, Spin } from 'antd';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, cloneElement } from 'react';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { FileList, Icon, ListItem } from '@/components';
@@ -45,7 +45,23 @@ const ProjectFiles: FC<ProjectFilesProps> = ({ project }) => {
     return <ProjectFinishedTip />;
   }
 
-  return project ? (
+  if (!project) {
+    return (
+      <div>
+        <Spin
+          size="large"
+          css={css`
+            flex: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          `}
+        />
+      </div>
+    );
+  }
+
+  const wrapper =
     <div
       css={css`
         width: 100%;
@@ -66,86 +82,79 @@ const ProjectFiles: FC<ProjectFilesProps> = ({ project }) => {
           }
         }
       `}
-    >
-      {!currentTarget ? (
-        <>
-          {targets && (
-            <ListItem
-              disabled={true}
-              className="Project__ListItemTitle"
-              logo={
-                !isMobile && (
-                  <Icon
-                    className="ListItem__LogoBoxIcon"
-                    icon="language"
-                    style={{ height: '28px', width: '28px' }}
-                  ></Icon>
-                )
-              }
-              name={formatMessage({ id: 'project.selectTarget' })}
-            />
-          )}
-          <ProjectTargetList
-            project={project}
-            onClick={(target) => {
-              setCurrentTarget(target);
-              saveDefaultTargetID({
-                projectID: project.id,
-                targetID: target.id,
-              });
-            }}
-            onLoad={(targets) => {
-              setTargets(targets);
-              // 只有一个时候，直接选中
-              if (targets.length === 1) {
-                setCurrentTarget(targets[0]);
-              }
-              // 自动选中默认的
-              const defaultTargetID = loadDefaultTargetID({
-                projectID: project.id,
-              });
-              if (defaultTargetID) {
-                const target = targets.find(
-                  (target) => target.id === defaultTargetID,
-                );
-                if (target) {
-                  setCurrentTarget(target);
-                }
-              }
-            }}
-          />
-        </>
-      ) : project.importFromLabelplusStatus ===
-        IMPORT_FROM_LABELPLUS_STATUS.SUCCEEDED ? (
-        <FileList
-          project={project}
-          target={currentTarget}
-          onChangeTargetClick={() => {
-            if (targets.length > 1) {
-              setCurrentTarget(undefined);
-              clearDefaultTargetID({ projectID: project.id });
-            } else {
-              message.info(
-                formatMessage({ id: 'project.onlyOneTargetTip' }),
-                1,
-              );
-            }
-          }}
+    />;
+
+  if (!currentTarget) {
+    // target selector
+    return cloneElement(wrapper, undefined,
+      targets && (
+        <ListItem
+          disabled={true}
+          className="Project__ListItemTitle"
+          logo={
+            !isMobile && (
+              <Icon
+                className="ListItem__LogoBoxIcon"
+                icon="language"
+                style={{ height: '28px', width: '28px' }}
+              ></Icon>
+            )
+          }
+          name={formatMessage({ id: 'project.selectTarget' })}
         />
-      ) : (
-        <ProjectImportFromLabelplusStatus project={project} />
-      )}
-    </div>
-  ) : (
-    <Spin
-      size="large"
-      css={css`
-        flex: auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      `}
+      ),
+      <ProjectTargetList
+        project={project}
+        onClick={(target) => {
+          setCurrentTarget(target);
+          saveDefaultTargetID({
+            projectID: project.id,
+            targetID: target.id,
+          });
+        }}
+        onLoad={(targets) => {
+          setTargets(targets);
+          // 只有一个时候，直接选中
+          if (targets.length === 1) {
+            setCurrentTarget(targets[0]);
+          }
+          // 自动选中默认的
+          const defaultTargetID = loadDefaultTargetID({
+            projectID: project.id,
+          });
+          if (defaultTargetID) {
+            const target = targets.find(
+              (target) => target.id === defaultTargetID,
+            );
+            if (target) {
+              setCurrentTarget(target);
+            }
+          }
+        }}
+      />
+    )
+  }
+
+  if (project.importFromLabelplusStatus !== IMPORT_FROM_LABELPLUS_STATUS.SUCCEEDED) {
+    return cloneElement(wrapper, undefined, <ProjectImportFromLabelplusStatus project={project} />)
+  }
+
+  return cloneElement(wrapper, undefined,
+    <FileList
+      project={project}
+      target={currentTarget}
+      onChangeTargetClick={() => {
+        if (targets.length > 1) {
+          setCurrentTarget(undefined);
+          clearDefaultTargetID({ projectID: project.id });
+        } else {
+          message.info(
+            formatMessage({ id: 'project.onlyOneTargetTip' }),
+            1,
+          );
+        }
+      }}
     />
-  );
+  )
 };
 export default ProjectFiles;
