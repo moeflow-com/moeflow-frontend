@@ -5,7 +5,8 @@ export interface RuntimeConfig {
   baseURL: string;
 
   moeflowCompanion?: {
-    gradioUrl?: string;
+    gradioUrl: string;
+    defaultMultimodalModel?: string
   };
 }
 
