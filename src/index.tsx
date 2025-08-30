@@ -40,7 +40,6 @@ const platform = browser.getPlatformType() as Platform;
 const osName = browser.getOSName(true) as OSName;
 store.dispatch(setPlatform(platform));
 store.dispatch(setOSName(osName));
-store.dispatch(setRuntimeConfig(await runtimeConfig));
 // 恢复自定义快捷键
 for (const hotKeyName in hotKeyInitialState) {
   const name = hotKeyName as keyof HotKeyState;
@@ -59,6 +58,7 @@ for (const hotKeyName in hotKeyInitialState) {
 }
 
 async function mountApp() {
+  store.dispatch(setRuntimeConfig(await runtimeConfig));
   const { intlMessages, locale, antdLocale, antdValidateMessages } =
     await initI18n;
   debugLogger('initial state', store.getState());
