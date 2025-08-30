@@ -511,7 +511,7 @@ project.createProject:
   en: Create Project
 project.importProject:
   zhCn: 导入项目
-  en: project Project
+  en: Import Project
 project.startImport:
   zhCn: 开始导入
   en: Start Import
@@ -981,8 +981,8 @@ output.invert:
   zhCn: 反选
   en: Invert selection
 project.createViaLabelplus:
-  zhCn: 通过 LabalPlus “翻译数据.txt”创建：
-  en: 'Import marks from LabelPlus txt:'
+  zhCn: (可选) 通过 LabalPlus “翻译数据.txt”创建：
+  en: '(Optional) Import marks from LabelPlus txt:'
 site.delete:
   zhCn: 删除
   en: Delete

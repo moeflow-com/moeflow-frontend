@@ -321,7 +321,7 @@
   "output.outputPartial": "导出已选中的 {count} 个文件",
   "output.outputPartialExclude": "导出除了已选中的 {count} 个文件",
   "output.invert": "反选",
-  "project.createViaLabelplus": "通过 LabalPlus “翻译数据.txt”创建：",
+  "project.createViaLabelplus": "(可选) 通过 LabalPlus “翻译数据.txt”创建：",
   "site.delete": "删除",
   "project.createViaLabelplusNotSupport": "多个目标语言时不支持",
   "file.needUploadTip": "待上传",

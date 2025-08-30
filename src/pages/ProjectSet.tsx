@@ -1,5 +1,5 @@
 import { css } from '@emotion/core';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -187,7 +187,7 @@ const ProjectSet: FC<ProjectSetProps> = () => {
                         border-top: 1px solid ${style.borderColorBase};
                       `}
                     >
-                      {formatMessage({ id: 'site.importProject' })}
+                      {formatMessage({ id: 'project.importProject' })}
                     </ContentTitle>
                     <ContentItem>
                       <ProjectImportForm

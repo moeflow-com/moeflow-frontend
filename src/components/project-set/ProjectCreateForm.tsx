@@ -112,6 +112,7 @@ export const ProjectCreateForm: FC<ProjectCreateFormProps> = ({
           margin-bottom: 0;
         }
         .ProjectCreateForm__Label {
+          margin-right: 8px;
           color: rgba(0, 0, 0, 0.85);
         }
         .ProjectCreateForm__Tip {
