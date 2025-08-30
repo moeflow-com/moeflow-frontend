@@ -9,7 +9,7 @@ import axios, {
 import qs from 'qs';
 import { createElement } from 'react';
 import { Icon } from '../components';
-import { configs, runtimeConfig } from '@/configs';
+import { runtimeConfig } from '@/configs';
 import { createDebugLogger } from '@/utils/debug-logger';
 import { getIntl } from '@/locales';
 import store from '../store';

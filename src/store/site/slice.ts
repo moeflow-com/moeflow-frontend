@@ -1,18 +1,21 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { OSName, Platform } from '../../interfaces';
+import { OSName, Platform } from '@/interfaces';
+import { RuntimeConfig } from '@/configs';
 
 export interface SiteState {
-  osName?: OSName;
-  platform?: Platform;
+  osName: OSName;
+  platform: Platform;
   newInvitationsCount: number;
   relatedApplicationsCount: number;
+  runtimeConfig: RuntimeConfig;
 }
 
 const initialState: SiteState = {
-  osName: 'windows',
-  platform: 'desktop',
+  osName: null!,
+  platform: null!,
   relatedApplicationsCount: 0,
   newInvitationsCount: 0,
+  runtimeConfig: null!,
 };
 const slice = createSlice({
   name: 'site',
@@ -30,6 +33,9 @@ const slice = createSlice({
     setNewInvitationsCount(state, action: PayloadAction<number>) {
       state.newInvitationsCount = action.payload;
     },
+    setRuntimeConfig(state, action: PayloadAction<RuntimeConfig>) {
+      state.runtimeConfig = action.payload;
+    },
   },
 });
 
@@ -38,5 +44,6 @@ export const {
   setOSName,
   setRelatedApplicationsCount,
   setNewInvitationsCount,
+  setRuntimeConfig,
 } = slice.actions;
 export default slice.reducer;

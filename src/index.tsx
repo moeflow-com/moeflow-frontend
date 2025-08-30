@@ -11,10 +11,11 @@ import App from './App';
 import './fontAwesome'; // Font Awesome
 import './index.css';
 import store from './store';
-import { setOSName, setPlatform } from './store/site/slice';
+import { setOSName, setPlatform, setRuntimeConfig } from './store/site/slice';
 import { setUserToken } from './store/user/slice';
 import { getToken } from './utils/cookie';
 import { OSName, Platform } from './interfaces';
+import { runtimeConfig } from './configs';
 import {
   getDefaultHotKey,
   hotKeyInitialState,
@@ -22,6 +23,8 @@ import {
   setHotKey,
 } from './store/hotKey/slice';
 import { loadHotKey } from './utils/storage';
+import { createDebugLogger } from './utils/debug-logger';
+const debugLogger = createDebugLogger('app');
 
 // 时间插件
 if (false && process.env.NODE_ENV === 'development') {
@@ -37,6 +40,7 @@ const platform = browser.getPlatformType() as Platform;
 const osName = browser.getOSName(true) as OSName;
 store.dispatch(setPlatform(platform));
 store.dispatch(setOSName(osName));
+store.dispatch(setRuntimeConfig(await runtimeConfig));
 // 恢复自定义快捷键
 for (const hotKeyName in hotKeyInitialState) {
   const name = hotKeyName as keyof HotKeyState;
@@ -57,6 +61,7 @@ for (const hotKeyName in hotKeyInitialState) {
 async function mountApp() {
   const { intlMessages, locale, antdLocale, antdValidateMessages } =
     await initI18n;
+  debugLogger('initial state', store.getState());
   /**
    * Set user token from cookie
    */
