@@ -13,6 +13,13 @@ import { AppState } from '../store';
 import { getCancelToken } from '../utils/api';
 import { ListSearchInputProps } from './ListSearchInput';
 
+export interface ListPageSpec {
+  page: number;
+  pageSize: number;
+  word: string;
+  cancelToken: CancelToken;
+}
+
 /** 列表的属性接口 */
 interface ListProps<T> {
   id?: string;
@@ -21,12 +28,7 @@ interface ListProps<T> {
     pageSize,
     word,
     cancelToken,
-  }: {
-    page: number;
-    pageSize: number;
-    word: string;
-    cancelToken: CancelToken;
-  }) => Promise<any> | void;
+  }: ListPageSpec) => Promise<any> | void;
   loading: boolean;
   onSearchRightButtonClick?: (e: React.MouseEvent) => void;
   total: number;

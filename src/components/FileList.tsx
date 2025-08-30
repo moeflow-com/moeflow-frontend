@@ -1,6 +1,5 @@
 import { css, Global } from '@emotion/core';
 import { Button as AntdButton, Drawer, message, Modal, Spin } from 'antd';
-import { CancelToken } from 'axios';
 import loadImage from 'blueimp-load-image';
 import classNames from 'classnames';
 import { useRef, useState } from 'react';
@@ -18,13 +17,18 @@ import {
   PARSE_STATUS,
   PROJECT_PERMISSION,
 } from '@/constants';
-import { FC, File, Project, Target, } from '@/interfaces';
+import { FC, File as MFile, Project, Target } from '@/interfaces';
 import { AppState } from '@/store';
 import { setFilesState } from '@/store/file/slice';
 import style from '../style';
 import { toLowerCamelCase } from '@/utils';
 import { can } from '@/utils/user';
 import { routes } from '@/pages/routes';
+import {
+  moeflowCompanionServiceState,
+  useMoeflowCompanion,
+} from '@/services/moeflow_companion/use_moeflow_companion';
+import { ListPageSpec } from './List';
 
 /** 文件列表的属性接口 */
 interface FileListProps {
@@ -58,10 +62,12 @@ export const FileList: FC<FileListProps> = ({
   const [outputDrawerVisible, setOutputDrawerVisible] = useState(false);
   const coverWidth = IMAGE_COVER.WIDTH;
   const coverHeight = IMAGE_COVER.HEIGHT;
+  const companionService = useMoeflowCompanionBatchProcess();
 
-  const [items, setItems] = useState<File[]>([]);
+  const [items, setItems] = useState<MFile[]>([]);
   const [spinningIDs, setSpinningIDs] = useState<string[]>([]); // 删除请求中
   const filePondRef = useRef<FilePond | null>();
+  const currentPageSpecRef = useRef<ListPageSpec | null>(null);
 
   const defaultPage = useSelector(
     (state: AppState) => state.file.filesState.page,
@@ -76,11 +82,11 @@ export const FileList: FC<FileListProps> = ({
     (state: AppState) => state.file.filesState.selectedFileIds,
   );
 
-  const toTranslator = (file: File) => {
+  const openInTranslator = (file: MFile) => {
     history.push(routes.imageTranslator.build(file.id, target.id));
   };
 
-  const deleteFile = (file: File) => {
+  const deleteFile = (file: MFile) => {
     Modal.confirm({
       title: formatMessage({ id: 'project.deleteFile' }),
       content: formatMessage(
@@ -107,25 +113,21 @@ export const FileList: FC<FileListProps> = ({
             setSpinningIDs((ids) => ids.filter((id) => id !== file.id));
           });
       },
-      onCancel: () => { },
+      onCancel: () => {},
       okText: formatMessage({ id: 'form.ok' }),
       cancelText: formatMessage({ id: 'form.cancel' }),
     });
   };
 
   /** 获取元素 */
-  const handleChange = ({
-    page,
-    pageSize,
-    word,
-    cancelToken,
-  }: {
-    page: number;
-    pageSize: number;
-    word?: string;
-    cancelToken: CancelToken;
-  }) => {
+  const loadPage = ({ page, pageSize, word, cancelToken }: ListPageSpec) => {
     setLoading(true);
+    currentPageSpecRef.current = {
+      page,
+      pageSize,
+      word: word || '',
+      cancelToken,
+    };
     return api.file
       .getProjectFiles({
         projectID: project.id,
@@ -140,7 +142,7 @@ export const FileList: FC<FileListProps> = ({
         },
       })
       .then((result) => {
-        const data = (result.data as File[]).map((d) => toLowerCamelCase(d));
+        const data = (result.data as MFile[]).map((d) => toLowerCamelCase(d));
         setItems(data);
         setTotal(Number(result.headers['x-pagination-count']));
         setLoading(false);
@@ -178,10 +180,6 @@ export const FileList: FC<FileListProps> = ({
     });
   };
   // */
-
-  const handleOutputDrawerOpen = () => {
-    setOutputDrawerVisible(true);
-  };
 
   return (
     <div
@@ -276,7 +274,7 @@ export const FileList: FC<FileListProps> = ({
               },
             );
           }
-          const uploadingFile: File = {
+          const uploadingFile: MFile = {
             id: file.id,
             name: file.filename,
             saveName: '',
@@ -315,7 +313,7 @@ export const FileList: FC<FileListProps> = ({
         // 上传成功
         onprocessfile={(error, file) => {
           if (error) return;
-          const result = toLowerCamelCase(JSON.parse(file.serverId) as File);
+          const result = toLowerCamelCase(JSON.parse(file.serverId) as MFile);
           setItems((items) => {
             // 覆盖时删除列表中原来的文件
             const itemsWithoutSameID = items.filter(
@@ -368,14 +366,18 @@ export const FileList: FC<FileListProps> = ({
             ? formatMessage({ id: 'project.changeTarget' }) + ' - '
             : '') + target?.language.i18nName}
         </Button>
-        {/* {can(team, TEAM_PERMISSION.USE_OCR_QUOTA) && (
+        {companionService && (
           <Button
             tooltipProps={{
-              overlay: formatMessage({ id: 'fileList.ocrButtonTip' }),
+              overlay: formatMessage({ id: 'fileList.aiTranslateTip' }),
             }}
             icon="robot"
-            onClick={startOCR}
-          ></Button>
+            // onClick={}
+          >
+            {formatMessage({ id: 'fileList.aiTranslate' })}
+          </Button>
+        )}
+        {/* {can(team, TEAM_PERMISSION.USE_OCR_QUOTA) && (
         )} */}
         {/* <Button
           tooltipProps={{
@@ -387,9 +389,9 @@ export const FileList: FC<FileListProps> = ({
           }}
         ></Button> */}
         {can(project, PROJECT_PERMISSION.OUTPUT_TRA) && (
-          <Button icon="download" onClick={handleOutputDrawerOpen}>
-            {!isMobile && formatMessage({ id: 'site.output' })}
-            {selectedFileIds.length > 0 && `(${selectedFileIds.length})`}
+          <Button icon="download" onClick={() => setOutputDrawerVisible(true)}>
+            {!isMobile && formatMessage({ id: 'project.export' })}
+            {selectedFileIds.length > 0 && ` (${selectedFileIds.length})`}
           </Button>
         )}
         {can(project, PROJECT_PERMISSION.ADD_FILE) && (
@@ -459,7 +461,7 @@ export const FileList: FC<FileListProps> = ({
       <List
         id={project.id}
         className="FileList__List"
-        onChange={handleChange}
+        onChange={loadPage}
         loading={loading}
         total={total}
         items={items}
@@ -480,7 +482,7 @@ export const FileList: FC<FileListProps> = ({
                 onClick={() => {
                   (file.uploadState === undefined ||
                     file.uploadState === 'success') &&
-                    toTranslator(file);
+                    openInTranslator(file);
                 }}
                 selectVisible={can(project, PROJECT_PERMISSION.OUTPUT_TRA)}
                 selected={selectedFileIds.includes(file.id)}
@@ -550,7 +552,7 @@ export const FileList: FC<FileListProps> = ({
       <Drawer
         className="FileList__OutputDrawer"
         title={
-          formatMessage({ id: 'site.output' }) +
+          formatMessage({ id: 'project.export' }) +
           ` - ${target.language.i18nName}`
         }
         placement={isMobile ? 'bottom' : 'right'}
@@ -569,3 +571,15 @@ export const FileList: FC<FileListProps> = ({
     </div>
   );
 };
+
+function useMoeflowCompanionBatchProcess() {
+  const [serviceState, client] = useMoeflowCompanion();
+
+  if (serviceState !== moeflowCompanionServiceState.connected) {
+    return null;
+  }
+
+  return {
+    async f(files: MFile[]) {},
+  } as const;
+}

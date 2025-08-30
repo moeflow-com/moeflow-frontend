@@ -711,7 +711,7 @@ imageTranslator.sourceViewer.rightClickMarkToRemove:
 site.noPermission:
   zhCn: 没有权限
   en: No permission
-site.output:
+project.export:
   zhCn: 导出
   en: Export
 site.loading:
@@ -804,6 +804,12 @@ file.parseNotStart:
 fileList.ocrButtonTip:
   zhCn: 图片自动标记
   en: Image Auto Tagging
+fileList.aiTranslate:
+  zhCn: AI翻译
+  en: Translate with AI
+fileList.aiTranslateTip:
+  zhCn: 自动识别并翻译
+  en: Detect marks and Translate
 project.startOCR:
   zhCn: 开始自动标记
   en: Start Auto Tagging

@@ -109,13 +109,13 @@ export const ImageSelect: FC<ImageSelectProps> = ({
           padding: 0 10px;
           line-height: 40px;
           ${clickEffect(
-        css`
+            css`
               background-color: ${style.widgetButtonHoverBackgroundColor};
             `,
-        css`
+            css`
               color: ${style.widgetButtonActiveColor};
             `,
-      )};
+          )};
         }
         .ImageSelect__MenuWrapper {
           opacity: 0;
@@ -150,13 +150,13 @@ export const ImageSelect: FC<ImageSelectProps> = ({
           overflow: hidden;
           white-space: nowrap;
           ${clickEffect(
-        css`
+            css`
               background-color: ${style.widgetButtonHoverBackgroundColor};
             `,
-        css`
+            css`
               color: ${style.widgetButtonActiveColor};
             `,
-      )};
+          )};
         }
         .ImageSelect__MenuItem--active {
           background-color: ${style.widgetButtonActiveBackgroundColor};
@@ -169,13 +169,13 @@ export const ImageSelect: FC<ImageSelectProps> = ({
           border-radius: 0;
           border-width: 0;
           ${clickEffect(
-        css`
+            css`
               background-color: ${style.widgetButtonHoverBackgroundColor};
             `,
-        css`
+            css`
               color: ${style.widgetButtonActiveColor};
             `,
-      )};
+          )};
         }
       `}
       ref={domRef}

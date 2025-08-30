@@ -101,7 +101,7 @@ const ImageTranslator: FC = () => {
         .ImageTranslator__ImageViewer {
           z-index: 1;
           ${isMobile &&
-        css`
+          css`
             position: absolute;
             bottom: ${sourceListHeightMobile}px;
             left: 0;
@@ -113,7 +113,7 @@ const ImageTranslator: FC = () => {
           box-shadow: ${style.boxShadowBase};
           overflow: hidden;
           ${isMobile
-          ? css`
+            ? css`
                 bottom: 0;
                 left: 0;
                 height: ${sourceListHeightMobile}px;
@@ -121,7 +121,7 @@ const ImageTranslator: FC = () => {
                 border-radius: ${style.borderRadiusBase}
                   ${style.borderRadiusBase} 0 0;
               `
-          : css`
+            : css`
                 top: 0;
                 right: 0;
                 height: 100%;
@@ -190,7 +190,11 @@ const ImageTranslator: FC = () => {
   );
 };
 
-function useImageTranslatorHotkeys(file: GetFileReturn | undefined, sources: Source[], focusedSourceID: string | null) {
+function useImageTranslatorHotkeys(
+  file: GetFileReturn | undefined,
+  sources: Source[],
+  focusedSourceID: string | null,
+) {
   const dispatch = useDispatch();
   const focusNextSource = () => {
     if (sources.length === 0) {
@@ -283,14 +287,13 @@ function useImageTranslatorHotkeys(file: GetFileReturn | undefined, sources: Sou
     [focusedSourceID, sources.length],
   );
 
-
   // 快捷键 - 当 ImageViewer 未加载完成是，忽略所有快捷键
   useHotKey(
     {
       disabled: Boolean(file?.id),
       ignoreKeyboardElement: false,
     },
-    () => { },
+    () => {},
     [file?.id],
   );
 }
@@ -330,6 +333,6 @@ function useWindowSize() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return windowSize
+  return windowSize;
 }
 export default ImageTranslator;

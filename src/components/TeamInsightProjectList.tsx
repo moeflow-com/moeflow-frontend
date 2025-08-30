@@ -324,7 +324,7 @@ export const TeamInsightProjectList: FC<TeamInsightProjectListProps> = ({
             }}
           />
           <Column
-            title={formatMessage({ id: 'site.output' })}
+            title={formatMessage({ id: 'project.export' })}
             key="project"
             width="30%"
             render={(text, record: APIInsightProjectWithPage, index) => {
