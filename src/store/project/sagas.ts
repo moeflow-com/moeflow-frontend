@@ -34,7 +34,7 @@ function* setCurrentProjectWorker(
         configs: { cancelToken },
       });
       yield put(setCurrentProject(toLowerCamelCase(result.data)));
-    } catch (error) {
+    } catch (error: any) {
       error.default();
     } finally {
       if (yield cancelled()) {

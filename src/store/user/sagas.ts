@@ -10,6 +10,7 @@ import type { Axios } from 'axios';
 function* getUserInfoAsync(action: ReturnType<typeof setUserToken>) {
   const token = action.payload.token;
   const instance: Axios = yield api.getAxiosInstance();
+  // console.debug('instance', instance);
   if (token === '') {
     // 清除 Axios Authorization 头
     delete instance.defaults.headers.common['Authorization'];
