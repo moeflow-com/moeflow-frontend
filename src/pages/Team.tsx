@@ -32,7 +32,7 @@ import ProjectSet from './ProjectSet';
 import ProjectSetSetting from './ProjectSetSetting';
 
 /** 团队页的属性接口 */
-interface TeamProps {}
+interface TeamProps { }
 /**
  * 团队页
  */
@@ -57,7 +57,7 @@ const Team: FC<TeamProps> = () => {
 
   const rightButton = (
     <Tooltip
-      title={formatMessage({ id: 'site.createProjectSet' })}
+      title={formatMessage({ id: 'projectSet.createProjectSet' })}
       placement="right"
     >
       <div className="ListItem__RightButton">
@@ -166,7 +166,7 @@ const Team: FC<TeamProps> = () => {
                     `}
                   >
                     <ContentTitle>
-                      {formatMessage({ id: 'site.createProjectSet' })}
+                      {formatMessage({ id: 'projectSet.createProjectSet' })}
                     </ContentTitle>
                     <ContentItem>
                       <ProjectSetCreateForm teamID={currentTeam.id} />
