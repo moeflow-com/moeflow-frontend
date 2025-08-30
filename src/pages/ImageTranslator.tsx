@@ -36,8 +36,6 @@ const ImageTranslator: FC = () => {
   );
   const platform = useSelector((state: AppState) => state.site.platform);
   const isMobile = platform === 'mobile';
-  const osName = useSelector((state: AppState) => state.site.osName);
-  const isIOS = osName === 'ios';
   const [file, setFile] = useState<GetFileReturn>();
   const sourceListWidth = 400;
   const sourceListHeightMobile = 200;
@@ -298,6 +296,8 @@ function useImageTranslatorHotkeys(file: GetFileReturn | undefined, sources: Sou
 }
 
 function useWindowSize() {
+  const osName = useSelector((state: AppState) => state.site.osName);
+  const isIOS = osName === 'ios';
 
   // 页面尺寸
   const [windowSize, setWindowSize] = useState({
