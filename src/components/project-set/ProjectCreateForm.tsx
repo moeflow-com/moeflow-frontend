@@ -17,7 +17,7 @@ import { useHistory } from 'react-router-dom';
 import { AppState } from '@/store';
 import { toLowerCamelCase } from '@/utils';
 import { GROUP_ALLOW_APPLY_TYPE } from '@/constants';
-import { configs, } from '@/configs';
+import { configs } from '@/configs';
 import style from '../../style';
 import { resetFilesState } from '@/store/file/slice';
 

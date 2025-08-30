@@ -12,12 +12,12 @@ export const moeflowCompanionServiceState = {
   disconnected: 'disconnected',
 } as const;
 
-const logger = createDebugLogger('service:moeflow_companion');
+const debugLogger = createDebugLogger('service:moeflow_companion');
 
 export function useMoeflowCompanion() {
   const clientRef = useRef<Client | null>(null);
   const [clientState, setClientState] = useState<string>(
-    moeflowCompanionServiceState.disabled,
+    moeflowCompanionServiceState.connecting,
   );
   const serviceConf = useSelector(
     (s: AppState) => s.site.runtimeConfig.moeflowCompanion,
@@ -36,7 +36,7 @@ export function useMoeflowCompanion() {
         setClientState(moeflowCompanionServiceState.connected);
         released.then(() => client.close());
       } catch (e) {
-        logger('error connecting', e, serviceConf.gradioUrl);
+        debugLogger('error connecting', e, serviceConf.gradioUrl);
         clientRef.current = null;
         setClientState(moeflowCompanionServiceState.disconnected);
       }
@@ -46,4 +46,43 @@ export function useMoeflowCompanion() {
   return [clientState, clientRef.current] as const;
 }
 
-export async function x(client: Client) {}
+export async function multimodalTranslate(
+  client: Client,
+  files: File[],
+  targetLang: string,
+  model: string,
+): Promise<TranslatedFile[]> {
+  // const uploadRes = await client.upload_files(hfSpaceUrl, files)
+  // files.forEach(file => formData.append('files[]', file));
+  // debugLogger('Upload response:', uploadRes);
+  const predictRes = await client.predict('/multimodal_llm_process_files', {
+    gradio_temp_files: files, // uploadRes.files!.map(handle_file),
+    model,
+    target_language: targetLang,
+    export_moeflow_project_name: 'Hello!!',
+  });
+  const [{ files: translated }] = predictRes.data as MoeflowMultimodalResData;
+
+  debugLogger('Predict response:', translated);
+  return translated;
+}
+interface TranslatedFile {
+  local_path: string;
+  image_w: number;
+  image_h: number;
+  text_blocks: Array<{
+    left: number;
+    top: number;
+    right: number;
+    bottom: number;
+    source: string;
+    translated: string;
+  }>;
+}
+/**
+ * the type in gradio https://github.com/moeflow-com/manga-image-translator/blob/moeflow-companion-main/moeflow_companion/gradio/multimodal.py#L62
+ */
+type MoeflowMultimodalResData = [
+  { files: TranslatedFile[] },
+  /* the ignored packaged zip */ unknown,
+];

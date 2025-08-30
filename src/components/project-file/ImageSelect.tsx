@@ -1,16 +1,20 @@
 import { css } from '@emotion/core';
 import { Button } from 'antd';
 import classNames from 'classnames';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useClickAway } from 'react-use';
-import apis from '@/apis';
+import { api } from '@/apis';
 import { FC, File } from '@/interfaces';
 import { AppState } from '@/store';
 import style from '@/style';
 import { toLowerCamelCase } from '@/utils';
 import { clickEffect } from '@/utils/style';
+import {
+  useMoeflowCompanion,
+  moeflowCompanionServiceState,
+} from '@/services/moeflow_companion/use_moeflow_companion';
 
 /** 图片文件选择下拉框的属性接口 */
 interface ImageSelectProps {
@@ -53,7 +57,7 @@ export const ImageSelect: FC<ImageSelectProps> = ({
   }) => {
     setLoading(true);
     if (!currentProject) return;
-    apis
+    api.file
       .getProjectFiles({
         projectID: currentProject.id,
         params: { page, limit },
@@ -105,13 +109,13 @@ export const ImageSelect: FC<ImageSelectProps> = ({
           padding: 0 10px;
           line-height: 40px;
           ${clickEffect(
-            css`
+        css`
               background-color: ${style.widgetButtonHoverBackgroundColor};
             `,
-            css`
+        css`
               color: ${style.widgetButtonActiveColor};
             `,
-          )};
+      )};
         }
         .ImageSelect__MenuWrapper {
           opacity: 0;
@@ -146,13 +150,13 @@ export const ImageSelect: FC<ImageSelectProps> = ({
           overflow: hidden;
           white-space: nowrap;
           ${clickEffect(
-            css`
+        css`
               background-color: ${style.widgetButtonHoverBackgroundColor};
             `,
-            css`
+        css`
               color: ${style.widgetButtonActiveColor};
             `,
-          )};
+      )};
         }
         .ImageSelect__MenuItem--active {
           background-color: ${style.widgetButtonActiveBackgroundColor};
@@ -165,13 +169,13 @@ export const ImageSelect: FC<ImageSelectProps> = ({
           border-radius: 0;
           border-width: 0;
           ${clickEffect(
-            css`
+        css`
               background-color: ${style.widgetButtonHoverBackgroundColor};
             `,
-            css`
+        css`
               color: ${style.widgetButtonActiveColor};
             `,
-          )};
+      )};
         }
       `}
       ref={domRef}

@@ -248,10 +248,10 @@ export const DemoOcrFiles: FC<{}> = (props) => {
           setWorking((s) =>
             s?.nonce === initState.nonce
               ? {
-                ...s,
-                finished: Math.max(s.finished, finished),
-                numPages: total,
-              }
+                  ...s,
+                  finished: Math.max(s.finished, finished),
+                  numPages: total,
+                }
               : s,
           ),
         ),

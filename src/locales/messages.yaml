@@ -11,10 +11,10 @@ imageTranslator.imageViewerZoomPanel.originSize:
   en: Origin Size
 imageTranslator.imageViewerZoomPanel.fixWidth:
   zhCn: 适应宽度
-  en: Fix Width
+  en: Fit Width
 imageTranslator.imageViewerZoomPanel.fixHeight:
   zhCn: 适应高度
-  en: Fix Height
+  en: Fit Height
 imageTranslator.imageViewerZoomPanel.zoomIn:
   zhCn: 放大
   en: Zoom In

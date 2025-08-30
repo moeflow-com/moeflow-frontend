@@ -13,7 +13,7 @@ import ProjectPreview from './ProjectPreview';
 import ProjectSetting from './ProjectSetting';
 
 /** 项目路由的属性接口 */
-interface ProjectProps { }
+interface ProjectProps {}
 /**
  * 项目路由
  */

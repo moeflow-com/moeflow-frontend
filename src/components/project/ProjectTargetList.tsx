@@ -123,7 +123,9 @@ export const ProjectTargetList: FC<ProjectTargetListProps> = ({
       columnWidth={250}
       autoPageSize={false}
       defaultPageSize={100000}
-      emptyTipCreater={() => <EmptyTip text={formatMessage({ id: 'target.emptyTip' })} />}
+      emptyTipCreater={() => (
+        <EmptyTip text={formatMessage({ id: 'target.emptyTip' })} />
+      )}
     />
   );
 };

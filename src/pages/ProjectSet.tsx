@@ -32,7 +32,7 @@ import { ProjectCreateForm } from '@/components/project-set/ProjectCreateForm';
 import { ProjectImportForm } from '@/components/project-set/ProjectImportForm';
 
 /** 项目集页的属性接口 */
-interface ProjectSetProps { }
+interface ProjectSetProps {}
 /**
  * 项目集页
  */

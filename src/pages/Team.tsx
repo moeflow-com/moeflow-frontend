@@ -32,7 +32,7 @@ import ProjectSet from './ProjectSet';
 import ProjectSetSetting from './ProjectSetSetting';
 
 /** 团队页的属性接口 */
-interface TeamProps { }
+interface TeamProps {}
 /**
  * 团队页
  */

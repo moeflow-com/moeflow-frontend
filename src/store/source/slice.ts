@@ -47,6 +47,8 @@ export interface EditProofreadSagaAction {
   proofreadContent: string;
   noDebounce?: boolean;
 }
+
+export interface Singl {}
 const slice = createSlice({
   name: 'source',
   initialState,

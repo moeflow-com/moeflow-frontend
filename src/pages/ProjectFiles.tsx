@@ -61,7 +61,7 @@ const ProjectFiles: FC<ProjectFilesProps> = ({ project }) => {
     );
   }
 
-  const wrapper =
+  const wrapper = (
     <div
       css={css`
         width: 100%;
@@ -82,11 +82,14 @@ const ProjectFiles: FC<ProjectFilesProps> = ({ project }) => {
           }
         }
       `}
-    />;
+    />
+  );
 
   if (!currentTarget) {
     // target selector
-    return cloneElement(wrapper, undefined,
+    return cloneElement(
+      wrapper,
+      undefined,
       targets && (
         <ListItem
           disabled={true}
@@ -131,15 +134,23 @@ const ProjectFiles: FC<ProjectFilesProps> = ({ project }) => {
             }
           }
         }}
-      />
-    )
+      />,
+    );
   }
 
-  if (project.importFromLabelplusStatus !== IMPORT_FROM_LABELPLUS_STATUS.SUCCEEDED) {
-    return cloneElement(wrapper, undefined, <ProjectImportFromLabelplusStatus project={project} />)
+  if (
+    project.importFromLabelplusStatus !== IMPORT_FROM_LABELPLUS_STATUS.SUCCEEDED
+  ) {
+    return cloneElement(
+      wrapper,
+      undefined,
+      <ProjectImportFromLabelplusStatus project={project} />,
+    );
   }
 
-  return cloneElement(wrapper, undefined,
+  return cloneElement(
+    wrapper,
+    undefined,
     <FileList
       project={project}
       target={currentTarget}
@@ -148,13 +159,10 @@ const ProjectFiles: FC<ProjectFilesProps> = ({ project }) => {
           setCurrentTarget(undefined);
           clearDefaultTargetID({ projectID: project.id });
         } else {
-          message.info(
-            formatMessage({ id: 'project.onlyOneTargetTip' }),
-            1,
-          );
+          message.info(formatMessage({ id: 'project.onlyOneTargetTip' }), 1);
         }
       }}
-    />
-  )
+    />,
+  );
 };
 export default ProjectFiles;
