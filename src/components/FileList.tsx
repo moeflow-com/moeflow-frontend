@@ -3,14 +3,13 @@ import { Button as AntdButton, Drawer, message, Modal, Spin } from 'antd';
 import { CancelToken } from 'axios';
 import loadImage from 'blueimp-load-image';
 import classNames from 'classnames';
-import React, { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { FilePond } from 'react-filepond';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Button, EmptyTip, FileItem, List, OutputList } from '.';
 import { api, resultTypes } from '../apis';
-import { runtimeConfig } from '@/configs';
 import {
   FILE_NOT_EXIST_REASON,
   FILE_SAFE_STATUS,
@@ -25,7 +24,7 @@ import { setFilesState } from '@/store/file/slice';
 import style from '../style';
 import { toLowerCamelCase } from '@/utils';
 import { can } from '@/utils/user';
-import { usePromised } from '@jokester/ts-commonutil/lib/react/hook/use-promised';
+import { routes } from '@/pages/routes';
 
 /** 文件列表的属性接口 */
 interface FileListProps {
@@ -49,10 +48,8 @@ export const FileList: FC<FileListProps> = ({
   const [loading, setLoading] = useState(true);
   const [listMode] = useState<'image' | 'text'>('image');
   const [total, setTotal] = useState(0); // 元素总个数
-  const runtimeConfigLoaded = usePromised(runtimeConfig);
-  const uploadAPI =
-    runtimeConfigLoaded.fulfilled &&
-    `${runtimeConfigLoaded.value.baseURL}/v1/projects/${project.id}/files`;
+  const runtimeConfig = useSelector((state: AppState) => state.site.runtimeConfig);
+  const uploadAPI = `${runtimeConfig.baseURL}/v1/projects/${project.id}/files`;
   const token = useSelector((state: AppState) => state.user.token);
   const platform = useSelector((state: AppState) => state.site.platform);
   const isMobile = platform === 'mobile';
@@ -63,9 +60,6 @@ export const FileList: FC<FileListProps> = ({
   const [items, setItems] = useState<File[]>([]);
   const [spinningIDs, setSpinningIDs] = useState<string[]>([]); // 删除请求中
   const filePondRef = useRef<FilePond | null>();
-
-  const [team, setTeam] = useState<Team>();
-  const currentTeam = useSelector((state: AppState) => state.team.currentTeam);
 
   const defaultPage = useSelector(
     (state: AppState) => state.file.filesState.page,
@@ -80,20 +74,8 @@ export const FileList: FC<FileListProps> = ({
     (state: AppState) => state.file.filesState.selectedFileIds,
   );
 
-  useEffect(() => {
-    if (!currentTeam) {
-      api.project.getProject({ id: project.id }).then((result) => {
-        const data = toLowerCamelCase(result.data);
-        setTeam(data.team);
-      });
-    } else {
-      setTeam(currentTeam);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [project.id]);
-
   const toTranslator = (file: File) => {
-    history.push(`/image-translator/${file.id}-${target?.id}`);
+    history.push(routes.imageTranslator.build(file.id, target.id));
   };
 
   const deleteFile = (file: File) => {
@@ -123,7 +105,7 @@ export const FileList: FC<FileListProps> = ({
             setSpinningIDs((ids) => ids.filter((id) => id !== file.id));
           });
       },
-      onCancel: () => {},
+      onCancel: () => { },
       okText: formatMessage({ id: 'form.ok' }),
       cancelText: formatMessage({ id: 'form.cancel' }),
     });
