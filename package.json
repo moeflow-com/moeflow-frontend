@@ -8,7 +8,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.4",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.19",
-    "@gradio/client": "1.14.0",
+    "@gradio/client": "^1.14.0",
     "@jokester/ts-commonutil": "^0.6.1",
     "@reduxjs/toolkit": "^1.9.7",
     "@zip.js/zip.js": "^2.7.60",
