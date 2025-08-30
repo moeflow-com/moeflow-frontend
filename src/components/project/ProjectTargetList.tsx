@@ -1,10 +1,10 @@
 import { css } from '@emotion/core';
 import { CancelToken } from 'axios';
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import api, { resultTypes } from '../../apis';
+import { api, resultTypes } from '../../apis';
 import {
   EmptyTip,
   List,
@@ -38,7 +38,7 @@ export const ProjectTargetList: FC<ProjectTargetListProps> = ({
   const isMobile = platform === 'mobile';
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0); // 元素总个数
-  const [items, setItems] = useState<Target[]>([]); // 元素
+  const [targetLangs, setTargetLangs] = useState<Target[]>([]); // 元素
 
   /** 获取元素 */
   const handleChange = ({
@@ -53,7 +53,7 @@ export const ProjectTargetList: FC<ProjectTargetListProps> = ({
     cancelToken: CancelToken;
   }) => {
     setLoading(true);
-    api
+    api.target
       .getProjectTargets({
         projectID: project.id,
         params: {
@@ -71,7 +71,7 @@ export const ProjectTargetList: FC<ProjectTargetListProps> = ({
         setLoading(false);
         // 转成大写
         const items = result.data.map((item: any) => toLowerCamelCase(item));
-        setItems(items);
+        setTargetLangs(items);
         onLoad && onLoad(items);
       })
       .catch((error) => {
@@ -95,7 +95,7 @@ export const ProjectTargetList: FC<ProjectTargetListProps> = ({
       searchInputVisible={false}
       loading={loading}
       total={total}
-      items={items}
+      items={targetLangs}
       itemHeight={LIST_ITEM_DEFAULT_HEIGHT}
       itemCreater={(item) => {
         return (
@@ -123,9 +123,7 @@ export const ProjectTargetList: FC<ProjectTargetListProps> = ({
       columnWidth={250}
       autoPageSize={false}
       defaultPageSize={100000}
-      emptyTipCreater={() => {
-        return <EmptyTip text={formatMessage({ id: 'target.emptyTip' })} />;
-      }}
+      emptyTipCreater={() => <EmptyTip text={formatMessage({ id: 'target.emptyTip' })} />}
     />
   );
 };
