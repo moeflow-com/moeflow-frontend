@@ -39,11 +39,22 @@ import { lazyThenable } from '@jokester/ts-commonutil/lib/concurrency/lazy-thena
 
 const debugLogger = createDebugLogger('apis');
 
-const instanceP = lazyThenable(async () =>
-  axios.create({
-    baseURL: `${(await runtimeConfig).baseURL}`,
-  }),
-);
+const instanceP = lazyThenable(() => {
+  return runtimeConfig.then((r) => {
+    const token = store.getState().user.token;
+    // dev-only workaround: hot reload may create another instanceP with no common headers sets
+    const commonHeaders =
+      process.env.NODE_ENV === 'development' && token
+        ? { Authorization: `Bearer ${token}` }
+        : {};
+    return axios.create({
+      baseURL: `${r.baseURL}`,
+      headers: {
+        common: commonHeaders,
+      },
+    });
+  });
+});
 
 let languageInterceptor: number | null = null;
 
@@ -205,7 +216,7 @@ export async function request<T = unknown>(
             data: error.response.data,
             default: () => {
               // 清理 token
-              store.dispatch(setUserToken({ token: '' }));
+              // store.dispatch(setUserToken({ token: '' }));
             },
           };
           throw result;
