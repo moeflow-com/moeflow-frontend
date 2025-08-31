@@ -4,6 +4,7 @@ import { useAsyncEffect } from '@jokester/ts-commonutil/lib/react/hook/use-async
 import { useSelector } from 'react-redux';
 import { AppState } from '@/store';
 import { createDebugLogger } from '@/utils/debug-logger';
+import { RuntimeConfig } from '@/configs';
 
 export const moeflowCompanionServiceState = {
   disabled: 'disabled',
@@ -14,8 +15,17 @@ export const moeflowCompanionServiceState = {
 
 const debugLogger = createDebugLogger('service:moeflow_companion');
 
-export function useMoeflowCompanion() {
-  const clientRef = useRef<Client | null>(null);
+export interface MoeflowCompanionService {
+  client: Client;
+  serviceConf: RuntimeConfig['moeflowCompanion'];
+  multimodalTranslate: typeof multimodalTranslate;
+}
+
+export function useMoeflowCompanion(): [
+  string,
+  MoeflowCompanionService | null,
+] {
+  const serviceRef = useRef<MoeflowCompanionService | null>(null);
   const [clientState, setClientState] = useState<string>(
     moeflowCompanionServiceState.connecting,
   );
@@ -25,30 +35,40 @@ export function useMoeflowCompanion() {
 
   useAsyncEffect(
     async (_, released) => {
-      if (!serviceConf?.gradioUrl) {
-        clientRef.current = null;
+      if (
+        !(
+          serviceConf &&
+          serviceConf.gradioUrl &&
+          serviceConf.defaultMultimodalModel
+        )
+      ) {
+        serviceRef.current = null;
         setClientState(moeflowCompanionServiceState.disabled);
         return;
       }
       try {
         const client = await Client.connect(serviceConf.gradioUrl);
-        clientRef.current = client;
+        serviceRef.current = {
+          client,
+          multimodalTranslate,
+          serviceConf,
+        };
         setClientState(moeflowCompanionServiceState.connected);
         released.then(() => client.close());
       } catch (e) {
         debugLogger('error connecting', e, serviceConf.gradioUrl);
-        clientRef.current = null;
+        serviceRef.current = null;
         setClientState(moeflowCompanionServiceState.disconnected);
       }
     },
     [serviceConf],
   );
-  return [clientState, clientRef.current] as const;
+  return [clientState, serviceRef.current] as const;
 }
 
-export async function multimodalTranslate(
+async function multimodalTranslate(
   client: Client,
-  files: File[],
+  files: Blob[],
   targetLang: string,
   model: string,
 ): Promise<TranslatedFile[]> {
@@ -66,7 +86,7 @@ export async function multimodalTranslate(
   debugLogger('Predict response:', translated);
   return translated;
 }
-interface TranslatedFile {
+export interface TranslatedFile {
   local_path: string;
   image_w: number;
   image_h: number;
