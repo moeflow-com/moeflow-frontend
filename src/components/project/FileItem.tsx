@@ -3,7 +3,7 @@ import { Checkbox } from 'antd';
 import classNames from 'classnames';
 import { useIntl } from 'react-intl';
 import { Icon } from '@/components';
-import { FileUploadProgress } from '@/components/project/FileUploadProgress';
+import { FileUploadProgress } from './FileUploadProgress';
 import { TranslationProgress } from '@/components/shared/TranslationProgress';
 import { ImageOCRProgress } from '@/components/unused/ImageOCRProgress';
 import {
@@ -27,6 +27,136 @@ interface FileItemProps {
   onDeleteButtonClick?: () => void;
   className?: string;
 }
+
+const width = IMAGE_COVER.WIDTH;
+const height = 240;
+const imageHeight = IMAGE_COVER.HEIGHT;
+
+const fileItemStyle = css`
+  position: relative;
+  width: ${width}px;
+  height: ${height}px;
+  border-radius: ${style.borderRadiusBase};
+  overflow: hidden;
+  transition:
+    box-shadow 100ms,
+    border-color 100ms;
+  border: 1px solid ${style.borderColorLight};
+  .FileItem__ImageOCRProgressWrapper {
+    display: none;
+    position: absolute;
+    top: ${imageHeight - 17}px;
+    left: 6px;
+    padding: 3px 5px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 4px;
+    border: 1px solid #fff;
+  }
+  .FileItem__ImageWrapper {
+    display: block;
+    width: ${width - 2}px;
+    height: ${imageHeight}px;
+    overflow: hidden;
+  }
+  .FileItem__Image {
+    display: block;
+    width: ${width - 2}px;
+    height: ${imageHeight}px;
+    transition: transform 400ms;
+    user-select: none;
+    /* 禁止 iOS 上 Safari/Chrome/Firefox，重按/长按图片弹出菜单 */
+    -webkit-touch-callout: none;
+  }
+  .FileItem__ImageTip {
+    width: 100%;
+    height: 100%;
+    padding: 20px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #f3f3f3;
+    font-weight: bold;
+  }
+  .FileItem__Name {
+    font-size: 14px;
+    line-height: 18px;
+  }
+  .FileItem__SelectWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: ${style.borderRadiusBase} 0 ${style.borderRadiusBase} 0;
+    background-color: rgba(0, 0, 0, 0.04);
+    ${clickEffect(
+      css`
+        background-color: rgba(0, 0, 0, 0.2);
+      `,
+      css`
+        background-color: rgba(0, 0, 0, 0.4);
+      `,
+    )};
+  }
+  .FileItem__Select {
+    padding: 7px 10px;
+  }
+  .FileItem__DeleteButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0 ${style.borderRadiusBase} 0 ${style.borderRadiusBase};
+    background-color: rgba(0, 0, 0, 0.04);
+    ${clickEffect(
+      css`
+        background-color: rgba(0, 0, 0, 0.2);
+      `,
+      css`
+        background-color: rgba(0, 0, 0, 0.4);
+      `,
+    )};
+  }
+  .FileItem__DeleteButtonIcon {
+    width: 18px;
+    height: 18px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  .FileItem__Info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: ${height - imageHeight - 2}px;
+    padding: 10px;
+  }
+  .FileItem__Name {
+    height: 36px;
+    overflow: hidden;
+    word-break: break-all;
+  }
+  ${cardClickEffect()};
+  ${clickEffect(
+    css`
+      .FileItem__Image {
+        transform: scale(1.1);
+      }
+    `,
+    css`
+      .FileItem__Image {
+        transform: scale(1.08);
+        transition: transform 100ms;
+      }
+    `,
+  )};
+`;
 /**
  * 文件条目
  */
@@ -50,138 +180,10 @@ export const FileItem: FC<FileItemProps> = ({
     ? file.fileTargetCache!.checkedSourceCount
     : file.checkedSourceCount;
 
-  const width = IMAGE_COVER.WIDTH;
-  const height = 240;
-  const imageHeight = IMAGE_COVER.HEIGHT;
-
   return (
     <div
       className={classNames(['FileItem', className])}
-      css={css`
-        position: relative;
-        width: ${width}px;
-        height: ${height}px;
-        border-radius: ${style.borderRadiusBase};
-        overflow: hidden;
-        transition:
-          box-shadow 100ms,
-          border-color 100ms;
-        border: 1px solid ${style.borderColorLight};
-        .FileItem__ImageOCRProgressWrapper {
-          display: none;
-          position: absolute;
-          top: ${imageHeight - 17}px;
-          left: 6px;
-          padding: 3px 5px;
-          background-color: rgba(255, 255, 255, 0.8);
-          border-radius: 4px;
-          border: 1px solid #fff;
-        }
-        .FileItem__ImageWrapper {
-          display: block;
-          width: ${width - 2}px;
-          height: ${imageHeight}px;
-          overflow: hidden;
-        }
-        .FileItem__Image {
-          display: block;
-          width: ${width - 2}px;
-          height: ${imageHeight}px;
-          transition: transform 400ms;
-          user-select: none;
-          /* 禁止 iOS 上 Safari/Chrome/Firefox，重按/长按图片弹出菜单 */
-          -webkit-touch-callout: none;
-        }
-        .FileItem__ImageTip {
-          width: 100%;
-          height: 100%;
-          padding: 20px 10px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          text-align: center;
-          background-color: #f3f3f3;
-          font-weight: bold;
-        }
-        .FileItem__Name {
-          font-size: 14px;
-          line-height: 18px;
-        }
-        .FileItem__SelectWrapper {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 36px;
-          height: 36px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border-radius: ${style.borderRadiusBase} 0 ${style.borderRadiusBase} 0;
-          background-color: rgba(0, 0, 0, 0.04);
-          ${clickEffect(
-            css`
-              background-color: rgba(0, 0, 0, 0.2);
-            `,
-            css`
-              background-color: rgba(0, 0, 0, 0.4);
-            `,
-          )};
-        }
-        .FileItem__Select {
-          padding: 7px 10px;
-        }
-        .FileItem__DeleteButton {
-          position: absolute;
-          top: 0;
-          right: 0;
-          width: 36px;
-          height: 36px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border-radius: 0 ${style.borderRadiusBase} 0 ${style.borderRadiusBase};
-          background-color: rgba(0, 0, 0, 0.04);
-          ${clickEffect(
-            css`
-              background-color: rgba(0, 0, 0, 0.2);
-            `,
-            css`
-              background-color: rgba(0, 0, 0, 0.4);
-            `,
-          )};
-        }
-        .FileItem__DeleteButtonIcon {
-          width: 18px;
-          height: 18px;
-          color: rgba(255, 255, 255, 0.8);
-        }
-        .FileItem__Info {
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          height: ${height - imageHeight - 2}px;
-          padding: 10px;
-        }
-        .FileItem__Name {
-          height: 36px;
-          overflow: hidden;
-          word-break: break-all;
-        }
-        ${cardClickEffect()};
-        ${clickEffect(
-          css`
-            .FileItem__Image {
-              transform: scale(1.1);
-            }
-          `,
-          css`
-            .FileItem__Image {
-              transform: scale(1.08);
-              transition: transform 100ms;
-            }
-          `,
-        )};
-      `}
+      css={fileItemStyle}
       onClick={onClick}
     >
       <div className="FileItem__ImageWrapper">
