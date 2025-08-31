@@ -6,7 +6,7 @@ import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { matchPath, useHistory, useLocation } from 'react-router-dom';
 import { Avatar, EmptyTip, Icon, List, ListItem } from '@/components';
-import api, { resultTypes } from '@/apis';
+import { api, resultTypes } from '@/apis';
 import { FC, UserTeam } from '@/interfaces';
 import { AppState } from '@/store';
 import { resetProjectSetsState } from '@/store/projectSet/slice';
@@ -54,7 +54,7 @@ export const TeamList: FC<TeamListProps> = ({ className } = {}) => {
   }) => {
     setLoading(true);
     dispatch(clearTeams());
-    return api
+    return api.team
       .getUserTeams({
         params: {
           page,
