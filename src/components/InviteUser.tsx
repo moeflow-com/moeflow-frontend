@@ -13,8 +13,8 @@ import { FC, Role, Project, UserTeam } from '../interfaces';
 import style from '../style';
 import { toLowerCamelCase } from '../utils';
 import { getCancelToken } from '../utils/api';
-import { Spin } from './Spin';
-import { LIST_ITEM_DEFAULT_HEIGHT } from './ListItem';
+import { Spin } from './shared/Spin';
+import { LIST_ITEM_DEFAULT_HEIGHT } from '@/components/shared/ListItem';
 
 const { Option } = Select;
 

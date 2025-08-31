@@ -8,7 +8,7 @@ import {
   Tag,
   message,
 } from 'antd';
-import { Button as CustomButton } from './Button';
+import { Button as CustomButton } from './shared/Button';
 import classNames from 'classnames';
 import produce from 'immer';
 import qs from 'qs';

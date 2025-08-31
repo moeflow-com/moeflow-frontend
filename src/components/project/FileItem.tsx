@@ -1,21 +1,20 @@
 import { css } from '@emotion/core';
 import { Checkbox } from 'antd';
 import classNames from 'classnames';
-import React from 'react';
 import { useIntl } from 'react-intl';
 import {
   FileUploadProgress,
   Icon,
   ImageOCRProgress,
   TranslationProgress,
-} from '.';
+} from '@/components';
 import {
   FILE_NOT_EXIST_REASON,
   FILE_SAFE_STATUS,
   IMAGE_COVER,
 } from '@/constants';
 import { FC, File } from '@/interfaces';
-import style from '../style';
+import style from '@/style';
 import { cardClickEffect, clickEffect } from '@/utils/style';
 
 /** 文件条目的属性接口 */

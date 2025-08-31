@@ -2,13 +2,8 @@ import { css } from '@emotion/core';
 import { Button, Form as AntdForm, Input, message, Modal, Upload } from 'antd';
 import { useState } from 'react';
 import { useIntl } from 'react-intl';
-import {
-  Form,
-  FormItem,
-  RoleRadioGroup,
-  TypeRadioGroup,
-  LanguageSelect,
-} from '..';
+import { Form, FormItem, RoleRadioGroup, TypeRadioGroup } from '@/components';
+import { LanguageSelect } from './LanguageSelect';
 import { api } from '@/apis';
 import { FC, UserProjectSet, UserTeam } from '@/interfaces';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,7 +13,7 @@ import { AppState } from '@/store';
 import { toLowerCamelCase } from '@/utils';
 import { GROUP_ALLOW_APPLY_TYPE } from '@/constants';
 import { configs } from '@/configs';
-import style from '../../style';
+import style from '@/style';
 import { resetFilesState } from '@/store/file/slice';
 
 /** 创建项目表单的属性接口 */

@@ -7,8 +7,10 @@ import { FilePond } from 'react-filepond';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Button, EmptyTip, FileItem, List, OutputList } from '.';
-import { api, resultTypes } from '../apis';
+import { Button, EmptyTip, List } from '@/components';
+import { OutputList } from './OutputList';
+import { FileItem } from './FileItem';
+import { api, resultTypes } from '@/apis';
 import {
   FILE_NOT_EXIST_REASON,
   FILE_SAFE_STATUS,
@@ -20,7 +22,7 @@ import {
 import { FC, File as MFile, Project, Target } from '@/interfaces';
 import { AppState } from '@/store';
 import { setFilesState } from '@/store/file/slice';
-import style from '../style';
+import style from '@/style';
 import { toLowerCamelCase } from '@/utils';
 import { can } from '@/utils/user';
 import { routes } from '@/pages/routes';
@@ -28,7 +30,8 @@ import {
   moeflowCompanionServiceState,
   useMoeflowCompanion,
 } from '@/services/moeflow_companion/use_moeflow_companion';
-import { ListPageSpec } from './List';
+import { ListPageSpec } from '@/components/List';
+import { FilePondFile } from 'filepond';
 
 /** 文件列表的属性接口 */
 interface FileListProps {
@@ -119,6 +122,61 @@ export const FileList: FC<FileListProps> = ({
     });
   };
 
+  /** 处理文件添加 */
+  const handleFileAdd = (error: any, file: FilePondFile) => {
+    // 加载预览图
+    const realFile = file.file;
+    if (/^image.+/.test(file.file.type)) {
+      loadImage(
+        realFile,
+        (img) => {
+          setItems((items) =>
+            items.map((item) => {
+              if (item.id === file.id && img) {
+                return {
+                  ...item,
+                  coverUrl: (img as HTMLCanvasElement).toDataURL(),
+                };
+              }
+              return item;
+            }),
+          );
+        },
+        {
+          maxWidth: coverWidth,
+          maxHeight: coverHeight,
+          crop: true,
+          canvas: true,
+          ...({ imageSmoothingQuality: 'high' } as any), // @type 版本太旧
+        },
+      );
+    }
+    const uploadingFile: MFile = {
+      id: file.id,
+      name: file.filename,
+      saveName: '',
+      type: FILE_TYPE.IMAGE,
+      sourceCount: 0,
+      translatedSourceCount: 0,
+      checkedSourceCount: 0,
+      fileNotExistReason: FILE_NOT_EXIST_REASON.UNKNOWN,
+      safeStatus: FILE_SAFE_STATUS.NEED_MACHINE_CHECK,
+      parseStatus: PARSE_STATUS.NOT_START,
+      parseStatusDetailName: formatMessage({ id: 'file.parseNotStart' }),
+      parseErrorTypeDetailName: '',
+      url: '',
+      parentID: null,
+      fileTargetCache: {
+        translatedSourceCount: 0,
+        checkedSourceCount: 0,
+      },
+      uploading: true,
+      uploadState: 'uploading',
+      uploadPercent: 0,
+    };
+    setItems((items) => [uploadingFile, ...items]);
+  };
+
   /** 获取元素 */
   const loadPage = ({ page, pageSize, word, cancelToken }: ListPageSpec) => {
     setLoading(true);
@@ -194,12 +252,6 @@ export const FileList: FC<FileListProps> = ({
         flex-direction: column;
         justify-content: flex-start;
         align-items: stretch;
-        .FileList__ImageOCRProgressWrapper {
-          width: 100%;
-        }
-        .FileList__ImageOCRProgress {
-          padding: 0 ${style.paddingBase}px;
-        }
         .FileList__Header {
           width: 100%;
           height: 45px;
@@ -249,56 +301,7 @@ export const FileList: FC<FileListProps> = ({
         dropOnElement={false}
         allowMultiple
         maxParallelUploads={5}
-        onaddfile={(_, file) => {
-          // 加载预览图
-          const realFile = file.file;
-          if (/^image.+/.test(file.file.type)) {
-            loadImage(
-              realFile,
-              (img) => {
-                setItems((items) => {
-                  return items.map((item) => {
-                    if (item.id === file.id && img) {
-                      item.coverUrl = (img as HTMLCanvasElement).toDataURL();
-                    }
-                    return item;
-                  });
-                });
-              },
-              {
-                maxWidth: coverWidth,
-                maxHeight: coverHeight,
-                crop: true,
-                canvas: true,
-                ...({ imageSmoothingQuality: 'high' } as any), // @type 版本太旧
-              },
-            );
-          }
-          const uploadingFile: MFile = {
-            id: file.id,
-            name: file.filename,
-            saveName: '',
-            type: FILE_TYPE.IMAGE,
-            sourceCount: 0,
-            translatedSourceCount: 0,
-            checkedSourceCount: 0,
-            fileNotExistReason: FILE_NOT_EXIST_REASON.UNKNOWN,
-            safeStatus: FILE_SAFE_STATUS.NEED_MACHINE_CHECK,
-            parseStatus: PARSE_STATUS.NOT_START,
-            parseStatusDetailName: formatMessage({ id: 'file.parseNotStart' }),
-            parseErrorTypeDetailName: '',
-            url: '',
-            parentID: null,
-            fileTargetCache: {
-              translatedSourceCount: 0,
-              checkedSourceCount: 0,
-            },
-            uploading: true,
-            uploadState: 'uploading',
-            uploadPercent: 0,
-          };
-          setItems((items) => [uploadingFile, ...items]);
-        }}
+        onaddfile={handleFileAdd}
         // 上传中
         onprocessfileprogress={(file, progress) => {
           setItems((items) =>

@@ -7,12 +7,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { matchPath, useHistory, useLocation } from 'react-router-dom';
 import { Avatar, EmptyTip, Icon, List, ListItem } from '.';
 import api, { resultTypes } from '../apis';
-import { FC, UserTeam } from '../interfaces';
-import { AppState } from '../store';
-import { resetProjectSetsState } from '../store/projectSet/slice';
-import { clearTeams, createTeam, setTeamsState } from '../store/team/slice';
-import { toLowerCamelCase } from '../utils';
-import { LIST_ITEM_DEFAULT_HEIGHT } from './ListItem';
+import { FC, UserTeam } from '@/interfaces';
+import { AppState } from '@/store';
+import { resetProjectSetsState } from '@/store/projectSet/slice';
+import { clearTeams, createTeam, setTeamsState } from '@/store/team/slice';
+import { toLowerCamelCase } from '@/utils';
+import { LIST_ITEM_DEFAULT_HEIGHT } from '@/components/shared/ListItem';
 
 /** 团队列表的属性接口 */
 interface TeamListProps {

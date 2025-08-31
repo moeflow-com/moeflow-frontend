@@ -2,17 +2,17 @@ import { css } from '@emotion/core';
 import { Switch } from 'antd';
 import { Canceler } from 'axios';
 import classNames from 'classnames';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
-import apis from '../apis';
-import { APIOutput, CreateOutputData } from '../apis/output';
-import { OUTPUT_STATUS, OUTPUT_TYPE } from '../constants/output';
-import { FC } from '../interfaces';
-import style from '../style';
-import { toLowerCamelCase } from '../utils';
-import { getCancelToken } from '../utils/api';
-import { useStateRef } from '../hooks';
-import { Button } from './Button';
+import apis from '@/apis';
+import { APIOutput, CreateOutputData } from '@/apis/output';
+import { OUTPUT_STATUS, OUTPUT_TYPE } from '@/constants/output';
+import { FC } from '@/interfaces';
+import style from '@/style';
+import { toLowerCamelCase } from '@/utils';
+import { getCancelToken } from '@/utils/api';
+import { useStateRef } from '@/hooks';
+import { Button } from '@/components';
 import { Output } from './Output';
 
 /** 模板的属性接口 */

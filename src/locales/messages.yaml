@@ -805,10 +805,10 @@ fileList.ocrButtonTip:
   zhCn: 图片自动标记
   en: Image Auto Tagging
 fileList.aiTranslate:
-  zhCn: AI翻译
-  en: Translate with AI
+  zhCn: 自动翻译
+  en: Auto Translate
 fileList.aiTranslateTip:
-  zhCn: 自动识别并翻译
+  zhCn: 自动识别文字并翻译
   en: Detect marks and Translate
 project.startOCR:
   zhCn: 开始自动标记

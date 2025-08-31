@@ -2,7 +2,7 @@ import { css } from '@emotion/core';
 import { Select } from 'antd';
 import { SelectProps } from 'antd/lib/select';
 import classNames from 'classnames';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { api } from '@/apis';
 import { FC } from '@/interfaces';
 

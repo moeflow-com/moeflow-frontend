@@ -15,7 +15,7 @@ import { createTeam } from '../store/team/slice';
 import { toLowerCamelCase } from '../utils';
 import { FC, UserTeam } from '../interfaces';
 import { Team } from '../interfaces';
-import { LIST_ITEM_DEFAULT_HEIGHT } from './ListItem';
+import { LIST_ITEM_DEFAULT_HEIGHT } from '@/components/shared/ListItem';
 
 /** 搜索团队的属性接口 */
 interface TeamSearchListProps {

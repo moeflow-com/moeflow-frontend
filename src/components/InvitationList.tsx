@@ -17,7 +17,7 @@ import { toLowerCamelCase } from '../utils';
 import { getCancelToken } from '../utils/api';
 import { FC } from '../interfaces';
 import { clickEffect } from '../utils/style';
-import { Spin } from './Spin';
+import { Spin } from './shared/Spin';
 import { INVITATION_STATUS } from '../constants';
 
 const { Option } = Select;

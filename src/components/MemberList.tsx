@@ -15,7 +15,7 @@ import style from '../style';
 import { toLowerCamelCase } from '../utils';
 import { getCancelToken } from '../utils/api';
 import { can } from '../utils/user';
-import { Spin } from './Spin';
+import { Spin } from './shared/Spin';
 import { TypeData } from './TypeRadioGroup';
 
 /** 成员设置页的属性接口 */

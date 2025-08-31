@@ -2,7 +2,7 @@ import { FC } from '@/interfaces';
 import { RefObject, useRef, useState } from 'react';
 import { FilePond } from 'react-filepond';
 import { css } from '@emotion/core';
-import { Button } from '@/components/Button';
+import { Button } from '@/components/shared/Button';
 import { createMoeflowProjectZip, LPFile } from '../labelplus_packager';
 import { FailureResults } from '@/apis';
 import { measureImgSize } from '@jokester/ts-commonutil/lib/web/measure-img';

@@ -2,9 +2,9 @@ import { css } from '@emotion/core';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { matchPath, useHistory, useLocation } from 'react-router-dom';
-import { FC } from '../interfaces';
-import style from '../style';
-import { clickEffect } from '../utils/style';
+import { FC } from '@/interfaces';
+import style from '@/style';
+import { clickEffect } from '@/utils/style';
 
 export const LIST_ITEM_DEFAULT_HEIGHT = 45;
 /** 列表元素的属性接口 */

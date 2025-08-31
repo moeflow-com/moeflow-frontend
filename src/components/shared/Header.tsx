@@ -1,19 +1,19 @@
 import { css } from '@emotion/core';
 import { MenuProps } from 'antd';
-import { Icon } from './icon';
+import { Icon } from '@/components';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Avatar } from './Avatar';
 import { Dropdown } from './Dropdown';
-import { AppState } from '../store';
-import { setUserToken } from '../store/user/slice';
-import style from '../style';
-import { FC } from '../interfaces';
-import { clickEffect } from '../utils/style';
+import { AppState } from '@/store';
+import { setUserToken } from '@/store/user/slice';
+import style from '@/style';
+import { FC } from '@/interfaces';
+import { clickEffect } from '@/utils/style';
 import classNames from 'classnames';
-import { routes } from '../pages/routes';
-import { LocalePicker } from './setting/LocalePicker';
+import { routes } from '@/pages/routes';
+import { LocalePicker } from '@/components/setting/LocalePicker';
 
 /** 头部的属性接口 */
 interface HeaderProps {

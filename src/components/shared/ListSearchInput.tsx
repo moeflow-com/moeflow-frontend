@@ -3,9 +3,9 @@ import { Input } from 'antd';
 import { SearchProps } from 'antd/lib/input/Search';
 import classNames from 'classnames';
 import React, { useState } from 'react';
-import { FC } from '../interfaces';
-import style from '../style';
-import { clickEffect } from '../utils/style';
+import { FC } from '@/interfaces';
+import style from '@/style';
+import { clickEffect } from '@/utils/style';
 
 /** 列表搜索框的属性接口 */
 export interface ListSearchInputProps extends SearchProps {

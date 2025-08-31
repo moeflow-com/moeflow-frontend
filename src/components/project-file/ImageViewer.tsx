@@ -18,7 +18,7 @@ import {
   OnZoomEnd,
   OnZooming,
   OnZoomStart,
-} from '@/components/Movable';
+} from '@/components/shared/Movable';
 import { SOURCE_POSITION_TYPE } from '@/constants/source';
 import { FC, File, Source } from '@/interfaces';
 import { AppState } from '@/store';
@@ -32,7 +32,7 @@ import { ImageViewerZoomPanel } from './ImageViewerZoomPanel';
 import { MovableAreaColorBackground } from './MovableAreaColorBackground';
 import { MovableAreaImageBackground } from './MovableAreaImageBackground';
 import { MovableLabel } from './MovableLabel';
-import { Tooltip } from '@/components/Tooltip';
+import { Tooltip } from '@/components/shared/Tooltip';
 import { routes } from '@/pages/routes';
 import { createDebugLogger } from '@/utils/debug-logger';
 import { Client } from '@gradio/client';

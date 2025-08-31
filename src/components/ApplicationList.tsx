@@ -22,7 +22,7 @@ import { toLowerCamelCase } from '@/utils';
 import { formatGroupType } from '@/utils/i18n';
 import { clickEffect } from '@/utils/style';
 import { can } from '@/utils/user';
-import { Spin } from './Spin';
+import { Spin } from './shared/Spin';
 
 /** 申请管理页的属性接口 */
 interface ApplicationListProps {

@@ -8,9 +8,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import ReactResizeDetector from 'react-resize-detector';
 import { useDebouncedCallback } from 'use-debounce';
-import { ListSearchInput, ListSkeletonItem } from '.';
-import { AppState } from '../store';
-import { getCancelToken } from '../utils/api';
+import { ListSearchInput, ListSkeletonItem } from '@/components';
+import { AppState } from '@/store';
+import { getCancelToken } from '@/utils/api';
 import { ListSearchInputProps } from './ListSearchInput';
 
 export interface ListPageSpec {

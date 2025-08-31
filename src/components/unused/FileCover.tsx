@@ -1,8 +1,7 @@
 import { css } from '@emotion/core';
 import classNames from 'classnames';
-import React from 'react';
-import { FC, File } from '../interfaces';
-import style from '../style';
+import { FC, File } from '../../interfaces';
+import style from '../../style';
 
 /** 文件封面的属性接口 */
 interface FileCoverProps {

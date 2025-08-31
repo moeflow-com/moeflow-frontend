@@ -1,18 +1,17 @@
 import { css } from '@emotion/core';
 import classNames from 'classnames';
-import React from 'react';
 import { useSelector } from 'react-redux';
-import { AppState } from '../store';
-import style from '../style';
+import { AppState } from '@/store';
+import style from '@/style';
 import {
   Direction,
   FC,
   labelSavingStatuses,
   LabelStatus,
   WritingMode,
-} from '../interfaces';
-import { Spin } from './Spin';
-import { SOURCE_POSITION_TYPE } from '../constants/source';
+} from '@/interfaces';
+import { Spin } from '@/components/shared/Spin';
+import { SOURCE_POSITION_TYPE } from '@/constants/source';
 import { useIntl } from 'react-intl';
 
 /** 标签的属性接口 */

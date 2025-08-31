@@ -3,12 +3,11 @@ import {
   TooltipPropsWithTitle as AntdTooltipPropsWithTitle,
   TooltipPropsWithOverlay as AntdTooltipPropsWithOverlay,
 } from 'antd/lib/tooltip';
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { AppState } from '@/store';
 import { FC } from '@/interfaces';
 import { css, Global } from '@emotion/core';
-import style from '../style';
+import style from '@/style';
 
 /**
  * 手机版自动隐藏的 Tooltip

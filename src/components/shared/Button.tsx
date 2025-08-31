@@ -3,9 +3,9 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import type React from 'react';
-import { Icon } from '.';
+import { Icon } from '..';
 import { FC } from '@/interfaces';
-import style from '../style';
+import style from '../../style';
 import { clickEffect } from '@/utils/style';
 import { Tooltip, TooltipProps } from './Tooltip';
 

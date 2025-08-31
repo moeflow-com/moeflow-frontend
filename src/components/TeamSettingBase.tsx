@@ -17,7 +17,7 @@ import style from '../style';
 import { FC, UserTeam } from '../interfaces';
 import { can } from '../utils/user';
 import copy from 'copy-to-clipboard';
-import { AvatarUpload } from './AvatarUpload';
+import { AvatarUpload } from './shared/AvatarUpload';
 
 /** 团队基础设置的属性接口 */
 interface TeamSettingBaseProps {

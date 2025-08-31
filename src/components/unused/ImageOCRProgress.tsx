@@ -1,10 +1,10 @@
 import { css } from '@emotion/core';
 import classNames from 'classnames';
 import React from 'react';
-import { Icon, Tooltip } from '.';
-import { ParseStatuses, PARSE_STATUS } from '../constants';
-import { FC } from '../interfaces';
-import style from '../style';
+import { Icon, Tooltip } from '..';
+import { ParseStatuses, PARSE_STATUS } from '../../constants';
+import { FC } from '../../interfaces';
+import style from '../../style';
 
 const HEIGHT = 12;
 export const IMAGE_OCR_PROGRESS_HEIGHT = HEIGHT;

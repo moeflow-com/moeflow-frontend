@@ -4,7 +4,7 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { Avatar } from './Avatar';
+import { Avatar } from './shared/Avatar';
 import { AppState } from '../store';
 import { setUserToken } from '../store/user/slice';
 import style from '../style';

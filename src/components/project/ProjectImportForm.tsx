@@ -1,6 +1,6 @@
 import { css } from '@emotion/core';
 import { Button, message, Upload } from 'antd';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useIntl } from 'react-intl';
 import { api } from '@/apis';
 import { FC, UserProjectSet, UserTeam } from '@/interfaces';
@@ -30,7 +30,6 @@ export const ProjectImportForm: FC<ProjectImportFormProps> = ({
 }) => {
   const { formatMessage } = useIntl(); // i18n
   const dispatch = useDispatch();
-  const history = useHistory();
   const [importing, setImporting] = useState(false);
   const [importStatuses, setImportStatuses] = useState<string[]>([]);
   const [importFileList, setImportFileList] = useState<RcFile[]>();

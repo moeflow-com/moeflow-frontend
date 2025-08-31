@@ -10,8 +10,8 @@ import React, {
   useMemo,
   useRef,
 } from 'react';
-import { FC } from '../interfaces';
-import { useStateRef } from '../hooks';
+import { FC } from '../../interfaces';
+import { useStateRef } from '../../hooks';
 
 /**
  * ========== Context =========
@@ -963,7 +963,7 @@ const MovableItemWithoutRef: React.ForwardRefRenderFunction<
         clientY,
       };
       // 设置当前激活的子组件
-      onFocusIndexChange && onFocusIndexChange(itemIndex);
+      onFocusIndexChange && onFocusIndexChange(itemIndex!);
       // 执行移动开始回调
       if (allowMoveRef.current && onMoveStart && button === 0) {
         onMoveStart(state);

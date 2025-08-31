@@ -3,8 +3,8 @@ import { Avatar as AntdAvatar, Badge } from 'antd';
 import { AvatarProps as AntdAvatarProps } from 'antd/lib/avatar';
 import React from 'react';
 import { useIntl } from 'react-intl';
-import defaultTeamAvatar from '../images/common/default-team-avatar.jpg';
-import defaultUserAvatar from '../images/common/default-user-avatar.jpg';
+import defaultTeamAvatar from '@/images/common/default-team-avatar.jpg';
+import defaultUserAvatar from '@/images/common/default-user-avatar.jpg';
 
 /** 头像的属性接口 */
 interface AvatarProps {

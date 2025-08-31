@@ -1,9 +1,8 @@
 import { css } from '@emotion/core';
 import { Skeleton } from 'antd';
-import React from 'react';
-import { FC } from '../interfaces';
-import style from '../style';
-import { listItemStyle } from '../utils/style';
+import { FC } from '@/interfaces';
+import style from '@/style';
+import { listItemStyle } from '@/utils/style';
 
 /** 列表元素骨架的属性接口 */
 interface ListSkeletonItemProps {

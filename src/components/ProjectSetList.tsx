@@ -21,7 +21,7 @@ import {
 } from '../store/projectSet/slice';
 import { toLowerCamelCase } from '../utils';
 import { can } from '../utils/user';
-import { LIST_ITEM_DEFAULT_HEIGHT } from './ListItem';
+import { LIST_ITEM_DEFAULT_HEIGHT } from '@/components/shared/ListItem';
 
 /** 项目集的属性接口 */
 interface ProjectSetListProps {

@@ -2,19 +2,19 @@ import { css } from '@emotion/core';
 import { Button, message, Modal } from 'antd';
 import { CancelToken } from 'axios';
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import api, { resultTypes } from '@/apis';
 import {
   EmptyTip,
   Icon,
-  LanguageSelect,
   List,
   ListItem,
   LIST_ITEM_DEFAULT_HEIGHT,
   Spin,
 } from '@/components';
+import { LanguageSelect } from './LanguageSelect';
 import { FC, Target, Project } from '@/interfaces';
 import { AppState } from '@/store';
 import { increaseCurrentProjectTargetCount } from '@/store/project/slice';

@@ -1,14 +1,13 @@
 import { css } from '@emotion/core';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
-import React from 'react';
 import { useIntl } from 'react-intl';
-import { Avatar } from '.';
-import { APIOutput } from '../apis/output';
-import { OUTPUT_STATUS, OUTPUT_TYPE } from '../constants/output';
-import { FC } from '../interfaces';
-import style from '../style';
-import { Button } from './Button';
+import { Avatar } from '..';
+import { APIOutput } from '../../apis/output';
+import { OUTPUT_STATUS, OUTPUT_TYPE } from '../../constants/output';
+import { FC } from '../../interfaces';
+import style from '../../style';
+import { Button } from '../shared/Button';
 
 /** 导出的属性接口 */
 interface OutputProps {

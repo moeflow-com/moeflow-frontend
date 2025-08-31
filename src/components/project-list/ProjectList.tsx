@@ -6,20 +6,21 @@ import React, { useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useRouteMatch } from 'react-router-dom';
-import { EmptyTip, List, ProjectItem } from '.';
-import api, { resultTypes } from '../apis';
-import { PROJECT_STATUS } from '../constants';
-import { FC } from '../interfaces';
-import { AppState } from '../store';
+import { EmptyTip, List } from '@/components';
+import { ProjectItem } from './ProjectItem';
+import api, { resultTypes } from '@/apis';
+import { PROJECT_STATUS } from '@/constants';
+import { FC } from '@/interfaces';
+import { AppState } from '@/store';
 import {
   clearProjects,
   createProject,
   resetProjectsState,
   setProjectsState,
-} from '../store/project/slice';
-import style from '../style';
-import { toLowerCamelCase } from '../utils';
-import { clickEffect } from '../utils/style';
+} from '@/store/project/slice';
+import style from '@/style';
+import { toLowerCamelCase } from '@/utils';
+import { clickEffect } from '@/utils/style';
 
 /** 项目列表的属性接口 */
 interface ProjectListProps {

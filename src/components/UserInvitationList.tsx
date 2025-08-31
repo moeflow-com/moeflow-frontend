@@ -16,7 +16,7 @@ import { createTeam } from '../store/team/slice';
 import style from '../style';
 import { toLowerCamelCase } from '../utils';
 import { clickEffect } from '../utils/style';
-import { Spin } from './Spin';
+import { Spin } from './shared/Spin';
 
 /** 申请管理页的属性接口 */
 interface UserInvitationListProps {

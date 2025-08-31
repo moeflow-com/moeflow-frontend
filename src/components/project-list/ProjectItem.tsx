@@ -1,16 +1,15 @@
 import { css } from '@emotion/core';
 import classNames from 'classnames';
-import React from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
-import { Icon, TranslationProgress } from '.';
-import { PROJECT_PERMISSION, PROJECT_STATUS } from '../constants';
-import { FC, Project } from '../interfaces';
-import { resetFilesState } from '../store/file/slice';
-import style from '../style';
-import { cardActiveEffect, cardClickEffect, clickEffect } from '../utils/style';
-import { can } from '../utils/user';
+import { Icon, TranslationProgress } from '@/components';
+import { PROJECT_PERMISSION, PROJECT_STATUS } from '@/constants';
+import { FC, Project } from '@/interfaces';
+import { resetFilesState } from '@/store/file/slice';
+import style from '@/style';
+import { cardActiveEffect, cardClickEffect, clickEffect } from '@/utils/style';
+import { can } from '@/utils/user';
 
 /** 项目列表元素的属性接口 */
 interface ProjectItemProps {

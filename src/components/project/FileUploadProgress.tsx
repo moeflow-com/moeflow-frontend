@@ -1,10 +1,9 @@
 import { css } from '@emotion/core';
-import { Icon } from '.';
+import { Icon } from '@/components';
 import classNames from 'classnames';
-import React from 'react';
 import { useIntl } from 'react-intl';
-import { FC, File } from '../interfaces';
-import style from '../style';
+import { FC, File } from '@/interfaces';
+import style from '@/style';
 /** 文件上传进度的属性接口 */
 interface FileUploadProgressProps {
   file: File;
