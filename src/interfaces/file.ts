@@ -35,9 +35,14 @@ export interface File {
   prevImage?: File;
   imageOcrPercent?: number;
   imageOcrPercentDetailName?: string;
+
+  /**
+   * NOTE fields below are browser only
+   */
   // 上传中的文件
   uploading?: boolean;
   uploadOverwrite?: boolean;
+  /** undefined when fetched from server */
   uploadState?: 'uploading' | 'success' | 'failure';
   uploadPercent?: number; // 1-100
 }
