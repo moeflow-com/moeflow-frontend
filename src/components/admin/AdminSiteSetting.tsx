@@ -8,8 +8,8 @@ import { api } from '@/apis';
 import { APISiteSetting } from '@/apis/siteSetting';
 import { FC } from '@/interfaces';
 import { toLowerCamelCase } from '@/utils';
-import { Form } from '@/components/Form';
-import { FormItem } from '@/components/FormItem';
+import { Form } from '@/components/shared-form/Form';
+import { FormItem } from '@/components/shared-form/FormItem';
 
 function textareaToArray(textarea: string): string[] {
   return textarea.trim() === ''

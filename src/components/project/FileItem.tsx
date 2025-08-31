@@ -2,12 +2,10 @@ import { css } from '@emotion/core';
 import { Checkbox } from 'antd';
 import classNames from 'classnames';
 import { useIntl } from 'react-intl';
-import {
-  FileUploadProgress,
-  Icon,
-  ImageOCRProgress,
-  TranslationProgress,
-} from '@/components';
+import { Icon } from '@/components';
+import { FileUploadProgress } from '@/components/project/FileUploadProgress';
+import { TranslationProgress } from '@/components/shared/TranslationProgress';
+import { ImageOCRProgress } from '@/components/unused/ImageOCRProgress';
 import {
   FILE_NOT_EXIST_REASON,
   FILE_SAFE_STATUS,

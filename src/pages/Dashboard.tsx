@@ -34,7 +34,7 @@ import MyProject from './MyProject';
 import Team from './Team';
 import TeamSetting from './TeamSetting';
 import UserSetting from './UserSetting';
-import { MENU_COLLAPSED_WIDTH } from '@/components/DashboardMenu';
+import { MENU_COLLAPSED_WIDTH } from '@/components/dashboard/DashboardMenu';
 
 /** 仪表盘的属性接口 */
 interface DashboardProps {}

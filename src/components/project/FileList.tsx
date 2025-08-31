@@ -30,7 +30,7 @@ import {
   moeflowCompanionServiceState,
   useMoeflowCompanion,
 } from '@/services/moeflow_companion/use_moeflow_companion';
-import { ListPageSpec } from '@/components/List';
+import { ListPageSpec } from '@/components/shared/List';
 import { FilePondFile } from 'filepond';
 
 /** 文件列表的属性接口 */
