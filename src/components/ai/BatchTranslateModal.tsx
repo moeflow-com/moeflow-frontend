@@ -1,77 +1,22 @@
-import { Modal } from 'antd';
-import { FC, File as MFile, Target } from '@/interfaces';
-import {
-  useMoeflowCompanion,
-  moeflowCompanionServiceState,
-  MoeflowCompanionService,
-  TranslatedFile,
-} from '@/services/ai/use_moeflow_companion';
-import { useAsyncEffect } from '@jokester/ts-commonutil/lib/react/hook/use-async-effect';
-import { createDebugLogger } from '@/utils/debug-logger';
-import { api, resultTypes } from '@/apis';
+import { FC } from 'react';
+import { File as MFile } from '@/interfaces';
+import { Target } from '@/interfaces';
 import { useIntl } from 'react-intl';
-import { ModalStaticFunctions } from 'antd/lib/modal/confirm';
 import { useState } from 'react';
 import { ResourcePool } from '@jokester/ts-commonutil/lib/concurrency/resource-pool-basic';
 import { getCancelToken } from '@/utils/api';
+import { ModalStaticFunctions } from 'antd/lib/modal/confirm';
+import { useAsyncEffect } from '@jokester/ts-commonutil/lib/react/hook/use-async-effect';
+import { createDebugLogger } from '@/utils/debug-logger';
+import { api, resultTypes } from '@/apis';
 import { toLowerCamelCase } from '@/utils';
+import {
+  multimodalPresets,
+  recognizeFile,
+} from '@/services/ai/multimodal_recognize';
+import { ModalHandle } from '.';
 
-const debugLogger = createDebugLogger('components:project:FileListAiTranslate');
-
-type ModalHandle = ReturnType<typeof Modal.confirm>;
-
-interface TranslatorFunc {
-  (files: MFile[], target: Target): void;
-}
-function openTranslateModal(
-  files: MFile[],
-  target: Target,
-  service: MoeflowCompanionService,
-  modal: ModalStaticFunctions,
-) {
-  const handle = modal.confirm({
-    content: (
-      <ModalContent
-        service={service}
-        files={files}
-        target={target}
-        getHandle={() => handle}
-      />
-    ),
-    okButtonProps: { disabled: true },
-    onOk: () => {
-      console.log('ok');
-    },
-    onCancel: () => {
-      console.log('cancel');
-    },
-  });
-}
-
-export function useMoeflowCompanionAiTranslate():
-  | [true, TranslatorFunc, React.ReactNode]
-  | [false, null, null] {
-  const [serviceState, service] = useMoeflowCompanion();
-  const [modal, contextHolder] = Modal.useModal();
-
-  debugLogger('service', serviceState, service);
-  if (serviceState !== moeflowCompanionServiceState.connected) {
-    return [false, null, null];
-  }
-
-  return [
-    true,
-    (files, target) =>
-      openTranslateModal(
-        files,
-        target,
-        service!,
-        modal as ModalStaticFunctions,
-      ),
-    contextHolder,
-  ];
-}
-
+const debugLogger = createDebugLogger('components:ai:BatchTranslateModal');
 interface TranslateTaskState {
   file: MFile;
   status: string;
@@ -81,21 +26,17 @@ function clipTo01(x: number) {
   return Math.max(0, Math.min(1, x));
 }
 
-const ModalContent: FC<{
-  service: MoeflowCompanionService;
+export const BatchTranslateModalContent: FC<{
   files: MFile[];
   target: Target;
   getHandle(): ModalHandle;
-}> = ({
-  service: { client, serviceConf, multimodalTranslate },
-  files,
-  target,
-  getHandle,
-}) => {
+}> = ({ files, target, getHandle }) => {
   const intl = useIntl();
   const [fileStates, setFileStates] = useState<TranslateTaskState[]>(() =>
     files.map((file) => ({ file, status: 'waiting' })),
   );
+
+  async function startWork() {}
   useAsyncEffect(async (running, released) => {
     const [cancelToken, fillCancelToken] = getCancelToken();
     const fileLimiter = ResourcePool.multiple([1, 2]);
@@ -233,3 +174,5 @@ const ModalContent: FC<{
     </div>
   );
 };
+
+const WorkModalContent: FC<{}> = (props) => {};
