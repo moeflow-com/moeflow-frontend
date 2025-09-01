@@ -17,9 +17,9 @@ import type { FilterValue, SorterResult } from 'antd/es/table/interface';
 import { api } from '@/apis';
 import { toLowerCamelCase } from '@/utils';
 import { APIUser } from '@/apis/user';
-import { FormItem } from '@/components/FormItem';
-import { Form } from '@/components/Form';
-import { EmailInput } from '@/components/EmailInput';
+import { FormItem } from '@/components/shared-form/FormItem';
+import { Form } from '@/components/shared-form/Form';
+import { EmailInput } from '@/components/shared-form/EmailInput';
 import { EMAIL_REGEX, USER_NAME_REGEX } from '@/utils/regex';
 
 interface TableParams {

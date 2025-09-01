@@ -1,5 +1,5 @@
 import { css } from '@emotion/core';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -28,8 +28,8 @@ import { setCurrentProjectSetSaga } from '@/store/projectSet/slice';
 import style from '../style';
 import { can } from '@/utils/user';
 import Project from './Project';
-import { ProjectCreateForm } from '@/components/project-set/ProjectCreateForm';
-import { ProjectImportForm } from '@/components/project-set/ProjectImportForm';
+import { ProjectCreateForm } from '@/components/project/ProjectCreateForm';
+import { ProjectImportForm } from '@/components/project/ProjectImportForm';
 
 /** 项目集页的属性接口 */
 interface ProjectSetProps {}
@@ -60,7 +60,7 @@ const ProjectSet: FC<ProjectSetProps> = () => {
 
   const rightButton = (
     <Tooltip
-      title={formatMessage({ id: 'site.createProject' })}
+      title={formatMessage({ id: 'project.createProject' })}
       placement="right"
     >
       <div className="ListItem__RightButton">
@@ -172,7 +172,7 @@ const ProjectSet: FC<ProjectSetProps> = () => {
                     `}
                   >
                     <ContentTitle>
-                      {formatMessage({ id: 'site.createProject' })}
+                      {formatMessage({ id: 'project.createProject' })}
                     </ContentTitle>
                     <ContentItem>
                       <ProjectCreateForm
@@ -187,7 +187,7 @@ const ProjectSet: FC<ProjectSetProps> = () => {
                         border-top: 1px solid ${style.borderColorBase};
                       `}
                     >
-                      {formatMessage({ id: 'site.importProject' })}
+                      {formatMessage({ id: 'project.importProject' })}
                     </ContentTitle>
                     <ContentItem>
                       <ProjectImportForm

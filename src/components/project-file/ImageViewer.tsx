@@ -3,7 +3,7 @@ import { css } from '@emotion/core';
 import { Modal, Spin } from 'antd';
 import Bowser from 'bowser';
 import { debounce } from 'lodash-es';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -18,7 +18,7 @@ import {
   OnZoomEnd,
   OnZooming,
   OnZoomStart,
-} from '@/components/Movable';
+} from '@/components/shared/Movable';
 import { SOURCE_POSITION_TYPE } from '@/constants/source';
 import { FC, File, Source } from '@/interfaces';
 import { AppState } from '@/store';
@@ -32,9 +32,12 @@ import { ImageViewerZoomPanel } from './ImageViewerZoomPanel';
 import { MovableAreaColorBackground } from './MovableAreaColorBackground';
 import { MovableAreaImageBackground } from './MovableAreaImageBackground';
 import { MovableLabel } from './MovableLabel';
-import { Tooltip } from '@/components/Tooltip';
+import { Tooltip } from '@/components/shared/Tooltip';
 import { routes } from '@/pages/routes';
+import { createDebugLogger } from '@/utils/debug-logger';
+import { Client } from '@gradio/client';
 
+const debugLogger = createDebugLogger('components:project-file:ImageViewer');
 /**
  * 🖥浏览器识别
  */
@@ -70,6 +73,7 @@ interface ImageViewerProps {
   loading: boolean;
   onSettingButtonClick?: () => void;
   className?: string;
+  companionClient?: Client;
 }
 /**
  * 图片翻译标记器
@@ -671,7 +675,7 @@ export const ImageViewer: FC<ImageViewerProps> = ({
       <ImageViewerSettingPanel
         className="ImageViewer__ImageViewerSettingPanel"
         onSettingButtonClick={onSettingButtonClick}
-      ></ImageViewerSettingPanel>
+      />
 
       <ImageViewerPagingPanel
         className="ImageViewer__ImageViewerPagingPanel"
