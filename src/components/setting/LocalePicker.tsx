@@ -1,8 +1,7 @@
-import { FC } from '../../interfaces';
+import { FC } from '@/interfaces';
 import { MenuProps } from 'antd';
-import { availableLocales, setLocale } from '../../locales';
-import { Dropdown } from '../Dropdown';
-import { Icon } from '../icon';
+import { availableLocales, setLocale } from '@/locales';
+import { Dropdown, Icon } from '@/components';
 import { css } from '@emotion/core';
 
 const dropDownMenuItemStyle = css`

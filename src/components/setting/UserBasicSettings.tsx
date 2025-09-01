@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl';
 import { Content, ContentItem, ContentTitle } from '@/components';
 import { FC } from '@/interfaces';
 import style from '../../style';
-import { AvatarUpload } from '../AvatarUpload';
+import { AvatarUpload } from '../shared/AvatarUpload';
 import { UserEditForm } from './UserEditForm';
 import { LocalePicker } from './LocalePicker';
 

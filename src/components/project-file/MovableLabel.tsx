@@ -6,14 +6,14 @@ import { FC, labelSavingStatuses } from '@/interfaces';
 import { AppState } from '@/store';
 import { deleteSourceSaga, editSourceSaga } from '@/store/source/slice';
 import { can } from '@/utils/user';
-import { Label, LabelProps } from '@/components/Label';
+import { Label, LabelProps } from '@/components/shared/Label';
 import {
   MovableInfoContext,
   MovableItem,
   OnLongPress,
   OnMoveEnd,
   OnTap,
-} from '@/components/Movable';
+} from '@/components/shared/Movable';
 
 /**
  * 标签（使用 Context，进行自动缩放/激活）

@@ -13,7 +13,10 @@ import {
   Header,
   Form,
 } from '../components';
-import { CAPTCHAInputRef, checkCAPTCHA } from '../components/CAPTCHAInput';
+import {
+  CAPTCHAInputRef,
+  checkCAPTCHA,
+} from '../components/shared-form/CAPTCHAInput';
 import { setUserToken } from '../store/user/slice';
 import { useTitle } from '../hooks';
 import { FC } from '../interfaces';

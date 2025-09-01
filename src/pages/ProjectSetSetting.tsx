@@ -14,12 +14,12 @@ import {
   NavTab,
   NavTabs,
   ProjectSetSettingBase,
-} from '../components';
-import { Spin } from '../components';
-import { FC } from '../interfaces';
-import { AppState } from '../store';
-import { setCurrentProjectSetSaga } from '../store/projectSet/slice';
-import { useTitle } from '../hooks';
+} from '@/components';
+import { Spin } from '@/components';
+import { FC } from '@/interfaces';
+import { AppState } from '@/store';
+import { setCurrentProjectSetSaga } from '@/store/projectSet/slice';
+import { useTitle } from '@/hooks';
 
 /** 项目集设置页的属性接口 */
 interface ProjectSetSettingProps {}

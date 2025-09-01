@@ -1,8 +1,10 @@
 import { lazyThenable } from '@jokester/ts-commonutil/lib/concurrency/lazy-thenable';
 
-interface RuntimeConfig {
+export interface RuntimeConfig {
   // base URL for API requests
   baseURL: string;
+
+  // TODO: more fields can be added here
 }
 
 /**
@@ -16,7 +18,7 @@ export const runtimeConfig = lazyThenable<RuntimeConfig>(async () => {
   const overriden: RuntimeConfig = await fetch('/moeflow-runtime-config.json')
     .then((res) => res.json())
     .catch(() => null);
-  const merged = {
+  const merged: RuntimeConfig = {
     ...{
       // defaults
       baseURL: process.env.REACT_APP_BASE_URL || '/api/',

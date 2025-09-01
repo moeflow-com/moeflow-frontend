@@ -98,7 +98,7 @@ const antdVarsM = {
 export default {
   ...antdVars,
   ...otherVars,
-};
+} as const;
 // 供 config-overrides.js 引用，转换成 antd Less 连字符格式，用于覆盖其 Less 配置
 export const antdLessVars = toHyphenCase(antdVars) as Record<string, string>;
 export const antdLessVarsM = toHyphenCase(antdVarsM) as Record<string, string>;
