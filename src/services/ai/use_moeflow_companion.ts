@@ -75,11 +75,14 @@ async function multimodalTranslate(
   // const uploadRes = await client.upload_files(hfSpaceUrl, files)
   // files.forEach(file => formData.append('files[]', file));
   // debugLogger('Upload response:', uploadRes);
-  const predictRes = await client.predict('/multimodal_llm_translate_file_api', {
-    gradio_temp_files: files, // uploadRes.files!.map(handle_file),
-    model,
-    target_language: targetLang,
-  });
+  const predictRes = await client.predict(
+    '/multimodal_llm_translate_file_api',
+    {
+      gradio_temp_files: files, // uploadRes.files!.map(handle_file),
+      model,
+      target_language: targetLang,
+    },
+  );
   const [{ files: translated }] = predictRes.data as MoeflowMultimodalResData;
 
   debugLogger('Predict response:', predictRes, translated);
@@ -101,6 +104,4 @@ export interface TranslatedFile {
 /**
  * the type in gradio https://github.com/moeflow-com/manga-image-translator/blob/moeflow-companion-main/moeflow_companion/gradio/multimodal.py#L62
  */
-type MoeflowMultimodalResData = [
-  { files: TranslatedFile[] },
-];
+type MoeflowMultimodalResData = [{ files: TranslatedFile[] }];

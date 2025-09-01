@@ -31,7 +31,12 @@ function openTranslateModal(
 ) {
   const handle = modal.confirm({
     content: (
-      <ModalContent service={service} files={files} target={target} getHandle={() => handle} />
+      <ModalContent
+        service={service}
+        files={files}
+        target={target}
+        getHandle={() => handle}
+      />
     ),
     okButtonProps: { disabled: true },
     onOk: () => {
@@ -56,7 +61,13 @@ export function useMoeflowCompanionAiTranslate():
 
   return [
     true,
-    (files, target) => openTranslateModal(files, target, service!, modal as ModalStaticFunctions),
+    (files, target) =>
+      openTranslateModal(
+        files,
+        target,
+        service!,
+        modal as ModalStaticFunctions,
+      ),
     contextHolder,
   ];
 }
@@ -122,7 +133,9 @@ const ModalContent: FC<{
         setFileState(f, 'skip: upload not finished');
         return;
       }
-      const refetchRes = await api.file.getFile({ fileID: f.id }).catch(() => null);
+      const refetchRes = await api.file
+        .getFile({ fileID: f.id })
+        .catch(() => null);
       if (refetchRes?.type !== resultTypes.SUCCESS) {
         setFileState(f, 'skip: fetch file failed');
         return;
@@ -151,9 +164,9 @@ const ModalContent: FC<{
         debugLogger('translate failed', e);
         return [];
       });
-        debugLogger('translate result', result);
+      debugLogger('translate result', result);
 
-        const [r] = result
+      const [r] = result;
 
       if (r) {
         await saveTranslations(f, r);
@@ -197,7 +210,10 @@ const ModalContent: FC<{
             moeflowApiLimiter.use(() => saveTextBlock(f, r, tb)),
           ),
         );
-        setFileState(f, `success: translated ${r.text_blocks.length} text marks`);
+        setFileState(
+          f,
+          `success: translated ${r.text_blocks.length} text marks`,
+        );
       } catch (e) {
         debugLogger('save text block failed', e);
         setFileState(f, 'save file failed');
