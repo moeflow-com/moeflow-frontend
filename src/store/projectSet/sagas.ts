@@ -16,7 +16,7 @@ function* setCurrentProjectSetWorker(
 ) {
   // 清空当前 projectSet
   yield put(clearCurrentProjectSet());
-  const projectSets = yield select(
+  const projectSets: UserProjectSet[] = yield select(
     (state: AppState) => state.projectSet.projectSets,
   );
   const projectSet = projectSets.find(
@@ -35,7 +35,7 @@ function* setCurrentProjectSetWorker(
           configs: { cancelToken },
         });
       yield put(setCurrentProjectSet(toLowerCamelCase(result.data)));
-    } catch (error) {
+    } catch (error: any) {
       error.default();
     } finally {
       if (yield cancelled()) {
