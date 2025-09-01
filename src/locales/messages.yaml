@@ -11,10 +11,10 @@ imageTranslator.imageViewerZoomPanel.originSize:
   en: Origin Size
 imageTranslator.imageViewerZoomPanel.fixWidth:
   zhCn: 适应宽度
-  en: Fix Width
+  en: Fit Width
 imageTranslator.imageViewerZoomPanel.fixHeight:
   zhCn: 适应高度
-  en: Fix Height
+  en: Fit Height
 imageTranslator.imageViewerZoomPanel.zoomIn:
   zhCn: 放大
   en: Zoom In
@@ -455,7 +455,7 @@ projectSet.default:
 site.projectSet:
   zhCn: 项目集
   en: Project sets
-site.createProjectSet:
+projectSet.createProjectSet:
   zhCn: 创建项目集
   en: Create project set
 projectSet.name:
@@ -506,10 +506,10 @@ project.name:
 project.intro:
   zhCn: 项目介绍
   en: Project Description
-site.createProject:
+project.createProject:
   zhCn: 创建项目
   en: Create Project
-site.importProject:
+project.importProject:
   zhCn: 导入项目
   en: Import Project
 project.startImport:
@@ -711,7 +711,7 @@ imageTranslator.sourceViewer.rightClickMarkToRemove:
 site.noPermission:
   zhCn: 没有权限
   en: No permission
-site.output:
+project.export:
   zhCn: 导出
   en: Export
 site.loading:
@@ -804,6 +804,12 @@ file.parseNotStart:
 fileList.ocrButtonTip:
   zhCn: 图片自动标记
   en: Image Auto Tagging
+fileList.aiTranslate:
+  zhCn: 自动翻译
+  en: Auto Translate
+fileList.aiTranslateTip:
+  zhCn: 自动识别文字并翻译
+  en: Detect marks and Translate
 project.startOCR:
   zhCn: 开始自动标记
   en: Start Auto Tagging
@@ -981,8 +987,8 @@ output.invert:
   zhCn: 反选
   en: Invert selection
 project.createViaLabelplus:
-  zhCn: 通过 LabalPlus “翻译数据.txt”创建：
-  en: 'Import from LabelPlus txt file:'
+  zhCn: (可选) 通过 LabalPlus “翻译数据.txt”创建：
+  en: '(Optional) Import marks from LabelPlus txt:'
 site.delete:
   zhCn: 删除
   en: Delete
@@ -994,13 +1000,13 @@ file.needUploadTip:
   en: Pending Upload
 site.selectPageAll:
   zhCn: 全选本页
-  en: Select All on This Page
+  en: Select All
 site.selectPageInverse:
   zhCn: 反选本页
-  en: Deselect This Page
+  en: Invert selection
 site.selectCancel:
   zhCn: 取消选择
-  en: Deselect
+  en: Deselect All
 site.selectFile:
   zhCn: 选择文件
   en: Select File
