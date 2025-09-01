@@ -35,7 +35,6 @@ import { MovableLabel } from './MovableLabel';
 import { Tooltip } from '@/components/shared/Tooltip';
 import { routes } from '@/pages/routes';
 import { createDebugLogger } from '@/utils/debug-logger';
-import { Client } from '@gradio/client';
 
 const debugLogger = createDebugLogger('components:project-file:ImageViewer');
 /**
@@ -73,7 +72,6 @@ interface ImageViewerProps {
   loading: boolean;
   onSettingButtonClick?: () => void;
   className?: string;
-  companionClient?: Client;
 }
 /**
  * 图片翻译标记器

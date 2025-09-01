@@ -28,3 +28,5 @@ yarn-error.log*
 .vscode/*
 .idea
 stats.html
+
+/public/moeflow-runtime-config.json

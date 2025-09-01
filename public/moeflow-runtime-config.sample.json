@@ -1,0 +1,7 @@
+{
+  "comment": "Runtime configuration overrides. See src/configs.tsx",
+  "moeflowCompanion": {
+    "gradioUrl": "http://localhost:7860",
+    "defaultMultimodalModel": "gemini-2.5-flash"
+  }
+}
