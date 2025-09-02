@@ -9,8 +9,14 @@ import { useAsyncEffect } from '@jokester/ts-commonutil/lib/react/hook/use-async
 import { createDebugLogger } from '@/utils/debug-logger';
 import { api, resultTypes } from '@/apis';
 import { toLowerCamelCase } from '@/utils';
-import { llmPresets, llmPreprocessFile } from '@/services/ai/llm_preprocess';
+import {
+  testModel,
+  llmPreprocessFile,
+  LLMConf,
+  FilePreprocessResult,
+} from '@/services/ai/llm_preprocess';
 import { ModalHandle } from '.';
+import { UserMessage } from 'xsai';
 
 const debugLogger = createDebugLogger('components:ai:BatchTranslateModal');
 interface TranslateTaskState {
@@ -23,12 +29,12 @@ function clipTo01(x: number) {
 }
 
 export const BatchTranslateModalContent: FC<{
-  modelConf: MultimodalModelConf;
+  llmConf: LLMConf;
 
   files: MFile[];
   target: Target;
   getHandle(): ModalHandle;
-}> = ({ files, target, getHandle }) => {
+}> = ({ files, target, getHandle, llmConf }) => {
   const intl = useIntl();
   const [fileStates, setFileStates] = useState<TranslateTaskState[]>(() =>
     files.map((file) => ({ file, status: 'waiting' })),
@@ -83,9 +89,7 @@ export const BatchTranslateModalContent: FC<{
       if (resData.sourceCount) {
         setFileState(f, 'skip: source count not 0');
       }
-      const imgBlob = await fetch(resData.url!, {
-        // mode: 'no-cors',
-      }).then(
+      const imgBlob = await fetch(resData.url!, {}).then(
         (r) => r.blob(),
         () => null,
       );
@@ -94,21 +98,32 @@ export const BatchTranslateModalContent: FC<{
         return;
       }
 
-      const result = await llmPreprocessFile(
-        client,
-        [imgBlob],
-        target.language.enName,
-        serviceConf!.defaultMultimodalModel!,
-      ).catch((e) => {
-        debugLogger('translate failed', e);
-        return [];
-      });
+      const userMessage: UserMessage = {
+        role: 'user',
+        content: [
+          {
+            type: 'text',
+            text: `Please translate the image to ${target.language.enName}. ${llmConf.extraPrompt || ''}`,
+          },
+          {
+            type: 'image_url',
+            image_url: {
+              url: await img2dataurl(imgBlob),
+            },
+          },
+        ],
+      };
+
+      const result = await llmPreprocessFile(llmConf, userMessage).catch(
+        (e) => {
+          debugLogger('translate failed', e);
+          return null;
+        },
+      );
       debugLogger('translate result', result);
 
-      const [r] = result;
-
-      if (r) {
-        await saveTranslations(f, r);
+      if (result) {
+        await saveTranslations(f, result);
       } else {
         setFileState(f, 'error: translate failed');
       }
@@ -116,15 +131,15 @@ export const BatchTranslateModalContent: FC<{
 
     async function saveTextBlock(
       f: MFile,
-      tf: TranslatedFile,
-      tb: TranslatedFile['text_blocks'][number],
+      tf: FilePreprocessResult,
+      tb: FilePreprocessResult['texts'][number],
     ) {
       const src = await api.source.createSource({
         fileID: f.id,
         data: {
-          x: clipTo01((tb.left + tb.right) / 2 / tf.image_w),
-          y: clipTo01((tb.top + tb.bottom) / 2 / tf.image_h),
-          content: tb.source,
+          x: clipTo01((tb.left + tb.width / 2) / tf.imageW),
+          y: clipTo01((tb.top + tb.height / 2) / tf.imageH),
+          content: tb.text,
         },
         configs: { cancelToken },
       });
@@ -138,21 +153,18 @@ export const BatchTranslateModalContent: FC<{
       });
     }
 
-    async function saveTranslations(f: MFile, r: TranslatedFile) {
-      if (r.text_blocks.length === 0) {
+    async function saveTranslations(f: MFile, r: FilePreprocessResult) {
+      if (r.texts.length === 0) {
         setFileState(f, 'done: no text blocks');
       }
       setFileState(f, 'saving');
       try {
         await Promise.all(
-          r.text_blocks.map((tb) =>
+          r.texts.map((tb) =>
             moeflowApiLimiter.use(() => saveTextBlock(f, r, tb)),
           ),
         );
-        setFileState(
-          f,
-          `success: translated ${r.text_blocks.length} text marks`,
-        );
+        setFileState(f, `success: translated ${r.texts.length} text marks`);
       } catch (e) {
         debugLogger('save text block failed', e);
         setFileState(f, 'save file failed');
@@ -173,4 +185,10 @@ export const BatchTranslateModalContent: FC<{
   );
 };
 
-const WorkModalContent: FC<{}> = (props) => {};
+async function img2dataurl(img: Blob) {
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result as string);
+    reader.readAsDataURL(img);
+  });
+}

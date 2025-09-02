@@ -70,10 +70,6 @@ export const FileList: FC<FileListProps> = ({
   const [spinningIDs, setSpinningIDs] = useState<string[]>([]); // 删除请求中
   const filePondRef = useRef<FilePond | null>();
   const currentPageSpecRef = useRef<ListPageSpec | null>(null);
-  const [aiEnabled, aiTranslateApi, aiModalHolder] = useAiTranslate(
-    items,
-    target,
-  );
 
   const defaultPage = useSelector(
     (state: AppState) => state.file.filesState.page,
@@ -86,6 +82,12 @@ export const FileList: FC<FileListProps> = ({
   );
   const selectedFileIds = useSelector(
     (state: AppState) => state.file.filesState.selectedFileIds,
+  );
+  const [aiEnabled, aiTranslateApi, aiModalHolder] = useAiTranslate(
+    [...new Set(selectedFileIds)]
+      .map((id) => items.find((item) => item.id === id))
+      .filter(Boolean) as MFile[],
+    target,
   );
 
   const openInTranslator = (file: MFile) => {

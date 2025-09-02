@@ -6,7 +6,7 @@ import { ModalStaticFunctions } from 'antd/lib/modal/confirm';
 import { ModelConfigForm } from './ModelConfigForm';
 import { BatchTranslateModalContent } from './BatchTranslateModal';
 import { useCallback, useMemo } from 'react';
-import { LLMConf } from '@/services/ai/llm_preprocess';
+import { LLMConf, testModel } from '@/services/ai/llm_preprocess';
 
 const debugLogger = createDebugLogger('components:project:FileListAiTranslate');
 
@@ -28,38 +28,30 @@ function bind(
     start,
     testModel,
   };
-  async function testModel(
-    modelConf: LLMConf,
-  ): Promise<{ worked: boolean; message: string }> {
-    return { worked: true, message: 'test model worked' };
-  }
-
   async function start() {
-    const modelConfigured = await new Promise<LLMConf | null>(
-      (resolve, reject) => {
-        let modelConf: LLMConf | null = null;
-        const onChange = (conf: LLMConf) => {
-          debugLogger('model configured', conf);
-          modelConf = conf;
-          if (modelConf.model && modelConf.baseUrl && modelConf.apiKey) {
-            handle.update({okButtonProps: {}});
-          }
-        };
-        const handle = modal.confirm({
-          icon: null,
-          content: <ModelConfigForm onChange={onChange} />,
-          okText: `Start translate`,
-          okButtonProps: { disabled: true },
-          onOk: () => {
-            resolve(modelConf);
-          },
-          onCancel: () => {
-            resolve(null);
-          },
-        });
-      },
-    );
-    if (!modelConfigured) {
+    const llmConf = await new Promise<LLMConf | null>((resolve, reject) => {
+      let confValue: LLMConf | null = null;
+      const onChange = (conf: LLMConf) => {
+        debugLogger('model configured', conf);
+        confValue = conf;
+        if (confValue.model && confValue.baseUrl && confValue.apiKey) {
+          handle.update({ okButtonProps: {} });
+        }
+      };
+      const handle = modal.confirm({
+        icon: null,
+        content: <ModelConfigForm onChange={onChange} />,
+        okText: `Start translate`,
+        okButtonProps: { disabled: true },
+        onOk: () => {
+          resolve(confValue);
+        },
+        onCancel: () => {
+          resolve(null);
+        },
+      });
+    });
+    if (!llmConf) {
       return;
     }
 
@@ -67,6 +59,7 @@ function bind(
       const handle = modal.confirm({
         content: (
           <BatchTranslateModalContent
+            llmConf={llmConf}
             files={files}
             target={target}
             getHandle={() => handle as ModalHandle}
@@ -92,7 +85,7 @@ export function useAiTranslate(
 
   const api = useMemo(
     () => bind(files, target, modal as ModalStaticFunctions),
-    [files, target, modal],
+    [target.id, files.map((file) => file.id).join('|')],
   );
 
   return [true, api, contextHolder];

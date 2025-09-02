@@ -6,6 +6,7 @@ export interface LLMConf {
   model: string;
   baseUrl: string;
   apiKey?: string;
+  extraPrompt?: string;
 }
 
 export const llmPresets: readonly Readonly<LLMConf>[] = [
@@ -38,7 +39,7 @@ const FilePreprocessResultSchema = z.object({
       height: z.number({ message: 'height of the text in PX' }),
       textLines: z.array(z.string(), { message: 'the text lines' }),
       text: z.string({ message: 'concatencated text' }),
-      tranalated: z.string({ message: 'translated text' }),
+      translated: z.string({ message: 'translated text' }),
       comment: z.string({
         message: 'additional comment of the text, or the translation',
       }),
@@ -48,8 +49,13 @@ const FilePreprocessResultSchema = z.object({
 
 export type FilePreprocessResult = z.infer<typeof FilePreprocessResultSchema>;
 
+export async function testModel(
+  modelConf: LLMConf,
+): Promise<{ worked: boolean; message: string }> {
+  return { worked: true, message: 'test model worked' };
+}
+
 export async function llmPreprocessFile(
-  apiKey: string,
   conf: LLMConf,
   msg: UserMessage,
   abortSignal?: AbortSignal,
@@ -66,7 +72,7 @@ export async function llmPreprocessFile(
       schema: FilePreprocessResultSchema,
       baseURL: conf.baseUrl,
       model: conf.model,
-      apiKey,
+      apiKey: conf.apiKey,
     };
   const res = await generateObject({
     ...generateConf,
