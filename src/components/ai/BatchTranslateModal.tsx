@@ -5,15 +5,11 @@ import { useIntl } from 'react-intl';
 import { useState } from 'react';
 import { ResourcePool } from '@jokester/ts-commonutil/lib/concurrency/resource-pool-basic';
 import { getCancelToken } from '@/utils/api';
-import { ModalStaticFunctions } from 'antd/lib/modal/confirm';
 import { useAsyncEffect } from '@jokester/ts-commonutil/lib/react/hook/use-async-effect';
 import { createDebugLogger } from '@/utils/debug-logger';
 import { api, resultTypes } from '@/apis';
 import { toLowerCamelCase } from '@/utils';
-import {
-  multimodalPresets,
-  recognizeFile,
-} from '@/services/ai/multimodal_recognize';
+import { llmPresets, llmPreprocessFile } from '@/services/ai/llm_preprocess';
 import { ModalHandle } from '.';
 
 const debugLogger = createDebugLogger('components:ai:BatchTranslateModal');
@@ -27,6 +23,8 @@ function clipTo01(x: number) {
 }
 
 export const BatchTranslateModalContent: FC<{
+  modelConf: MultimodalModelConf;
+
   files: MFile[];
   target: Target;
   getHandle(): ModalHandle;
@@ -96,7 +94,7 @@ export const BatchTranslateModalContent: FC<{
         return;
       }
 
-      const result = await multimodalTranslate(
+      const result = await llmPreprocessFile(
         client,
         [imgBlob],
         target.language.enName,

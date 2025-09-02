@@ -10,87 +10,129 @@ import {
   Typography,
   message,
 } from 'antd';
-import { PlusOutlined, DeleteOutlined, SaveOutlined } from '@ant-design/icons';
+import { SaveOutlined } from '@ant-design/icons';
+import * as LlmService from '@/services/ai/llm_preprocess';
 
 const { Option } = Select;
 const { Title, Text } = Typography;
 
-interface MultimodalModelConf {
-  provider: string;
-  model: string;
-  baseUrl: string;
-}
-
 interface ModelConfigFormProps {
-  initialValue?: MultimodalModelConf;
-  onSave?: (config: MultimodalModelConf) => void;
-  onCancel?: () => void;
-  loading?: boolean;
+  initialValue?: LlmService.LLMConf;
+  onChange?: (config: LlmService.LLMConf) => void;
 }
 
 export const ModelConfigForm: React.FC<ModelConfigFormProps> = ({
   initialValue,
-  onSave,
-  onCancel,
-  loading = false,
+  onChange,
 }) => {
   const [form] = Form.useForm();
 
+  // Find matching preset index for initial value
+  const findPresetIndex = (config: LlmService.LLMConf): number => {
+    const index = LlmService.llmPresets.findIndex(
+      preset => 
+        preset.model === config.model &&
+        preset.baseUrl === config.baseUrl
+    );
+    return index >= 0 ? index : -1; // -1 for custom
+  };
+
   useEffect(() => {
     if (initialValue) {
-      form.setFieldsValue(initialValue);
+      const presetIndex = findPresetIndex(initialValue);
+      form.setFieldsValue({
+        preset: presetIndex,
+        model: initialValue.model,
+        baseUrl: initialValue.baseUrl,
+        apiKey: initialValue.apiKey,
+      });
     }
   }, [initialValue, form]);
 
-  const handleSubmit = async (values: MultimodalModelConf) => {
-    try {
-      if (onSave) {
-        await onSave(values);
-        message.success('Configuration saved successfully');
+  // Handle preset selection change
+  const handlePresetChange = (presetIndex: number) => {
+    if (presetIndex >= 0 && presetIndex < LlmService.llmPresets.length) {
+      const preset = LlmService.llmPresets[presetIndex];
+      form.setFieldsValue({
+        model: preset.model,
+        baseUrl: preset.baseUrl,
+      });
+    }
+    // For custom preset (index -1), don't auto-fill fields
+  };
+
+  // Handle form values change
+  const handleFormChange = (changedValues: any, allValues: any) => {
+    // Check if model or baseUrl was changed and update preset accordingly
+    if (changedValues.model !== undefined || changedValues.baseUrl !== undefined) {
+      const currentModel = allValues.model || changedValues.model;
+      const currentBaseUrl = allValues.baseUrl || changedValues.baseUrl;
+      
+        // Find matching preset
+        const matchingPresetIndex = LlmService.llmPresets.findIndex(
+          preset => preset.model === currentModel && preset.baseUrl === currentBaseUrl
+        );
+        
+        // Update preset to match the current values
+        if (matchingPresetIndex >= 0) {
+          // Found a matching preset, switch to it
+          if (allValues.preset !== matchingPresetIndex) {
+            form.setFieldValue('preset', matchingPresetIndex);
+          }
+        } else {
+          // No preset matches, set to custom (-1)
+          if (allValues.preset !== -1) {
+            form.setFieldValue('preset', -1);
+          }
+        }
+    }
+    
+    const values = form.getFieldsValue();
+    if (values.model && values.baseUrl) {
+      // Get provider from selected preset if available
+      let provider = '';
+      if (values.preset >= 0 && values.preset < LlmService.llmPresets.length) {
+        provider = LlmService.llmPresets[values.preset].provider;
       }
-    } catch (error) {
-      message.error('Failed to save configuration');
-      console.error('Save error:', error);
+      
+      const config: LlmService.LLMConf = {
+        provider,
+        model: values.model,
+        baseUrl: values.baseUrl,
+        apiKey: values.apiKey,
+      };
+      onChange?.(config);
     }
   };
-
-  const handleCancel = () => {
-    if (onCancel) {
-      onCancel();
-    }
-  };
-
-  const handleReset = () => {
-    form.resetFields();
-    if (initialValue) {
-      form.setFieldsValue(initialValue);
-    }
-  };
-
   return (
-    <Card title="LLM Model Configuration" style={{ maxWidth: 600 }}>
+    <div>
+      <Title level={5}>Configure LLM Model</Title>
+      <p>
+        Please provide the LLM API configuration used to translate the images.
+      </p>
+      <p>
+        The LLM API should use the OpenAI-compatible format and API key authencation. The model
+        should support image input and structured output.
+      </p>
+      <p>This configuration is only used and saved inside in your browser.</p>
       <Form
         form={form}
         layout="vertical"
-        onFinish={handleSubmit}
-        initialValues={
-          initialValue || {
-            provider: 'gemini',
-            model: 'gemini-2.5-flash',
-            baseUrl: 'https://generativelanguage.googleapis.com/v1beta/openai/',
-          }
-        }
+        onValuesChange={handleFormChange}
       >
-        <Form.Item
-          label="Provider"
-          name="provider"
-          rules={[{ required: true, message: 'Please select a provider' }]}
-        >
-          <Select placeholder="Select AI provider">
-            <Option value="gemini">Google Gemini</Option>
-            <Option value="openai">OpenAI</Option>
-            <Option value="anthropic">Anthropic</Option>
-            <Option value="custom">Custom</Option>
+        <Form.Item label="Preset" name="preset">
+          <Select 
+            placeholder="Please pick a preset"
+            onChange={handlePresetChange}
+          >
+            {LlmService.llmPresets.map((preset, i) => (
+              <Option key={i} value={i}>
+                {preset.provider} / {preset.model}
+              </Option>
+            ))}
+            <Option key={-1} value={-1}>
+              Custom
+            </Option>
           </Select>
         </Form.Item>
 
@@ -101,13 +143,13 @@ export const ModelConfigForm: React.FC<ModelConfigFormProps> = ({
         >
           <Input
             placeholder="e.g., gemini-2.5-flash, gpt-4-vision-preview"
-            showCount
-            maxLength={100}
+            maxLength={200}
+            autoComplete="llm-model"
           />
         </Form.Item>
 
         <Form.Item
-          label="Base URL"
+          label="API Base URL"
           name="baseUrl"
           rules={[
             { required: true, message: 'Please enter the base URL' },
@@ -116,67 +158,25 @@ export const ModelConfigForm: React.FC<ModelConfigFormProps> = ({
         >
           <Input
             placeholder="https://api.example.com/v1/"
-            showCount
             maxLength={200}
+            autoComplete="llm-base-url"
           />
         </Form.Item>
 
-        <Form.Item>
-          <Space>
-            <Button
-              type="primary"
-              htmlType="submit"
-              icon={<SaveOutlined />}
-              loading={loading}
-            >
-              Save Configuration
-            </Button>
-            <Button onClick={handleReset}>Reset</Button>
-            <Button onClick={handleCancel}>Cancel</Button>
-          </Space>
+        <Form.Item
+          label="API Key"
+          name="apiKey"
+          rules={[{ required: true, message: 'Please enter your API key' }]}
+        >
+          <Input.Password
+            placeholder="Enter your API key"
+            autoComplete="off"
+          />
         </Form.Item>
       </Form>
 
       <Divider />
-
-      <div>
-        <Title level={5}>Preset Configurations</Title>
-        <Text type="secondary">
-          Common configurations for popular AI providers:
-        </Text>
-
-        <div style={{ marginTop: 16 }}>
-          <Text strong>Google Gemini:</Text>
-          <div style={{ marginLeft: 16, marginTop: 8 }}>
-            <div>• Provider: gemini</div>
-            <div>• Model: gemini-2.5-flash, gemini-2.5-pro</div>
-            <div>
-              • Base URL:
-              https://generativelanguage.googleapis.com/v1beta/openai/
-            </div>
-          </div>
-        </div>
-
-        <div style={{ marginTop: 16 }}>
-          <Text strong>OpenAI:</Text>
-          <div style={{ marginLeft: 16, marginTop: 8 }}>
-            <div>• Provider: openai</div>
-            <div>• Model: gpt-4-vision-preview, gpt-4o</div>
-            <div>• Base URL: https://api.openai.com/v1/</div>
-          </div>
-        </div>
-
-        <div style={{ marginTop: 16 }}>
-          <Text strong>Anthropic:</Text>
-          <div style={{ marginLeft: 16, marginTop: 8 }}>
-            <div>• Provider: anthropic</div>
-            <div>• Model: claude-3-5-sonnet, claude-3-opus</div>
-            <div>• Base URL: https://api.anthropic.com/v1/</div>
-          </div>
-        </div>
-      </div>
-    </Card>
+    </div>
   );
 };
 
-ModelConfigForm;

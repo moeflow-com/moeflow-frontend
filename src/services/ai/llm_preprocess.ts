@@ -1,28 +1,29 @@
 import z from 'zod';
 import { generateObject, GenerateObjectOptions, UserMessage } from 'xsai';
 
-interface MultimodalModelConf {
+export interface LLMConf {
   provider: string;
   model: string;
   baseUrl: string;
+  apiKey?: string;
 }
 
-export const multimodalPresets: readonly Readonly<MultimodalModelConf>[] = [
+export const llmPresets: readonly Readonly<LLMConf>[] = [
   // gemini:
   // see https://ai.google.dev/gemini-api/docs/openai
   {
-    provider: 'gemini',
+    provider: 'Google',
     model: 'gemini-2.5-flash',
     baseUrl: 'https://generativelanguage.googleapis.com/v1beta/openai/',
   },
   {
-    provider: 'gemini',
+    provider: 'Google',
     model: 'gemini-2.5-pro',
     baseUrl: 'https://generativelanguage.googleapis.com/v1beta/openai/',
   },
 ];
 
-const fileRecognizeResultSchema = z.object({
+const FilePreprocessResultSchema = z.object({
   imageW: z.number({ message: 'the width of the image in PX' }),
   imageH: z.number({ message: 'the height of the image in PX' }),
   texts: z.array(
@@ -45,15 +46,15 @@ const fileRecognizeResultSchema = z.object({
   ),
 });
 
-export type FileRecognizeResult = z.infer<typeof fileRecognizeResultSchema>;
+export type FilePreprocessResult = z.infer<typeof FilePreprocessResultSchema>;
 
-export async function recognizeFile(
+export async function llmPreprocessFile(
   apiKey: string,
-  conf: MultimodalModelConf,
+  conf: LLMConf,
   msg: UserMessage,
   abortSignal?: AbortSignal,
-): Promise<z.infer<typeof fileRecognizeResultSchema>> {
-  const generateConf: GenerateObjectOptions<typeof fileRecognizeResultSchema> =
+): Promise<z.infer<typeof FilePreprocessResultSchema>> {
+  const generateConf: GenerateObjectOptions<typeof FilePreprocessResultSchema> =
     {
       messages: [
         {
@@ -62,7 +63,7 @@ export async function recognizeFile(
         },
         msg,
       ],
-      schema: fileRecognizeResultSchema,
+      schema: FilePreprocessResultSchema,
       baseURL: conf.baseUrl,
       model: conf.model,
       apiKey,

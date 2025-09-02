@@ -29,6 +29,7 @@ import { routes } from '@/pages/routes';
 import { ListPageSpec } from '@/components/shared/List';
 import { FilePondFile } from 'filepond';
 import { createDebugLogger } from '@/utils/debug-logger';
+import { useAiTranslate } from '@/components/ai';
 
 /** 文件列表的属性接口 */
 interface FileListProps {
@@ -70,6 +71,10 @@ export const FileList: FC<FileListProps> = ({
   const [spinningIDs, setSpinningIDs] = useState<string[]>([]); // 删除请求中
   const filePondRef = useRef<FilePond | null>();
   const currentPageSpecRef = useRef<ListPageSpec | null>(null);
+  const [aiEnabled, aiTranslateApi, aiModalHolder] = useAiTranslate(
+    items,
+    target,
+  );
 
   const defaultPage = useSelector(
     (state: AppState) => state.file.filesState.page,
@@ -378,12 +383,17 @@ export const FileList: FC<FileListProps> = ({
             ? formatMessage({ id: 'project.changeTarget' }) + ' - '
             : '') + target?.language.i18nName}
         </Button>
-        {false && (
+        {aiEnabled && aiTranslateApi && (
           <Button
             tooltipProps={{
               overlay: formatMessage({ id: 'fileList.aiTranslateTip' }),
             }}
             icon="robot"
+            onClick={() =>
+              aiTranslateApi.start((file) => {
+                debugLogger('file saved', file);
+              })
+            }
           >
             {formatMessage({ id: 'fileList.aiTranslate' })}
           </Button>
@@ -579,6 +589,7 @@ export const FileList: FC<FileListProps> = ({
           selectedFileIds={selectedFileIds}
         />
       </Drawer>
+      {aiModalHolder}
     </div>
   );
 };
