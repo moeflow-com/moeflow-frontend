@@ -30,9 +30,8 @@ export const ModelConfigForm: React.FC<ModelConfigFormProps> = ({
   // Find matching preset index for initial value
   const findPresetIndex = (config: LlmService.LLMConf): number => {
     const index = LlmService.llmPresets.findIndex(
-      preset => 
-        preset.model === config.model &&
-        preset.baseUrl === config.baseUrl
+      (preset) =>
+        preset.model === config.model && preset.baseUrl === config.baseUrl,
     );
     return index >= 0 ? index : -1; // -1 for custom
   };
@@ -64,45 +63,47 @@ export const ModelConfigForm: React.FC<ModelConfigFormProps> = ({
   // Handle form values change
   const handleFormChange = (changedValues: any, allValues: any) => {
     // Check if model or baseUrl was changed and update preset accordingly
-    if (changedValues.model !== undefined || changedValues.baseUrl !== undefined) {
+    if (
+      changedValues.model !== undefined ||
+      changedValues.baseUrl !== undefined
+    ) {
       const currentModel = allValues.model || changedValues.model;
       const currentBaseUrl = allValues.baseUrl || changedValues.baseUrl;
-      
-        // Find matching preset
-        const matchingPresetIndex = LlmService.llmPresets.findIndex(
-          preset => preset.model === currentModel && preset.baseUrl === currentBaseUrl
-        );
-        
-        // Update preset to match the current values
-        if (matchingPresetIndex >= 0) {
-          // Found a matching preset, switch to it
-          if (allValues.preset !== matchingPresetIndex) {
-            form.setFieldValue('preset', matchingPresetIndex);
-          }
-        } else {
-          // No preset matches, set to custom (-1)
-          if (allValues.preset !== -1) {
-            form.setFieldValue('preset', -1);
-          }
+
+      // Find matching preset
+      const matchingPresetIndex = LlmService.llmPresets.findIndex(
+        (preset) =>
+          preset.model === currentModel && preset.baseUrl === currentBaseUrl,
+      );
+
+      // Update preset to match the current values
+      if (matchingPresetIndex >= 0) {
+        // Found a matching preset, switch to it
+        if (allValues.preset !== matchingPresetIndex) {
+          form.setFieldValue('preset', matchingPresetIndex);
         }
-    }
-    
-    const values = form.getFieldsValue();
-    if (values.model && values.baseUrl) {
-      // Get provider from selected preset if available
-      let provider = '';
-      if (values.preset >= 0 && values.preset < LlmService.llmPresets.length) {
-        provider = LlmService.llmPresets[values.preset].provider;
+      } else {
+        // No preset matches, set to custom (-1)
+        if (allValues.preset !== -1) {
+          form.setFieldValue('preset', -1);
+        }
       }
-      
-      const config: LlmService.LLMConf = {
-        provider,
-        model: values.model,
-        baseUrl: values.baseUrl,
-        apiKey: values.apiKey,
-      };
-      onChange?.(config);
     }
+
+    const values = form.getFieldsValue();
+    // Get provider from selected preset if available
+    let provider = '';
+    if (values.preset >= 0 && values.preset < LlmService.llmPresets.length) {
+      provider = LlmService.llmPresets[values.preset].provider;
+    }
+
+    const config: LlmService.LLMConf = {
+      provider,
+      model: values.model,
+      baseUrl: values.baseUrl,
+      apiKey: values.apiKey,
+    };
+    onChange?.(config);
   };
   return (
     <div>
@@ -111,17 +112,14 @@ export const ModelConfigForm: React.FC<ModelConfigFormProps> = ({
         Please provide the LLM API configuration used to translate the images.
       </p>
       <p>
-        The LLM API should use the OpenAI-compatible format and API key authencation. The model
-        should support image input and structured output.
+        The LLM API should use the OpenAI-compatible format and API key
+        authencation. The model should support image input and structured
+        output.
       </p>
       <p>This configuration is only used and saved inside in your browser.</p>
-      <Form
-        form={form}
-        layout="vertical"
-        onValuesChange={handleFormChange}
-      >
-        <Form.Item label="Preset" name="preset">
-          <Select 
+      <Form form={form} layout="vertical" onValuesChange={handleFormChange}>
+        <Form.Item label="Presets" name="preset">
+          <Select
             placeholder="Please pick a preset"
             onChange={handlePresetChange}
           >
@@ -168,10 +166,7 @@ export const ModelConfigForm: React.FC<ModelConfigFormProps> = ({
           name="apiKey"
           rules={[{ required: true, message: 'Please enter your API key' }]}
         >
-          <Input.Password
-            placeholder="Enter your API key"
-            autoComplete="off"
-          />
+          <Input.Password placeholder="Enter your API key" autoComplete="off" />
         </Form.Item>
       </Form>
 
@@ -179,4 +174,3 @@ export const ModelConfigForm: React.FC<ModelConfigFormProps> = ({
     </div>
   );
 };
-

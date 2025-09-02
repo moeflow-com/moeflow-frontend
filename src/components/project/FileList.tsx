@@ -65,7 +65,6 @@ export const FileList: FC<FileListProps> = ({
   const [outputDrawerVisible, setOutputDrawerVisible] = useState(false);
   const coverWidth = IMAGE_COVER.WIDTH;
   const coverHeight = IMAGE_COVER.HEIGHT;
-  // const [aiTranslateAvailable, startAiTranslate, modalContextHolder] = useMoeflowCompanionAiTranslate();
 
   const [items, setItems] = useState<MFile[]>([]);
   const [spinningIDs, setSpinningIDs] = useState<string[]>([]); // 删除请求中
