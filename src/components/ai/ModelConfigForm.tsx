@@ -3,18 +3,10 @@ import {
   Form,
   Input,
   Select,
-  Button,
-  Card,
-  Space,
   Divider,
   Typography,
-  message,
 } from 'antd';
-import { SaveOutlined } from '@ant-design/icons';
 import * as LlmService from '@/services/ai/llm_preprocess';
-
-const { Option } = Select;
-const { Title, Text } = Typography;
 
 interface ModelConfigFormProps {
   initialValue?: LlmService.LLMConf;
@@ -52,10 +44,12 @@ export const ModelConfigForm: React.FC<ModelConfigFormProps> = ({
   const handlePresetChange = (presetIndex: number) => {
     if (presetIndex >= 0 && presetIndex < LlmService.llmPresets.length) {
       const preset = LlmService.llmPresets[presetIndex];
-      form.setFieldsValue({
+      const patch = {
         model: preset.model,
         baseUrl: preset.baseUrl,
-      });
+      }
+      form.setFieldsValue(patch);
+      handleFormChange(patch, form.getFieldsValue());
     }
     // For custom preset (index -1), don't auto-fill fields
   };
@@ -107,7 +101,7 @@ export const ModelConfigForm: React.FC<ModelConfigFormProps> = ({
   };
   return (
     <div>
-      <Title level={5}>Configure LLM Model</Title>
+      <Typography.Title level={5}>Configure LLM Model</Typography.Title>
       <p>
         Please provide the LLM API configuration used to translate the images.
       </p>
@@ -124,13 +118,13 @@ export const ModelConfigForm: React.FC<ModelConfigFormProps> = ({
             onChange={handlePresetChange}
           >
             {LlmService.llmPresets.map((preset, i) => (
-              <Option key={i} value={i}>
+              <Select.Option key={i} value={i}>
                 {preset.provider} / {preset.model}
-              </Option>
+              </Select.Option>
             ))}
-            <Option key={-1} value={-1}>
+            <Select.Option key={-1} value={-1}>
               Custom
-            </Option>
+            </Select.Option>
           </Select>
         </Form.Item>
 
@@ -141,7 +135,6 @@ export const ModelConfigForm: React.FC<ModelConfigFormProps> = ({
         >
           <Input
             placeholder="e.g., gemini-2.5-flash, gpt-4-vision-preview"
-            maxLength={200}
             autoComplete="llm-model"
           />
         </Form.Item>
