@@ -1,4 +1,4 @@
-import z from 'zod';
+import { z } from 'zod';
 import { generateObject, GenerateObjectOptions, UserMessage } from 'xsai';
 import { createDebugLogger } from '@/utils/debug-logger';
 
