@@ -29,6 +29,7 @@ import { routes } from '@/pages/routes';
 import { ListPageSpec } from '@/components/shared/List';
 import { FilePondFile } from 'filepond';
 import { createDebugLogger } from '@/utils/debug-logger';
+import { useAiTranslate } from '@/components/ai';
 
 /** 文件列表的属性接口 */
 interface FileListProps {
@@ -64,7 +65,6 @@ export const FileList: FC<FileListProps> = ({
   const [outputDrawerVisible, setOutputDrawerVisible] = useState(false);
   const coverWidth = IMAGE_COVER.WIDTH;
   const coverHeight = IMAGE_COVER.HEIGHT;
-  // const [aiTranslateAvailable, startAiTranslate, modalContextHolder] = useMoeflowCompanionAiTranslate();
 
   const [items, setItems] = useState<MFile[]>([]);
   const [spinningIDs, setSpinningIDs] = useState<string[]>([]); // 删除请求中
@@ -82,6 +82,12 @@ export const FileList: FC<FileListProps> = ({
   );
   const selectedFileIds = useSelector(
     (state: AppState) => state.file.filesState.selectedFileIds,
+  );
+  const [aiEnabled, aiTranslateApi, aiModalHolder] = useAiTranslate(
+    [...new Set(selectedFileIds)]
+      .map((id) => items.find((item) => item.id === id))
+      .filter(Boolean) as MFile[],
+    target,
   );
 
   const openInTranslator = (file: MFile) => {
@@ -378,12 +384,17 @@ export const FileList: FC<FileListProps> = ({
             ? formatMessage({ id: 'project.changeTarget' }) + ' - '
             : '') + target?.language.i18nName}
         </Button>
-        {false && (
+        {aiEnabled && aiTranslateApi && (
           <Button
             tooltipProps={{
               overlay: formatMessage({ id: 'fileList.aiTranslateTip' }),
             }}
             icon="robot"
+            onClick={() =>
+              aiTranslateApi.start((file) => {
+                debugLogger('file saved', file);
+              })
+            }
           >
             {formatMessage({ id: 'fileList.aiTranslate' })}
           </Button>
@@ -579,6 +590,7 @@ export const FileList: FC<FileListProps> = ({
           selectedFileIds={selectedFileIds}
         />
       </Drawer>
+      {aiModalHolder}
     </div>
   );
 };

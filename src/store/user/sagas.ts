@@ -11,6 +11,11 @@ function* getUserInfoAsync(action: ReturnType<typeof setUserToken>) {
   const token = action.payload.token;
   const instance: Axios = yield api.getAxiosInstance();
   if (token === '') {
+    if (process.env.NODE_ENV === 'development') {
+      // do nothing in dev: vite hot reloading may create APIClient multiple times,
+      // causing 401 and an empty token being set
+      return;
+    }
     // 清除 Axios Authorization 头
     delete instance.defaults.headers.common['Authorization'];
     // 清除 Cookie token
