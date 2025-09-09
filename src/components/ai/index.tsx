@@ -55,7 +55,7 @@ function bind(
       return;
     }
 
-    const finished  = await new Promise<boolean>((resolve, reject) => {
+    const finished = await new Promise<boolean>((resolve, reject) => {
       const handle = modal.confirm({
         icon: null,
         content: (
@@ -68,10 +68,10 @@ function bind(
         ),
         okButtonProps: { disabled: true },
         onOk: () => {
-          resolve(true)
+          resolve(true);
         },
         onCancel: () => {
-          resolve(false)
+          resolve(false);
         },
       });
     });

@@ -1,11 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  Form,
-  Input,
-  Select,
-  Divider,
-  Typography,
-} from 'antd';
+import { Form, Input, Select, Divider, Typography } from 'antd';
 import * as LlmService from '@/services/ai/llm_preprocess';
 
 interface ModelConfigFormProps {
@@ -47,7 +41,7 @@ export const ModelConfigForm: React.FC<ModelConfigFormProps> = ({
       const patch = {
         model: preset.model,
         baseUrl: preset.baseUrl,
-      }
+      };
       form.setFieldsValue(patch);
       handleFormChange(patch, form.getFieldsValue());
     }

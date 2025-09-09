@@ -21,7 +21,7 @@ import { Icon } from '../icon';
 const debugLogger = createDebugLogger('components:ai:BatchTranslateModal');
 interface FileProgress {
   file: MFile;
-  icon: React.ReactNode | string
+  icon: React.ReactNode | string;
   message?: React.ReactNode | string;
 }
 
@@ -35,7 +35,7 @@ const stateIcons = {
   skip: <Icon icon="exclamation-circle" />,
   error: <Icon icon="exclamation-square" />,
   success: <Icon icon="check" />,
-} as const
+} as const;
 
 export const BatchTranslateModalContent: FC<{
   llmConf: LLMConf;
@@ -45,7 +45,13 @@ export const BatchTranslateModalContent: FC<{
 }> = ({ files, target, getHandle, llmConf }) => {
   const intl = useIntl();
   const [fileStates, setFileStates] = useState<FileProgress[]>(() =>
-    files.map((file): FileProgress => ({ file, icon: stateIcons.waiting, message: 'waiting' })),
+    files.map(
+      (file): FileProgress => ({
+        file,
+        icon: stateIcons.waiting,
+        message: 'waiting',
+      }),
+    ),
   );
 
   useAsyncEffect(async (running, released) => {
@@ -61,8 +67,8 @@ export const BatchTranslateModalContent: FC<{
       return;
     }
     released = released.then(() => {
-      debugLogger('released')
-    })
+      debugLogger('released');
+    });
     const tasksEnded = Promise.allSettled(
       files.map((f, idx) => fileLimiter.use(() => translateFile(f, idx))),
     );
@@ -80,7 +86,9 @@ export const BatchTranslateModalContent: FC<{
     function setFileState(f: MFile, message: string, icon: React.ReactNode) {
       debugLogger('setFileState', f.id, message);
       setFileStates((prev) =>
-        prev.map((state) => (state.file === f ? { ...state, message, icon } : state)),
+        prev.map((state) =>
+          state.file === f ? { ...state, message, icon } : state,
+        ),
       );
     }
 
@@ -100,9 +108,9 @@ export const BatchTranslateModalContent: FC<{
       const resData = toLowerCamelCase(refetchRes.data);
       if (resData.sourceCount) {
         setFileState(f, 'skip: already has source', stateIcons.skip);
-        return
+        return;
       }
-      const imgBlob = await fetch(resData.url!, {signal: abort.signal }).then(
+      const imgBlob = await fetch(resData.url!, { signal: abort.signal }).then(
         (r) => r.blob(),
         () => null,
       );
@@ -137,7 +145,7 @@ export const BatchTranslateModalContent: FC<{
       );
       debugLogger('translate result', result);
       if (!running.current) {
-        return
+        return;
       }
 
       if (result) {
@@ -183,7 +191,11 @@ export const BatchTranslateModalContent: FC<{
             moeflowApiLimiter.use(() => saveTextBlock(f, r, tb)),
           ),
         );
-        setFileState(f, `success: recognized ${r.texts.length} text marks`, stateIcons.success);
+        setFileState(
+          f,
+          `success: recognized ${r.texts.length} text marks`,
+          stateIcons.success,
+        );
       } catch (e) {
         debugLogger('save text block failed', e);
         setFileState(f, 'save file failed', stateIcons.error);
@@ -192,12 +204,14 @@ export const BatchTranslateModalContent: FC<{
   }, []);
   return (
     <div>
-      <p>Translating {files.length} files with LLM. Closing this dialog will stop translating.</p>
+      <p>
+        Translating {files.length} files with LLM. Closing this dialog will stop
+        translating.
+      </p>
       <ul>
         {fileStates.map((state) => (
-          <li key={state.file.id} >
-            <span style={{margin: '0 4px'}} >
-            {state.icon}</span>
+          <li key={state.file.id}>
+            <span style={{ margin: '0 4px' }}>{state.icon}</span>
             {state.file.name} - {state.message}
           </li>
         ))}
