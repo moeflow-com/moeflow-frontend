@@ -32,20 +32,20 @@ const FilePreprocessResultSchema = z.object({
   imageH: z.number({ message: 'the height of the image in PX' }),
   texts: z.array(
     z.object({
-      left: z.number({
-        message: 'left coordinate of the text in PX, in the whole image',
-      }),
-      top: z.number({
-        message: 'top coordinate of the text in PX, in the whole image',
-      }),
-      width: z.number({ message: 'width of the text in PX' }),
-      height: z.number({ message: 'height of the text in PX' }),
-      textLines: z.array(z.string(), { message: 'the text lines' }),
-      text: z.string({ message: 'concatencated text' }),
-      translated: z.string({ message: 'translated text' }),
-      comment: z.string({
-        message: 'additional comment of the text, or the translation',
-      }),
+      left: z
+        .number()
+        .describe('left coordinate of the text in PX, in the whole image'),
+      top: z
+        .number()
+        .describe('top coordinate of the text in PX, in the whole image'),
+      width: z.number().describe('width of the text in PX'),
+      height: z.number().describe('height of the text in PX'),
+      textLines: z.array(z.string()).describe('the text lines'),
+      text: z.string().describe('concatenated text'),
+      translated: z.string().describe('translated text'),
+      comment: z
+        .string()
+        .describe('additional comment of the text, or the translation'),
     }),
   ),
 });
@@ -90,7 +90,7 @@ export async function llmPreprocessFile(
       // see https://ai.google.dev/gemini-api/docs/image-understanding
       imageH: 1000,
       imageW: 1000,
-    }
+    };
   }
   return res.object;
 }
