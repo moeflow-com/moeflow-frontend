@@ -1,5 +1,8 @@
 import z from 'zod';
 import { generateObject, GenerateObjectOptions, UserMessage } from 'xsai';
+import { createDebugLogger } from '@/utils/debug-logger';
+
+const debugLogger = createDebugLogger('services:ai:llm_preprocess');
 
 export interface LLMConf {
   provider: string;
@@ -78,5 +81,16 @@ export async function llmPreprocessFile(
     ...generateConf,
     abortSignal,
   });
+  let ret = res.object;
+  if (conf.model?.startsWith('gemini-')) {
+    debugLogger('gemini workaround: set coords to 1000 scale');
+    ret = {
+      ...ret,
+      // workaround: gemini returns coords in [0, 1000] scale
+      // see https://ai.google.dev/gemini-api/docs/image-understanding
+      imageH: 1000,
+      imageW: 1000,
+    }
+  }
   return res.object;
 }
