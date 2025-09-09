@@ -5,7 +5,7 @@ import { ModalStaticFunctions } from 'antd/lib/modal/confirm';
 
 import { ModelConfigForm } from './ModelConfigForm';
 import { BatchTranslateModalContent } from './BatchTranslateModal';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import { LLMConf, testModel } from '@/services/ai/llm_preprocess';
 
 const debugLogger = createDebugLogger('components:project:FileListAiTranslate');
@@ -55,8 +55,9 @@ function bind(
       return;
     }
 
-    const f = await new Promise((resolove, reject) => {
+    const finished  = await new Promise<boolean>((resolve, reject) => {
       const handle = modal.confirm({
+        icon: null,
         content: (
           <BatchTranslateModalContent
             llmConf={llmConf}
@@ -67,10 +68,10 @@ function bind(
         ),
         okButtonProps: { disabled: true },
         onOk: () => {
-          console.log('ok');
+          resolve(true)
         },
         onCancel: () => {
-          console.log('cancel');
+          resolve(false)
         },
       });
     });
@@ -85,6 +86,7 @@ export function useAiTranslate(
 
   const api = useMemo(
     () => bind(files, target, modal as ModalStaticFunctions),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [target.id, files.map((file) => file.id).join('|')],
   );
 
