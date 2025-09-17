@@ -811,6 +811,53 @@ fileList.aiTranslate:
   buttonTip:
     zhCn: 用LLM自动识别文字并翻译
     en: Detect text and Translate with LLM
+  configModal:
+    title:
+      zhCn: 配置LLM
+      en: Configure LLM
+    modelDesc:
+      zhCn: 请提供用于翻译图片的LLM API配置。
+      en: Please provide the LLM API configuration to translate the images.
+    modelRequirements:
+      zhCn: LLM API 需使用OpenAI兼容格式。模型需支持图像输入和工具调用。预设配置中的模型经过测试。
+      en: The LLM API should use the OpenAI-compatible format. Multimodal (image input) and tool calling capabilities are required. The models in presets are tested to work.
+    configsAreLocal:
+      zhCn: LLM 配置仅在您的浏览器中使用和保存。
+      en: This LLM configuration is only used and saved inside your browser.
+    presets:
+      label:
+        zhCn: 预设
+        en: Presets
+      placeholder:
+        zhCn: 请选择预设
+        en: Please pick a preset
+      custom:
+        zhCn: 自定义
+        en: Custom
+    model:
+      label:
+        zhCn: 模型
+        en: Model
+      required:
+        zhCn: 请输入模型名称
+        en: Please enter the model name
+    baseUrl:
+      label:
+        zhCn: API基础URL
+        en: API Base URL
+      required:
+        zhCn: 请输入基础URL
+        en: Please enter the base URL
+      invalidUrl:
+        zhCn: 请输入有效的URL
+        en: Please enter a valid URL
+    apiKey:
+      label:
+        zhCn: API密钥
+        en: API Key
+      required:
+        zhCn: 请输入您的API密钥
+        en: Please enter your API key
   workingModal:
     content:
       en: Translating {fileCount} files with LLM. Closing this dialog will stop the work.
@@ -1240,5 +1287,3 @@ admin.imageModeration:
 admin.captchas:
   zhCn: 验证码
   en: Captchas
-
-

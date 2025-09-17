@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Form, Input, Select, Divider, Typography } from 'antd';
 import * as LlmService from '@/services/ai/llm_preprocess';
+import { useIntl } from 'react-intl';
 
 interface ModelConfigFormProps {
   initialValue?: LlmService.LLMConf;
@@ -11,6 +12,7 @@ export const ModelConfigForm: React.FC<ModelConfigFormProps> = ({
   initialValue,
   onChange,
 }) => {
+  const { formatMessage } = useIntl();
   const [form] = Form.useForm();
 
   // Find matching preset index for initial value
@@ -96,20 +98,33 @@ export const ModelConfigForm: React.FC<ModelConfigFormProps> = ({
   };
   return (
     <div>
-      <Typography.Title level={5}>Configure LLM Model</Typography.Title>
+      <Typography.Title level={5}>
+        {formatMessage({ id: 'fileList.aiTranslate.configModal.title' })}
+      </Typography.Title>
       <p>
-        Please provide the LLM API configuration used to translate the images.
+        {formatMessage({ id: 'fileList.aiTranslate.configModal.modelDesc' })}
       </p>
       <p>
-        The LLM API should use the OpenAI-compatible format and API key
-        authencation. The model should support image input and structured
-        output.
+        {formatMessage({
+          id: 'fileList.aiTranslate.configModal.modelRequirements',
+        })}
       </p>
-      <p>This configuration is only used and saved inside in your browser.</p>
+      <p>
+        {formatMessage({
+          id: 'fileList.aiTranslate.configModal.configsAreLocal',
+        })}
+      </p>
       <Form form={form} layout="vertical" onValuesChange={handleFormChange}>
-        <Form.Item label="Presets" name="preset">
+        <Form.Item
+          label={formatMessage({
+            id: 'fileList.aiTranslate.configModal.presets.label',
+          })}
+          name="preset"
+        >
           <Select
-            placeholder="Please pick a preset"
+            placeholder={formatMessage({
+              id: 'fileList.aiTranslate.configModal.presets.placeholder',
+            })}
             onChange={handlePresetChange}
           >
             {LlmService.llmPresets.map((preset, i) => (
@@ -118,15 +133,26 @@ export const ModelConfigForm: React.FC<ModelConfigFormProps> = ({
               </Select.Option>
             ))}
             <Select.Option key={-1} value={-1}>
-              Custom
+              {formatMessage({
+                id: 'fileList.aiTranslate.configModal.presets.custom',
+              })}
             </Select.Option>
           </Select>
         </Form.Item>
 
         <Form.Item
-          label="Model"
+          label={formatMessage({
+            id: 'fileList.aiTranslate.configModal.model.label',
+          })}
           name="model"
-          rules={[{ required: true, message: 'Please enter the model name' }]}
+          rules={[
+            {
+              required: true,
+              message: formatMessage({
+                id: 'fileList.aiTranslate.configModal.model.required',
+              }),
+            },
+          ]}
         >
           <Input
             placeholder="e.g., gemini-2.5-flash, gpt-4-vision-preview"
@@ -135,11 +161,23 @@ export const ModelConfigForm: React.FC<ModelConfigFormProps> = ({
         </Form.Item>
 
         <Form.Item
-          label="API Base URL"
+          label={formatMessage({
+            id: 'fileList.aiTranslate.configModal.baseUrl.label',
+          })}
           name="baseUrl"
           rules={[
-            { required: true, message: 'Please enter the base URL' },
-            { type: 'url', message: 'Please enter a valid URL' },
+            {
+              required: true,
+              message: formatMessage({
+                id: 'fileList.aiTranslate.configModal.baseUrl.required',
+              }),
+            },
+            {
+              type: 'url',
+              message: formatMessage({
+                id: 'fileList.aiTranslate.configModal.baseUrl.invalidUrl',
+              }),
+            },
           ]}
         >
           <Input
@@ -150,9 +188,18 @@ export const ModelConfigForm: React.FC<ModelConfigFormProps> = ({
         </Form.Item>
 
         <Form.Item
-          label="API Key"
+          label={formatMessage({
+            id: 'fileList.aiTranslate.configModal.apiKey.label',
+          })}
           name="apiKey"
-          rules={[{ required: true, message: 'Please enter your API key' }]}
+          rules={[
+            {
+              required: true,
+              message: formatMessage({
+                id: 'fileList.aiTranslate.configModal.apiKey.required',
+              }),
+            },
+          ]}
         >
           <Input.Password placeholder="Enter your API key" autoComplete="off" />
         </Form.Item>
