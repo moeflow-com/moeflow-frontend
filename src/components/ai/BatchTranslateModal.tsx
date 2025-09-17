@@ -49,7 +49,7 @@ export const BatchTranslateModalContent: FC<{
         file,
         icon: stateIcons.waiting,
         message: formatMessage({
-          id: 'fileList.aiTranslate.fileState.waiting',
+          id: 'fileList.aiTranslate.fileMessage.waiting',
         }),
       }),
     ),
