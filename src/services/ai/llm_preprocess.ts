@@ -1,7 +1,5 @@
 import { z } from 'zod';
 import {
-  generateObject,
-  GenerateObjectOptions,
   generateText,
   GenerateTextOptions,
   SystemMessage,
@@ -154,25 +152,6 @@ export async function llmTranslateImage(
   }
 }
 
-async function callOtherModel() {
-  const generateConf: GenerateObjectOptions<typeof filePreprocessResultSchema> =
-    {
-      messages,
-      headers: {
-        // required workaround for Anthropic Claude models. Should be harmless for other providers.
-        'anthropic-dangerous-direct-browser-access': 'true',
-      },
-      ...(llmConf.model.toLowerCase().includes('claude')
-        ? { tools: [submitTool] }
-        : {
-            schema: filePreprocessResultSchema,
-          }),
-      baseURL: llmConf.baseUrl,
-      model: llmConf.model,
-      apiKey: llmConf.apiKey,
-      tools: [submitTool],
-    };
-}
 async function img2dataurl(img: Blob) {
   return new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
