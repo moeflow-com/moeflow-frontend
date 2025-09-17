@@ -57,7 +57,7 @@ function bind(
       return;
     }
 
-    const finished = await new Promise<boolean>((resolve, reject) => {
+    await new Promise<boolean>((resolve) => {
       const handle = modal.confirm({
         icon: null,
         content: (

@@ -387,7 +387,7 @@ export const FileList: FC<FileListProps> = ({
         {aiEnabled && aiTranslateApi && (
           <Button
             tooltipProps={{
-              overlay: formatMessage({ id: 'fileList.aiTranslateTip' }),
+              overlay: formatMessage({ id: 'fileList.aiTranslate.buttonTip' }),
             }}
             icon="robot"
             onClick={() =>
@@ -396,7 +396,7 @@ export const FileList: FC<FileListProps> = ({
               })
             }
           >
-            {formatMessage({ id: 'fileList.aiTranslate' })}
+            {formatMessage({ id: 'fileList.aiTranslate.buttonText' })}
           </Button>
         )}
         {/* {can(team, TEAM_PERMISSION.USE_OCR_QUOTA) && (
