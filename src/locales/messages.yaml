@@ -805,11 +805,50 @@ fileList.ocrButtonTip:
   zhCn: 图片自动标记
   en: Image Auto Tagging
 fileList.aiTranslate:
-  zhCn: 自动翻译
-  en: Auto Translate
-fileList.aiTranslateTip:
-  zhCn: 自动识别文字并翻译
-  en: Detect marks and Translate
+  buttonText:
+    zhCn: 自动翻译
+    en: Auto Translate
+  buttonTip:
+    zhCn: 用LLM自动识别文字并翻译
+    en: Detect text and Translate with LLM
+  workingModal:
+    content:
+      en: Translating {fileCount} files with LLM. Closing this dialog will stop the work.
+      zhCn: 正在用LLM翻译 {fileCount} 个文件，关闭此对话框将中断翻译。
+  fileMessage:
+    sendingImage:
+      zhCn: 发送图片中...
+      en: Sending image...
+    uploadNotFinished:
+      zhCn: 上传未完成，请稍后再试
+      en: Upload not finished, please try again later
+    waiting:
+      zhCn: 排队中...
+      en: Waiting in queue...
+    failFetchingImage:
+      zhCn: 获取图片失败
+      en: Failed to fetch image
+    translating:
+      zhCn: 翻译中...
+      en: Translating...
+    translateFailed:
+      zhCn: 翻译失败
+      en: Failed to translate
+    textAlreadyExist:
+      zhCn: 已有文字标记
+      en: Text marks already exist
+    noTextDetected:
+      zhCn: 未检测到文字
+      en: No text detected
+    saving:
+      zhCn: 保存中...
+      en: Saving...
+    failSaving:
+      zhCn: 保存失败
+      en: Failed to save
+    success:
+      zhCn: 翻译了 {count} 处文字
+      en: Translated {count} text blocks
 project.startOCR:
   zhCn: 开始自动标记
   en: Start Auto Tagging
