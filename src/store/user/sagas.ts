@@ -11,9 +11,10 @@ function* getUserInfoAsync(action: ReturnType<typeof setUserToken>) {
   const token = action.payload.token;
   const instance: Axios = yield api.getAxiosInstance();
   if (token === '') {
-    if (process.env.NODE_ENV === 'development') {
+    if (import.meta.env.DEV) {
       // do nothing in dev: vite hot reloading may create APIClient multiple times,
       // causing 401 and an empty token being set
+      console.debug('[user/sagas] Ignored empty token in DEV due to HMR');
       return;
     }
     // 清除 Axios Authorization 头
