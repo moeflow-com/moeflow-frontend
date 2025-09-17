@@ -6,7 +6,7 @@ import { ModalStaticFunctions } from 'antd/lib/modal/confirm';
 import { ModelConfigForm } from './ModelConfigForm';
 import { BatchTranslateModalContent } from './BatchTranslateModal';
 import { useMemo } from 'react';
-import { LLMConf, testModel } from '@/services/ai/llm_preprocess';
+import { LLMConf, testModel, llmPresets } from '@/services/ai/llm_preprocess';
 
 const debugLogger = createDebugLogger('components:project:FileListAiTranslate');
 
@@ -30,7 +30,7 @@ function bind(
   };
   async function start() {
     const llmConf = await new Promise<LLMConf | null>((resolve, reject) => {
-      let confValue: LLMConf | null = null;
+      let confValue: LLMConf = { ...llmPresets.at(0)! };
       const onChange = (conf: LLMConf) => {
         debugLogger('model configured', conf);
         confValue = conf;
@@ -40,7 +40,9 @@ function bind(
       };
       const handle = modal.confirm({
         icon: null,
-        content: <ModelConfigForm onChange={onChange} />,
+        content: (
+          <ModelConfigForm initialValue={confValue} onChange={onChange} />
+        ),
         okText: `Start translate`,
         okButtonProps: { disabled: true },
         onOk: () => {

@@ -1,5 +1,13 @@
 import { z } from 'zod';
-import { generateObject, GenerateObjectOptions, UserMessage } from 'xsai';
+import {
+  generateObject,
+  GenerateObjectOptions,
+  generateText,
+  GenerateTextOptions,
+  SystemMessage,
+  UserMessage,
+} from 'xsai';
+import { tool } from '@xsai/tool';
 import { createDebugLogger } from '@/utils/debug-logger';
 
 const debugLogger = createDebugLogger('services:ai:llm_preprocess');
@@ -15,19 +23,26 @@ export interface LLMConf {
 export const llmPresets: readonly Readonly<LLMConf>[] = [
   // gemini:
   // see https://ai.google.dev/gemini-api/docs/openai
-  {
+  ...['gemini-2.5-flash', 'gemini-2.5-pro'].map((model) => ({
     provider: 'Google',
-    model: 'gemini-2.5-flash',
+    model,
     baseUrl: 'https://generativelanguage.googleapis.com/v1beta/openai/',
-  },
-  {
-    provider: 'Google',
-    model: 'gemini-2.5-pro',
-    baseUrl: 'https://generativelanguage.googleapis.com/v1beta/openai/',
-  },
+  })),
+  // OpenAI models: see https://platform.openai.com/docs/models
+  ...['gpt-5-mini', 'gpt-4o', 'gpt-5'].map((model) => ({
+    provider: 'OpenAI',
+    model,
+    baseUrl: 'https://api.openai.com/v1/',
+  })),
+  // Anthropic models in OpenAI compatible format: https://docs.claude.com/en/api/openai-sdk
+  ...['claude-sonnet-4-20250514', 'claude-3-7-sonnet-latest'].map((model) => ({
+    provider: 'Anthropic',
+    model,
+    baseUrl: 'https://api.anthropic.com/v1/',
+  })),
 ];
 
-const FilePreprocessResultSchema = z.object({
+const filePreprocessResultSchema = z.object({
   imageW: z.number({ message: 'the width of the image in PX' }),
   imageH: z.number({ message: 'the height of the image in PX' }),
   texts: z.array(
@@ -50,47 +65,118 @@ const FilePreprocessResultSchema = z.object({
   ),
 });
 
-export type FilePreprocessResult = z.infer<typeof FilePreprocessResultSchema>;
+export type FilePreprocessResult = z.infer<typeof filePreprocessResultSchema>;
 
 export async function testModel(
   modelConf: LLMConf,
 ): Promise<{ worked: boolean; message: string }> {
   return { worked: true, message: 'test model worked' };
 }
-
-export async function llmPreprocessFile(
-  conf: LLMConf,
-  msg: UserMessage,
+export async function llmTranslateImage(
+  llmConf: LLMConf,
+  targetLang: string,
+  imgBlob: Blob,
   abortSignal?: AbortSignal,
-): Promise<z.infer<typeof FilePreprocessResultSchema>> {
-  const generateConf: GenerateObjectOptions<typeof FilePreprocessResultSchema> =
-    {
-      messages: [
-        {
-          content: 'You are a helpful assistant. Please do as user instructs.',
-          role: 'system',
+): Promise<FilePreprocessResult> {
+  const userMessage: UserMessage = {
+    role: 'user',
+    content: [
+      {
+        type: 'text',
+        text: `Please translate the image to ${targetLang}. ${llmConf.extraPrompt || ''}`,
+      },
+      {
+        type: 'image_url',
+        image_url: {
+          url: await img2dataurl(imgBlob),
+          detail: 'high',
         },
-        msg,
-      ],
-      schema: FilePreprocessResultSchema,
-      baseURL: conf.baseUrl,
-      model: conf.model,
-      apiKey: conf.apiKey,
-    };
-  const res = await generateObject({
-    ...generateConf,
-    abortSignal,
-  });
-  let ret = res.object;
-  if (conf.model?.startsWith('gemini-')) {
+      },
+    ],
+  };
+
+  const messages: (UserMessage | SystemMessage)[] = [
+    {
+      content:
+        'You are a helpful assistant. Please do as user instructs. The extracted text and translations should be submitted using the provided tool.',
+      role: 'system',
+    },
+    userMessage,
+  ];
+
+  let ret = await callModelWithTools();
+  if (llmConf.model?.toLowerCase().includes('gemini-')) {
     debugLogger('gemini workaround: set coords to 1000 scale');
     ret = {
       ...ret,
-      // workaround: gemini returns coords in [0, 1000] scale
+      // gemini-only workaround: gemini returns coords in [0, 1000] scale
       // see https://ai.google.dev/gemini-api/docs/image-understanding
       imageH: 1000,
       imageW: 1000,
     };
   }
-  return res.object;
+  return ret;
+
+  //
+  async function callModelWithTools(): Promise<FilePreprocessResult> {
+    let submittedResult: FilePreprocessResult | null = null;
+    const submitTool = await tool({
+      execute: (_result) => {
+        submittedResult = _result;
+
+        return 'saved';
+      },
+      parameters: filePreprocessResultSchema,
+      name: 'submit',
+      description: 'Submit the result of preprocessing the image',
+    });
+
+    const generateConf: GenerateTextOptions = {
+      messages,
+      headers: {
+        // Anthropic-only workaround, to call API from browser (otherwise it rejects with CORS error).
+        ...(llmConf.model.toLowerCase().includes('claude-') && {
+          'anthropic-dangerous-direct-browser-access': 'true',
+        }),
+      },
+      tools: [submitTool],
+      baseURL: llmConf.baseUrl,
+      model: llmConf.model,
+      apiKey: llmConf.apiKey,
+      abortSignal,
+    };
+    await generateText(generateConf);
+
+    if (!submittedResult) {
+      throw new Error('LLM did not submit the result using the tool.');
+    }
+    return submittedResult;
+  }
+}
+
+async function callOtherModel() {
+  const generateConf: GenerateObjectOptions<typeof filePreprocessResultSchema> =
+    {
+      messages,
+      headers: {
+        // required workaround for Anthropic Claude models. Should be harmless for other providers.
+        'anthropic-dangerous-direct-browser-access': 'true',
+      },
+      ...(llmConf.model.toLowerCase().includes('claude')
+        ? { tools: [submitTool] }
+        : {
+            schema: filePreprocessResultSchema,
+          }),
+      baseURL: llmConf.baseUrl,
+      model: llmConf.model,
+      apiKey: llmConf.apiKey,
+      tools: [submitTool],
+    };
+}
+async function img2dataurl(img: Blob) {
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result as string);
+    reader.readAsDataURL(img);
+  });
 }

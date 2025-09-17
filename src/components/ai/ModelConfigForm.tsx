@@ -41,6 +41,7 @@ export const ModelConfigForm: React.FC<ModelConfigFormProps> = ({
       const patch = {
         model: preset.model,
         baseUrl: preset.baseUrl,
+        apiKey: preset.apiKey || '',
       };
       form.setFieldsValue(patch);
       handleFormChange(patch, form.getFieldsValue());

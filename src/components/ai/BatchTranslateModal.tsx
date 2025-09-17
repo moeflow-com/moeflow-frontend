@@ -10,12 +10,11 @@ import { createDebugLogger } from '@/utils/debug-logger';
 import { api, resultTypes } from '@/apis';
 import { toLowerCamelCase } from '@/utils';
 import {
-  llmPreprocessFile,
+  llmTranslateImage,
   LLMConf,
   FilePreprocessResult,
 } from '@/services/ai/llm_preprocess';
 import { ModalHandle } from '.';
-import { UserMessage } from 'xsai';
 import { Icon } from '../icon';
 
 const debugLogger = createDebugLogger('components:ai:BatchTranslateModal');
@@ -70,7 +69,7 @@ export const BatchTranslateModalContent: FC<{
       debugLogger('released');
     });
     const tasksEnded = Promise.allSettled(
-      files.map((f, idx) => fileLimiter.use(() => translateFile(f, idx))),
+      files.map((f, idx) => fileLimiter.use(() => translateFile(f))),
     );
     const cancelled = await Promise.race([
       released.then(() => true),
@@ -92,7 +91,7 @@ export const BatchTranslateModalContent: FC<{
       );
     }
 
-    async function translateFile(f: MFile, idx: number) {
+    async function translateFile(f: MFile) {
       setFileState(f, 'working', stateIcons.working);
       if (![undefined, null, 'success'].includes(f.uploadState)) {
         setFileState(f, 'skip: upload not finished', stateIcons.skip);
@@ -106,7 +105,7 @@ export const BatchTranslateModalContent: FC<{
         return;
       }
       const resData = toLowerCamelCase(refetchRes.data);
-      if (resData.sourceCount) {
+      if (false && resData.sourceCount) {
         setFileState(f, 'skip: already has source', stateIcons.skip);
         return;
       }
@@ -119,30 +118,16 @@ export const BatchTranslateModalContent: FC<{
         return;
       }
 
-      const userMessage: UserMessage = {
-        role: 'user',
-        content: [
-          {
-            type: 'text',
-            text: `Please translate the image to ${target.language.enName}. ${llmConf.extraPrompt || ''}`,
-          },
-          {
-            type: 'image_url',
-            image_url: {
-              url: await img2dataurl(imgBlob),
-            },
-          },
-        ],
-      };
-
       setFileState(f, 'translating', stateIcons.working);
 
-      const result = await llmPreprocessFile(llmConf, userMessage).catch(
-        (e) => {
-          debugLogger('translate failed', e);
-          return null;
-        },
-      );
+      const result = await llmTranslateImage(
+        llmConf,
+        target.language.enName,
+        imgBlob,
+      ).catch((e: unknown) => {
+        debugLogger('translate failed', e);
+        return null;
+      });
       debugLogger('translate result', result);
       if (!running.current) {
         return;
@@ -219,11 +204,3 @@ export const BatchTranslateModalContent: FC<{
     </div>
   );
 };
-
-async function img2dataurl(img: Blob) {
-  return new Promise<string>((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onloadend = () => resolve(reader.result as string);
-    reader.readAsDataURL(img);
-  });
-}
