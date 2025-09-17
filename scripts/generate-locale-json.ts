@@ -12,8 +12,10 @@ function* extractPathedMessages(obj: object, locale: string, pathPrefix: readonl
   for (const [key, value] of Object.entries(obj)) {
     if (typeof value === 'object' && value) {
       yield* extractPathedMessages(value, locale, [...pathPrefix, key]);
-    } else if (typeof value === 'string' && key === locale) {
-      yield [pathPrefix.join('.'), value];
+    } else if (typeof value === 'string') {
+      if (key === locale) yield [pathPrefix.join('.'), value];
+    } else {
+      throw new Error(`unexpected value type at ${[...pathPrefix, key].join('.')}: ${typeof value}`);
     }
   }
 }
