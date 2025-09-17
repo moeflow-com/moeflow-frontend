@@ -29,10 +29,10 @@ function clipTo01(x: number) {
 }
 
 const stateIcons = {
-  waiting: <Icon icon="ellipsis-h" bounce />,
+  waiting: <Icon icon="ellipsis-h" />,
   working: <Icon icon="spinner" spin />,
   skip: <Icon icon="exclamation-circle" />,
-  error: <Icon icon="exclamation-square" />,
+  fail: <Icon icon="exclamation-circle" />,
   success: <Icon icon="check" />,
 } as const;
 
@@ -42,13 +42,15 @@ export const BatchTranslateModalContent: FC<{
   target: Target;
   getHandle(): ModalHandle;
 }> = ({ files, target, getHandle, llmConf }) => {
-  const intl = useIntl();
+  const { formatMessage } = useIntl();
   const [fileStates, setFileStates] = useState<FileProgress[]>(() =>
     files.map(
       (file): FileProgress => ({
         file,
         icon: stateIcons.waiting,
-        message: 'waiting',
+        message: formatMessage({
+          id: 'fileList.aiTranslate.fileState.waiting',
+        }),
       }),
     ),
   );
@@ -69,7 +71,7 @@ export const BatchTranslateModalContent: FC<{
       debugLogger('released');
     });
     const tasksEnded = Promise.allSettled(
-      files.map((f, idx) => fileLimiter.use(() => translateFile(f))),
+      files.map((f) => fileLimiter.use(() => translateFile(f))),
     );
     const cancelled = await Promise.race([
       released.then(() => true),
@@ -92,21 +94,43 @@ export const BatchTranslateModalContent: FC<{
     }
 
     async function translateFile(f: MFile) {
-      setFileState(f, 'working', stateIcons.working);
+      setFileState(
+        f,
+        formatMessage({ id: 'fileList.aiTranslate.fileMessage.sendingImage' }),
+        stateIcons.working,
+      );
       if (![undefined, null, 'success'].includes(f.uploadState)) {
-        setFileState(f, 'skip: upload not finished', stateIcons.skip);
+        setFileState(
+          f,
+          formatMessage({
+            id: 'fileList.aiTranslate.fileMessage.uploadNotFinished',
+          }),
+          stateIcons.skip,
+        );
         return;
       }
       const refetchRes = await api.file
         .getFile({ fileID: f.id, configs: { cancelToken } })
         .catch(() => null);
       if (refetchRes?.type !== resultTypes.SUCCESS) {
-        setFileState(f, 'skip: fetch file failed', stateIcons.error);
+        setFileState(
+          f,
+          formatMessage({
+            id: 'fileList.aiTranslate.fileMessage.failFetchingImage',
+          }),
+          stateIcons.fail,
+        );
         return;
       }
       const resData = toLowerCamelCase(refetchRes.data);
-      if (false && resData.sourceCount) {
-        setFileState(f, 'skip: already has source', stateIcons.skip);
+      if (resData.sourceCount) {
+        setFileState(
+          f,
+          formatMessage({
+            id: 'fileList.aiTranslate.fileMessage.textAlreadyExist',
+          }),
+          stateIcons.skip,
+        );
         return;
       }
       const imgBlob = await fetch(resData.url!, { signal: abort.signal }).then(
@@ -114,11 +138,21 @@ export const BatchTranslateModalContent: FC<{
         () => null,
       );
       if (!imgBlob) {
-        setFileState(f, 'error: fetch image blob failed', stateIcons.error);
+        setFileState(
+          f,
+          formatMessage({
+            id: 'fileList.aiTranslate.fileMessage.failFetchingImage',
+          }),
+          stateIcons.fail,
+        );
         return;
       }
 
-      setFileState(f, 'translating', stateIcons.working);
+      setFileState(
+        f,
+        formatMessage({ id: 'fileList.aiTranslate.fileMessage.translating' }),
+        stateIcons.working,
+      );
 
       const result = await llmTranslateImage(
         llmConf,
@@ -136,7 +170,13 @@ export const BatchTranslateModalContent: FC<{
       if (result) {
         await saveTranslations(f, result);
       } else {
-        setFileState(f, 'error: translate failed', stateIcons.error);
+        setFileState(
+          f,
+          formatMessage({
+            id: 'fileList.aiTranslate.fileMessage.translateFailed',
+          }),
+          stateIcons.fail,
+        );
       }
     }
 
@@ -167,9 +207,19 @@ export const BatchTranslateModalContent: FC<{
 
     async function saveTranslations(f: MFile, r: FilePreprocessResult) {
       if (r.texts.length === 0) {
-        setFileState(f, 'done: no text blocks', stateIcons.skip);
+        setFileState(
+          f,
+          formatMessage({
+            id: 'fileList.aiTranslate.fileMessage.noTextDetected',
+          }),
+          stateIcons.skip,
+        );
       }
-      setFileState(f, 'saving', stateIcons.working);
+      setFileState(
+        f,
+        formatMessage({ id: 'fileList.aiTranslate.fileMessage.saving' }),
+        stateIcons.working,
+      );
       try {
         await Promise.all(
           r.texts.map((tb) =>
@@ -178,20 +228,29 @@ export const BatchTranslateModalContent: FC<{
         );
         setFileState(
           f,
-          `success: recognized ${r.texts.length} text marks`,
+          formatMessage(
+            { id: 'fileList.aiTranslate.fileMessage.success' },
+            { count: r.texts.length },
+          ),
           stateIcons.success,
         );
       } catch (e) {
         debugLogger('save text block failed', e);
-        setFileState(f, 'save file failed', stateIcons.error);
+        setFileState(
+          f,
+          formatMessage({ id: 'fileList.aiTranslate.fileMessage.failSaving' }),
+          stateIcons.fail,
+        );
       }
     }
   }, []);
   return (
     <div>
       <p>
-        Translating {files.length} files with LLM. Closing this dialog will stop
-        translating.
+        {formatMessage(
+          { id: 'fileList.aiTranslate.workingModal.content' },
+          { fileCount: files.length },
+        )}
       </p>
       <ul>
         {fileStates.map((state) => (
