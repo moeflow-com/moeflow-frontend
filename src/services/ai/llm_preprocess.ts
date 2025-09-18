@@ -54,7 +54,7 @@ const filePreprocessResultSchema = z.object({
       width: z.number().describe('width of the text in PX'),
       height: z.number().describe('height of the text in PX'),
       textLines: z.array(z.string()).describe('the text lines'),
-      text: z.string().describe('concatenated text'),
+      text: z.string().describe('concatenated original text'),
       translated: z.string().describe('translated text'),
       comment: z
         .string()
@@ -65,11 +65,6 @@ const filePreprocessResultSchema = z.object({
 
 export type FilePreprocessResult = z.infer<typeof filePreprocessResultSchema>;
 
-export async function testModel(
-  modelConf: LLMConf,
-): Promise<{ worked: boolean; message: string }> {
-  return { worked: true, message: 'test model worked' };
-}
 export async function llmTranslateImage(
   llmConf: LLMConf,
   targetLang: string,
@@ -121,7 +116,6 @@ export async function llmTranslateImage(
     const submitTool = await tool({
       execute: (_result) => {
         submittedResult = _result;
-
         return 'saved';
       },
       parameters: filePreprocessResultSchema,

@@ -40,8 +40,9 @@ export const BatchTranslateModalContent: FC<{
   llmConf: LLMConf;
   files: MFile[];
   target: Target;
+  onFileSaved?(f: MFile) :void;
   getHandle(): ModalHandle;
-}> = ({ files, target, getHandle, llmConf }) => {
+}> = ({ files, target, getHandle, llmConf, onFileSaved }) => {
   const { formatMessage } = useIntl();
   const [fileStates, setFileStates] = useState<FileProgress[]>(() =>
     files.map(
@@ -234,6 +235,11 @@ export const BatchTranslateModalContent: FC<{
           ),
           stateIcons.success,
         );
+        onFileSaved?.({
+          ...f,
+          sourceCount: r.texts.length,
+          translatedSourceCount: r.texts.length,
+        })
       } catch (e) {
         debugLogger('save text block failed', e);
         setFileState(

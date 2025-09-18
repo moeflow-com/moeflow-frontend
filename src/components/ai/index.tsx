@@ -6,18 +6,21 @@ import { ModalStaticFunctions } from 'antd/lib/modal/confirm';
 import { ModelConfigForm } from './ModelConfigForm';
 import { BatchTranslateModalContent } from './BatchTranslateModal';
 import { useMemo } from 'react';
-import { LLMConf, testModel, llmPresets } from '@/services/ai/llm_preprocess';
+import { LLMConf, llmPresets } from '@/services/ai/llm_preprocess';
 
 const debugLogger = createDebugLogger('components:project:FileListAiTranslate');
 
 export type ModalHandle = ReturnType<typeof Modal.confirm>;
 
+interface TranslationCallbacks {
+  onFileSaved?(f: MFile) :void;
+}
+
 interface TranslatorApi {
   start(
-    onFileSaved: (f: MFile) => void,
-    onConfigured?: () => void,
+    callbacks: TranslationCallbacks
   ): Promise<void>;
-  testModel(modelConf: LLMConf): Promise<{ worked: boolean; message: string }>;
+  testModel?(modelConf: LLMConf): Promise<{ worked: boolean; message: string }>;
 }
 function bind(
   files: MFile[],
@@ -26,9 +29,9 @@ function bind(
 ): TranslatorApi {
   return {
     start,
-    testModel,
+    // testModel,
   };
-  async function start() {
+  async function start(callbacks: TranslationCallbacks) {
     const llmConf = await new Promise<LLMConf | null>((resolve, reject) => {
       let confValue: LLMConf = { ...llmPresets.at(0)! };
       const onChange = (conf: LLMConf) => {
@@ -65,6 +68,7 @@ function bind(
             llmConf={llmConf}
             files={files}
             target={target}
+            onFileSaved={callbacks.onFileSaved}
             getHandle={() => handle as ModalHandle}
           />
         ),
