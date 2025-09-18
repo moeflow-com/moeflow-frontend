@@ -33,8 +33,9 @@ export const ModelConfigForm: React.FC<ModelConfigFormProps> = ({
         baseUrl: initialValue.baseUrl,
         apiKey: initialValue.apiKey,
       });
+      onChange?.(initialValue);
     }
-  }, [initialValue, form]);
+  }, [initialValue, form, onChange]);
 
   // Handle preset selection change
   const handlePresetChange = (presetIndex: number) => {

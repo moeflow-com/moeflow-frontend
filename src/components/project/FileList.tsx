@@ -393,7 +393,9 @@ export const FileList: FC<FileListProps> = ({
             onClick={() =>
               aiTranslateApi.start({
                 onFileSaved(f2) {
-                  setItems(items => items.map(f => f.id === f2.id ? f2 : f))
+                  setItems((items) =>
+                    items.map((f) => (f.id === f2.id ? f2 : f)),
+                  );
                 },
               })
             }

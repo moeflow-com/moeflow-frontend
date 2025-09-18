@@ -7,25 +7,26 @@ import { ModelConfigForm } from './ModelConfigForm';
 import { BatchTranslateModalContent } from './BatchTranslateModal';
 import { useMemo } from 'react';
 import { LLMConf, llmPresets } from '@/services/ai/llm_preprocess';
+import { llmConfStorage } from '@/utils/storage';
+import { IntlShape, useIntl } from 'react-intl';
 
 const debugLogger = createDebugLogger('components:project:FileListAiTranslate');
 
 export type ModalHandle = ReturnType<typeof Modal.confirm>;
 
 interface TranslationCallbacks {
-  onFileSaved?(f: MFile) :void;
+  onFileSaved?(f: MFile): void;
 }
 
 interface TranslatorApi {
-  start(
-    callbacks: TranslationCallbacks
-  ): Promise<void>;
+  start(callbacks: TranslationCallbacks): Promise<void>;
   testModel?(modelConf: LLMConf): Promise<{ worked: boolean; message: string }>;
 }
 function bind(
   files: MFile[],
   target: Target,
   modal: ModalStaticFunctions,
+  { formatMessage }: IntlShape,
 ): TranslatorApi {
   return {
     start,
@@ -33,7 +34,9 @@ function bind(
   };
   async function start(callbacks: TranslationCallbacks) {
     const llmConf = await new Promise<LLMConf | null>((resolve, reject) => {
-      let confValue: LLMConf = { ...llmPresets.at(0)! };
+      let confValue: LLMConf = llmConfStorage.load() ?? {
+        ...llmPresets.at(0)!,
+      };
       const onChange = (conf: LLMConf) => {
         debugLogger('model configured', conf);
         confValue = conf;
@@ -46,7 +49,7 @@ function bind(
         content: (
           <ModelConfigForm initialValue={confValue} onChange={onChange} />
         ),
-        okText: `Start translate`,
+        okText: formatMessage({ id: 'fileList.aiTranslate.startTranslate' }),
         okButtonProps: { disabled: true },
         onOk: () => {
           resolve(confValue);
@@ -59,6 +62,7 @@ function bind(
     if (!llmConf) {
       return;
     }
+    llmConfStorage.save(llmConf);
 
     await new Promise<boolean>((resolve) => {
       const handle = modal.confirm({
@@ -89,9 +93,10 @@ export function useAiTranslate(
   target: Target,
 ): [true, TranslatorApi, React.ReactNode] | [false, null, null] {
   const [modal, contextHolder] = Modal.useModal();
+  const intl = useIntl();
 
   const api = useMemo(
-    () => bind(files, target, modal as ModalStaticFunctions),
+    () => bind(files, target, modal as ModalStaticFunctions, intl),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [target.id, files.map((file) => file.id).join('|')],
   );

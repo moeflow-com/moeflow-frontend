@@ -811,6 +811,9 @@ fileList.aiTranslate:
   buttonTip:
     zhCn: 用LLM自动识别文字并翻译
     en: Detect text and Translate with LLM
+  startTranslate:
+    zhCn: 开始翻译
+    en: Start Translate
   configModal:
     title:
       zhCn: 配置LLM
@@ -819,14 +822,14 @@ fileList.aiTranslate:
       zhCn: 请提供用于翻译图片的LLM API配置。
       en: Please provide the LLM API configuration to translate the images.
     modelRequirements:
-      zhCn: LLM API 需使用OpenAI兼容格式。模型需支持图像输入和工具调用。预设配置中的模型经过测试。
+      zhCn: LLM API 需使用OpenAI兼容格式。模型需支持图像输入和工具调用。建议使用预设配置中经过测试的模型。
       en: The LLM API should use the OpenAI-compatible format. Multimodal (image input) and tool calling capabilities are required. The models in presets are tested to work.
     configsAreLocal:
-      zhCn: LLM 配置仅在您的浏览器中使用和保存。
-      en: This LLM configuration is only used and saved inside your browser.
+      zhCn: 前一次使用的 LLM 配置会被自动保存。LLM 配置仅在您的本地浏览器中使用和保存。
+      en: The last used configuration will be stored automatically. LLM configuration is only used and stored in your local browser. 
     presets:
       label:
-        zhCn: 预设
+        zhCn: 预设配置
         en: Presets
       placeholder:
         zhCn: 请选择预设
@@ -836,27 +839,27 @@ fileList.aiTranslate:
         en: Custom
     model:
       label:
-        zhCn: 模型
+        zhCn: 模型ID
         en: Model
       required:
-        zhCn: 请输入模型名称
-        en: Please enter the model name
+        zhCn: 请输入模型 ID
+        en: Please enter the model ID
     baseUrl:
       label:
-        zhCn: API基础URL
+        zhCn: API URL
         en: API Base URL
       required:
-        zhCn: 请输入基础URL
+        zhCn: 请输入 API URL
         en: Please enter the base URL
       invalidUrl:
         zhCn: 请输入有效的URL
         en: Please enter a valid URL
     apiKey:
       label:
-        zhCn: API密钥
+        zhCn: API 密钥
         en: API Key
       required:
-        zhCn: 请输入您的API密钥
+        zhCn: 请输入您的 API 密钥
         en: Please enter your API key
   workingModal:
     content:
@@ -864,10 +867,10 @@ fileList.aiTranslate:
       zhCn: 正在用LLM翻译 {fileCount} 个文件，关闭此对话框将中断翻译。
   fileMessage:
     sendingImage:
-      zhCn: 发送图片中...
+      zhCn: 发送图片...
       en: Sending image...
     uploadNotFinished:
-      zhCn: 上传未完成，请稍后再试
+      zhCn: 此图片上传未完成，请稍后再试
       en: Upload not finished, please try again later
     waiting:
       zhCn: 排队中...
@@ -882,8 +885,8 @@ fileList.aiTranslate:
       zhCn: 翻译失败
       en: Failed to translate
     textAlreadyExist:
-      zhCn: 已有文字标记
-      en: Text marks already exist
+      zhCn: 已有文字标记，不再翻译
+      en: 'Skipped: text marks already existed'
     noTextDetected:
       zhCn: 未检测到文字
       en: No text detected
@@ -894,8 +897,8 @@ fileList.aiTranslate:
       zhCn: 保存失败
       en: Failed to save
     success:
-      zhCn: 翻译了 {count} 处文字
-      en: Translated {count} text blocks
+      zhCn: 识别并翻译了 {count} 处文字
+      en: Recognized and translated {count} text blocks
 project.startOCR:
   zhCn: 开始自动标记
   en: Start Auto Tagging

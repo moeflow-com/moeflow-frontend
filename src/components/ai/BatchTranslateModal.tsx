@@ -40,7 +40,7 @@ export const BatchTranslateModalContent: FC<{
   llmConf: LLMConf;
   files: MFile[];
   target: Target;
-  onFileSaved?(f: MFile) :void;
+  onFileSaved?(f: MFile): void;
   getHandle(): ModalHandle;
 }> = ({ files, target, getHandle, llmConf, onFileSaved }) => {
   const { formatMessage } = useIntl();
@@ -239,7 +239,7 @@ export const BatchTranslateModalContent: FC<{
           ...f,
           sourceCount: r.texts.length,
           translatedSourceCount: r.texts.length,
-        })
+        });
       } catch (e) {
         debugLogger('save text block failed', e);
         setFileState(
