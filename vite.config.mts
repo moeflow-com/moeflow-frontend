@@ -6,6 +6,7 @@ import { antdLessVars, antdLessVarsM } from './src/style';
 import vitePluginImp from 'vite-plugin-imp';
 import { visualizer } from 'rollup-plugin-visualizer';
 import url from 'node:url';
+import tailwindcss from '@tailwindcss/vite'
 
 const ___dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const moeflowSrc = path.join(___dirname, './src');
@@ -83,6 +84,7 @@ export default defineConfig({
     ],
   },
   plugins: [
+    tailwindcss(),
     vitePluginImp({
       libList: [
         {
