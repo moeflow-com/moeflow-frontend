@@ -36,8 +36,6 @@ const rewriteBackendProxy: ProxyOptions = {
 
 const apiProxy = bareBackendProxy;
 
-console.debug('env', process.env.NODE_ENV, process.env.REACT_APP_BASE_URL);
-
 // https://vitejs.dev/config/
 export default defineConfig({
   // root: 'src',
