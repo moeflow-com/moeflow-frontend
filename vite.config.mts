@@ -6,6 +6,7 @@ import { antdLessVars, antdLessVarsM } from './src/style';
 import vitePluginImp from 'vite-plugin-imp';
 import { visualizer } from 'rollup-plugin-visualizer';
 import url from 'node:url';
+import tailwindcss from '@tailwindcss/vite'
 
 const ___dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const moeflowSrc = path.join(___dirname, './src');
@@ -34,6 +35,8 @@ const rewriteBackendProxy: ProxyOptions = {
 };
 
 const apiProxy = bareBackendProxy;
+
+console.debug('env', process.env.NODE_ENV, process.env.REACT_APP_BASE_URL);
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -83,6 +86,7 @@ export default defineConfig({
     ],
   },
   plugins: [
+    tailwindcss(),
     vitePluginImp({
       libList: [
         {
