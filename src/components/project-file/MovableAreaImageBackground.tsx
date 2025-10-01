@@ -1,6 +1,7 @@
 import { css } from '@emotion/core';
 import React, { useRef } from 'react';
 import { FC } from '@/interfaces';
+import classNames from 'classnames';
 
 /** 可移动区域图片背景的属性接口 */
 interface MovableAreaImageBackgroundProps {
@@ -14,7 +15,8 @@ interface MovableAreaImageBackgroundProps {
  */
 export const MovableAreaImageBackground: FC<
   MovableAreaImageBackgroundProps
-> = ({ src, onLoad, className }) => {
+> = ({ src, onLoad, className: _className }) => {
+  const className = classNames(_className, 'max-w-none');
   const domRef = useRef<HTMLImageElement>(null);
   return (
     <img
