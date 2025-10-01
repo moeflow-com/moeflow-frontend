@@ -16,6 +16,10 @@ interface MovableAreaImageBackgroundProps {
 export const MovableAreaImageBackground: FC<
   MovableAreaImageBackgroundProps
 > = ({ src, onLoad, className: _className }) => {
+  /**
+   * required to override tailwindcss's @base
+   * see https://tailwindcss.com/docs/preflight#images-are-block-level
+   */
   const className = classNames(_className, 'max-w-none');
   const domRef = useRef<HTMLImageElement>(null);
   return (
